@@ -491,23 +491,42 @@
                     </div>
                     <div class="blog-sec">
                         <div class="tabs d-flex flex-column justify-content-center">
-                            <div class="fit-content align-self-center p-2">
-                                <ul id="tabs-nav">
+                            <div class="fit-content align-self-center p-2 mbl-full-width">
+                                <ul id="tabs-nav" class="d-md-block d-none">
                                     <li><a href="#tab1"
+                                            class="body-txt2 txt--clr text-decoration-none text-center">All</a></li>
+                                    <li><a href="#tab2"
                                             class="body-txt2 txt--clr text-decoration-none text-center">Technology</a>
                                     </li>
-                                    <li><a href="#tab2"
+                                    <li><a href="#tab3"
                                             class="body-txt2 txt--clr text-decoration-none text-center">Trading Less
                                             Often</a></li>
-                                    <li><a href="#tab3"
+                                    <li><a href="#tab4"
                                             class="body-txt2 txt--clr text-decoration-none text-center">Trading More
                                             Often</a></li>
-                                    <li><a href="#tab4"
-                                            class="body-txt2 txt--clr text-decoration-none text-center">All</a></li>
                                 </ul> <!-- END tabs-nav -->
+                                <div class="dropdown d-md-none d-block w-100">
+                                    <button class="btn btn-secondary dropdown-toggle w-100" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        All
+                                    </button>
+                                    <ul class="dropdown-menu w-100" id="tabs-nav">
+                                        <li><a href="#tab1"
+                                                class="body-txt2 txt--clr text-decoration-none text-center">All</a></li>
+                                        <li><a href="#tab2"
+                                                class="body-txt2 txt--clr text-decoration-none text-center">Technology</a>
+                                        </li>
+                                        <li><a href="#tab3"
+                                                class="body-txt2 txt--clr text-decoration-none text-center">Trading Less
+                                                Often</a></li>
+                                        <li><a href="#tab4"
+                                                class="body-txt2 txt--clr text-decoration-none text-center">Trading More
+                                                Often</a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div id="tabs-content">
-                                <div id="tab1" class="tab-content d-flex flex-column justify-content-center">
+                                <div id="tab1" class="tab-content">
                                     <div class="our--blog d-flex justify-content-between flex-wrap">
                                         <div class="our-blog-card mb-4">
                                             <div class="blog-img-wrap">
@@ -615,77 +634,68 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pagination-wrapper fit-content align-self-center">
+                                    <hr class="m-0">
+                                    <div class="pagination-wrapper mt-4">
                                         <div class="page-navigation">
                                             <nav aria-label="Page navigation">
-                                              <ul class="pagination shop-pagination">
-                                                <li class="page-item">
-                                                  <a class="page-link back-button" href="#" aria-label="Back">
-                                                    <span aria-hidden="true">&laquo;</span> Back
-                                                  </a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-1 pg-item-active" href="">1</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-2 pg-items" href="">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-3 pg-items" href="#">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-4 pg-items" href="#">4</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-5 pg-items" href="#">5</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-6 pg-items" href="#">6</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-7 pg-items" href="#">7</a>
-                                                </li>
-                                                <li class="page-item disabled">
-                                                  <a class="page-link" href="#">...</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link pg-item pg-item-25 pg-items" href="#">25</a>
-                                                </li>
-                                                <li class="page-item">
-                                                  <a class="page-link next-button" href="#" aria-label="Next">
-                                                    Next <span aria-hidden="true">&raquo;</span>
-                                                  </a>
-                                                </li>
-                                              </ul>
-                                              <!-- <div class="form-inline ml-3 d-flex flex-row d-md-block d-none">
-                                                <div>
-                                                  <label for="page-number" class="pg-per-page">Per Page:</label>
-                                                </div>
-                                                <div>
-                                                  <select class="form-control ml-2" id="page-number">
-                                                    <option value="7" selected>07</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                  </select>
-                                                </div>
-                                              </div> -->
+                                                <ul
+                                                    class="pagination shop-pagination w-100 d-flex justify-content-between align-items-center">
+                                                    <div class="back-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link back-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
+                                                                href="#" aria-label="Back">
+                                                                <img src="../assets/icons/arrow2.svg" alt=""
+                                                                    class="rotate-z me-2">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Previous</p>
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="page-no d-flex ">
+                                                        <li class="page-item  ">
+                                                            <a class="page-link pg-item  body-txt1 secondary--clr pg-item-active"
+                                                                href="">1</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="">2</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link pg-items body-txt1 secondary--clr "
+                                                                href="#">...</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">8</a>
+                                                        </li>
+                                                        <li class="page-item d-sm-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">9</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">10</a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="next-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link next-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn "
+                                                                href="#" aria-label="Next">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Next</p> <img src="../assets/icons/arrow2.svg"
+                                                                    alt="" class="ms-2">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </ul>
                                             </nav>
-                                          </div>
-                                        <!-- <nav aria-label="...">
-                                            <ul class="pagination blog-pagination">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link">Previous</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item active" aria-current="page">
-                                                    <a class="page-link" href="#">2</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="tab2" class="tab-content">
@@ -794,6 +804,69 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <hr class="m-0">
+                                    <div class="pagination-wrapper mt-4">
+                                        <div class="page-navigation">
+                                            <nav aria-label="Page navigation">
+                                                <ul
+                                                    class="pagination shop-pagination w-100 d-flex justify-content-between align-items-center">
+                                                    <div class="back-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link back-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
+                                                                href="#" aria-label="Back">
+                                                                <img src="../assets/icons/arrow2.svg" alt=""
+                                                                    class="rotate-z me-2">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Previous</p>
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="page-no d-flex ">
+                                                        <li class="page-item  ">
+                                                            <a class="page-link pg-item  body-txt1 secondary--clr pg-item-active"
+                                                                href="">1</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="">2</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link pg-items body-txt1 secondary--clr "
+                                                                href="#">...</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">8</a>
+                                                        </li>
+                                                        <li class="page-item d-sm-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">9</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">10</a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="next-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link next-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn "
+                                                                href="#" aria-label="Next">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Next</p> <img src="../assets/icons/arrow2.svg"
+                                                                    alt="" class="ms-2">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
@@ -905,6 +978,69 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr class="m-0">
+                                    <div class="pagination-wrapper mt-4">
+                                        <div class="page-navigation">
+                                            <nav aria-label="Page navigation">
+                                                <ul
+                                                    class="pagination shop-pagination w-100 d-flex justify-content-between align-items-center">
+                                                    <div class="back-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link back-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
+                                                                href="#" aria-label="Back">
+                                                                <img src="../assets/icons/arrow2.svg" alt=""
+                                                                    class="rotate-z me-2">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Previous</p>
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="page-no d-flex ">
+                                                        <li class="page-item  ">
+                                                            <a class="page-link pg-item  body-txt1 secondary--clr pg-item-active"
+                                                                href="">1</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="">2</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link pg-items body-txt1 secondary--clr "
+                                                                href="#">...</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">8</a>
+                                                        </li>
+                                                        <li class="page-item d-sm-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">9</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">10</a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="next-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link next-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn "
+                                                                href="#" aria-label="Next">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Next</p> <img src="../assets/icons/arrow2.svg"
+                                                                    alt="" class="ms-2">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div id="tab4" class="tab-content">
                                     <div class="our--blog d-flex justify-content-between flex-wrap">
@@ -1014,6 +1150,69 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr class="m-0">
+                                    <div class="pagination-wrapper mt-4">
+                                        <div class="page-navigation">
+                                            <nav aria-label="Page navigation">
+                                                <ul
+                                                    class="pagination shop-pagination w-100 d-flex justify-content-between align-items-center">
+                                                    <div class="back-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link back-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
+                                                                href="#" aria-label="Back">
+                                                                <img src="../assets/icons/arrow2.svg" alt=""
+                                                                    class="rotate-z me-2">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Previous</p>
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="page-no d-flex ">
+                                                        <li class="page-item  ">
+                                                            <a class="page-link pg-item  body-txt1 secondary--clr pg-item-active"
+                                                                href="">1</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="">2</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr  pg-items"
+                                                                href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link pg-items body-txt1 secondary--clr "
+                                                                href="#">...</a>
+                                                        </li>
+                                                        <li class="page-item d-md-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">8</a>
+                                                        </li>
+                                                        <li class="page-item d-sm-block d-none">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">9</a>
+                                                        </li>
+                                                        <li class="page-item ">
+                                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
+                                                                href="#">10</a>
+                                                        </li>
+                                                    </div>
+                                                    <div class="next-link">
+                                                        <li class="page-item">
+                                                            <a class="page-link next-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn "
+                                                                href="#" aria-label="Next">
+                                                                <p
+                                                                    class="primary--clr body-txt1 d-md-block d-none mb-0">
+                                                                    Next</p> <img src="../assets/icons/arrow2.svg"
+                                                                    alt="" class="ms-2">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
                                 </div>
                             </div> <!-- END tabs-content -->
                         </div> <!-- END tabs -->
@@ -1021,9 +1220,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,11 +1,9 @@
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }
-
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
-
 jQuery(document).ready(function ($) {
   if ($(".slick.marquee").length) {
     $(".slick.marquee").slick({
@@ -40,7 +38,6 @@ jQuery(document).ready(function ($) {
     });
   }
 });
-
 jQuery(document).ready(function ($) {
   if ($(".project-slider").length) {
     $(".project-slider").slick({
@@ -81,7 +78,6 @@ jQuery(document).ready(function ($) {
     });
   }
 });
-
 jQuery(document).ready(function ($) {
   if ($(".blog-slider").length) {
     $(".blog-slider").slick({
@@ -109,7 +105,6 @@ jQuery(document).ready(function ($) {
     });
   }
 });
-
 // tabs
 // Show the first tab and hide the rest
 $('#tabs-nav li:first-child').addClass('active');
