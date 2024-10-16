@@ -1,3 +1,7 @@
+window.addEventListener('load', () => {
+  const content = document.getElementById('content');
+  content.classList.add('loaded'); // Add class to trigger the fade-in effect
+});
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }

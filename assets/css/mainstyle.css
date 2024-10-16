@@ -24,7 +24,7 @@
 .wht--clr {  color: var(--white-color);}
 .bread-crumb{color: #b3b3b3;}
 .fw-md {  font-weight: 500;}
-.fw-600 {  font-weight: 600;}
+.fw-sb {  font-weight: 600;}
 .line-ht1 {  line-height: 90px;}
 .line-ht2 {  line-height: 78px;}
 .line-ht3 {  line-height: 60px;}
@@ -108,6 +108,14 @@
 }
 .rotate-z{
   transform: rotateZ(180deg); /* Rotate by 45 degrees on hover */
+}
+#content {
+  opacity: 0; /* Start hidden */
+  transition: opacity 1s ease-in; /* Transition for fade effect */
+}
+
+#content.loaded {
+  opacity: 1; /* Fully visible */
 }
 /* header */
 .lang-switch-selected.show,
@@ -732,6 +740,20 @@
 }
 .career-archives-sec{
   width: 76%;
+}
+/* career details */
+.careers-details-bg{
+  background-image: url(../images/career-details-hero-bg.webp);
+}
+.career-post-details-wrapper{
+  box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
+  border-radius: 20px;
+  padding: 24px 105px;
+}
+.job-post-tag{
+padding: 3px 7px;
+background: var(--accent-color);
+border-radius: 4px;
 }
 /* Media Queries */ 
 @media only screen and (max-width: 1400px) {
