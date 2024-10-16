@@ -126,6 +126,22 @@ $('#tabs-nav li').click(function(){
   return false;
 });
 
+$('#salary-tabs-nav li:first-child').addClass('active');
+$('.salary-tab-content').hide();
+$('.salary-tab-content:first').show();
+
+// Click function
+$('#salary-tabs-nav li').click(function() {
+    $('#salary-tabs-nav li').removeClass('active');
+    $(this).addClass('active');
+    $('.salary-tab-content').hide();
+    
+    var activeTab = $(this).find('a').attr('href');
+    $(activeTab).fadeIn();
+    return false;
+});
+
+
 // const countryInput = $("#mobile_code");
 // if (countryInput.length) {
 //   countryInput.intlTelInput({

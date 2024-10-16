@@ -105,6 +105,7 @@
 }
 .fit-content {
   width: fit-content;
+  height: fit-content;
 }
 .rotate-z{
   transform: rotateZ(180deg); /* Rotate by 45 degrees on hover */
@@ -732,14 +733,45 @@
   padding :12px ;
   border-radius: 8px;
 }
+/* Career  */
 .careers-bg{
   background-image: url(../images/careers-hero-sec-bg.webp);
 }
 .career-filter-sidebar{
   width: 24%;
+  box-shadow: 0px 0px 14px 0px #141d381a;
+  border-radius: 20px;
 }
 .career-archives-sec{
   width: 76%;
+}
+.career-post-archive {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0px 0px 14px 0px #141d381a;
+}
+#salary-tabs-nav {
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #141D3814;
+  border-radius: 7px;
+}
+#salary-tabs-nav li {
+  font-weight: bold;
+  margin-right: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #FFF;
+}
+#salary-tabs-nav li a {
+  padding: 10px;
+  border-radius: 8px;
+}
+#salary-tabs-nav li:hover a,
+#salary-tabs-nav li.active a {
+  background-color: var(--primary-color);
+  color: #FFF;
 }
 /* career details */
 .careers-details-bg{
