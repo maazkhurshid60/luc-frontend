@@ -125,3 +125,18 @@ $('#tabs-nav li').click(function(){
   $(activeTab).fadeIn();
   return false;
 });
+
+// const countryInput = $("#mobile_code");
+// if (countryInput.length) {
+//   countryInput.intlTelInput({
+//     initialCountry: "pk",
+//     separateDialCode: true,
+//   });
+// }
+
+// -----Country Code Selection
+// $("#mobile_code").intlTelInput({
+// 	initialCountry: "in",
+// 	separateDialCode: true,
+	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+// });
