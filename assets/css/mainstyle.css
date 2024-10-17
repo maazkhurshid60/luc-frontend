@@ -624,6 +624,7 @@
 .rcard-img{
   height: 240px;
 }
+
 .our-rblog-card:hover {
   border-radius: 20px;
   transition: ease-in-out 0.3s;
@@ -738,17 +739,33 @@
   background-image: url(../images/careers-hero-sec-bg.webp);
 }
 .career-filter-sidebar{
-  width: 24%;
+  width: 30%;
   box-shadow: 0px 0px 14px 0px #141d381a;
   border-radius: 20px;
 }
 .career-archives-sec{
-  width: 76%;
+  width: 68%;
 }
 .career-post-archive {
   width: 100%;
   border-radius: 20px;
   box-shadow: 0px 0px 14px 0px #141d381a;
+}
+.career-filter-sidebar  .accordion-button::after {
+  background-image: url(../icons/acc-plus.svg) !important ;
+  filter: brightness(0) saturate(100%) invert(9%) sepia(18%) saturate(3310%) hue-rotate(194deg) brightness(97%) contrast(95%);
+}
+.career-filter-sidebar  .accordion-button:not(.collapsed)::after {
+  background-image: url(../icons/acc-cross.svg)  !important;
+  filter: brightness(0) saturate(100%) invert(9%) sepia(18%) saturate(3310%) hue-rotate(194deg) brightness(97%) contrast(95%);
+}
+.career-filter-sidebar .accordion-button:focus{
+  box-shadow: none ;
+}
+.career-filter-sidebar .accordion-button:not(.collapsed){
+  z-index: 3;
+  outline: 0;
+  box-shadow: 0px 0px 10px 0px rgb(20, 29, 56 , 0.1) ;
 }
 #salary-tabs-nav {
   list-style: none;
@@ -1004,7 +1021,13 @@ border-radius: 4px;
   .esc-404-links .primary-btn,.esc-404-links .secondary-btn{
     width: 120px;
   }
-
+/* career */
+.career-filter-sidebar{
+  width: 100%;
+}
+.career-archives-sec{
+  width: 100%;
+}
 }
 @media only screen and (max-width: 767px) {
   .head--1 {
