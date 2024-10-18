@@ -156,7 +156,7 @@
 }
 .overlay-content {
   position: relative;
-  top: 5%;
+  top: 50px;
   left: 10px;
   right: 10px;
   width: 100%;
@@ -180,10 +180,11 @@
   right: 15px;
   font-size: 50px;
 }
+.mbl-lang-switcher{
+  top: 40px;
+  left: 15px;
+}
 @media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px;
-  }
   .overlay .closebtn {
     font-size: 40px;
     top: 15px;
@@ -553,6 +554,21 @@
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.25);
 }
 /* Projects */
+.project-archive-filters button{
+  border: 1px solid #141D381A;
+  box-shadow: 0px 1px 2px 0px #00000008;
+}
+.project-archive-filters ul{
+  border: 1px solid #141D381A;
+  box-shadow: 0px 1px 2px 0px #00000008;
+}
+.project-archive-filters ul li:hover{
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+.project-archive-filters  form-check-input:checked label{
+  color: var(--primary-color);
+}
 .project-content-wrapper{
   padding: 24px;
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
@@ -621,13 +637,24 @@
 .recent-blog-col2{
   width: 49% !important;
 }
-.rcard-img{
-  height: 240px;
-}
-
-.our-rblog-card:hover {
+.our-rblog-card{
+  box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
   border-radius: 20px;
-  transition: ease-in-out 0.3s;
+}
+.rcard-img-left{
+  height: 300px;
+  border-radius: 20px 20px 0px 0px;
+}
+.rcard-img-right{
+  height: 100%;
+  border-radius: 20px 0px 0px 20px;
+}
+.our-rblog-card:hover{
+  box-shadow: 0px 0px 20px 0px rgb(20, 29, 56, 0.2);
+}
+.tabs-mbl-dropper{
+  background-color: var(--secondry-color) !important;
+  color: var(--white-color) !important;
 }
 /* Tabs */
 .tabs {
@@ -1146,12 +1173,18 @@ border-radius: 4px;
     box-shadow: 0px 12px 56px 0px #061C3D1F;
     border-radius: 20px;
   }
-  .our-rblog-card:img {
-    border-radius: 0px ;
+  .rcard-img-right{
+    height: 300px;
+    border-radius: 20px 20px 0px 0px;
   }
   #tabs-nav li {
     width: 100%;
+    padding: 0px;
   }
+  #tabs-nav li:hover a, #tabs-nav li.active a {
+    background-color: var(--secondry-color);
+    color: #FFF;
+}
   #tabs-nav li a {
     padding: 12px 15px;
     display: inline-block;
@@ -1172,6 +1205,10 @@ border-radius: 4px;
   }
   .blog--detail-sidebar{
     width: 100% !important;
+  }
+  .lang-dropdown {
+    left: 15px !important;
+    top: 60px !important;
   }
 }
 @media only screen and (max-width: 576px) {

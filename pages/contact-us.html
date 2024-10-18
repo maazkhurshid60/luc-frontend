@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/fontawesome-free-6.6.0-web/css/all.min.css" />
     <link rel="stylesheet" href="../assets/vendor/slick/slick.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
     <link rel="stylesheet" href="../assets/css/mainstyle.css" />
     <title>Career Details</title>
 </head>
@@ -320,14 +321,12 @@
                                     placeholder="Subject">
                             </div>
                             <div class="col-12">
-                                <!-- <div class="phoneno-by-country position-relative d-flex">
-                                    <input type="text" id="mobile_code" class="form-control" placeholder="Phone Number"
-                                        name="name" />
-                                </div> -->
-                                <label for="phoneNumbr" class="form-label mb-2 body-txt2 secondary--clr">Phone
-                                    Number</label>
-                                <input type="tel" class="form-control req-quote-input" id="phoneNumbr"
-                                    placeholder="+1 (555) 000-0000">
+                                <div class="phoneno-by-country position-relative d-flex flex-column">
+                                    <label for="phoneNumbr" class="form-label mb-2 body-txt2 secondary--clr w-100">Phone
+                                        Number</label>
+                                    <input type="text" id="mobile_code" class="form-control w-100 req-quote-input" placeholder="+1 (555) 000-0000"
+                                    name="name" />
+                                </div>
                             </div>
                             <div class="col-12">
                                 <label for="textArea" class="form-label mb-2 body-txt2 secondary--clr">Message</label>
@@ -348,7 +347,6 @@
     </div>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/jquery.min.js"></script>
-    <script src="../assets/vendor/slick/slick.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
     <script src="../assets/js/main.js"></script>
 </body>

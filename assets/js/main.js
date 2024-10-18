@@ -142,17 +142,17 @@ $('#salary-tabs-nav li').click(function() {
 });
 
 
-// const countryInput = $("#mobile_code");
-// if (countryInput.length) {
-//   countryInput.intlTelInput({
-//     initialCountry: "pk",
-//     separateDialCode: true,
-//   });
-// }
+const countryInput = $("#mobile_code");
+if (countryInput.length) {
+  countryInput.intlTelInput({
+    initialCountry: "za",
+    separateDialCode: true,
+  });
+}
 
-// -----Country Code Selection
+// // -----Country Code Selection
 // $("#mobile_code").intlTelInput({
 // 	initialCountry: "in",
 // 	separateDialCode: true,
-	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+// 	utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
 // });
