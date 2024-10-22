@@ -394,6 +394,9 @@
   border-radius: 20px;
   box-shadow: 0px 0px 14px 0px #141d381a;
 }
+.career-post-wrapper:hover{
+  box-shadow: 0px 0px 20px 0px #141d3833;
+}
 .request-a-quote {
   background: url(../images/project-sec-bg.webp);
   background-color: #141d38;
@@ -810,7 +813,7 @@
   box-shadow: 0px 0px 14px 0px #141d381a;
 }
 .career-filter-sidebar  .accordion-button::after {
-  background-image: url(../icons/acc-plus.svg) !important ;
+  background-image: url(../icons/acc-plus.svg) !important;
   filter: brightness(0) saturate(100%) invert(9%) sepia(18%) saturate(3310%) hue-rotate(194deg) brightness(97%) contrast(95%);
 }
 .career-filter-sidebar  .accordion-button:not(.collapsed)::after {
@@ -1086,6 +1089,10 @@ border-radius: 4px;
 .career-archives-sec{
   width: 100%;
 }
+.career-filter-sidebar  .accordion-button{
+    padding: 10px !important;
+    margin-bottom: 0 !important;
+}
 }
 @media only screen and (max-width: 767px) {
   .head--1 {
@@ -1250,7 +1257,10 @@ border-radius: 4px;
     left: 15px !important;
     top: 60px !important;
   }
-
+  /* career */
+  .career-filter-sidebar  .accordion-button{
+    
+  }
 }
 @media only screen and (max-width: 576px) {
   .pg-res-btn{
@@ -1261,15 +1271,11 @@ border-radius: 4px;
     height: 350px;
   }
 }
-
-
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 1340px !important;
   }
 }
-
-
 /* Timer Number Box */
 .time-box {
   display: inline-block;
@@ -1281,9 +1287,7 @@ border-radius: 4px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-
 /* Time Numbers with Digital Style Font */
-
 /* Time Labels */
 .time-label {
   margin-top: 10px;
@@ -1291,7 +1295,6 @@ border-radius: 4px;
   font-weight: bold;
   color: #2c3e50;
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .time-box {
@@ -1317,7 +1320,6 @@ border-radius: 4px;
   background-color: var(--accent-color);
   border-radius: 20px;
 }
-
 /* @media (min-width: 1200px) {
   .container{
     margin-left: 100px !important;
@@ -1337,5 +1339,3 @@ border-radius: 4px;
   }
 } 
  */
-
-
