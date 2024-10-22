@@ -14,6 +14,10 @@
   --primary-font: "Teko", sans-serif;
   --secondary-font: "Barlow", sans-serif;
 }
+@font-face {
+  font-family: digino;
+  src: url(../custom-fonts/DS-DIGI.TTF);
+}
 .primary--font { font-family: var(--primary-font);}
 .secondary--font { font-family: var(--secondary-font);}
 .primary--clr {  color: var(--primary-color);}
@@ -72,6 +76,13 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
+}
+.digino{
+  font-family: digino;
+  font-size: 48px;
+  line-height: 90px;
+  color: #2c3e50;
+  display: block;
 }
 .primary-btn {
   font-family: var(--secondary-font);
@@ -464,6 +475,15 @@
   line-height: 20px;
   color: var(--grey-color);
 }
+.footer-quicklinks{
+  width: 35%;
+}
+.footer-socail-links{
+  width: 30%;
+}
+.footer-copyright{
+  width: 35%;
+}
 .footer-quick-links a:hover {
   color: var(--primary-color);
 }
@@ -499,7 +519,6 @@
 }
 .our-vision-sec-img{
   width: 100%;
-  height: 75%;
 }
 .timeline-sec{
   padding-left: 120px !important;
@@ -515,7 +534,10 @@
   }
   /* Services */
 .services-bg{
-    background: url(../images/services-hero-sec-bg.webp);
+    background: url(../images/services-bg.webp);
+}
+.services-details-bg{
+    background: url(../images/services-details-bg.webp);
 }
 .our--services .our-services-card{
   width: 32%;
@@ -554,6 +576,12 @@
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.25);
 }
 /* Projects */
+.projects-bg{
+  background-image: url(../images/projects-bg.webp);
+}
+.project-details-bg{
+  background-image: url(../images/project-details-bg.webp);
+}
 .project-archive-filters button{
   border: 1px solid #141D381A;
   box-shadow: 0px 1px 2px 0px #00000008;
@@ -630,6 +658,9 @@
 /* blogs page */
 .blogs-bg{
   background-image: url(../images/blogs-hero-bg.webp) ;
+}
+.blog-details-bg{
+  background-image: url(../images/blog-details-bg.webp) ;
 }
 .recent-blog-col1{
   width: 49% !important;
@@ -1126,6 +1157,15 @@ border-radius: 4px;
   .footer--searchbar button{
     width: 100% !important;
   }
+  .footer-quicklinks{
+    width: 100%;
+  }
+  .footer-socail-links{
+    width: 100%;
+  }
+  .footer-copyright{
+    width: 100%;
+  }
   .socail-links {
     width: 24px;
     height: 24px;
@@ -1210,6 +1250,7 @@ border-radius: 4px;
     left: 15px !important;
     top: 60px !important;
   }
+
 }
 @media only screen and (max-width: 576px) {
   .pg-res-btn{
@@ -1221,6 +1262,61 @@ border-radius: 4px;
   }
 }
 
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 1340px !important;
+  }
+}
+
+
+/* Timer Number Box */
+.time-box {
+  display: inline-block;
+  width: 70px;
+  height: 90px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Time Numbers with Digital Style Font */
+
+/* Time Labels */
+.time-label {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .time-box {
+      width: 50px;
+      height: 70px;
+  }
+  .time-num {
+      font-size: 36px;
+      line-height: 70px;
+  }
+  .time-label {
+      font-size: 14px;
+  }
+ }
+.pop-up-left-img{
+  border-radius: 25px;
+  width: 100%;
+}
+.fa-xmark{
+  top: 30px;
+  right: 30px;
+  padding:10px;
+  background-color: var(--accent-color);
+  border-radius: 20px;
+}
 
 /* @media (min-width: 1200px) {
   .container{

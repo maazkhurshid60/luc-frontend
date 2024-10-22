@@ -1,13 +1,16 @@
-window.addEventListener('load', () => {
-  const content = document.getElementById('content');
-  content.classList.add('loaded'); // Add class to trigger the fade-in effect
+// Code for fade in transition on the current page everytime the page load
+window.addEventListener("load", () => {
+  const content = document.getElementById("content");
+  content.classList.add("loaded"); // Add class to trigger the fade-in effect
 });
+// off canvas mobile menu open and close functions
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
+// code for client logos slider
 jQuery(document).ready(function ($) {
   if ($(".slick.marquee").length) {
     $(".slick.marquee").slick({
@@ -42,6 +45,7 @@ jQuery(document).ready(function ($) {
     });
   }
 });
+// code for home page project sectoion slider
 jQuery(document).ready(function ($) {
   if ($(".project-slider").length) {
     $(".project-slider").slick({
@@ -58,7 +62,7 @@ jQuery(document).ready(function ($) {
       arrows: false,
       buttons: false,
       draggable: true,
-      swipeToSlide:true,
+      swipeToSlide: true,
       responsive: [
         {
           breakpoint: 991, // For tablets
@@ -76,10 +80,7 @@ jQuery(document).ready(function ($) {
         },
       ],
     });
-    $('.blog-slider .slick-slide').on('click', function() {
-      var index = $(this).data('slick-index'); // Get the index of the clicked slide
-      $(".blog-slider").slick('slickGoTo', index); // Go to the clicked slide
-    });
+    
   }
 });
 jQuery(document).ready(function ($) {
@@ -107,40 +108,43 @@ jQuery(document).ready(function ($) {
     $(".slick-next").on("click", function () {
       $(".blog-slider").slick("slickNext"); // Move to next slide
     });
+    $(".blog-slider .slick-slide").on("click", function () {
+      var index = $(this).data("slick-index"); // Get the index of the clicked slide
+      $(".blog-slider").slick("slickGoTo", index); // Go to the clicked slide
+    });
   }
 });
-// tabs
+// tabs panel code on the blogs page 
 // Show the first tab and hide the rest
-$('#tabs-nav li:first-child').addClass('active');
-$('.tab-content').hide();
-$('.tab-content:first').show();
+$("#tabs-nav li:first-child").addClass("active");
+$(".tab-content").hide();
+$(".tab-content:first").show();
 
 // Click function
-$('#tabs-nav li').click(function(){
-  $('#tabs-nav li').removeClass('active');
-  $(this).addClass('active');
-  $('.tab-content').hide();
-  
-  var activeTab = $(this).find('a').attr('href');
+$("#tabs-nav li").click(function () {
+  $("#tabs-nav li").removeClass("active");
+  $(this).addClass("active");
+  $(".tab-content").hide();
+
+  var activeTab = $(this).find("a").attr("href");
   $(activeTab).fadeIn();
   return false;
 });
-
-$('#salary-tabs-nav li:first-child').addClass('active');
-$('.salary-tab-content').hide();
-$('.salary-tab-content:first').show();
+// tabs panel code for the carrers page sidebar salary filters
+$("#salary-tabs-nav li:first-child").addClass("active");
+$(".salary-tab-content").hide();
+$(".salary-tab-content:first").show();
 
 // Click function
-$('#salary-tabs-nav li').click(function() {
-    $('#salary-tabs-nav li').removeClass('active');
-    $(this).addClass('active');
-    $('.salary-tab-content').hide();
-    
-    var activeTab = $(this).find('a').attr('href');
-    $(activeTab).fadeIn();
-    return false;
-});
+$("#salary-tabs-nav li").click(function () {
+  $("#salary-tabs-nav li").removeClass("active");
+  $(this).addClass("active");
+  $(".salary-tab-content").hide();
 
+  var activeTab = $(this).find("a").attr("href");
+  $(activeTab).fadeIn();
+  return false;
+});
 
 const countryInput = $("#mobile_code");
 if (countryInput.length) {
