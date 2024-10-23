@@ -1257,10 +1257,10 @@ border-radius: 4px;
     left: 15px !important;
     top: 60px !important;
   }
-  /* career */
-  .career-filter-sidebar  .accordion-button{
-    
-  }
+  .career-post-details-wrapper {
+    border-radius: 20px;
+    padding: 24px;
+}
 }
 @media only screen and (max-width: 576px) {
   .pg-res-btn{
