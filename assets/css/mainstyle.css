@@ -92,7 +92,16 @@
   background-color: var(--primary-color);
   width: 187px;
   border-radius: 7px;
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
+  color: var(--white-color);
+}
+.primary-btn:hover {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  background-color: white;
+}
+.primary-btn:hover img {  
+  filter: brightness(0) saturate(100%) invert(23%) sepia(74%) saturate(3679%) hue-rotate(211deg) brightness(95%) contrast(92%);
 }
 .secondary-btn {
   font-family: var(--secondary-font);
@@ -103,6 +112,14 @@
   width: 187px;
   border: 2px solid var(--primary-color);
   border-radius: 7px;
+  color: var(--primary-color);
+}
+.secondary-btn:hover {
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+.secondary-btn:hover img {  
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(1%) hue-rotate(200deg) brightness(109%) contrast(101%);
 }
 .card-sec-btn {
   font-family: var(--secondary-font);
@@ -282,6 +299,10 @@
   color: var(--white-color);
   transition: 0.3s ease;
 }
+.our-services-card:hover .card-sec-btn img {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(1%) saturate(0%)
+    hue-rotate(141deg) brightness(115%) contrast(100%);
+}
 .map-img {
   width: 100%;
 }
@@ -422,10 +443,7 @@
 .req-quote-sub {
   width: 317px;
 }
-.req-quote-sub:hover {
-  background-color: var(--primary-color);
-  color: var(--white-color);
-}
+
 .faq-ques-sec {
   border-radius: 20px;
   box-shadow: 0px 0px 14px 0px #141d381a;
@@ -1288,7 +1306,6 @@ border-radius: 4px;
   text-align: center;
 }
 /* Time Numbers with Digital Style Font */
-/* Time Labels */
 .time-label {
   margin-top: 10px;
   font-size: 16px;
@@ -1320,22 +1337,42 @@ border-radius: 4px;
   background-color: var(--accent-color);
   border-radius: 20px;
 }
-/* @media (min-width: 1200px) {
+
+@media (min-width: 1400px) {
   .container{
-    margin-left: 100px !important;
-    margin-right: 100px !important;
+      max-width: 100%;
+      padding-left:100px ;
+      padding-right:100px ;
+    }
+  }
+  @media (max-width: 1400px) {
+    .container{
+      max-width: 100%;
+      padding-left:100px ;
+      padding-right:100px ;
+    }
+  }
+  @media (max-width: 1200px) {
+    .container{
+      max-width: 100%;
+      padding-left:40px ;
+      padding-right:40px ;
+    }
+  }
+  @media (max-width: 992px) {
+    .container{
+      max-width: 100%;
   }
 }
-@media (max-width: 1199px) {
+@media (max-width: 768px) {
   .container{
-    margin-left: 40px !important;
-    margin-right: 40px !important;
+    max-width: 100%;
+    padding-left:24px ;
+    padding-right:24px ;
   }
-} 
-@media (max-width: 767px) {
-  .container{
-    margin-left: 24px !important;
-    margin-right: 24px !important;
+}
+@media (max-width: 576px) {
+  .container {
+      max-width: 540px;
   }
-} 
- */
+}
