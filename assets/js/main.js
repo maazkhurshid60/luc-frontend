@@ -154,9 +154,23 @@ if (countryInput.length) {
   });
 }
 
-// // -----Country Code Selection
-// $("#mobile_code").intlTelInput({
-// 	initialCountry: "in",
-// 	separateDialCode: true,
-// 	utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
-// });
+//  JavaScript for Scroll to Top Functionality 
+    // Get the scrollToTopBtn element
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // Show button after scrolling 1000px
+    window.onscroll = function() {
+        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+            scrollToTopBtn.style.display = "flex"; // Show the button
+        } else {
+            scrollToTopBtn.style.display = "none"; // Hide the button
+        }
+    };
+
+    // Scroll to top when the button is clicked
+    scrollToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Smooth scroll to top
+        });
+    });

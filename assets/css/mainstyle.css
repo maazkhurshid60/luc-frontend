@@ -154,6 +154,7 @@
 }
 .lang-switch-drop:hover {
   background-color: var(--accent-color) !important;
+  color: var(--primary-color);
   font-weight: 600 !important;
 }
 .afcon-group-logo {
@@ -170,6 +171,16 @@
   color: var(--primary-color) !important;
   font-weight: 600 !important;
   text-decoration: underline;
+}
+.primary--menu-bar .dropdown-item:hover{
+  background-color: var(--accent-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+.primary--menu-bar .dropdown-item.active:hover{
+  background-color: var(--accent-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
 }
 .overlay {
   height: 100%;
@@ -526,6 +537,7 @@
   background-color: #141d38;
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
   height: 450px;
 }
 .about-us{
@@ -895,12 +907,31 @@ border-radius: 4px;
 .contact-us-form-img{
   width: 100%;
 }
-/* .intl-tel-input,
-.iti{
-  width: 100%;
-} */
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  color: #0B63E5;
+  border: 2px solid #0B63E5;
+  background-color: #F0F5FF;
+  border-radius: 50%;
+  box-shadow: 0px 0px 14px 0px #141D381A;
+  display: none; /* Hidden initially */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#scrollToTopBtn:hover {
+  transform: scale(1.1);
+}
+#scrollToTopBtn i {
+  font-size: 20px;
+} 
 /* Media Queries */ 
-
 @media only screen and (max-width: 1400px) {
   .timeline-sec{
     padding-left: 100px !important;
@@ -998,10 +1029,10 @@ border-radius: 4px;
     padding: 6px !important;
   }
   .afcon--home-hero-section {
-    height: 480px;
+    height: 640px;
   }
   .afcon--home-hero-section .row {
-    padding-top: 70px;
+    padding-top: 50px;
   }
   .services-sec-col {
     width: 100%;
@@ -1047,10 +1078,6 @@ border-radius: 4px;
   }
   .faqs-cta .secondary-btn {
     width: 150px;
-  }
-  .faq-ques-sec .accordion-button {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
   }
   .lang-dropdown {
     left: -60px !important;
@@ -1128,9 +1155,6 @@ border-radius: 4px;
   .counters-heading {
     font-size: 32px;
     line-height: 120%;
-  }
-  .afcon--home-hero-section .row {
-    padding-top: 10px;
   }
   .img--1 {
     width: 100%;
@@ -1367,12 +1391,14 @@ border-radius: 4px;
 @media (max-width: 768px) {
   .container{
     max-width: 100%;
-    padding-left:24px ;
-    padding-right:24px ;
+    padding-left:40px ;
+    padding-right:40px ;
   }
 }
 @media (max-width: 576px) {
   .container {
-      max-width: 540px;
+    max-width: 540px;
+    padding-left:24px ;
+    padding-right:24px ;
   }
 }
