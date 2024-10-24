@@ -131,6 +131,9 @@
   border: 2px solid var(--primary-color);
   border-radius: 7px;
 }
+.white-filter{
+  filter: brightness(0) saturate(100%) invert(23%) sepia(74%) saturate(3679%) hue-rotate(211deg) brightness(95%) contrast(92%);
+}
 .fit-content {
   width: fit-content;
   height: fit-content;
@@ -291,6 +294,11 @@
 }
 .hero-sec-img {
   width: 50% !important;
+  padding-right: 100px;
+}
+.hero-sec-img-right {
+  width: 50% !important;
+  padding-left: 100px;
 }
 .img--1 {
   box-shadow: 0px 56px 26px 0px rgba(0, 0, 0, 0.24);
@@ -588,12 +596,26 @@
 .socail-links:hover img{
   filter: brightness(0) saturate(100%) invert(27%) sepia(16%) saturate(7467%) hue-rotate(204deg) brightness(109%) contrast(115%);
 }
+.socail-links-team {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  border: 2px solid var(--primary-color);
+}
+.socail-links-team:hover {
+  background-color: white;
+  border: 2px solid var(--primary-color);
+}
+.socail-links-team:hover img{
+  filter: brightness(0) saturate(100%) invert(27%) sepia(16%) saturate(7467%) hue-rotate(204deg) brightness(109%) contrast(115%);
+}
 /* about us */
 .afcon--hero-section{
-  background-color: #141d38;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
   height: 450px;
 }
 .about-us{
@@ -605,12 +627,22 @@
 }
 .our-team-card-wrapper{
   width: 32% !important;
+  transition: ease-in-out 0.3s;
+}
+.our-team-card-wrapper:hover{
+  transform: scale(1.03);
+  transition: ease-in-out 0.3s;
+}
+.our-team-content-wrapper{
+  background-color: var(--accent-color);
+  border-radius: 20px;  
+}
+.our-team-content-wrapper .our-team--img{
+  border-radius: 20px 20px 0px 0px;  
+  width: 100%;
 }
 .our-vision-sec-img{
   width: 100%;
-}
-.timeline-sec{
-  padding-left: 120px !important;
 }
 .timeline-details{
   padding-left: 60px;
@@ -989,11 +1021,14 @@ border-radius: 4px;
 } 
 /* Media Queries */ 
 @media only screen and (max-width: 1400px) {
-  .timeline-sec{
-    padding-left: 100px !important;
-  }
   .timeline-details{
     padding-left: 40px;
+  }
+  .hero-sec-img {
+    padding-right: 50px;
+  }
+  .hero-sec-img-right {
+    padding-left: 50px;
   }
   .project-details-wrap{
     padding-right:100px;
@@ -1004,11 +1039,23 @@ border-radius: 4px;
   }
 } 
 @media only screen and (max-width: 1200px) {
+  .pyb-60 {
+    padding-bottom: 40px;
+  }
+  .pyb-40 {
+    padding-bottom: 24px;
+  }
   .img--1 {
     width: 100%;
   }
   .img--2 {
     width: 100%;
+  }
+  .hero-sec-img {
+    padding-right: 30px;
+  }
+  .hero-sec-img-right {
+    padding-left: 30px;
   }
   .request-quote-row{
     padding: 0 70px;
@@ -1017,9 +1064,6 @@ border-radius: 4px;
     padding-left: 80px;
   }
   /* About Us */
-  .timeline-sec{
-    padding-left: 80px !important;
-  }
   .timeline-details{
     padding-left: 40px;
   }
@@ -1093,6 +1137,12 @@ border-radius: 4px;
   .afcon--home-hero-section .row {
     padding-top: 50px;
   }
+  .hero-sec-img {
+    padding-right: 10px;
+  }
+  .hero-sec-img-right {
+    padding-left: 10px;
+  }
   .services-sec-col {
     width: 100%;
   }
@@ -1145,9 +1195,6 @@ border-radius: 4px;
     left: -60px !important;
   }
   /* About Us */
-  .timeline-sec{
-    padding-left: 50px !important;
-  }
   .our-vision-sec-img {
     height: 100%;
 }
@@ -1239,7 +1286,13 @@ border-radius: 4px;
   }
   .hero-sec-img {
     width: 100% !important;
+    padding-right: 0px;
     padding-bottom: 40px;
+  }
+  .hero-sec-img-right {
+    width: 100% !important;
+    padding-left: 0px;
+    padding-top: 40px;
   }
   .afcon--home-hero-section {
     height: 695px;
