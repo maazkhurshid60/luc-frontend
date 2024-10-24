@@ -249,13 +249,13 @@
 .overlay a {
   padding: 8px;
   text-decoration: none;
-  color: #818181;
+  color: var(--secondry-color);
   display: block;
   transition: 0.3s;
 }
 .overlay a:hover,
 .overlay a:focus {
-  color: #f1f1f1;
+  color: var(--primary-color);
 }
 .overlay .closebtn {
   position: absolute;
@@ -457,13 +457,15 @@
   background-color: var(--primary-color);
   padding: 18px 42px;
   border-radius: 0px 10px 10px 0px;
+  border: 2px solid var(--primary-color);
 }
 .search--btn:hover {
-  color: var(--white-color);
-  font-family: var(--secondary-font);
-  font-weight: 700;
-  font-size: 16px;
-  background-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--white-color);
+  border: 2px solid var(--primary-color);
+}
+.search--btn:hover img {
+  filter: brightness(0) saturate(100%) invert(23%) sepia(74%) saturate(3679%) hue-rotate(211deg) brightness(95%) contrast(92%);
 }
 .input--icons{
   left: 15px;
@@ -1209,6 +1211,9 @@ border-radius: 4px;
 }
 }
 @media only screen and (max-width: 767px) {
+  .pyb-40 {
+    padding-bottom: 20px;
+  }
   .head--1 {
     font-size: 32px;
     line-height: 100%;
