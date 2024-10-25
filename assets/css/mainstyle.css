@@ -350,7 +350,7 @@
   background-color: var(--accent-color);
   border-radius: 10px;
 }
-.card-img {
+.card-img-wrap  .card-img {
   width: 30px;
   height: 30px;
 }
@@ -673,8 +673,8 @@
   width: fit-content;
 }
 .forward-arrow{
-  top: 0px;
-  right: 24px;
+  top: 50px;
+  right: 30px;
   display: none;
 }
 .our-blog-card{
@@ -682,7 +682,8 @@
   border-radius:  20px;
   transition: ease-in-out 0.3s;
 }
-.our-blog-card img{
+.our-blog-card .blog-card-img{
+  width: 100%;
   border-radius: 20px 20px 0px 0px;
 }
 .our-blog-card:hover .forward-arrow{
@@ -1203,6 +1204,11 @@ border-radius: 4px;
   }
   .timeline-icon img{
     height: 90px;
+  }
+  /* Services */
+  .services-card-btn .secondary-btn{
+    line-height: 36px;
+    width: 140px;
   }
   /* services detail */
   .blog-card-content{
