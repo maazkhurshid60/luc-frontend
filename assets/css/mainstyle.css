@@ -976,19 +976,24 @@
 }
 #salary-tabs-nav li {
   font-weight: bold;
-  margin-right: 2px;
   border-radius: 5px;
   cursor: pointer;
   color: #FFF;
 }
 #salary-tabs-nav li a {
   padding: 10px;
-  border-radius: 8px;
+}
+#salary-tabs-nav li .h-tab {
+  border-radius: 7px 0px 0px 7px;
+}
+#salary-tabs-nav li .y-tab {
+  border-radius: 0px 7px 7px 0px;
 }
 #salary-tabs-nav li:hover a,
 #salary-tabs-nav li.active a {
-  background-color: var(--primary-color);
-  color: #FFF;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 /* career details */
 .careers-details-bg{
@@ -1286,6 +1291,10 @@ border-radius: 4px;
     padding: 10px !important;
     margin-bottom: 0 !important;
 }
+.career-post-details-wrapper {
+  border-radius: 20px;
+  padding: 50px;
+}
 #scrollToTopBtn {
   bottom: 50px;
   right: 15px;
@@ -1492,7 +1501,11 @@ border-radius: 4px;
   .career-post-details-wrapper {
     border-radius: 20px;
     padding: 24px;
-}
+  }
+  /* contact us */
+  .contact-form-sec {
+    padding: 20px 30px;
+  }
 }
 @media only screen and (max-width: 576px) {
   .modal-dialog {
