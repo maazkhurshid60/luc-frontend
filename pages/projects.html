@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../assets/fontawesome-free-6.6.0-web/css/all.min.css" />
   <link rel="stylesheet" href="../assets/vendor/slick/slick.css" />
   <link rel="stylesheet" href="../assets/css/mainstyle.css" />
-  <title>Projects</title>
+  <title>Projects | Afcon Group</title>
 </head>
 
 <body id="content" class="fade-in">
@@ -92,8 +92,8 @@
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link active dropdown-toggle primary-menu-links body-txt1 wht--clr" href="projects.html"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link active dropdown-toggle primary-menu-links body-txt1 wht--clr"
+                        href="projects.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Projects
                       </a>
                       <ul class="dropdown-menu">
@@ -144,7 +144,30 @@
           </div>
           <div class="col-6 d-flex justify-content-end">
             <div id="myNav" class="overlay">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <div class="row mob-top-bar d-flex flex-row justify-content-between">
+                <div class="col-6 position-relative">
+                  <div class="btn-group secondary--font position-absolute">
+                    <button type="button"
+                      class="btn dropdown-toggle lang-switch-selected p-0 body-txt2 mbl-lang-switcher"
+                      data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                      <span><img src="../assets/icons/english-flag.svg" class="me-2" alt="" />English</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end mt-2 lang-dropdown">
+                      <li>
+                        <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
+                            src="../assets/icons/english-flag.svg" alt="" class="me-2" />English</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
+                            src="../assets/icons/french-flag.svg" alt="" class="me-2" />French</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-6 position-relative">
+                  <a href="javascript:void(0)" class="closebtn position-absolute" onclick="closeNav()">&times;</a>
+                </div>
+              </div>
               <div class="overlay-content">
                 <nav class="navbar navbar-expand-md">
                   <div class="container-fluid px-0">
@@ -190,7 +213,7 @@
                             href="projects.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Projects
                           </a>
-                          <ul class="dropdown-menu">
+                          <ul class="dropdown-menu mob-dropdown">
                             <li>
                               <a class="dropdown-item secondary--font fw-md" href="project-details.html">PMR</a>
                             </li>
@@ -262,18 +285,16 @@
           </div>
           <div class="project-archive-filters pb-5 d-flex justify-content-end gap-4">
             <div class="dropdown position-relative">
-              <button class="btn  dropdown-toggle  ps-4" type="button" id="filterDropdown" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <button class="btn  dropdown-toggle body-txt2 secondary--clr ps-4" type="button" id="filterDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 Location
               </button>
-              <img src="../assets/icons/location.svg" alt="" class="position-absolute " style="filter: brightness(0) saturate(100%) invert(5%) sepia(74%) saturate(2638%) hue-rotate(220deg) brightness(97%) contrast(89%); left:10px;top:12px;width: 12px;
-
-              ">
+              <img src="../assets/icons/location.svg" alt="" class="position-absolute " style="filter: brightness(0) saturate(100%) invert(5%) sepia(74%) saturate(2638%) hue-rotate(220deg) brightness(97%) contrast(89%); left:10px;top:12px;width: 12px;">
               <ul class="dropdown-menu py-3" aria-labelledby="filterDropdown">
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check">
                     <input class="form-check-input cursor-pointer" type="checkbox" value="option1" id="checkbox1">
-                    <label class="form-check-label cursor-pointer" for="checkbox1">
+                    <label class="form-check-label cursor-pointer body-txt2 secondary--clr" for="checkbox1">
                       Canada
                     </label>
                   </div>
@@ -281,7 +302,7 @@
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check ">
                     <input class="form-check-input" type="checkbox" value="option2" id="checkbox2">
-                    <label class="form-check-label" for="checkbox2">
+                    <label class="form-check-label body-txt2 secondary--clr" for="checkbox2">
                       Germany
                     </label>
                   </div>
@@ -289,7 +310,7 @@
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="option3" id="checkbox3">
-                    <label class="form-check-label" for="checkbox3">
+                    <label class="form-check-label body-txt2 secondary--clr" for="checkbox3">
                       Bangladesh
                     </label>
                   </div>
@@ -297,8 +318,8 @@
               </ul>
             </div>
             <div class="dropdown position-relative">
-              <button class="btn  dropdown-toggle  ps-4" type="button" id="filterDropdown" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <button class="btn  dropdown-toggle body-txt2 secondary--clr ps-4" type="button" id="filterDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 Filter By
               </button>
               <img src="../assets/icons/funel-bars.svg" alt="" class="position-absolute "
@@ -306,24 +327,24 @@
               <ul class="dropdown-menu py-3" aria-labelledby="filterDropdown">
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check">
-                    <input class="form-check-input cursor-pointer" type="checkbox" value="option1" id="checkbox1">
-                    <label class="form-check-label cursor-pointer" for="checkbox1">
+                    <input class="form-check-input cursor-pointer" type="checkbox" value="option1" id="checkbox4">
+                    <label class="form-check-label cursor-pointer body-txt2 secondary--clr" for="checkbox4">
                       Location
                     </label>
                   </div>
                 </li>
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check ">
-                    <input class="form-check-input" type="checkbox" value="option2" id="checkbox2">
-                    <label class="form-check-label" for="checkbox2">
+                    <input class="form-check-input" type="checkbox" value="option2" id="checkbox5">
+                    <label class="form-check-label body-txt2 secondary--clr" for="checkbox5">
                       Project Type
                     </label>
                   </div>
                 </li>
                 <li class="cursor-pointer ps-3 py-2">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="option3" id="checkbox3">
-                    <label class="form-check-label" for="checkbox3">
+                    <input class="form-check-input" type="checkbox" value="option3" id="checkbox6">
+                    <label class="form-check-label body-txt2 secondary--clr" for="checkbox6">
                       Industry
                     </label>
                   </div>
@@ -333,45 +354,51 @@
           </div>
           <div class="project-content-wrapper d-flex flex-md-row flex-column mb-4 gap-md-0 gap-4">
             <div class="project-img-wrap">
-              <img src="../assets/images/project-img1.webp" alt="" class="project--img">
+              <a href="project-details.html"><img src="../assets/images/project-img1.webp" alt=""
+                  class="project--img"></a>
             </div>
             <div
               class="project-details-wrap d-flex flex-column justify-content-center align-items-md-start align-items-center ps-md-4 ps-0">
-              <h3 class="head--3 secondary--clr mb-lg-4 mb-2">PMR — Online Platform & Responsive Website Design</h3>
+              <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform &
+                Responsive Website Design</h3>
               <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living was a
                 conference about productivity and entrepreneurship hosted by Ari Meisel, author of two bestselling
                 books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-              <span class="fit-content "><a href="#"
+              <span class="fit-content "><a href="project-details.html"
                   class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
                   Case Study<img src="../assets/icons/arrow1.svg" alt="" class="ms-2"></a></span>
             </div>
           </div>
           <div class="project-content-wrapper d-flex flex-md-row-reverse flex-column mb-4 gap-md-0 gap-4">
             <div class="project-img-wrap">
-              <img src="../assets/images/project-img2.webp" alt="" class="project--img">
+              <a href="project-details.html"><img src="../assets/images/project-img2.webp" alt=""
+                  class="project--img"></a>
             </div>
             <div
               class="project-details-wrap-rev d-flex flex-column justify-content-center align-items-md-start align-items-center">
-              <h3 class="head--3 secondary--clr mb-lg-4 mb-2">PMR — Online Platform & Responsive Website Design</h3>
+              <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform &
+                Responsive Website Design</h3>
               <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living was a
                 conference about productivity and entrepreneurship hosted by Ari Meisel, author of two bestselling
                 books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-              <span class="fit-content "><a href="#"
+              <span class="fit-content "><a href="project-details.html"
                   class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
                   Case Study<img src="../assets/icons/arrow1.svg" alt="" class="ms-2"></a></span>
             </div>
           </div>
           <div class="project-content-wrapper d-flex flex-md-row flex-column gap-md-0 gap-4">
             <div class="project-img-wrap">
-              <img src="../assets/images/project-img3.webp" alt="" class="project--img">
+              <a href="project-details.html"><img src="../assets/images/project-img3.webp" alt=""
+                  class="project--img"></a>
             </div>
             <div
               class="project-details-wrap d-flex flex-column justify-content-center align-items-md-start align-items-center ps-md-4 ps-0">
-              <h3 class="head--3 secondary--clr mb-lg-4 mb-2">PMR — Online Platform & Responsive Website Design</h3>
+              <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform &
+                Responsive Website Design</h3>
               <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living was a
                 conference about productivity and entrepreneurship hosted by Ari Meisel, author of two bestselling
                 books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-              <span class="fit-content "><a href="#"
+              <span class="fit-content "><a href="project-details.html"
                   class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
                   Case Study<img src="../assets/icons/arrow1.svg" alt="" class="ms-2"></a></span>
             </div>
@@ -391,7 +418,7 @@
             urna, facilisis vulputate velit arcu vitae mi. Donec ac nisi ex.
           </p>
         </div>
-        <div class="row ">
+        <div class="row request-quote-row">
           <div class="col-12 bg-white  request-quote-wrapper ">
             <h3 class="head--3 secondary--clr text-center mb-4">Request A Quote — let’s work together.</h3>
             <p class="body-txt2 txt--clr text-center mb-5">Got a project? Drop us a line if you want to work together on
@@ -415,7 +442,7 @@
                   placeholder="Tell us about your project..."></textarea>
               </div>
               <div class="col-12 d-flex justify-content-center">
-                <button type="submit" class="btn primary-btn req-quote-sub wht--clr">Submit <img
+                <button type="submit" class=" primary-btn req-quote-sub wht--clr">Submit<img
                     src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
               </div>
             </form>
@@ -485,9 +512,9 @@
   <!-- ///////////////////////// Main Content Ends /////////////////////// -->
   <!-- ///////////////////////// Footer Section ///////////////////////// -->
   <footer>
-    <div class="container-fluid afcon--footer">
+    <div class="container-fluid afcon--footer myt-40">
       <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="footer-logo text-center pyb-40">
             <a href="../index.html"><img src="../assets/icons/afcon-group-logo.svg" alt="" class="pyb-60" /></a>
             <p class="head--2 wht--clr mb-0">Subscribe To Our Newsletter</p>
@@ -501,9 +528,10 @@
               </button>
             </form>
           </div>
-          <div class="row px-0 flex-md-row flex-column">
+          <div class="row  flex-md-row flex-column">
             <div class="footer-quicklinks d-flex justify-content-md-start justify-content-center px-0  mb-4 ">
-              <ul class="navbar-nav d-flex flex-row footer-quick-links gap-4">
+              <ul
+                class="navbar-nav d-flex flex-row justify-content-md-start justify-content-between  footer-quick-links gap-lg-4 gap-md-3 gap-0">
                 <li class="nav-item">
                   <a href="contact-us.html" class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
                 </li>

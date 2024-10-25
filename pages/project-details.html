@@ -144,7 +144,30 @@
           </div>
           <div class="col-6 d-flex justify-content-end">
             <div id="myNav" class="overlay">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <div class="row mob-top-bar d-flex flex-row justify-content-between">
+                <div class="col-6 position-relative">
+                  <div class="btn-group secondary--font position-absolute">
+                    <button type="button"
+                      class="btn dropdown-toggle lang-switch-selected p-0 body-txt2 mbl-lang-switcher"
+                      data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                      <span><img src="../assets/icons/english-flag.svg" class="me-2" alt="" />English</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end mt-2 lang-dropdown">
+                      <li>
+                        <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
+                            src="../assets/icons/english-flag.svg" alt="" class="me-2" />English</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
+                            src="../assets/icons/french-flag.svg" alt="" class="me-2" />French</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-6 position-relative">
+                  <a href="javascript:void(0)" class="closebtn position-absolute" onclick="closeNav()">&times;</a>
+                </div>
+              </div>
               <div class="overlay-content">
                 <nav class="navbar navbar-expand-md">
                   <div class="container-fluid px-0">
@@ -190,7 +213,7 @@
                             href="projects.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Projects
                           </a>
-                          <ul class="dropdown-menu">
+                          <ul class="dropdown-menu mob-dropdown">
                             <li>
                               <a class="dropdown-item secondary--font fw-md" href="project-details.html">PMR</a>
                             </li>
@@ -238,8 +261,7 @@
   <!-- ///////////////////////// Main Content /////////////////////// -->
   <div class="main">
 
-    <div
-      class="container-fluid afcon--hero-section project-details-bg d-flex flex-column justify-content-center myb-40">
+    <div class="container-fluid afcon--hero-section project-details-bg d-flex flex-column justify-content-center myb-40">
       <div class="container">
         <div class="row">
           <h1 class="head--1 wht--clr text-center">PMR — Online Platform & Responsive Website Design</h1>
@@ -256,7 +278,7 @@
         <div class="row">
           <div class="project-details-section d-flex flex-md-row flex-column justify-content-between gap-md-0 gap-4">
             <div class="project--detail-content">
-              <img src="../assets/images/project-detail-img.webp" alt="" class="mb-4">
+              <img src="../assets/images/project-detail-img.webp" alt="" class="mb-4 anime-img">
               <h3 class="head--3 secondary--clr mb-4">Client XYZ Tech Solutions </h3>
               <p class="body-txt1 txt--clr mb-4">Lorem ipsum dolor sit amet consectetur. Volutpat nunc morbi ut eu non
                 neque elit. Sit gravida interdum pulvinar nunc cursus id. Vehicula curabitur mauris ut ut vel metus
@@ -289,21 +311,31 @@
             </div>
             <div class="project--detail-sidebar d-flex flex-column gap-4">
               <div class="project-meta-details">
-                <h3 class="head--3 secondary--clr mb-0">Project Name</h3>
+                <h3 class="head--3 secondary--clr mb-0 pyb-40">Project Name</h3>
                 <div class="d-flex">
                   <div class="col--1">
-                    <h4 class="head--4 secondary--clr">Client:</h4>
-                    <p class="body-txt2 txt--clr">Client ABC Manufacturing</p>
-                    <h4 class="head--4 secondary--clr">Location:</h4>
-                    <p class="body-txt2 txt--clr">New York, USA</p>
-                    <h4 class="head--4 secondary--clr">Website:</h4>
-                    <p class="body-txt2 txt--clr">https://which-supervisor.net</p>
+                    <div class="pb-3">
+                      <h4 class="head--4 secondary--clr">Client:</h4>
+                      <p class="body-txt2 txt--clr">Client ABC Manufacturing</p>
+                    </div>
+                    <div class="pb-3">
+                      <h4 class="head--4 secondary--clr">Location:</h4>
+                      <p class="body-txt2 txt--clr">New York, USA</p>
+                    </div>
+                    <div class="pb-3">
+                      <h4 class="head--4 secondary--clr">Website:</h4>
+                      <p class="body-txt2 txt--clr">https://which-supervisor.net</p>
+                    </div>
                   </div>
                   <div class="col--2">
-                    <h4 class="head--4 secondary--clr">Date:</h4>
-                    <p class="body-txt2 txt--clr">Dec 01, 2024</p>
-                    <h4 class="head--4 secondary--clr">Consultant:</h4>
-                    <p class="body-txt2 txt--clr">Potential Company</p>
+                    <div class="pb-3">
+                      <h4 class="head--4 secondary--clr">Date:</h4>
+                      <p class="body-txt2 txt--clr">Dec 01, 2024</p>
+                    </div>
+                    <div class="pb-3">
+                      <h4 class="head--4 secondary--clr">Consultant:</h4>
+                      <p class="body-txt2 txt--clr">Potential Company</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -328,11 +360,11 @@
                   </div>
                   <div class="col-12">
                     <label for="subjectsInput" class="form-label mb-2 body-txt2 secondary--clr">Services</label>
-                    <select class="form-select req-quote-input" aria-label="Default select example">
-                      <option selected>Select Services</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <select class="form-select req-quote-input body-txt2 grey--clr " aria-label="Default select example">
+                      <option class="body-txt2 grey--clr" selected>Select Services</option>
+                      <option class="body-txt2 grey--clr" value="1">One</option>
+                      <option class="body-txt2 grey--clr" value="2">Two</option>
+                      <option class="body-txt2 grey--clr" value="3">Three</option>
                     </select>
                   </div>
                   <div class="col-12">
@@ -355,8 +387,8 @@
     <div class="container-fluid d-flex flex-column justify-content-center py-40px">
       <div class="container">
         <div class="row flex-md-row-reverse flex-column">
-          <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-end ">
-            <img src="../assets/images/after-project-dtl-img1.webp" class="img--2" alt="" />
+          <div class="hero-sec-img-right d-md-flex flex-column justify-content-center align-items-end ">
+            <img src="../assets/images/after-project-dtl-img1.webp" class="img--2 w-100 anime-img" alt="" />
           </div>
           <div class="hero-sec-text d-flex flex-column justify-content-center align-items-start  ">
             <h2 class="head--3 secondary--clr line-ht3 mb-0 ">
@@ -381,8 +413,8 @@
     <div class="container-fluid d-flex flex-column justify-content-center py-40px">
       <div class="container">
         <div class="row flex-md-row flex-column">
-          <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-start ">
-            <img src="../assets/images/after-project-dtl-img2.webp" class="img--2" alt="" />
+          <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-center ">
+            <img src="../assets/images/after-project-dtl-img2.webp " class="img--2 w-100 anime-img" alt="" />
           </div>
           <div class="hero-sec-text d-flex flex-column justify-content-center align-items-start  ">
             <h2 class="head--3 secondary--clr line-ht3 mb-0">
@@ -407,14 +439,14 @@
     <div class="container-fluid d-flex flex-column justify-content-center py-40px">
       <div class="container gap-4">
         <div class="row flex-md-row flex-column mb-4">
-          <img src="../assets/images/projectdtl-gal1.webp" class="projectdtl-gal-img" alt="">
+          <img src="../assets/images/projectdtl-gal1.webp" class="projectdtl-gal-img anime-img" alt="">
         </div>
         <div class="row gap-md-0 gap-4">
           <div class="col-md-6">
-            <img src="../assets/images/projectdtl-gal2.webp" class="projectdtl-gal-img" alt="">
+            <img src="../assets/images/projectdtl-gal2.webp" class="projectdtl-gal-img anime-img" alt="">
           </div>
           <div class="col-md-6">
-            <img src="../assets/images/projectdtl-gal3.webp" class="projectdtl-gal-img" alt="">
+            <img src="../assets/images/projectdtl-gal3.webp" class="projectdtl-gal-img anime-img" alt="">
           </div>
         </div>
       </div>
@@ -424,9 +456,9 @@
   <!-- ///////////////////////// Main Content Ends /////////////////////// -->
   <!-- ///////////////////////// Footer Section ///////////////////////// -->
   <footer>
-    <div class="container-fluid afcon--footer">
+    <div class="container-fluid afcon--footer myt-40">
       <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="footer-logo text-center pyb-40">
             <a href="../index.html"><img src="../assets/icons/afcon-group-logo.svg" alt="" class="pyb-60" /></a>
             <p class="head--2 wht--clr mb-0">Subscribe To Our Newsletter</p>
@@ -442,7 +474,8 @@
           </div>
           <div class="row px-0 flex-md-row flex-column">
             <div class="footer-quicklinks d-flex justify-content-md-start justify-content-center px-0  mb-4 ">
-              <ul class="navbar-nav d-flex flex-row footer-quick-links gap-4">
+              <ul
+                class="navbar-nav d-flex flex-row justify-content-md-start  justify-content-evenly  footer-quick-links gap-lg-4 gap-md-3 gap-0">
                 <li class="nav-item">
                   <a href="contact-us.html" class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
                 </li>

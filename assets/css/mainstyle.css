@@ -4,6 +4,14 @@
   margin: 0;
   box-sizing: border-box;
 }
+.anime-scale{
+  transform: scale(1);
+  transition: ease-in-out 0.3s;
+}
+.anime-scale:hover{
+  transform: scale(1.02);
+  transition: ease-in-out 0.3s;
+}
 :root {
   --primary-color: #0b63e5;
   --secondry-color: #141d38;
@@ -420,7 +428,7 @@
 .blog-excerpt-readmore {
   font-family: var(--secondary-font);
   color: var(--primary-color);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
 }
 .bolg-slider .slick-prev {
@@ -716,6 +724,9 @@
   background-color: var(--accent-color);
   color: var(--primary-color);
 }
+.project-archive-filters ul li:hover .form-check .form-check-label{
+  color: var(--primary-color);
+}
 .project-archive-filters  form-check-input:checked label{
   color: var(--primary-color);
 }
@@ -723,6 +734,12 @@
   padding: 24px;
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
   border-radius: 20px;
+  transition: ease-in-out 0.3s;
+}
+.project-content-wrapper:hover{
+  padding: 32px;
+  box-shadow: 0px 0px 20px 0px rgb(20, 29, 56, 0.2);
+  transition: ease-in-out 0.3s;
 }
 .project-img-wrap{
   width: 50% !important;
@@ -793,6 +810,7 @@
 .our-rblog-card{
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
   border-radius: 20px;
+  transition: ease-in-out 0.3s;
 }
 .rcard-img-left{
   height: 300px;
@@ -804,6 +822,8 @@
 }
 .our-rblog-card:hover{
   box-shadow: 0px 0px 20px 0px rgb(20, 29, 56, 0.2);
+  transform: scale(1.03);
+  transition: ease-in-out 0.3s;
 }
 .tabs-mbl-dropper{
   background-color: var(--secondry-color) !important;
@@ -1089,6 +1109,15 @@ border-radius: 4px;
   .contact-form-sec{
     padding: 50px 30px;
   }
+  #scrollToTopBtn {
+    bottom: 70px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+  }
+  #scrollToTopBtn i{
+    font-size: 16px;
+  }
 }
 @media only screen and (max-width: 991px) {
   .pyb-80 {
@@ -1183,6 +1212,10 @@ border-radius: 4px;
   .request-quote-row{
     padding: 0 50px;
   }
+  .req-quote-input::placeholder {
+    font-size: 12px;
+    line-height: 16px;
+  }
   .faqs-cta {
     padding-left: 10px;
   }
@@ -1254,7 +1287,7 @@ border-radius: 4px;
     margin-bottom: 0 !important;
 }
 #scrollToTopBtn {
-  bottom: 30px;
+  bottom: 50px;
   right: 15px;
   width: 35px;
   height: 35px;
@@ -1273,6 +1306,10 @@ border-radius: 4px;
   }
   .head--2 {
     font-size: 24px;
+    line-height: 100%;
+  }
+  .head--3 {
+    font-size: 20px;
     line-height: 100%;
   }
   .head--4 {
@@ -1342,7 +1379,10 @@ border-radius: 4px;
   }
   .request-quote-wrapper {
     padding: 20px 30px;
-}
+  } 
+  .footer--searchbar form {
+    width: 100%;
+  }
   .footer--searchbar button{
     width: 100% !important;
   }
@@ -1387,6 +1427,13 @@ border-radius: 4px;
   .project-details-wrap-rev{
     width: 100% !important;
   }
+  .project-details-wrap-rev{
+    padding-right:0px;
+    padding-left:0px;
+  }
+  .project-details-wrap {
+    padding-right: 0px;
+}
   /* project detail */
   .project--detail-content{
     width: 100% !important;

@@ -80,7 +80,6 @@ jQuery(document).ready(function ($) {
         },
       ],
     });
-    
   }
 });
 jQuery(document).ready(function ($) {
@@ -114,7 +113,7 @@ jQuery(document).ready(function ($) {
     });
   }
 });
-// tabs panel code on the blogs page 
+// tabs panel code on the blogs page
 // Show the first tab and hide the rest
 $("#tabs-nav li:first-child").addClass("active");
 $(".tab-content").hide();
@@ -145,7 +144,6 @@ $("#salary-tabs-nav li").click(function () {
   $(activeTab).fadeIn();
   return false;
 });
-
 const countryInput = $("#mobile_code");
 if (countryInput.length) {
   countryInput.intlTelInput({
@@ -153,24 +151,25 @@ if (countryInput.length) {
     separateDialCode: true,
   });
 }
+//  JavaScript for Scroll to Top Functionality
+// Get the scrollToTopBtn element
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-//  JavaScript for Scroll to Top Functionality 
-    // Get the scrollToTopBtn element
-    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-    // Show button after scrolling 1000px
-    window.onscroll = function() {
-        if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-            scrollToTopBtn.style.display = "flex"; // Show the button
-        } else {
-            scrollToTopBtn.style.display = "none"; // Hide the button
-        }
-    };
-
-    // Scroll to top when the button is clicked
-    scrollToTopBtn.addEventListener("click", function() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth" // Smooth scroll to top
-        });
-    });
+// Show button after scrolling 1000px
+window.onscroll = function () {
+  if (
+    document.body.scrollTop > 1000 ||
+    document.documentElement.scrollTop > 1000
+  ) {
+    scrollToTopBtn.style.display = "flex"; // Show the button
+  } else {
+    scrollToTopBtn.style.display = "none"; // Hide the button
+  }
+};
+// Scroll to top when the button is clicked
+scrollToTopBtn.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // Smooth scroll to top
+  });
+});
