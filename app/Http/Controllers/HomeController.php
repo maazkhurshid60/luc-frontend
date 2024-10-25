@@ -71,7 +71,7 @@ class HomeController extends Controller
 
         $services = Service::where('status', 'active')->take(3)->get();
 
-        return view('welcome', $data, compact('services', 'clientsChunked'));
+        return view('home', $data, compact('services', 'clientsChunked'));
     }
 
     public function services(Request $request)
