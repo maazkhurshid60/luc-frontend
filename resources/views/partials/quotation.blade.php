@@ -40,7 +40,8 @@
                     </div>
                     <div class="col-12 d-flex justify-content-center">
                         <button type="submit" class=" primary-btn req-quote-sub wht--clr">Submit<img
-                                src="assets/icons/arrow1.svg" alt="" class="ms-3"></button>
+                                src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
+                                class="ms-3"></button>
                     </div>
                 </form>
             </div>

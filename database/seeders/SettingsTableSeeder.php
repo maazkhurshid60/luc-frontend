@@ -16,7 +16,7 @@ class SettingsTableSeeder extends Seeder
     {
         DB::table('settings')->insert([
             'siteName' => 'Afcon Group',
-            'salogan' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+            'slogan' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
             'logo' => null,
             'icon' => null,
             'phone' => '+9233111111111',

@@ -109,11 +109,13 @@
                      class="d-flex flex-sm-row flex-column gap-4 justify-content-md-start justify-content-center align-items-center">
                      <span class=""><a href="pages/contact-us.html"
                              class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center"><img
-                                 src="assets/icons/customer-sup.svg" alt="" class="me-2">Help
+                                 src="{{ asset('assets/frontend/icons/customer-sup.svg') }}" alt=""
+                                 class="me-2">Help
                              Center</a></span>
                      <span class=""><a href="pages/about-us.html"
                              class="text-decoration-none primary--clr secondary-btn d-flex justify-content-center">Learn
-                             More<img src="assets/icons/arrow2.svg" alt="" class="ms-2"></a></span>
+                             More<img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
+                                 class="ms-2"></a></span>
                  </div>
              </div>
          </div>

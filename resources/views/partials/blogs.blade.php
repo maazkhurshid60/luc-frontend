@@ -16,7 +16,8 @@
                           <div
                               class="inner blog-content position-relative p-4 bg-white d-flex flex-md-row flex-column gap-4 ">
                               <div class="blog-img-sec">
-                                  <a href="pages/blog-details.html"><img src="assets/images/blog-feature-img1.webp"
+                                  <a href="pages/blog-details.html"><img
+                                          src="{{ asset('assets/frontend/images/blog-feature-img1.webp') }}"
                                           alt="Placeholder" class="img-fluid  position-relative blog-slider-img" /></a>
                               </div>
                               <div class="blog-detail-sec d-flex flex-column gap-lg-4  gap-3">
@@ -26,7 +27,9 @@
                                       donec
                                       ornare.</h3>
                                   <div class="blog-profile d-flex">
-                                      <div class="me-3"><img src="assets/icons/blog-profile-pic.svg" alt="">
+                                      <div class="me-3"><img
+                                              src="{{ asset('assets/frontend/icons/blog-profile-pic.svg') }}"
+                                              alt="">
                                       </div>
                                       <div>
                                           <h4 class="primary--font secondary--clr fs--20 fw-md mb-0 blog-md-txt1">Jakob
@@ -44,18 +47,18 @@
                                   </div>
                                   <div class="blog-meta d-flex justify-content-md-start justify-content-evenly">
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/calender.svg" alt=""
+                                              src="{{ asset('assets/frontend/icons/calender.svg') }}" alt=""
                                               class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">15 Sep, 2021</p>
                                       </span>
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/thumbs-up-like.svg" alt=""
-                                              class="me-lg-2 me-1 blog-meta-icons">
+                                              src="{{ asset('assets/frontend/icons/thumbs-up-like.svg') }}"
+                                              alt="" class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">2,729 Like</p>
                                       </span>
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/comment-icons.svg" alt=""
-                                              class="me-lg-2 me-1 blog-meta-icons">
+                                              src="{{ asset('assets/frontend/icons/comment-icons.svg') }}"
+                                              alt="" class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">273 Comments</p>
                                       </span>
                                   </div>
@@ -66,8 +69,8 @@
                           <div
                               class="inner blog-content position-relative p-4 bg-white d-flex flex-md-row flex-column gap-4 ">
                               <div class="blog-img-sec">
-                                  <img src="assets/images/blog-feature-img1.webp" alt="Placeholder"
-                                      class="img-fluid  position-relative blog-slider-img" />
+                                  <img src="{{ asset('assets/frontend/images/blog-feature-img1.webp') }}"
+                                      alt="Placeholder" class="img-fluid  position-relative blog-slider-img" />
                               </div>
                               <div class="blog-detail-sec d-flex flex-column gap-lg-4  gap-3">
                                   <h3 class="head--3 mb-0 blog-md-txt1">Lorem ipsum dolor sit amet consectetur. Euismod
@@ -76,7 +79,9 @@
                                       donec
                                       ornare.</h3>
                                   <div class="blog-profile d-flex">
-                                      <div class="me-3"><img src="assets/icons/blog-profile-pic.svg" alt="">
+                                      <div class="me-3"><img
+                                              src="{{ asset('assets/frontend/icons/blog-profile-pic.svg') }}"
+                                              alt="">
                                       </div>
                                       <div>
                                           <h4 class="primary--font secondary--clr fs--20 fw-md mb-0 blog-md-txt1">Jakob
@@ -94,18 +99,18 @@
                                   </div>
                                   <div class="blog-meta d-flex justify-content-md-start justify-content-evenly">
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/calender.svg" alt=""
+                                              src="{{ asset('assets/frontend/icons/calender.svg') }}" alt=""
                                               class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">15 Sep, 2021</p>
                                       </span>
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/thumbs-up-like.svg" alt=""
-                                              class="me-lg-2 me-1 blog-meta-icons">
+                                              src="{{ asset('assets/frontend/icons/thumbs-up-like.svg') }}"
+                                              alt="" class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">2,729 Like</p>
                                       </span>
                                       <span class="d-flex body-txt2 txt--clr me-lg-3 me-md-1 blog-md-txt"><img
-                                              src="assets/icons/comment-icons.svg" alt=""
-                                              class="me-lg-2 me-1 blog-meta-icons">
+                                              src="{{ asset('assets/frontend/icons/comment-icons.svg') }}"
+                                              alt="" class="me-lg-2 me-1 blog-meta-icons">
                                           <p class="body-txt2 txt--clr mb-0">273 Comments</p>
                                       </span>
                                   </div>
@@ -114,8 +119,10 @@
                       </div>
                   </div>
                   <div class="prev-next-btns d-flex justify-content-center gap-4">
-                      <button class="slick-prev"><img src="assets/icons/prev-arrow.svg" alt=""></button>
-                      <button class="slick-next"><img src="assets/icons/next-arrow.svg" alt=""></button>
+                      <button class="slick-prev"><img src="{{ asset('assets/frontend/icons/prev-arrow.svg') }}"
+                              alt=""></button>
+                      <button class="slick-next"><img src="{{ asset('assets/frontend/icons/next-arrow.svg') }}"
+                              alt=""></button>
                   </div>
               </div>
           </div>
