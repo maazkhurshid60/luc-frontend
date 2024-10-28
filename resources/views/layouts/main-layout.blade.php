@@ -40,7 +40,7 @@
                 <div class="row  flex-md-row flex-column">
                     <div class="footer-quicklinks d-flex justify-content-md-start justify-content-center   mb-4 ">
                         <ul
-                            class="navbar-nav d-flex flex-row justify-content-start justify-content-between footer-quick-links gap-lg-4 gap-md-3 gap-0">
+                            class="navbar-nav d-flex flex-row justify-content-start justify-content-start footer-quick-links gap-lg-4 gap-md-3 gap-0">
                             <li class="nav-item">
                                 <a href="pages/contact-us.html"
                                     class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
@@ -78,7 +78,6 @@
         </div>
     </div>
 </footer>
-
 <div id="scrollToTopBtn">
     <i class="fa-solid fa-arrow-up"></i>
 </div>

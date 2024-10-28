@@ -17,8 +17,7 @@
                               class="inner blog-content position-relative p-4 bg-white d-flex flex-md-row flex-column gap-4 ">
                               <div class="blog-img-sec">
                                   <a href="pages/blog-details.html"><img src="assets/images/blog-feature-img1.webp"
-                                          alt="Placeholder"</a>
-                                      class="img-fluid  position-relative blog-slider-img" />
+                                          alt="Placeholder" class="img-fluid  position-relative blog-slider-img" /></a>
                               </div>
                               <div class="blog-detail-sec d-flex flex-column gap-lg-4  gap-3">
                                   <h3 class="head--3 mb-0 blog-md-txt1">Lorem ipsum dolor sit amet consectetur. Euismod

@@ -57,8 +57,7 @@
                                       </li>
                                       <li class="nav-item dropdown">
                                           <a class="nav-link dropdown-toggle body-txt1 wht--clr primary-menu-links"
-                                              href="pages/services.html" role="button" data-bs-toggle="dropdown"
-                                              aria-expanded="false">
+                                              href="pages/services.html" role="button" aria-expanded="false">
                                               Services
                                           </a>
                                           <ul class="dropdown-menu">
@@ -83,8 +82,7 @@
                                       </li>
                                       <li class="nav-item dropdown">
                                           <a class="nav-link dropdown-toggle primary-menu-links body-txt1 wht--clr"
-                                              href="pages/projects.html" role="button" data-bs-toggle="dropdown"
-                                              aria-expanded="false">
+                                              href="pages/projects.html" role="button" aria-expanded="false">
                                               Projects
                                           </a>
                                           <ul class="dropdown-menu">
