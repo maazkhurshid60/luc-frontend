@@ -237,6 +237,19 @@
   color: var(--primary-color) !important;
   font-weight: 600 !important;
 }
+.dropdown-menu {
+  display: none; /* Hide dropdown by default */
+  opacity: 0; /* Set initial opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+  pointer-events: none; /* Prevent mouse events when hidden */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block; /* Show dropdown */
+  opacity: 1; /* Fully visible */
+  pointer-events: auto; /* Enable mouse events when visible */
+}
+
 .overlay {
   height: 100%;
   width: 0;
