@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Seeders\SettingSeeder;
-use Database\Seeders\UserSeeder;
+use Database\Seeders\PermissionsTableSeeder;
+use Database\Seeders\RoleHasPermissionsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
+use Database\Seeders\SettingsTableSeeder;
+use Database\Seeders\UsersTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +24,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(UserSeeder::class);
-        $this->call(SettingSeeder::class);
+        // $this->call(UsersTableSeeder::class);
+        // $this->call(SettingsTableSeeder::class);
+
+        // $this->call([
+        //     PermissionsTableSeeder::class,
+        //     RolesTableSeeder::class,
+        //     RoleHasPermissionsTableSeeder::class,
+        //     ModelHasRolesTableSeeder::class,
+        // ]);
     }
 }

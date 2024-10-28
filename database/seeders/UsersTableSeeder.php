@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,15 +16,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \Illuminate\Support\Facades\DB::table('users')->insert([
+        DB::table('users')->insert([
             'user_id' => 1,
             'name' => 'Admin',
             'email' => 'admin@afcon.com',
             'status' => 'active',
             'username' => 'admin',
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('123123'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'password' => Hash::make('123123'),
         ]);
     }
 }
