@@ -199,7 +199,8 @@
                         <div class="our--services d-flex justify-content-between flex-wrap">
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{asset('assets/frontend/icons/services-icon-1.svg')}}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-1.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
@@ -209,7 +210,8 @@
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{asset('assets/frontend/icons/services-icon-3.svg')}}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-3.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
@@ -219,7 +221,8 @@
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{asset('assets/frontend/icons/services-icon-4.svg')}}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-4.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
