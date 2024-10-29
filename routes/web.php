@@ -1,39 +1,39 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\Dashboard;
-use App\Http\Controllers\BlogsController;
-use App\Http\Controllers\CareerController;
 use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\HireProController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\DataController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\AddressController;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CounterController;
+use App\Http\Controllers\Admin\Dashboard;
+use App\Http\Controllers\Admin\DataController;
+use App\Http\Controllers\Admin\FaqCategoryController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\HiringApplicationController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductFileController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TeamFileController;
-use App\Http\Controllers\Admin\ApplicationController;
-use App\Http\Controllers\Admin\FaqCategoryController;
-use App\Http\Controllers\Admin\JobCategoryController;
-use App\Http\Controllers\Admin\ProductFileController;
 use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\BlogCategoryController;
-use App\Http\Controllers\Admin\ProjectCategoryController;
-use App\Http\Controllers\Admin\HiringApplicationController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\HireProController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ServicesController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,23 +111,26 @@ Route::prefix('admin/datatable')->middleware('auth')->group(function () {
 
 Route::post('ckeditor/image_upload', [Dashboard::class, 'upload'])->name('upload');
 
-Route::get('services', [ServicesController::class, 'index'])->name('services.index');
 Route::get('clients', [ClientsController::class, 'index'])->name('clients.index');
+
 Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('blog/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
-Route::get('blog2/{slug}', [BlogsController::class, 'show2'])->name('blogs.show2');
 
-Route::get('/services/{slug}', [HomeController::class, 'single_service']);
+Route::get('services', [ServicesController::class, 'index'])->name('services.index');
+Route::get('/services/{slug}', [HomeController::class, 'single_service'])->name('services.details');
 
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us.index');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us.index');
-Route::get('portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
-Route::get('portfolio/{slug}', [PortfolioController::class, 'details'])->name('portfolio.details');
+
+Route::get('projects', [ProjectsController::class, 'index'])->name('projects.index');
+Route::get('projects/{slug}', [ProjectsController::class, 'details'])->name('projects.details');
+
 Route::get('/careers', [CareerController::class, 'index'])->name('careers.index');
+Route::get('/careers/{slug}', [CareerController::class, 'show'])->name('career.show');
 Route::post('/job-apply', [CareerController::class, 'submit_application'])->name('careers.submit_application');
+
 Route::get('/hirepro', [HireProController::class, 'index'])->name('hirepro.index');
 Route::POST('/hirepro-application', [HireProController::class, 'submit_application'])->name('hirepro.submit_application');
-Route::get('/careers/{slug}', [CareerController::class, 'show'])->name('career.show');
 
 Route::post('/get-technologies-options', [HomeController::class, 'getTechnologies'])->name('get.technologies');
 

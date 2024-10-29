@@ -37,20 +37,21 @@ class CareerController extends Controller
             'page' => Menu::where('slug', 'careers')->first(),
             'categories' => JobCategory::where('status', 'active')->latest()->get(),
             'jobs' => Job::where('status', 'active')->latest()->paginate(20),
+            'settings' => DB::table('settings')->find(1),
         ];
 
-        $settings = DB::table('settings')->find(1);
-        if (is_null($data['page'])) {
-            return 'No page found in database';
-        }
-        return view('careers', compact('data', 'settings'));
+        // if (is_null($data['page'])) {
+        //     return 'No page found in database';
+        // }
+        return view('careers', $data);
     }
 
     public function show($slug)
     {
         $job = Job::where('status', 'active')->where('slug', $slug)->get()->first();
+
         if (is_null($job)) {
-            return $this->PageNotFound();
+            return view('errors.404');
         }
 
         $data = [
@@ -87,7 +88,6 @@ class CareerController extends Controller
             'cv_file.mimes' => 'The CV must be a file of type: doc, docx, or pdf.',
             'cv_file.max' => 'The CV size must not exceed 1MB.',
         ]);
-        
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);
@@ -102,8 +102,4 @@ class CareerController extends Controller
         return response()->json(['success' => 'Your application has been successfully submitted. Will get in touch with you after reviewing.']);
     }
 
-    public function PageNotFound()
-    {
-        return view('errors.404');
-    }
 }

@@ -22,6 +22,7 @@ class ServicesController extends Controller
             'settings' => DB::table('settings')->find(1),
         ];
 
-        return view('services', $data);
+        // return view('services', $data);
+        return view('service-details', $data);
     }
 }

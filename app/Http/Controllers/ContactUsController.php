@@ -17,17 +17,14 @@ class ContactUsController extends Controller
             'settings' => DB::table('settings')->find(1),
             'teams' => Team::where('status', 'active')->get(),
             'page' => Menu::where('slug', 'contact-us')->first(),
+            'alladdress' => DB::table('address')->get(),
         ];
-        // dd('aaaa');
-        $alladdress = DB::table('address')->get();
-        $settings = DB::table('settings')->find(1);
 
-        return view('contact_us', compact('settings', 'alladdress', 'data'));
+        return view('contact-us', $data);
     }
     public function contactUs(Rerquest $request)
     {
         $input = $request->all();
-        dd($input);
         $data = Feedback::create($request->only((new Feedback)->getFillable()));
 
         Mail::to($request->user())->send(new contactUs($input));

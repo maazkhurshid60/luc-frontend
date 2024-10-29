@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+    $settings = DB::table('settings')->find(1);
+@endphp
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @section('title', $settings->siteName ?? env('APP_NAME'))
+        @yield('title') | {{ $settings->siteName ?? env('APP_NAME') }}
+    </title>
+
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/fontawesome-free-6.6.0-web/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/slick/slick.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/mainstyle.css') }}" />
     <link rel="icon" href="{{ asset('assets/frontend/icons/afcon-group-logo.svg') }}">
-    <title>Home | Afcon Group</title>
+
+
     @yield('custom-styles')
 </head>
 
 <body id="content" class="fade-in">
-    
+
     @include('layouts.navbar')
 
     @yield('content')
@@ -27,8 +37,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="footer-logo text-center pyb-40">
-                        <a href="index.html"><img src="{{ asset('storage/images/' . $settings->logo) }}" alt=""
-                                class="pyb-60" /></a>
+                        <a href="index.html">
+                            <img src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
+                                alt="" class="pyb-60" />
+                        </a>
+
                         <p class="head--2 wht--clr mb-0">Subscribe To Our Newsletter</p>
                     </div>
                     <div class="footer--searchbar text-center d-flex justify-content-center pyb-60">
@@ -86,6 +99,7 @@
         <i class="fa-solid fa-arrow-up"></i>
     </div>
     <!-- ///////////////////////// Footer Section Ends ///////////////////////// -->
+    
     <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>

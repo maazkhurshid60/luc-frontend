@@ -9,7 +9,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class PortfolioController extends Controller
+class ProjectsController extends Controller
 {
     public function index(Request $request)
     {
@@ -21,6 +21,7 @@ class PortfolioController extends Controller
                 'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
                 'page' => Menu::where('slug', 'portfolio')->first(),
                 'service_menu' => Menu::where('slug', 'services')->first(),
+                'cat' => $request->cat,
             ];
         } else {
 
@@ -33,9 +34,8 @@ class PortfolioController extends Controller
             ];
         }
 
-        $cat = $request->cat;
-        // dd($data['projects']);
-        return view('portfolio/portfolio', compact('data', 'cat'));
+        return view('projects', $data);
+        return view('project-details', $data);
     }
 
     public function details($slug)

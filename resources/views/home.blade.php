@@ -1,5 +1,8 @@
 @extends('layouts.main-layout')
 
+
+@section('title', 'Home')
+
 @section('custom-styles')
 @endsection
 @section('content')
@@ -13,7 +16,7 @@
         @include('partials.maps')
         @include('partials.blogs')
         @include('partials.career')
-        @include('partials.quotation')
+        @include('partials.quotation-form')
         @include('partials.faqs')
     </div>
 @endsection

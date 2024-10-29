@@ -16,6 +16,6 @@ class AboutUsController extends Controller
             'teams' => Team::where('status', 'active')->get(),
             'page' => Menu::where('slug', 'about-us')->first(),
         ];
-        return view('about_us' , compact('data'));
+        return view('about-us' , $data);
     }
 }
