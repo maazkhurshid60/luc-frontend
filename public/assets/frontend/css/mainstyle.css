@@ -684,7 +684,6 @@
 }
 
 .career-post-wrapper {
-  width: 49%;
   border-radius: 20px;
   box-shadow: 0px 0px 14px 0px #141d381a;
 }
@@ -1256,7 +1255,6 @@
 }
 
 .career-post-archive {
-  width: 100%;
   border-radius: 20px;
   box-shadow: 0px 0px 14px 0px #141d381a;
 }
@@ -1582,10 +1580,6 @@
     width: 18px;
   }
 
-  .career-post-wrapper {
-    width: 49%;
-  }
-
   .search--btn {
     padding: 18px 20px;
   }
@@ -1780,10 +1774,6 @@
   }
 
   .blog-detail-sec {
-    width: 100% !important;
-  }
-
-  .career-post-wrapper {
     width: 100% !important;
   }
 
