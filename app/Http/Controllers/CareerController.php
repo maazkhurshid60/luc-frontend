@@ -44,6 +44,7 @@ class CareerController extends Controller
         //     return 'No page found in database';
         // }
         return view('careers', $data);
+        return view('career-details', $data);
     }
 
     public function show($slug)
