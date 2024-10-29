@@ -40,7 +40,7 @@
         <div class="container primary--menu-bar">
             <div class="row">
                 <div class="col-2 d-flex align-items-center">
-                    <a href="index.html"><img
+                    <a href="{{ route('index') }}"><img
                             src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
                             alt="logo" class="afcon-group-logo" /></a>
                 </div>
@@ -49,6 +49,13 @@
                         <div class="container-fluid px-0">
                             <div class="navbar py-0" id="navbarNavDropdown">
                                 <ul class="navbar-nav d-flex">
+                                    {{-- @php $menus = App\Helpers\Helper::getMenuRows(); @endphp --}}
+                                    {{-- @foreach ($menus as $menu)
+                                    <li class="nav-item">
+                                        <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('index') ? 'active' : '' }}"
+                                            aria-current="page" href="{{ url($menu->slug) }}">{{$menu->name}}</a>
+                                    </li>
+                                    @endforeach --}}
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('index') ? 'active' : '' }}"
                                             aria-current="page" href="{{ route('index') }}">Home</a>
@@ -113,7 +120,7 @@
                 <!-- Mobile Logo -->
                 <div class="col-6">
                     <div class="mob-menu-logo">
-                        <a href="index.html"><img
+                        <a href="{{ route('index') }}"><img
                                 src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
                                 class="afcon-group-logo" alt="E-cart Logo" /></a>
                     </div>
@@ -126,18 +133,19 @@
                                     <button type="button"
                                         class="btn dropdown-toggle lang-switch-selected p-0 body-txt2 mbl-lang-switcher"
                                         data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                        <span><img src="{{ asset('assets/frontend/icons/english-flag.svg') }}"
+                                        <span>
+                                            <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}"
                                                 class="me-2" alt="" />English</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-lg-end mt-2 lang-dropdown">
                                         <li>
-                                            <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
-                                                    src="{{ asset('assets/frontend/icons/english-flag.svg') }}"
+                                            <a class="dropdown-item lang-switch-drop body-txt2" href="#">
+                                                <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}"
                                                     alt="" class="me-2" />English</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
-                                                    src="{{ asset('assets/frontend/icons/french-flag.svg') }}"
+                                            <a class="dropdown-item lang-switch-drop body-txt2" href="#">
+                                                <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}"
                                                     alt="" class="me-2" />French</a>
                                         </li>
                                     </ul>

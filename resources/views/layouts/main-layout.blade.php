@@ -63,11 +63,11 @@
                                         class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/term-of-services.html"
+                                    <a href="{{ url('terms-of-services') }}"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Term of Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/privacy-policy.html"
+                                    <a href="{{ url('privacy-policy') }}"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Privacy Policy</a>
                                 </li>
                             </ul>
@@ -99,7 +99,7 @@
         <i class="fa-solid fa-arrow-up"></i>
     </div>
     <!-- ///////////////////////// Footer Section Ends ///////////////////////// -->
-    
+
     <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>

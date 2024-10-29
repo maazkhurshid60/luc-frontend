@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
 use App\Models\Blog;
-use App\Models\Client;
 use App\Models\FaqCategory;
 use App\Models\Feedback;
 use App\Models\Menu;
-use App\Models\Product;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\Service;
-use App\Models\Slider;
 use App\Models\Team;
-use App\Models\Testimonial;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -27,51 +23,19 @@ class HomeController extends Controller
      * Only for updating Code & Database
      * @return [type] [description]
      */
-    protected function updates()
-    {
-        \Artisan::call('cache:clear');
-        \Artisan::call('config:cache');
-        \Artisan::call('view:cache');
-        // \DB::statement("ALTER TABLE `products` ADD `link` VARCHAR(222) NULL DEFAULT NULL AFTER `title`");
-        // \DB::statement("CREATE TABLE `address` ( `id` INT NOT NULL , `city` VARCHAR(255) NULL , `address` TEXT NULL , `phone` VARCHAR(111) NULL , `email` VARCHAR(111) NULL , `map` VARCHAR(500) NULL , `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` TIMESTAMP NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-        // \DB::statement("ALTER TABLE `address` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
-        // \DB::statement("ALTER TABLE `jobs` ADD `header_image` VARCHAR(255) NULL DEFAULT NULL AFTER `file`");
-        // \DB::statement("ALTER TABLE `feedback` ADD `services` TEXT NULL DEFAULT NULL AFTER `created_at`");
-        // \DB::statement("ALTER TABLE `projects` ADD `header_image` VARCHAR(111) NULL AFTER `image2`");
-    }
 
     public function index()
     {
-        $clients = Client::where('status', 'Active')->orderBy('display_order')->get();
-        $clientsChunked = $clients->chunk(ceil($clients->count() / 3));
-        // $this->updates();
         $data = [
             'settings' => DB::table('settings')->find(1),
             'page' => Menu::where('slug', 'home')->first(),
-            'service_menu' => Menu::where('slug', 'services')->first(),
-            'slides' => Slider::where('status', 'active')->latest()->get(),
-            'services' => Service::where('status', 'active')->orderBy('display_order', 'asc')->latest()->get(),
-            'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
-            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
-            'blogs' => Blog::where('status', 'active')->orderBy('display_order', 'asc')->latest()->take(3)->get(),
-            'testimonials' => Testimonial::where('status', 'active')->latest()->get(),
-            'team' => Team::where('status', 'active')->latest()->take(4)->get(),
-            'clients' => Client::where('status', 'Active')->latest()->get(),
-            'products' => Product::where('status', 'active')->latest()->get(),
-
-            'label' => [
-                'services' => Menu::where('slug', 'services')->first(),
-                'portfolio' => Menu::where('slug', 'portfolio')->first(),
-                'blog' => Menu::where('slug', 'blog')->first(),
-                'testimonial' => Menu::where('slug', 'testimonial')->first(),
-                'team' => Menu::where('slug', 'team')->first(),
-                'clients' => Menu::where('slug', 'clients')->first(),
-            ],
         ];
 
-        $services = Service::where('status', 'active')->take(3)->get();
+        if (!$data['page']) {
+            return view('errors.404');
+        }
 
-        return view('home', $data, compact('services', 'clientsChunked'));
+        return view('home', $data);
     }
 
     public function services(Request $request)
@@ -261,21 +225,9 @@ class HomeController extends Controller
 
         $page = Menu::where('slug', $slug)->where('display', 'yes')->get()->first();
 
-        if (is_null($page)) {
-            return $this->PageNotFound();
-        }
-        $data = [
-            'settings' => DB::table('settings')->find(1),
-            'page' => $page,
-        ];
-
-        if (!View::exists('page/' . $slug)) {
-            // If view does not exist, redirect to another page
-            return view('dynamic-page', $data);
-        }
-
+       
         // Render the view for the specific slug
-        return view('page/' . $slug, compact('data'));
+        return view( $slug);
     }
 
     public function feedback_submit(Request $request)

@@ -1,6 +1,6 @@
 @extends('layouts.main-layout')
 
-@section('title', 'Home')
+@section('title', 'Not Found')
 
 @section('custom-styles')
 @section('content')
