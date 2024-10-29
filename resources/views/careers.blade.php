@@ -70,52 +70,8 @@
 
                     <div class="career-archives-sec d-flex flex-column justify-content-start gap-4 pyb-60 px-0">
                         <h3 class="head--3 secondary--clr mb-0">3177 Jobs</h3>
-                        <div class="career-post-archive p-4 d-flex flex-lg-row flex-column gap-4 anime-scale">
-                            <div class="job-list-img">
-                                <img src="../assets/icons/job-icon1.svg" alt="" />
-                            </div>
-                            <div class="job-list-detail d-flex flex-column">
-                                <p class="body-txt1 secondary--clr mb-2">Linear Company</p>
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <h3 class="head--3 secondary--clr mb-0">
-                                        Software Engineer
-                                    </h3>
-                                    <span class="fit-content d-inline-block ps-sm-5 ps-0"><a href="#"
-                                            class="job-post-tag text-decoration-none primary--clr d-flex justify-content-center fw-sb">New
-                                            Post</a></span>
-                                </div>
-                                <div class="d-flex flex-wrap mb-2 gap-2">
-                                    <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
-                                            src="{{ asset('assets/frontend/icons/meta-job-loc.svg') }}" alt=""
-                                            class="me-2" />
-                                        <p class="mb-0">Brussels</p>
-                                    </span>
-                                    <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
-                                            src="{{ asset('assets/frontend/icons/meta-job-salary.svg') }}" alt=""
-                                            class="me-2" />
-                                        <p class="mb-0">50-55k</p>
-                                    </span>
-                                    <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
-                                            src="{{ asset('assets/frontend/icons/meta-job-type.svg') }}" alt=""
-                                            class="me-2" />
-                                        <p class="mb-0">Full time</p>
-                                    </span>
-                                    <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
-                                            src="{{ asset('assets/frontend/icons/calender.svg') }}" alt=""
-                                            class="me-2" />
-                                        <p class="mb-0">02 days ago</p>
-                                    </span>
-                                </div>
-                                <p class="body-txt2 mb-3">
-                                    Lorem ipsum dolor sit amet consectetur. Urna auctor laoreet
-                                    at donec. Sed interdum laoreet accumsan sit netus
-                                    craslaoreet. Nulla sed varius nibh mauris leo eu congue...
-                                </p>
-                                <span class=""><a href="career-details.html"
-                                        class="text-decoration-none primary--clr secondary-btn d-flex justify-content-center">View
-                                        Details<img src="../assets/icons/arrow2.svg" alt=""
-                                            class="ms-2" /></a></span>
-                            </div>
+                        <div class="col-md-12 mb-3">
+                            @include('include.job-card')
                         </div>
                     </div>
                     <hr class="m-0" />

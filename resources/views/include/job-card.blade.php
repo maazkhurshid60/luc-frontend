@@ -1,16 +1,14 @@
 <div class="career-post-archive p-4 d-flex flex-lg-row flex-column gap-4 anime-scale">
     <div class="job-list-img">
-        <img src="{{asset('assets/frontend/icons/job-icon1.svg')}}" alt="" />
+        <img src="{{ asset('assets/frontend/icons/job-icon1.svg') }}" alt="" />
     </div>
     <div class="job-list-detail d-flex flex-column">
-        <p class="body-txt1 secondary--clr mb-2">Linear Company</p>
         <div class="d-flex align-items-center gap-2 mb-2">
             <h3 class="head--3 secondary--clr mb-0">
                 Software Engineer
             </h3>
             <span class="fit-content d-inline-block ps-sm-5 ps-0"><a href="#"
-                    class="job-post-tag text-decoration-none primary--clr d-flex justify-content-center fw-sb">New
-                    Post</a></span>
+                    class="job-post-tag text-decoration-none primary--clr d-flex justify-content-center fw-sb">Contract</a></span>
         </div>
         <div class="d-flex flex-wrap mb-2 gap-2">
             <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
