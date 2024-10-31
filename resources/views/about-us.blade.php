@@ -155,7 +155,7 @@
         </div>
         <!-- Visison Section End-->
 
-        @include('partials.team')
+        @include('partials.team', ['data' => $teams])
 
         @include('partials.brands')
     </div>

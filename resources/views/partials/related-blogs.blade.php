@@ -13,7 +13,9 @@
             </div>
             <div class="blog-sec">
                 <div class="our--blog d-flex justify-content-between flex-wrap">
-                   @include('include.blog-card')
+                    @foreach ($related as $blog)
+                        @include('include.blog-card')
+                    @endforeach
                 </div>
             </div>
         </div>

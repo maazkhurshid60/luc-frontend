@@ -1,7 +1,7 @@
 @extends('layouts.main-layout')
 
 
-@section('title', 'Blogs')
+@section('title', $page->page_title)
 
 @section('custom-styles')
 @endsection
@@ -9,17 +9,12 @@
 @section('content')
     <div class="main">
 
-        <div class="container-fluid afcon--hero-section blog-details-bg d-flex flex-column justify-content-center myb-40">
-            <div class="container">
-                <div class="row">
-                    <h1 class="head--1 wht--clr text-center">UX review presentations</h1>
-                    <span class="body-txt1 bread-crumb text-center"><a href="../index.html"
-                            class="body-txt1 wht--clr text-decoration-none">Home</a> / <a href="blogs.html"
-                            class="body-txt1 wht--clr text-decoration-none">Blogs</a> / UX review presentations
-                        Design</span>
-                </div>
-            </div>
-        </div>
+        @include('partials.breadcrumbs', [
+            'bg_image' => asset('assets/frontend/images/blog-details-bg.webp'),
+            'home' => ['name' => 'Home', 'route' => 'index'],
+            'parent' => ['name' => 'Blogs', 'route' => 'blogs.index'],
+            'page_title' => $page->title,
+        ])
 
         <div class="container-fluid py-40px">
             <div class="container">
@@ -33,7 +28,7 @@
                                 </span>
                             </div>
                             <div class="position-relative text-md-start text-center">
-                                <h2 class="head--2 secondary--clr mb-lg-3 mb-2">Lorem ipsum dolor sit amet consectetur.
+                                <h2 class="head--2 secondary--clr mb-lg-3 mb-2">{{ $page->title }}
                                 </h2>
                                 <p class="body-txt1 txt--clr mb-lg-4 mb-2">Collaboration can make our teams stronger,
                                     and our individual designs better.</p>
@@ -43,16 +38,17 @@
                                     <img src="{{ asset('assets/icons/blog-auth-img.svg') }}" alt="">
                                 </div>
                                 <div class="blog-card-meta ">
-                                    <h3 class="head--4 secondary--clr mb-0">Natali Craig</h3>
-                                    <div class="body-txt2 txt--clr mb-0">Published 14 Jan 2024
+                                    <h3 class="head--4 secondary--clr mb-0">{{ $page->user }}</h3>
+                                    <div class="body-txt2 txt--clr mb-0">
+                                        {{ \Carbon\Carbon::parse($page->date)->format('d-M-Y') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end align-items-center">
-                        <img src="{{ asset('assets/frontend/images/blog-detail-featured-img.webp') }}"
-                            class="blog-dtl-fet-img anime-scale" alt="">
+                        <img src="{{ asset('storage/images/' . $page->cover_image) }}" class="blog-dtl-fet-img anime-scale"
+                            alt="">
                     </div>
                 </div>
                 <div class="row ">
@@ -186,7 +182,7 @@
             </div>
         </div>
 
-        @include('partials.related-blogs')
+        @include('partials.related-blogs', ['data' => $related])
 
     </div>
 @endsection

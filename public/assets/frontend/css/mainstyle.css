@@ -950,6 +950,10 @@
   transition: ease-in-out 0.3s;
 }
 
+.our-blog-card .blog-card-content a {
+  text-decoration: none;
+}
+
 .our-blog-card:hover {
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.25);
 }
