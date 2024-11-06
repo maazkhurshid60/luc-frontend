@@ -1,10 +1,28 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', 'PMR — Online Platform & Responsive Website Design')
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
+
 @section('content')
     <div class="main">
 
@@ -12,7 +30,7 @@
             'bg_image' => asset('assets/frontend/images/project-details-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => ['name' => 'Projects', 'route' => 'projects.index'],
-            'page_title' => 'PMR — Online Platform & Responsive Website Design',
+            'page_title' => $data->name,
         ])
 
         <div class="container-fluid py-40px">
@@ -21,69 +39,18 @@
                     <div
                         class="project-details-section d-flex flex-md-row flex-column justify-content-between gap-md-0 gap-4">
                         <div class="project--detail-content">
-                            <img src="{{ asset('assets/frontend/images/project-detail-img.webp') }}" alt=""
-                                class="mb-4 anime-img">
-                            <h3 class="head--3 secondary--clr mb-4">Client XYZ Tech Solutions </h3>
-                            <p class="body-txt1 txt--clr mb-4">Lorem ipsum dolor sit amet consectetur. Volutpat nunc morbi
-                                ut eu non
-                                neque elit. Sit gravida interdum pulvinar nunc cursus id. Vehicula curabitur mauris ut ut
-                                vel metus
-                                nunc. Lacus lorem ac purus semper magna elementum ut et ante. Magna at ac id rhoncus sit
-                                bibendum
-                                dictum. Ac consequat dolor sit vel. Pellentesque quis arcu eu sed mattis vitae ultrices
-                                lacinia.
-                                Sollicitudin lectus in semper quis. Facilisis ut nulla duis vel aenean mattis nisl in. A
-                                fames quisque
-                                auctor habitant venenatis. Quam porta nisl at diam eget aenean. Quam et nulla et ornare eu.
-                                Ipsum orci dignissim ipsum sed pellentesque nec. Semper habitant interdum egestas at fames
-                                volutpat nunc
-                                vitae. Pharetra ac massa accumsan at pellentesque adipiscing. Mattis magna sed maecenas
-                                tellus sit.
-                                Habitasse ultricies egestas ut ultrices molestie adipiscing commodo egestas. Id phasellus
-                                proin commodo
-                                luctus felis in donec vel vestibulum. Luctus sit dignissim vitae nam lorem elementum.
-                                Viverra lorem in
-                                neque et fringilla. Ut quis eu egestas nisl magna cras. In egestas scelerisque volutpat
-                                faucibus a. Urna
-                                elit habitant pellentesque suspendisse in condimentum aenean rhoncus eget. Vel consectetur
-                                mi dui quis
-                                velit urna in tortor auctor. Quis sed vestibulum habitasse magna. Tincidunt maecenas diam
-                                dignissim
-                                blandit eu integer tellus.
-                                Scelerisque suspendisse risus at convallis id viverra consequat mattis. Mauris massa egestas
-                                amet
-                                lacinia. Egestas purus est est amet ac ultrices. Volutpat laoreet eleifend scelerisque sed
-                                commodo
-                                consequat leo metus placerat. Id senectus facilisi nullam cras amet convallis augue
-                                adipiscing at. Sed
-                                ipsum ac at et. Tellus mauris sodales at vivamus sed neque.
-                                Magna pharetra egestas sed malesuada eget odio quis convallis volutpat. Blandit enim
-                                vestibulum
-                                curabitur cras feugiat neque lacus etiam. Nulla tincidunt tortor interdum egestas. Ut sit mi
-                                eu at. Sit
-                                nulla pharetra urna vulputate. Tortor egestas aliquet cras odio. Id tempor mi ultrices
-                                donec. <br>
-                                Vitae nulla morbi nunc ut sed aliquet. Dui rhoncus est fames turpis eu magnis. Felis tellus
-                                eget neque
-                                ac risus urna duis interdum. Duis morbi erat dignissim fringilla tellus velit. Purus feugiat
-                                pellentesque id elementum sem leo nisi lectus maecenas. Tempus porta dolor nibh ultrices
-                                odio facilisi
-                                nisi fermentum. Nulla feugiat mauris sed mauris quisque augue ullamcorper lectus. Egestas
-                                sed ultricies
-                                consectetur elit sem risus. Eu laoreet sem nisi in ullamcorper. Ut nisl a mollis amet.
-                                Mauris et id
-                                tortor ipsum sed morbi leo turpis bibendum. Interdum lacinia sed id arcu nulla augue
-                                pharetra mi. Quis
-                                blandit sapien sed venenatis malesuada elit id enim dignissim.</p>
+                            <img src="{{ asset('storage/images/' . $data->details_image) }}" alt="" class="mb-4 anime-img">
+                            <h3 class="head--3 secondary--clr mb-4">{{ $data->name }}</h3>
+                            <p class="body-txt1 txt--clr mb-4">{!! $data->contents !!}</p>
                         </div>
                         <div class="project--detail-sidebar d-flex flex-column gap-4">
                             <div class="project-meta-details">
-                                <h3 class="head--3 secondary--clr mb-0 pyb-40">Project Name</h3>
+                                <h3 class="head--3 secondary--clr mb-0 pyb-40">{{ $data->name }}</h3>
                                 <div class="d-flex">
                                     <div class="col--1">
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Client:</h4>
-                                            <p class="body-txt2 txt--clr">Client ABC Manufacturing</p>
+                                            <p class="body-txt2 txt--clr">{{ $data->client }}</p>
                                         </div>
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Location:</h4>
@@ -92,14 +59,15 @@
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Website:</h4>
                                             <p class="body-txt2 txt--clr"><a
-                                                    href=">https://which-supervisor.net">https://which-supervisor.net</a>
+                                                    href="{{ $data->link }}">{{ $data->link }}</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col--2">
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Date:</h4>
-                                            <p class="body-txt2 txt--clr">Dec 01, 2024</p>
+                                            <p class="body-txt2 txt--clr">
+                                                {{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</p>
                                         </div>
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Consultant:</h4>
@@ -162,93 +130,74 @@
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid d-flex flex-column justify-content-center py-40px">
-            <div class="container">
-                <div class="row flex-md-row-reverse flex-column">
-                    <div class="hero-sec-img-right d-md-flex flex-column justify-content-center align-items-end ">
-                        <img src="{{ asset('assets/frontend/images/after-project-dtl-img1.webp') }}"
-                            class="img--2 w-100 anime-img" alt="" />
-                    </div>
-                    <div class="hero-sec-text d-flex flex-column justify-content-center align-items-start  ">
-                        <h2 class="head--3 secondary--clr line-ht3 mb-0 ">
-                            What We Did?
-                        </h2>
-                        <p class="body-txt1 txt--clr mb-0">
-                            Lorem ipsum dolor sit amet consectetur. Leo quisque justo turpis quam volutpat tellus risus
-                            condimentum.
-                            Aliquet morbi a in ultricies vitae sagittis. Neque adipiscing facilisi nullam nisl lacus enim in
-                            consectetur. Quisque natoque quis amet mauris in cras sed ornare volutpat. Massa dictumst nibh
-                            at varius
-                            sit. Mi urna eget sodales orci tellus rhoncus. Diam in viverra integer id lacinia sit massa. Eu
-                            congue ut
-                            suspendisse nunc ut arcu nisi vestibulum adipiscing. Accumsan purus risus vel sit enim
-                            pellentesque felis
-                            habitant adipiscing. Eget sapien aenean placerat fermentum leo. Suscipit viverra erat et
-                            malesuada eget
-                            quam. Eget tortor fringilla sed nunc. Erat mi mattis id integer massa dignissim tincidunt nisi
-                            mollis.
-                            Pharetra lectus phasellus enim tincidunt sed vitae imperdiet nibh nec. Nunc gravida iaculis sed
-                            ut lectus
-                            luctus.
-                        </p>
+        @php
+            $sections = json_decode($data->section_data);
+        @endphp
+        @foreach ($sections as $index => $section)
+            <div class="container-fluid d-flex flex-column justify-content-center py-40px">
+                <div class="container">
+                    <div class="row {{ $index % 2 == 0 ? 'flex-md-row-reverse' : 'flex-md-row' }} flex-column">
+                        <div
+                            class="hero-sec-img{{ $index % 2 == 0 ? '-right' : '' }} d-md-flex flex-column justify-content-center align-items-{{ $index % 2 == 0 ? 'end' : 'center' }} ">
+                            <img src="{{ asset($section->section_image ? 'storage/images/' . $section->section_image : 'assets/frontend/images/after-project-dtl-img' . $index . '.webp') }}"
+                                class="img--2 w-100 anime-img" alt="" />
+                        </div>
+                        <div class="hero-sec-text d-flex flex-column justify-content-center align-items-start  ">
+                            <h2 class="head--3 secondary--clr line-ht3 mb-0 ">
+                                {{ $section->section_heading }}
+                            </h2>
+                            <p class="body-txt1 txt--clr mb-0">
+                                {{ $section->section_text }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
 
-        <div class="container-fluid d-flex flex-column justify-content-center py-40px">
-            <div class="container">
-                <div class="row flex-md-row flex-column">
-                    <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-center ">
-                        <img src="{{ asset('assets/frontend/images/after-project-dtl-img2.webp') }} "
-                            class="img--2 w-100 anime-img" alt="" />
-                    </div>
-                    <div class="hero-sec-text d-flex flex-column justify-content-center align-items-start  ">
-                        <h2 class="head--3 secondary--clr line-ht3 mb-0">
-                            The Outcome
-                        </h2>
-                        <p class="body-txt1 txt--clr mb-0 ">
-                            Lorem ipsum dolor sit amet consectetur. Leo quisque justo turpis quam volutpat tellus risus
-                            condimentum.
-                            Aliquet morbi a in ultricies vitae sagittis. Neque adipiscing facilisi nullam nisl lacus enim in
-                            consectetur. Quisque natoque quis amet mauris in cras sed ornare volutpat. Massa dictumst nibh
-                            at varius
-                            sit. Mi urna eget sodales orci tellus rhoncus. Diam in viverra integer id lacinia sit massa. Eu
-                            congue ut
-                            suspendisse nunc ut arcu nisi vestibulum adipiscing. Accumsan purus risus vel sit enim
-                            pellentesque felis
-                            habitant adipiscing. Eget sapien aenean placerat fermentum leo. Suscipit viverra erat et
-                            malesuada eget
-                            quam. Eget tortor fringilla sed nunc. Erat mi mattis id integer massa dignissim tincidunt nisi
-                            mollis.
-                            Pharetra lectus phasellus enim tincidunt sed vitae imperdiet nibh nec. Nunc gravida iaculis sed
-                            ut lectus
-                            luctus.
-                        </p>
-                    </div>
+        @php
+            $gallery_images = json_decode($data->gallery_images) ?? [];
+            $imageCount = count($gallery_images);
+        @endphp
+
+        @if ($imageCount > 0)
+            <div class="container-fluid d-flex flex-column justify-content-center py-40px">
+                <div class="container gap-4">
+                    @if ($imageCount == 1)
+                        <div class="row flex-md-row flex-column mb-4">
+                            <img src="{{ asset('storage/images/' . $gallery_images[0]) }}"
+                                class="projectdtl-gal-img anime-img" alt="">
+                        </div>
+                    @elseif ($imageCount == 2)
+                        <div class="row gap-md-0 gap-4">
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/images/' . $gallery_images[0]) }}"
+                                    class="projectdtl-gal-img anime-img" alt="">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/images/' . $gallery_images[1]) }}"
+                                    class="projectdtl-gal-img anime-img" alt="">
+                            </div>
+                        </div>
+                    @else
+                        <div class="row flex-md-row flex-column mb-4">
+                            <img src="{{ asset('storage/images/' . $gallery_images[0]) }}"
+                                class="projectdtl-gal-img anime-img" alt="">
+                        </div>
+                        <div class="row gap-md-0 gap-4">
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/images/' . $gallery_images[1]) }}"
+                                    class="projectdtl-gal-img anime-img" alt="">
+                            </div>
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/images/' . $gallery_images[2]) }}"
+                                    class="projectdtl-gal-img anime-img" alt="">
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
-        </div>
-
-        <div class="container-fluid d-flex flex-column justify-content-center py-40px">
-            <div class="container gap-4">
-                <div class="row flex-md-row flex-column mb-4">
-                    <img src="{{ asset('assets/frontend/images/projectdtl-gal1.webp') }}"
-                        class="projectdtl-gal-img anime-img" alt="">
-                </div>
-                <div class="row gap-md-0 gap-4">
-                    <div class="col-md-6">
-                        <img src="{{ asset('assets/frontend/images/projectdtl-gal2.webp') }}"
-                            class="projectdtl-gal-img anime-img" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <img src="{{ asset('assets/frontend/images/projectdtl-gal3.webp') }}"
-                            class="projectdtl-gal-img anime-img" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
 
     </div>
 @endsection

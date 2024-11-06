@@ -8,7 +8,7 @@ class Settings extends Model
 {
     protected $fillable = [
     	'siteName',
-    	'salogan',
+    	'slogan',
     	'logo',
     	'icon',
     	'fb',

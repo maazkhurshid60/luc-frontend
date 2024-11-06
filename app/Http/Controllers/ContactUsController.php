@@ -15,13 +15,17 @@ class ContactUsController extends Controller
     {
         $data = [
             'settings' => DB::table('settings')->find(1),
-            'teams' => Team::where('status', 'active')->get(),
-            'page' => Menu::where('slug', 'contact-us')->first(),
+            'data' => Menu::where('slug', 'contact-us')->first(),
             'alladdress' => DB::table('address')->get(),
         ];
 
+        if (is_null($data['data'])) {
+            return $this->PageNotFound();
+        }
+        // dd($data);
         return view('contact-us', $data);
     }
+
     public function contactUs(Rerquest $request)
     {
         $input = $request->all();
@@ -30,5 +34,10 @@ class ContactUsController extends Controller
         Mail::to($request->user())->send(new contactUs($input));
 
         return back();
+    }
+
+    public function PageNotFound()
+    {
+        return view('errors.404');
     }
 }

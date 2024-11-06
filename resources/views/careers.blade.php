@@ -1,7 +1,24 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', 'Careers')
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
@@ -12,7 +29,7 @@
             'bg_image' => asset('assets/frontend/images/careers-hero-sec-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => '',
-            'page_title' => 'Careers',
+            'page_title' => $data->name,
         ])
 
         <div class="container-fluid py-40px">
@@ -69,72 +86,15 @@
                     @include('partials.career-filters')
 
                     <div class="career-archives-sec d-flex flex-column justify-content-start gap-4 pyb-60 px-0">
-                        <h3 class="head--3 secondary--clr mb-0">3177 Jobs</h3>
-                        <div class="col-md-12 mb-3">
-                            @include('include.job-card')
-                        </div>
+                        <h3 class="head--3 secondary--clr mb-0">{{ $count > 1 ? $count . ' Jobs' : $count . ' Job' }}</h3>
+                        @foreach ($jobs as $job)
+                            <div class="col-md-12 mb-3">
+                                @include('include.job-card')
+                            </div>
+                        @endforeach
                     </div>
                     <hr class="m-0" />
-                    <div class="pagination-wrapper mt-4">
-                        <div class="page-navigation">
-                            <nav aria-label="Page navigation">
-                                <ul
-                                    class="pagination shop-pagination w-100 d-flex justify-content-between align-items-center">
-                                    <div class="back-link">
-                                        <li class="page-item">
-                                            <a class="page-link back-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
-                                                href="#" aria-label="Back">
-                                                <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                                    class="rotate-z me-2" />
-                                                <p class="body-txt1 d-md-block d-none mb-0">
-                                                    Previous
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </div>
-                                    <div class="page-no d-flex">
-                                        <li class="page-item">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-item-active"
-                                                href="">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
-                                                href="">2</a>
-                                        </li>
-                                        <li class="page-item d-md-block d-none">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
-                                                href="#">3</a>
-                                        </li>
-                                        <li class="page-item disabled">
-                                            <a class="page-link pg-items body-txt1 secondary--clr" href="#">...</a>
-                                        </li>
-                                        <li class="page-item d-md-block d-none">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
-                                                href="#">8</a>
-                                        </li>
-                                        <li class="page-item d-sm-block d-none">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
-                                                href="#">9</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link pg-item body-txt1 secondary--clr pg-items"
-                                                href="#">10</a>
-                                        </li>
-                                    </div>
-                                    <div class="next-link">
-                                        <li class="page-item">
-                                            <a class="page-link next-button secondary-btn d-flex justify-content-center align-items-center pg-res-btn"
-                                                href="#" aria-label="Next">
-                                                <p class="body-txt1 d-md-block d-none mb-0">Next</p>
-                                                <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                                    class="ms-2" />
-                                            </a>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+                    @include('include.pagination', ['paginator' => $jobs])
                 </div>
             </div>
         </div>

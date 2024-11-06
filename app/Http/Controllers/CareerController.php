@@ -34,13 +34,14 @@ class CareerController extends Controller
         }
 
         $data = [
-            'page' => Menu::where('slug', 'careers')->first(),
+            'data' => Menu::where('slug', 'careers')->first(),
             'categories' => JobCategory::where('status', 'active')->latest()->get(),
             'jobs' => Job::where('status', 'active')->latest()->paginate(20),
+            'count' => Job::count(),
             'settings' => DB::table('settings')->find(1),
         ];
-
-        // if (is_null($data['page'])) {
+        // dd($data);
+        // if (is_null($data['data'])) {
         //     return 'No page found in database';
         // }
         return view('careers', $data);

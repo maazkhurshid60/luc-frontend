@@ -20,18 +20,20 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('color_code')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
-            $table->string('image')->nullable();
-            $table->string('image2')->nullable();
-            $table->string('header_image')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->string('detials_image')->nullable();
+            $table->json('gallery_images')->nullable();
 
             $table->string('client')->nullable();
             $table->string('services')->nullable();
-            $table->json('category_id')->nullable();
-            $table->bigInteger('categories_id')->nullable();
+            $table->bigInteger('category_id')->nullable();
+            $table->json('categories_id')->nullable();
+            $table->date('date')->nullable();
 
             $table->boolean('search_engine')->nullable();
             $table->integer('display_order')->nullable();
             $table->boolean('site_visibility')->nullable();
+            $table->json('section_data')->nullable();
 
             $table->string('page_title')->nullable();
             $table->text('meta_keywords')->nullable();

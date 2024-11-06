@@ -37,12 +37,17 @@ class BlogsController extends Controller
 
         $data = [
             'settings' => DB::table('settings')->find(1),
-            'page' => Menu::where('slug', 'blog')->orWhere('slug', 'blogs')->first(),
+            'data' => Menu::where('slug', 'blog')->orWhere('slug', 'blogs')->first(),
             'blogs' => $blogs,
             'latest' => $latest,
             'categories' => BlogCategory::all(),
             'selected_category' => $categoryId,
         ];
+
+        if (is_null($data['data'])) {
+            return $this->PageNotFound();
+        }
+        
         return view('blogs', $data);
     }
 
@@ -52,11 +57,15 @@ class BlogsController extends Controller
         $blogs = Blog::where('slug', $slug)->first();
         $data = [
             'settings' => DB::table('settings')->find(1),
-            'page' => $blogs,
+            'data' => $blogs,
             'related' => Blog::where('category_id', $blogs->category_id)->where('id', '!=', $blogs->id)->where('status', 'active')->latest()->take(3)->get(),
         ];
 
         return view('blog-details', $data);
     }
 
+    public function PageNotFound()
+    {
+        return view('errors.404');
+    }
 }

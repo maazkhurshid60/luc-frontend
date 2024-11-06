@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
 use App\Models\Blog;
+use App\Models\Faq;
 use App\Models\FaqCategory;
 use App\Models\Feedback;
+use App\Models\Job;
 use App\Models\Menu;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\Service;
 use App\Models\Team;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -26,12 +29,29 @@ class HomeController extends Controller
 
     public function index()
     {
+        $select = ['name', 'heading', 'short_description'];
         $data = [
             'settings' => DB::table('settings')->find(1),
-            'page' => Menu::where('slug', 'home')->first(),
-        ];
+            'data' => Menu::where('slug', 'home')->first(),
+            // 'about_us' => Menu::where('slug', 'about-us')->first(),
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
+            'latest_services' => Service::where('status', 'active')->latest()->take(4)->get(),
+            'latest_blogs' => Blog::where('status', 'active')->latest()->take(3)->get(),
+            'jobs' => Job::where('status', 'active')->whereDate('apply_before', '>=', Carbon::now())->latest()->take(4)->get(),
+            'faqs' => Faq::where('status', 'active')->get(),
 
-        if (!$data['page']) {
+            'lables' => [
+                'home' => Menu::where('slug', 'home')->select($select)->first(),
+                'about_us' => Menu::where('slug', 'about-us')->select($select)->first(),
+                'services' => Menu::where('slug', 'services')->select($select)->first(),
+                'projects' => Menu::where('slug', 'projects')->select($select)->first(),
+                'global_presense' => Menu::where('slug', 'global-presense')->select($select)->first(),
+                'blogs' => Menu::where('slug', 'blogs')->select($select)->first(),
+                'careers' => Menu::where('slug', 'careers')->select($select)->first(),
+            ],
+        ];
+        // dd($data);
+        if (!$data['data']) {
             return view('errors.404');
         }
 
@@ -222,12 +242,21 @@ class HomeController extends Controller
         if ($slug == 'home') {
             return redirect()->route('index');
         }
+        $data = [
+            'settings' => DB::table('settings')->find(1),
+            'data' => Menu::where('slug', $slug)->where('display', 'yes')->get()->first(),
+            'categories' => FaqCategory::latest()->get(),
+        ];
 
-        $page = Menu::where('slug', $slug)->where('display', 'yes')->get()->first();
+        if (is_null($data['data'])) {
+            return $this->PageNotFound();
+        }
 
-       
-        // Render the view for the specific slug
-        return view( $slug);
+        if (!View::exists('pages/' . $slug)) {
+            return view('pages.dynamic-page', $data);
+        }
+
+        return view($slug);
     }
 
     public function feedback_submit(Request $request)

@@ -1,10 +1,28 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', 'Projects')
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
+
 @section('content')
     <div class="main">
 
@@ -12,7 +30,7 @@
             'bg_image' => asset('assets/frontend/images/projects-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => '',
-            'page_title' => 'Projects',
+            'page_title' => $data->name,
         ])
 
         <div class="container-fluid d-flex flex-column justify-content-center py-40px">
@@ -23,9 +41,7 @@
                             Our Projects
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 txt--clr text-center">
-                            Nunc convallis semper justo quis tempor. Praesent molestie, lorem sed imperdiet tempor, libero
-                            urna semper
-                            urna, facilisis vulputate velit arcu vitae mi. Donec ac nisi ex.
+                            {{ $data->short_description }}
                         </p>
                     </div>
                     <div class="project-archive-filters pb-5 d-flex justify-content-end gap-4">
@@ -104,72 +120,35 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="project-content-wrapper d-flex flex-md-row flex-column mb-4 gap-md-0 gap-4">
-                        <div class="project-img-wrap">
-                            <a href="project-details.html"><img
-                                    src="{{ asset('assets/frontend/images/project-img1.webp') }}" alt=""
-                                    class="project--img"></a>
-                        </div>
+                    @foreach ($projects as $index => $project)
                         <div
-                            class="project-details-wrap d-flex flex-column justify-content-center align-items-md-start align-items-center ps-md-4 ps-0">
-                            <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform
-                                &
-                                Responsive Website Design</h3>
-                            <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living was
-                                a
-                                conference about productivity and entrepreneurship hosted by Ari Meisel, author of two
-                                bestselling
-                                books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-                            <span class="fit-content "><a href="project-details.html"
-                                    class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
-                                    Case Study<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
-                                        class="ms-2"></a></span>
+                            class="project-content-wrapper d-flex {{ $index % 2 == 0 ? 'flex-md-row' : 'flex-md-row-reverse' }} flex-column mb-4 gap-md-0 gap-4">
+                            <div class="project-img-wrap">
+                                <a href="{{ url('projects/' . $project->slug) }}">
+                                    <img src="{{ asset($project->image ? 'storage/images/' . $project->image : 'assets/frontend/images/project-img1.webp') }}"
+                                        alt="" class="project--img">
+                                </a>
+                            </div>
+                            <div
+                                class="project-details-wrap d-flex flex-column justify-content-center align-items-md-start align-items-center {{ $index % 2 == 0 ? 'ps-md-4 ps-0' : '' }}">
+                                <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">
+                                    {{ $project->name }}
+                                </h3>
+                                <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">
+                                    {{ $project->description }}
+                                </p>
+                                <span class="fit-content">
+                                    <a href="{{ url('projects/' . $project->slug) }}"
+                                        class="text-decoration-none wht--clr primary-btn d-flex justify-content-center align-items-center">
+                                        View Project
+                                        <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
+                                            class="ms-2">
+                                    </a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-content-wrapper d-flex flex-md-row-reverse flex-column mb-4 gap-md-0 gap-4">
-                        <div class="project-img-wrap">
-                            <a href="project-details.html"><img
-                                    src="{{ asset('assets/frontend/images/project-img2.webp') }}" alt=""
-                                    class="project--img"></a>
-                        </div>
-                        <div
-                            class="project-details-wrap-rev d-flex flex-column justify-content-center align-items-md-start align-items-center">
-                            <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform
-                                &
-                                Responsive Website Design</h3>
-                            <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living
-                                was a
-                                conference about productivity and entrepreneurship hosted by Ari Meisel, author of two
-                                bestselling
-                                books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-                            <span class="fit-content "><a href="project-details.html"
-                                    class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
-                                    Case Study<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
-                                        class="ms-2"></a></span>
-                        </div>
-                    </div>
-                    <div class="project-content-wrapper d-flex flex-md-row flex-column gap-md-0 gap-4">
-                        <div class="project-img-wrap">
-                            <a href="project-details.html"><img
-                                    src="{{ asset('assets/frontend/images/project-img3.webp') }}" alt=""
-                                    class="project--img"></a>
-                        </div>
-                        <div
-                            class="project-details-wrap d-flex flex-column justify-content-center align-items-md-start align-items-center ps-md-4 ps-0">
-                            <h3 class="head--3 secondary--clr mb-lg-4 mb-2 text-md-start text-center">PMR — Online Platform
-                                &
-                                Responsive Website Design</h3>
-                            <p class="body-txt1 txt--clr mb-lg-4 mb-2 text-md-start text-center">Less Doing, More Living
-                                was a
-                                conference about productivity and entrepreneurship hosted by Ari Meisel, author of two
-                                bestselling
-                                books: “The Art of Less Doing” and “The Replaceable Founder”.</p>
-                            <span class="fit-content "><a href="project-details.html"
-                                    class="text-decoration-none wht--clr primary-btn  d-flex justify-content-center align-items-center">View
-                                    Case Study<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
-                                        class="ms-2"></a></span>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>

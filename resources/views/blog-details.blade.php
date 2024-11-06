@@ -1,7 +1,24 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', $page->page_title)
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
@@ -13,7 +30,7 @@
             'bg_image' => asset('assets/frontend/images/blog-details-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => ['name' => 'Blogs', 'route' => 'blogs.index'],
-            'page_title' => $page->title,
+            'page_title' => $data->title,
         ])
 
         <div class="container-fluid py-40px">
@@ -28,7 +45,7 @@
                                 </span>
                             </div>
                             <div class="position-relative text-md-start text-center">
-                                <h2 class="head--2 secondary--clr mb-lg-3 mb-2">{{ $page->title }}
+                                <h2 class="head--2 secondary--clr mb-lg-3 mb-2">{{ $data->title }}
                                 </h2>
                                 <p class="body-txt1 txt--clr mb-lg-4 mb-2">Collaboration can make our teams stronger,
                                     and our individual designs better.</p>
@@ -38,16 +55,16 @@
                                     <img src="{{ asset('assets/icons/blog-auth-img.svg') }}" alt="">
                                 </div>
                                 <div class="blog-card-meta ">
-                                    <h3 class="head--4 secondary--clr mb-0">{{ $page->user }}</h3>
+                                    <h3 class="head--4 secondary--clr mb-0">{{ $data->user }}</h3>
                                     <div class="body-txt2 txt--clr mb-0">
-                                        {{ \Carbon\Carbon::parse($page->date)->format('d-M-Y') }}
+                                        {{ \Carbon\Carbon::parse($data->date)->format('d-M-Y') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end align-items-center">
-                        <img src="{{ asset('storage/images/' . $page->cover_image) }}" class="blog-dtl-fet-img anime-scale"
+                        <img src="{{ asset('storage/images/' . $data->cover_image) }}" class="blog-dtl-fet-img anime-scale"
                             alt="">
                     </div>
                 </div>

@@ -1,24 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-@php
-    $settings = DB::table('settings')->find(1);
-@endphp
+@php $settings = DB::table('settings')->find(1); @endphp
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="{{ request()->url() }}/">
 
-    <title>
-        @section('title', $settings->siteName ?? env('APP_NAME'))
-        @yield('title') | {{ $settings->siteName ?? env('APP_NAME') }}
-    </title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('assets/img/redstar-icon.png') }}">
 
+    <!-- Page Title -->
+    <title>@yield('title') | {{ $settings->siteName ?? env('APP_NAME') }}</title>
+
+    <!-- Meta Data -->
+    <meta name="keywords" content="@yield('meta-keywords')" />
+    <meta name="description" content="@yield('meta-description')">
+
+    <!-- Meta Tags -->
+    <meta name="robots" content="@yield('robots')">
+
+    <!-- General OG Card -->
+    <meta property="og:title" content="@yield('og-tile')" />
+    <meta property="og:description" content="@yield('og-description')" />
+    <meta property="og:image" content="@yield('og-image')" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:type" content="@yield('og-type')" />
+    <meta property="og:site_name" content="{{ $settings->siteName ?? env('APP_NAME') }}" />
+
+    <!-- Og Card for TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('twitter-title')">
+    <meta name="twitter:description" content="@yield('twitter-description')">
+    <meta name="twitter:image" content="@yield('twitter-image')">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/fontawesome-free-6.6.0-web/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/slick/slick.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/mainstyle.css') }}" />
     <link rel="icon" href="{{ asset('assets/frontend/icons/afcon-group-logo.svg') }}">
-
 
     @yield('custom-styles')
 </head>
@@ -59,36 +83,47 @@
                             <ul
                                 class="navbar-nav d-flex flex-row justify-content-start justify-content-start footer-quick-links gap-lg-4 gap-md-3 gap-0">
                                 <li class="nav-item">
-                                    <a href="pages/contact-us.html"
+                                    <a href="{{ Route('contact-us.index') }}"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('terms-of-services') }}"
+                                    <a href="{{ url('/terms-of-services') }}"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Term of Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('privacy-policy') }}"
+                                    <a href="{{ url('/privacy-policy') }}"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Privacy Policy</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="footer-socail-links d-flex justify-content-evenly align-items-center  mb-4">
-                            <div class="socail-links d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
-                            </div>
-                            <div class="socail-links d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/frontend/icons/twitter-x-icon.svg') }}" alt="">
-                            </div>
-                            <div class="socail-links d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/frontend/icons/linkedin-icon.svg') }}" alt="">
-                            </div>
-                            <div class="socail-links d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/frontend/icons/insta-icon.svg') }}" alt="">
-                            </div>
+                            <a href="{{ $settings->fb }}">
+                                <div class="socail-links d-flex justify-content-center align-items-center">
+                                    <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
+                                </div>
+                            </a>
+                            <a href="{{ $settings->twitter }}">
+                                <div class="socail-links d-flex justify-content-center align-items-center">
+                                    <img src="{{ asset('assets/frontend/icons/twitter-x-icon.svg') }}" alt="">
+                                </div>
+                            </a>
+                            <a href="{{ $settings->linkedin }}">
+                                <div class="socail-links d-flex justify-content-center align-items-center">
+                                    <img src="{{ asset('assets/frontend/icons/linkedin-icon.svg') }}" alt="">
+                                </div>
+                            </a>
+                            <a href="{{ $settings->instagram }}">
+                                <div class="socail-links d-flex justify-content-center align-items-center">
+                                    <img src="{{ asset('assets/frontend/icons/insta-icon.svg') }}" alt="">
+                                </div>
+                            </a>
                         </div>
                         <div
                             class="footer-copyright d-flex justify-content-md-end justify-content-center align-items-center mb-4">
-                            <p class="body-txt2 wht--clr mb-0">All rights reserved, 2024</p>
+                            <p class="body-txt2 wht--clr mb-0">
+                                &copy; {{ date('Y') }} {{ $settings->siteName ?? env('APP_NAME') }} - All rights
+                                reserved
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -100,6 +135,7 @@
     </div>
     <!-- ///////////////////////// Footer Section Ends ///////////////////////// -->
 
+    <!-- Scripts -->
     <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>

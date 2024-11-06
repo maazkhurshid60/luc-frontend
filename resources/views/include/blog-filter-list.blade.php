@@ -6,4 +6,4 @@
     @endforelse
 </div>
 
-@include('include.pagination')
+@include('include.pagination', ['paginator' => $blogs])

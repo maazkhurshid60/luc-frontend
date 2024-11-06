@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->string('contents')->nullable();
+            $table->longText('contents')->nullable();
             $table->string('location')->nullable();
             $table->string('type')->nullable();
+            $table->string('job_type')->nullable();
             $table->string('department')->nullable();
             $table->string('salary')->nullable();
             $table->string('positions')->nullable();

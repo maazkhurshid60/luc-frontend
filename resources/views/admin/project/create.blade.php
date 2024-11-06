@@ -31,7 +31,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <form method="POST" id="addForm" enctype="multipart/form-data"
+                            <form method="POST" id="addForm" enctype="multipart/form-data" class="repeater"
                                 onsubmit="return form_validation()">
                                 @csrf
 
@@ -40,10 +40,12 @@
                                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="name">
                                     </div>
+
                                     <div class="col-md-4">
                                         <label for="slug">Slug <span class="text-danger">*</span></label>
                                         <input type="text" name="slug" class="form-control form-control-sm">
                                     </div>
+
                                     <div class="col-md-4" style="display: none;">
                                         <label for="">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
@@ -78,7 +80,6 @@
                                             value="{{ $display_order }}" class="form-control form-control-sm">
                                     </div>
 
-
                                     <div class="col-md-4" style="margin-top: 3%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
@@ -86,50 +87,57 @@
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
                                     </div>
+                                    @can('meta-data.add')
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
 
+                                        <div class="col-md-4">
+                                            <label for="pagetitle">Page Title </label>
+                                            <input type="text" name="page_title" id="page_title"
+                                                class="form-control form-control-sm" maxlength="80">
+                                            <p style="color: red; font-size: 12px">Char Count:<span id="charCount">0</span>/80
+                                            </p>
 
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="pagetitle">Page Title </label>
-                                        <input type="text" name="page_title" id="page_title"
-                                            class="form-control form-control-sm" maxlength="80">
-                                        <p style="color: red; font-size: 12px">Char Count:<span id="charCount">0</span>/80
-                                        </p>
+                                        </div>
 
-                                    </div>
+                                        <div class="col-md-4">
+                                            <label for="meta_keywords">Meta Keywords </label>
+                                            <input type="text" name="meta_keywords" id="meta_keywords"
+                                                class="form-control form-control-sm">
+                                        </div>
 
-                                    <div class="col-md-4">
-                                        <label for="meta_keywords">Meta Keywords </label>
-                                        <input type="text" name="meta_keywords" id="meta_keywords"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <label for="meta_description">Meta Description </label>
-                                        <input type="text" name="meta_description" id="meta_description"
-                                            class="form-control form-control-sm" maxlength="180">
-                                        <p style="color: red; font-size: 12px">Char Count:<span
-                                                id="descriptionCharCount">0</span>/180</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="og_title">OG Title</label>
-                                        <input type="text" name="og_title" id="og_title"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="og_description">OG Description</label>
-                                        <input type="text" name="og_description" id="og_description"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <label for="og_type">OG Type</label>
-                                        <input type="text" name="og_type" id="og_type"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="meta_description">Meta Description </label>
+                                            <input type="text" name="meta_description" id="meta_description"
+                                                class="form-control form-control-sm" maxlength="180">
+                                            <p style="color: red; font-size: 12px">Char Count:<span
+                                                    id="descriptionCharCount">0</span>/180</p>
+                                        </div>
+                                    @endcan
+                                    @can('og-data.add')
+                                        <div class="col-md-4">
+                                            <label for="og_title">OG Title</label>
+                                            <input type="text" name="og_title" id="og_title"
+                                                class="form-control form-control-sm">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="og_description">OG Description</label>
+                                            <input type="text" name="og_description" id="og_description"
+                                                class="form-control form-control-sm">
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label for="og_type">OG Type</label>
+                                            <input type="text" name="og_type" id="og_type"
+                                                class="form-control form-control-sm">
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                    @endcan
                                     <div class="col-md-4">
                                         <label for="client">Client</label>
                                         <input type="text" name="client" class="form-control form-control-sm">
@@ -139,6 +147,7 @@
                                         <label for="services">Services</label>
                                         <input type="text" name="services" class="form-control form-control-sm">
                                     </div>
+
                                     <div class="col-md-4 form-group">
                                         <label for="link">Link/URL</label>
                                         <input type="text" name="link" class="form-control form-control-sm">
@@ -146,38 +155,81 @@
 
                                     <div class="col-md-12 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>
-                                        <textarea class="form-control " id="description_editor" name="description" maxlength="150"> 
-                                  
-                                </textarea>
+                                        <textarea class="form-control " id="description_editor" name="description" maxlength="150"></textarea>
                                     </div>
 
                                     <div class="col-md-12 my-2">
                                         <textarea id="editor" cols="30" rows="10"></textarea>
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <div data-repeater-list="sections-group">
+                                            <h3 style="display: inline-flex;">Details Section</h3>
+                                            <div data-repeater-item class="mb-3">
+                                                <div class="row">
+                                                    <div class="col-md-8 mb-2">
+                                                        <div class="form-group">
+                                                            <label for="input">Heading</label>
+                                                            <input type="text" name="input" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="text">Details</label>
+                                                            <textarea name="text" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col mb-2">
+                                                        <div class="form-group">
+                                                            <label for="image">Image</label>
+                                                            <input type="file" name="section_image" class="dropify"
+                                                                data-max-file-size="1M"
+                                                                data-allowed-file-extensions="jpeg png jpg gif svg webp"
+                                                                class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input data-repeater-delete type="button" value="Delete"
+                                                                class="btn btn-danger">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <input data-repeater-create type="button" value="Add Section"
+                                            class="btn btn-primary float-right">
+                                    </div>
+
                                     <div class="col-md-3">
-                                        <label>{{ __('Image') }} <span class="text-danger">*</span></label>
-                                        <input type="file" name="file" id="filez1" class="filez1"
+                                        <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
+                                        <input type="file" name="image" class="dropify" data-max-file-size="1M"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label>{{ __('Details Image') }}</label>
+                                        <input type="file" name="detail_image" class="dropify"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
+
                                     <div class="col-md-3">
-                                        <label>{{ __('Image 2') }}</label>
-                                        <input type="file" name="file2" id="filez2" class="filez2"
+                                        <label>{{ __('Images Gallery') }}</label>
+                                        <input type="file" name="gallery_image[]" class="dropify"
                                             data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp" multiple>
+                                        <small class="form-text text-muted">You can upload up to 3 images.</small>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('Header Image') }}</label>
-                                        <input type="file" name="header_image" class="filez2" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('OG Image') }}</label>
-                                        <input type="file" name="file4" id="filez4" class="filez4"
-                                            data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-6">
+                                    @can('og-data.add')
+                                        <div class="col-md-3">
+                                            <label>{{ __('OG Image') }}</label>
+                                            <input type="file" name="og_image" class="dropify" data-max-file-size="1M"
+                                                data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                        </div>
+                                    @endcan
+                                    <div class="col-md-6 mt-3">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>
@@ -185,13 +237,15 @@
                                         </select>
                                         <br>
                                     </div>
-                                    <div class="col-md-6">
+
+                                    <div class="col-md-6 mt-3">
                                         <label>{{ __('Site Visibility') }}</label>
                                         <select name="site_visibility" class="form-control form-control-sm">
                                             <option value="1">Show in Portfolio</option>
                                             <option value="0">Hide from Portfolio</option>
                                         </select>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="alert alert-danger addFormError" style="display: none;"></div>
                                         <button class="btn my-2 btn-sm btn-primary float-right">Save Record</button>
@@ -240,9 +294,22 @@
         });
     </script>
 
-
     <script type="text/javascript">
-        $(".filez1,.filez2,.filez4").dropify();
+        $(".dropify").dropify();
+        $(document).ready(function() {
+            $('#gallery-files').on('change', function() {
+                if (this.files.length > 3) {
+                    toastError("You can only upload up to 3 images.");
+                    const dataTransfer = new DataTransfer();
+                    for (let i = 0; i < 3; i++) {
+                        dataTransfer.items.add(this.files[i]);
+                    }
+                    this.files = dataTransfer.files;
+                }
+            });
+            $(".gallery-files").dropify();
+        });
+
 
         function form_validation() {
 
@@ -292,6 +359,26 @@
             allowedContent: true,
             font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.repeater').repeater({
+                initEmpty: false,
+                defaultValues: {
+                    'text-input': ''
+                },
+                show: function() {
+                    $(this).slideDown();
+                },
+                hide: function(deleteElement) {
+                    if (confirm('Are you sure you want to delete this element?')) {
+                        $(this).slideUp(deleteElement);
+                    }
+                },
+            });
         });
     </script>
 @endsection

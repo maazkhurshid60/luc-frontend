@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('email2')->nullable();
             $table->text('address')->nullable();
             $table->string('address2')->nullable();
+            $table->string('timmings')->nullable();
             $table->longText('map')->nullable();
             $table->longText('video')->nullable();
             $table->longText('about_us')->nullable();

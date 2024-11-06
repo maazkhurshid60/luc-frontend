@@ -1,7 +1,24 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', 'Services')
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
@@ -12,7 +29,7 @@
             'bg_image' => asset('assets/frontend/images/services-details-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => ['name' => 'Services', 'route' => 'services.index'],
-            'page_title' => 'Technology',
+            'page_title' => $data->title,
         ])
 
         <div class="container-fluid d-flex flex-column justify-content-center py-40px">
@@ -80,8 +97,8 @@
                         </div>
                         <div class="our-services-card p-4 mb-4 bg-white">
                             <div class="card-img-wrap mb-4">
-                                <img src="{{ asset('assets/icons/implementaion&assets/frontend/icons/implementaion&integration.svg') }}"
-                                    alt="" class="card-img" />
+                                <img src="{{ asset('assets/frontend/icons/implementaion&integration.svg') }}" alt=""
+                                    class="card-img" />
                             </div>
                             <h3 class="head--3 mb-3 secondary--clr">Implementation & Integration</h3>
                             <p class="body-txt2 mb-4 txt--clr">Lorem ipsum dolor sit amet consectetur. Sit odio etiam est
@@ -108,7 +125,7 @@
                 </div>
             </div>
         </div>
-        
+
         @include('partials.related-blogs')
 
         @include('partials.quotation-form')

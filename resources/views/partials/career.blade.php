@@ -9,7 +9,7 @@
                   nisi ex.
               </p>
           </div>
-          <div class="row pyb-60 ">
+          {{-- <div class="row pyb-60 ">
               <div class="col-md-12">
                   <div class="careers-search-bar">
                       <form>
@@ -42,11 +42,13 @@
                       </form>
                   </div>
               </div>
-          </div>
+          </div> --}}
           <div class="row job-posts-listing d-flex justify-content-between gy-4 pyb-60 px-md-auto px-3">
-              <div class="col-sm-12 col-md-6 mb-3">
-                  @include('include.job-card')
-              </div>
+              @foreach ($jobs as $job)
+                  <div class="col-sm-12 col-md-6 mb-3">
+                      @include('include.job-card')
+                  </div>
+              @endforeach
           </div>
           <div class="d-flex justify-content-center">
               <span class=""><a href="pages/careers.html"

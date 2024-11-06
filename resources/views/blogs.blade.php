@@ -1,7 +1,24 @@
 @extends('layouts.main-layout')
 
+@section('title', $data->page_title)
 
-@section('title', $page->page_title)
+@section('meta-keywords', $data->meta_keywords ?? '')
+@section('meta-description', $data->meta_description ?? '')
+
+@if ($data->search_engine)
+    @section('robots', 'nofollow, noindex')
+@else
+    @section('robots', 'follow, index')
+@endif
+
+@section('og-title', $data->og_title ?? '')
+@section('og-description', $data->og_description ?? '')
+@section('og-image', $data->og_image ?? '')
+@section('og-type', $data->og_type ?? 'website')
+
+@section('twitter-title', $data->twitter_title ?? '')
+@section('twitter-description', $data->twitter_description ?? '')
+@section('twitter-image', $data->twitter_image ?? '')
 
 @section('custom-styles')
 @endsection
@@ -12,7 +29,7 @@
             'bg_image' => asset('assets/frontend/images/blogs-hero-bg.webp'),
             'home' => ['name' => 'Home', 'route' => 'index'],
             'parent' => '',
-            'page_title' => $page->name,
+            'page_title' => $data->name,
         ])
 
         {{-- @if ($latest->isNotEmpty())

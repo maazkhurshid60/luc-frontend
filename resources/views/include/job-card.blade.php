@@ -1,31 +1,36 @@
 <div class="career-post-archive p-4 d-flex flex-lg-row flex-column gap-4 anime-scale">
     <div class="job-list-img">
-        <img src="{{ asset('assets/frontend/icons/job-icon1.svg') }}" alt="" />
+        <img src="{{ $job->file ? asset('storage/images/' . $job->file) : asset('assets/frontend/icons/job-icon1.svg') }}"
+            alt="Job Icon" class="job-icon" />
     </div>
     <div class="job-list-detail d-flex flex-column">
         <div class="d-flex align-items-center gap-2 mb-2">
             <h3 class="head--3 secondary--clr mb-0">
-                Software Engineer
+                {{ $job->title }}
             </h3>
             <span class="fit-content d-inline-block ps-sm-5 ps-0"><a href="#"
-                    class="job-post-tag text-decoration-none primary--clr d-flex justify-content-center fw-sb">Contract</a></span>
+                    class="job-post-tag text-decoration-none primary--clr d-flex justify-content-center fw-sb">{{ $job->type }}</a></span>
         </div>
         <div class="d-flex flex-wrap mb-2 gap-2">
             <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
                     src="{{ asset('assets/frontend/icons/meta-job-loc.svg') }}" alt="" class="me-2" />
-                <p class="mb-0">Brussels</p>
+                <p class="mb-0">{{ $job->location }}</p>
             </span>
             <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
                     src="{{ asset('assets/frontend/icons/meta-job-salary.svg') }}" alt="" class="me-2" />
-                <p class="mb-0">50-55k</p>
+                <p class="mb-0">{{ $job->salary }}</p>
             </span>
             <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
                     src="{{ asset('assets/frontend/icons/meta-job-type.svg') }}" alt="" class="me-2" />
-                <p class="mb-0">Full time</p>
+                <p class="mb-0">{{ $job->job_type }}</p>
             </span>
             <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
                     src="{{ asset('assets/frontend/icons/calender.svg') }}" alt="" class="me-2" />
-                <p class="mb-0">02 days ago</p>
+                <p class="mb-0">{{ \Carbon\Carbon::parse($job->created_at)->diffForHumans() }}</p>
+            </span>
+            <span class="d-flex body-txt2 txt--clr me-lg-3 me-2 job-post-txt"><img
+                    src="{{ asset('assets/frontend/icons/calender.svg') }}" alt="" class="me-2" />
+                <p class="mb-0">{{ \App\Helpers\Helper::setDate($job->apply_before) }}</p>
             </span>
         </div>
         <p class="body-txt2 mb-3">

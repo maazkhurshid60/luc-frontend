@@ -19,7 +19,7 @@ class ProjectsController extends Controller
                 'settings' => DB::table('settings')->find(1),
                 'projects' => Project::where('status', 'active')->where('site_visibility', 1)->where('category_id', $request->cat)->orderBy('display_order')->paginate(100),
                 'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
-                'page' => Menu::where('slug', 'portfolio')->first(),
+                'data' => Menu::where('slug', 'projects')->first(),
                 'service_menu' => Menu::where('slug', 'services')->first(),
                 'cat' => $request->cat,
             ];
@@ -29,39 +29,30 @@ class ProjectsController extends Controller
                 'settings' => DB::table('settings')->find(1),
                 'projects' => Project::where('status', 'active')->where('site_visibility', 1)->orderBy('display_order')->paginate(100),
                 'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
-                'page' => Menu::where('slug', 'portfolio')->first(),
+                'data' => Menu::where('slug', 'projects')->first(),
                 'service_menu' => Menu::where('slug', 'services')->first(),
             ];
         }
+        // dd($data);
+        if (is_null($data['data'])) {
+            return $this->PageNotFound();
+        }
 
         return view('projects', $data);
-        return view('project-details', $data);
     }
 
     public function details($slug)
     {
-        $service = Project::where('slug', $slug)->where('status', 'active')->first();
-        $settings = DB::table('settings')->find(1);
-
         $data = [
             'settings' => DB::table('settings')->find(1),
-            'page' => $service,
-
+            'data' => Project::where('slug', $slug)->where('status', 'active')->first(),
         ];
-
-        if (is_null($service)) {
+        // dd($data);
+        if (is_null($data['data'])) {
             return $this->PageNotFound();
         }
 
-        // Check if the view exists for the specified slug
-        if (!View::exists('portfolio/' . $slug)) {
-            // If view does not exist, redirect to another page
-            return view('portfolio/single_portfolio', compact('data', 'settings'));
-        }
-
-        // Render the view for the specific slug
-        return view('portfolio/' . $slug, compact('data', 'settings'));
-
+        return view('project-details', $data);
     }
 
     public function PageNotFound()

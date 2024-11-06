@@ -37,8 +37,8 @@
                                             class="form-control form-control-sm">
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <label>Salogan</label>
-                                        <input type="text" name="salogan" value="{{ $settings->salogan }}"
+                                        <label>Slogan</label>
+                                        <input type="text" name="slogan" value="{{ $settings->slogan }}"
                                             class="form-control form-control-sm">
                                     </div>
 
