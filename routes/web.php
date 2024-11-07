@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductFileController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TeamController;
@@ -83,6 +84,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/settings', [Dashboard::class, 'settings'])->name('settings.index');
     Route::resource('/hiring-application', HiringApplicationController::class);
     Route::resource('/feedback', FeedbackController::class);
+    Route::resource('/role', RoleController::Class);
 
 });
 
@@ -107,6 +109,7 @@ Route::prefix('admin/datatable')->middleware('auth')->group(function () {
     Route::get('/hiring-application', [HiringApplicationController::class, 'datatable'])->name('hiring-application.datatable');
     Route::get('/feedback', [FeedbackController::class, 'datatable'])->name('feedback.datatable');
     Route::get('/address', [AddressController::class, 'datatable'])->name('address.datatable');
+    Route::get('/role', [RoleController::class, 'datatable'])->name('role.datatable');
 });
 
 Route::post('ckeditor/image_upload', [Dashboard::class, 'upload'])->name('upload');

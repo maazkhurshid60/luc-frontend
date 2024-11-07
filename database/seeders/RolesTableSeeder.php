@@ -16,7 +16,7 @@ class RolesTableSeeder extends Seeder
 
         $roles = [
             [
-                'name' => 'superAdmin',
+                'name' => 'Super Admin',
                 'guard_name' => 'web',
                 'remarks' => 'Has all access',
                 'is_default' => true,
@@ -24,9 +24,9 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'user',
+                'name' => 'Admin',
                 'guard_name' => 'web',
-                'remarks' => 'Not full access',
+                'remarks' => 'Portal Access',
                 'is_default' => false,
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -144,6 +144,11 @@
                     <i class="fa fa-gear"></i> <span>{{ __('Settings') }}</span>
                 </a>
             </li>
+            <li class="@if ($menu == 'role') active selected @endif">
+                <a href="{{ route('role.index') }}">
+                    <i class="fa fa-gear"></i> <span>{{ __('Roles & Permissions') }}</span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->
