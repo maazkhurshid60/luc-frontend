@@ -173,3 +173,13 @@ scrollToTopBtn.addEventListener("click", function () {
     behavior: "smooth", // Smooth scroll to top
   });
 });
+
+  // Wait for the document to be fully loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    // Delay modal display by 5 seconds (5000 milliseconds)
+    setTimeout(function() {
+        // Use Bootstrap's JavaScript function to show the modal
+        var myModal = new bootstrap.Modal(document.getElementById("new-project"), {});
+        myModal.show();
+    }, 3000); // 5000 milliseconds = 5 seconds
+});
