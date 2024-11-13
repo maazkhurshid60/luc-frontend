@@ -14,7 +14,7 @@ class AboutUsController extends Controller
         $data = [
             'settings' => DB::table('settings')->find(1),
             'teams' => Team::where('status', 'active')->get(),
-            'page' => Menu::where('slug', 'about-us')->first(),
+            'data' => Menu::where('slug', 'about-us')->first(),
         ];
         return view('about-us' , $data);
     }

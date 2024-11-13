@@ -94,8 +94,8 @@ class MenuController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
-            'display_order' => 'required|numeric',
-            'position' => 'required',
+            // 'display_order' => 'required|numeric',
+            // 'position' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'slug' => 'required',
 
@@ -162,16 +162,15 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
             'display_order' => 'required',
             'position' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'slug' => 'required',
+            // 'slug' => 'required',
         ]);
-        $request['slug'] = Str::slug($request->post('slug'), '-');
+        // $request['slug'] = Str::slug($request->post('slug'), '-');
         $request['position'] = json_encode($request->input('position'));
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);

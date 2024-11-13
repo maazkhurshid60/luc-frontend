@@ -90,7 +90,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr"
-                                            href="{{ url('our-reach') }}">Our Reach</a>
+                                            href="{{ route('our-reach.index') }}">Our Reach</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('blogs.index') ? 'active' : '' }}"

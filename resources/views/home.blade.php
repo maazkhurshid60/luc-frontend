@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="hero-sec-img d-md-flex flex-column justify-content-end align-items-end  ">
-                        <img src="{{ asset('assets/frontend/images/conferrence-room.webp') }}" class="img--1"
-                            alt="" />
+                        <img src="{{ asset($data->image ? 'storage/images/' . $data->image : 'assets/frontend/images/conferrence-room.webp') }}"
+                            class="img--1" alt="" />
                     </div>
                 </div>
             </div>

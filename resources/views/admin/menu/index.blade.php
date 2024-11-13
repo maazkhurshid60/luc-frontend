@@ -70,7 +70,7 @@
                                             <th>{{ __('Position') }}</th>
                                             <th>{{ __('Display') }}</th>
                                             <th>{{ __('Display Order') }}</th>
-                                            <th>{{ __('Parent') }}</th>
+                                            {{-- <th>{{ __('Parent') }}</th> --}}
                                             <th class="notexport ">{{ __('Action') }}</th>
 
 
@@ -189,11 +189,10 @@
                     data: 'display_order',
                     name: 'display_order'
                 },
-
-                {
-                    data: 'parent',
-                    name: 'parent'
-                },
+                // {
+                //     data: 'parent',
+                //     name: 'parent'
+                // },
                 {
                     data: 'action',
                     name: 'action',

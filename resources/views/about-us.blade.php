@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="row flex-md-row flex-column">
                     <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-start ">
-                        <img src="{{ asset('assets/frontend/images/engineer-cooperation-technician-maintenance.webp') }}"
+                        <img src="{{ asset($data->image ? 'storage/images/' . $data->image : 'assets/frontend/images/engineer-cooperation-technician-maintenance.webp') }}"
                             class="img--2 w-100" alt="" />
                     </div>
                     <div
