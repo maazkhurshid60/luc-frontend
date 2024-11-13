@@ -139,7 +139,7 @@
 }
 
 .pb-mbl {
-  padding-bottom: 0px
+  padding-bottom: 0px;
 }
 
 .head--1 {
@@ -164,10 +164,6 @@
   font-family: var(--primary-font);
   font-weight: 500;
   font-size: 20px;
-}
-
-.head--4.primary--clr {
-  text-decoration: none;
 }
 
 .body-txt1 {
@@ -272,6 +268,13 @@
   /* Fully visible */
 }
 
+.modal-wrapper,
+.counter-wrapper {
+  max-width: 100%;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
 /* Timer Number Box */
 .time-box {
   display: inline-block;
@@ -282,6 +285,9 @@
   background-color: #ffffff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Time Numbers with Digital Style Font */
@@ -292,26 +298,14 @@
   color: #2c3e50;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .time-box {
-    width: 50px;
-    height: 70px;
-  }
-
-  .time-num {
-    font-size: 36px;
-    line-height: 70px;
-  }
-
-  .time-label {
-    font-size: 14px;
-  }
-}
-
 .pop-up-left-img {
   border-radius: 25px;
   width: 100%;
+  height: 600px;
+}
+
+.notify-me-btn {
+  width: 100px;
 }
 
 .fa-xmark {
@@ -367,7 +361,7 @@
   font-weight: 600 !important;
 }
 
-.dropdown-menu {
+.hover-dropdown-menu {
   display: none;
   /* Hide dropdown by default */
   opacity: 0;
@@ -473,6 +467,7 @@
 .img--1 {
   box-shadow: 0px 56px 26px 0px rgba(0, 0, 0, 0.24);
   border-radius: 20px;
+  width: 100%;
 }
 
 .afcon--footer {
@@ -517,6 +512,7 @@
 .our-services-card {
   border-radius: 10px;
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.1);
+  /* margin: 5px; */
 }
 
 .our-services-card:hover {
@@ -576,10 +572,6 @@
   border: 2px solid transparent;
 }
 
-.project-content a {
-  text-decoration: none;
-}
-
 .project-content:hover {
   border: 2px solid #ffffff66;
   background: rgb(20, 29, 56, 0.92);
@@ -637,7 +629,6 @@
 
 .prev-next-btns button:hover {
   background-color: var(--primary-color);
-
 }
 
 .prev-next-btns button:hover img {
@@ -958,7 +949,7 @@
   transition: ease-in-out 0.3s;
 }
 
-.our-blog-card .blog-card-content a {
+.our-blog-card a {
   text-decoration: none;
 }
 
@@ -976,12 +967,12 @@
 }
 
 .project-archive-filters button {
-  border: 1px solid #141D381A;
+  border: 1px solid #141d381a;
   box-shadow: 0px 1px 2px 0px #00000008;
 }
 
 .project-archive-filters ul {
-  border: 1px solid #141D381A;
+  border: 1px solid #141d381a;
   box-shadow: 0px 1px 2px 0px #00000008;
 }
 
@@ -1021,7 +1012,6 @@
 
 .project--img {
   width: 100%;
-  border-radius: 5px;
 }
 
 .project-details-wrap {
@@ -1134,7 +1124,7 @@
   margin: 0;
   padding: 5px;
   overflow: auto;
-  border: 1px solid #141D3814;
+  border: 1px solid #141d3814;
   border-radius: 7px;
   overflow: hidden;
 }
@@ -1148,7 +1138,7 @@
   /*border: 1px solid #d5d5de;
   border-bottom: none;*/
   cursor: pointer;
-  color: #FFF;
+  color: #fff;
   padding: 10px;
 }
 
@@ -1160,12 +1150,12 @@
 #tabs-nav li:hover a,
 #tabs-nav li.active a {
   background-color: var(--primary-color);
-  color: #FFF;
+  color: #fff;
 }
 
 .tab-content {
   padding: 10px;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .blog-pagination .page-item {
@@ -1296,7 +1286,7 @@
   list-style: none;
   margin: 0;
   overflow: hidden;
-  border: 1px solid #141D3814;
+  border: 1px solid #141d3814;
   border-radius: 7px;
 }
 
@@ -1304,7 +1294,7 @@
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  color: #FFF;
+  color: #fff;
 }
 
 #salary-tabs-nav li a {
@@ -1343,12 +1333,6 @@
   border-radius: 4px;
 }
 
-.job-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 4px;
-}
-
 /* Contact Us */
 .contact-us-bg {
   background-image: url(../images/contact-us-hero-bg.webp);
@@ -1370,11 +1354,11 @@
   right: 30px;
   width: 40px;
   height: 40px;
-  color: #0B63E5;
-  border: 2px solid #0B63E5;
-  background-color: #F0F5FF;
+  color: #0b63e5;
+  border: 2px solid #0b63e5;
+  background-color: #f0f5ff;
   border-radius: 50%;
-  box-shadow: 0px 0px 14px 0px #141D381A;
+  box-shadow: 0px 0px 14px 0px #141d381a;
   display: none;
   /* Hidden initially */
   justify-content: center;
@@ -1491,6 +1475,17 @@
   #scrollToTopBtn i {
     font-size: 16px;
   }
+
+  .digino {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  .time-box {
+    width: 50px;
+    height: 70px;
+  }
+
 }
 
 @media only screen and (max-width: 991px) {
@@ -1659,7 +1654,6 @@
   /* Projects */
   .project--img {
     height: 100%;
-    border-radius: 5px;
   }
 
   .rcard-img {
@@ -1714,6 +1708,16 @@
     padding: 50px;
   }
 
+  .digino {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .time-box {
+    width: 40px;
+    height: 50px;
+  }
+
   #scrollToTopBtn {
     bottom: 50px;
     right: 15px;
@@ -1756,6 +1760,26 @@
     line-height: 120%;
   }
 
+  .time-box {
+    width: 50px;
+    height: 70px;
+  }
+
+  .time-num {
+    font-size: 36px;
+    line-height: 70px;
+  }
+
+  .time-label {
+    font-size: 14px;
+  }
+
+  .modal-wrapper {
+    max-width: 500px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
   .img--1 {
     width: 100%;
     height: 260px;
@@ -1778,7 +1802,7 @@
   }
 
   .afcon--home-hero-section {
-    height: 695px;
+    height: 725px;
   }
 
   .ourservices--1 {
@@ -1918,7 +1942,7 @@
   }
 
   .our-rblog-card {
-    box-shadow: 0px 12px 56px 0px #061C3D1F;
+    box-shadow: 0px 12px 56px 0px #061c3d1f;
     border-radius: 20px;
   }
 
@@ -1935,7 +1959,7 @@
   #tabs-nav li:hover a,
   #tabs-nav li.active a {
     background-color: var(--secondry-color);
-    color: #FFF;
+    color: #fff;
   }
 
   #tabs-nav li a {
@@ -1982,6 +2006,21 @@
   .contact-form-sec {
     padding: 20px 30px;
   }
+
+  .digino {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .time-box {
+    width: 30px;
+    height: 40px;
+  }
+
+  .pop-up-left-img {
+    height: 300px;
+    margin-bottom: 20px;
+  }
 }
 
 @media only screen and (max-width: 576px) {
@@ -2024,7 +2063,7 @@
 
 @media (min-width: 1400px) {
   .container {
-    max-width: 100%;
+    max-width: 1380px;
     padding-left: 100px;
     padding-right: 100px;
   }

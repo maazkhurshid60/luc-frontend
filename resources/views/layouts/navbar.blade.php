@@ -69,7 +69,7 @@
                                             href="{{ route('services.index') }}" role="button" aria-expanded="false">
                                             Services
                                         </a>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu hover-dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item secondary--font fw-md secondary--font fw-md"
                                                     href="pages/services-detail.html">Technology</a>
@@ -81,7 +81,7 @@
                                             href="{{ route('projects.index') }}" role="button" aria-expanded="false">
                                             Projects
                                         </a>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu hover-dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item secondary--font fw-md"
                                                     href="pages/project-details.html">PMR</a>

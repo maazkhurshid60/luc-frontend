@@ -239,7 +239,7 @@
                                 <!-- START tabs-nav -->
                                 <ul id="tabs-nav" class="d-md-block d-none">
                                     <li>
-                                        <a href="#all" class="body-txt2 txt--clr text-decoration-none text-center active"
+                                        <a href="#0" class="body-txt2 txt--clr text-decoration-none text-center active"
                                             data-category-id="0">All</a>
                                     </li>
                                     @foreach ($categories as $category)
@@ -253,27 +253,27 @@
                                 <!-- END tabs-nav -->
                                 <div class="dropdown d-md-none d-block w-100">
                                     <button class="btn dropdown-toggle w-100 tabs-mbl-dropper" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">All</button>
+                                        data-bs-toggle="dropdown" aria-expanded="false" id="selected-category">All</button>
                                     <ul class="dropdown-menu w-100" id="tabs-nav">
-                                        <li><a href="#all" class="body-txt2 txt--clr text-decoration-none text-center"
+                                        <li><a href="#0" class="body-txt2 txt--clr text-decoration-none text-center"
                                                 data-category-id="0">All</a></li>
                                         @foreach ($categories as $category)
                                             <li><a href="#{{ $category->id }}"
-                                                    class="body-txt2 txt--clr text-decoration-none text-center"
+                                                    class="body-txt2 txt--clr text-decoration-none text-center category-option"
                                                     data-category-id="{{ $category->id }}">{{ $category->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </div>
                             <div id="tabs-content">
-                                <div id="all" class="tab-content active">
-                                    <div class="our--blog d-flex justify-content-between flex-wrap">
+                                <div id="0" class="tab-content active">
+                                    {{-- <div class="our--blog d-flex justify-content-between flex-wrap">
                                         @foreach ($blogs as $blog)
                                             @include('include.blog-card', ['blog' => $blog])
                                         @endforeach
                                     </div>
                                     <hr class="m-0" />
-                                    @include('include.pagination', ['paginator' => $blogs])
+                                    @include('include.pagination', ['paginator' => $blogs]) --}}
                                 </div>
                                 @foreach ($categories as $category)
                                     <div id="{{ $category->id }}" class="tab-content">
@@ -293,52 +293,69 @@
 @section('custom-js')
     <script>
         $(document).ready(function() {
-            // Handle tab clicks
-            $('#tabs-nav a').on('click', function(event) {
-                event.preventDefault();
+            var selectedCategory = 0;
 
-                // Remove active class from all tabs and add it to the clicked tab
+            $('#tabs-nav a').on('click', function(e) {
+                e.preventDefault();
+
+                selectedCategory = $(this).data('category-id');
+
                 $('#tabs-nav a').removeClass('active');
                 $(this).addClass('active');
 
-                var categoryId = $(this).data('category-id');
-                var targetId = $(this).attr('href').substring(1);
-
-                // Hide all tab contents and show the selected one
-                $('.tab-content').removeClass('active');
-                $('#' + targetId).addClass('active');
-
-                // Make the AJAX request to get blogs based on the selected category
-                $.ajax({
-                    url: '{{ route('blogs.index') }}',
-                    type: 'GET',
-                    data: {
-                        category_id: categoryId
-                    },
-                    success: function(data) {
-                        // Update the content of the selected tab
-                        $('#' + targetId).html(data);
-
-                        // Update the URL without reloading the page
-                        history.pushState(null, '', '?category_id=' + categoryId);
-                    },
-                    error: function() {
-                        alert('Error loading blogs. Please try again.');
-                    }
-                });
+                fetchBlogs(selectedCategory, 1);
             });
 
-            // Handle browser back/forward navigation
-            window.onpopstate = function(event) {
-                var urlParams = new URLSearchParams(window.location.search);
-                var categoryId = urlParams.get('category_id');
+            $(document).on('click', '.page-link', function(e) {
+                e.preventDefault();
 
-                if (categoryId) {
-                    $('#tabs-nav a[data-category-id="' + categoryId + '"]').click();
-                } else {
-                    $('#tabs-nav a[data-category-id="0"]').click(); // Load "All" tab
-                }
-            };
+                var page = $(this).data('page');
+
+                fetchBlogs(selectedCategory, page);
+            });
+
+            function fetchBlogs(categoryId, page) {
+                $.ajax({
+                    url: "{{ route('blogs.index') }}",
+                    type: "GET",
+                    data: {
+                        category_id: categoryId,
+                        page: page,
+                    },
+                    success: function(response) {
+                        $('#' + categoryId).html(response);
+
+                        $('html, body').animate({
+                            scrollTop: $('#' + categoryId).offset().top
+                        });
+                    }
+                });
+            }
+
+            if (selectedCategory !== 0) {
+                $('#tabs-nav a[data-category-id="' + selectedCategory + '"]').trigger('click');
+            } else {
+                fetchBlogs(0, 1);
+            }
+        });
+
+        // Select all category links and the dropdown button element
+        document.querySelectorAll('.category-option').forEach(item => {
+            item.addEventListener('click', function(event) {
+                // Prevent the default link behavior
+                event.preventDefault();
+
+                // Get the selected category text
+                const selectedText = event.target.textContent;
+
+                // Update the dropdown button text
+                document.getElementById('selected-category').textContent = selectedText;
+
+                // Close the dropdown by simulating a click on the dropdown button
+                const dropdownButton = document.getElementById('selected-category');
+                const bootstrapDropdown = new bootstrap.Dropdown(dropdownButton);
+                bootstrapDropdown.hide();
+            });
         });
     </script>
 @endsection

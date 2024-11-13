@@ -94,7 +94,7 @@
                         @endforeach
                     </div>
                     <hr class="m-0" />
-                    @include('include.pagination', ['paginator' => $jobs])
+                    @include('include.simple-pagination', ['paginator' => $jobs])
                 </div>
             </div>
         </div>
