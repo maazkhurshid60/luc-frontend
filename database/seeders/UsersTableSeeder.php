@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'user_id' => 1,
-            'name' => 'Admin',
+            'name' => 'Super Admin',
             'email' => 'admin@afcon.com',
             'status' => 'active',
             'username' => 'admin',

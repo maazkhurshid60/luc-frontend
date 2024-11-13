@@ -19,6 +19,9 @@ class TeamFileController extends Controller
      */
     public function index(Request $request)
     {
+        if (!auth()->user()->can('team.view')) {
+            abort(401);
+        }
         $files = Obj::where('team_id', $request->team_id)->orderBy('created_at', 'desc')->get();
         $team = Team::find($request->team_id);
 
@@ -38,9 +41,12 @@ class TeamFileController extends Controller
      */
     public function create(Request $request)
     {
+        if (!auth()->user()->can('team.create')) {
+            abort(401);
+        }
         $team_id = $request->team_id;
-        $display_order = Obj::where('team_id' ,$team_id)->max('display_order') +1;
-        return view('admin.team.create-file', compact('team_id','display_order'));
+        $display_order = Obj::where('team_id', $team_id)->max('display_order') + 1;
+        return view('admin.team.create-file', compact('team_id', 'display_order'));
     }
 
     /**
@@ -51,6 +57,9 @@ class TeamFileController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('team.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
@@ -83,6 +92,9 @@ class TeamFileController extends Controller
      */
     public function show($id, Request $request)
     {
+        if (!auth()->user()->can('team.view')) {
+            abort(401);
+        }
         $data = Obj::findOrFail($request->id);
         return view('admin.team.edit-file', compact('data'));
 
@@ -108,6 +120,9 @@ class TeamFileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('team.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
 
         $validator = \Validator::make($request->all(), [

@@ -27,6 +27,9 @@ class BlogController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('blog.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'blog',
             'settings' => DB::table('settings')->first(),
@@ -35,13 +38,20 @@ class BlogController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('blog.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="' . route('blog.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('blog.edit')) {
+                    $action .= '<a href="' . route('blog.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('blog.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
             ->editColumn('image', function ($item) {
@@ -58,6 +68,9 @@ class BlogController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('blog.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'blog',
             'display_order' => Obj::max('display_order') + 1,
@@ -77,6 +90,9 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('blog.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'short_description' => 'required',
@@ -133,6 +149,9 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('blog.edit')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'blog',
@@ -154,6 +173,9 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('blog.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -201,6 +223,9 @@ class BlogController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('blog.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->image)) {
             Storage::disk('public')->delete('images/' . $record->image);

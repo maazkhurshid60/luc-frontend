@@ -17,6 +17,9 @@ class HiringApplicationController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('lead.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'hiring-application',
             'team' => Team::where('status', 'active')->pluck('id', 'name'),
@@ -27,6 +30,9 @@ class HiringApplicationController extends Controller
 
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('lead.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         if ($request->has('client') && $request->input('client') !== "") {
@@ -64,6 +70,9 @@ class HiringApplicationController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->can('lead.view')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'hiring-application',
@@ -75,6 +84,9 @@ class HiringApplicationController extends Controller
 
     public function destroy(Request $request)
     {
+        if (!auth()->user()->can('lead.delete')) {
+            abort(401);
+        }
         $application = Obj::find($request->id);
 
         if ($application) {

@@ -21,6 +21,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
@@ -29,13 +33,21 @@ class ServiceController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="' . route('service.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('service.edit')) {
+                    $action .= '<a href="' . route('service.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('service.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
 
@@ -49,6 +61,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'service',
             'display_order' => Obj::max('display_order') + 1,
@@ -65,6 +81,10 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'status' => 'required',
@@ -131,6 +151,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -141,6 +162,10 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('service.edit')) {
+            abort(401);
+        }
+
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'service',
@@ -159,6 +184,10 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('service.edit')) {
+            abort(401);
+        }
+
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -224,6 +253,10 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('service.delete')) {
+            abort(401);
+        }
+
         $record = Obj::findOrFail($request->input('id'));
         $record->delete();
         return back()->with('success', 'Record Deleted successfully');

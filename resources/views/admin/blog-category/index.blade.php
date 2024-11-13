@@ -27,9 +27,10 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">{{ __($heading . ' List') }}</h3>
-                            <button data-toggle="modal" data-target=".addModal"
-                                class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button>
-                    
+                            @can('blog.create')
+                                <button data-toggle="modal" data-target=".addModal"
+                                    class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button>
+                            @endcan
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -46,8 +47,6 @@
                                                 <th>{{ ucfirst($item) }}</th>
                                             @endforeach
                                             <th class="notexport">{{ __('Action') }}</th>
-
-
                                         </tr>
                                     </thead>
 
@@ -99,8 +98,8 @@
         </form>
 
     </div>
-    <div class="modal fade extraModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" style="display: none;">
+    <div class="modal fade extraModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+        style="display: none;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content brad0">
                 <div class="modal-header brad0 extraModalHeader">
@@ -269,7 +268,7 @@
                 $(".extraModalBody").html(res);
             })
         }
-       
+
 
         function delete_record(recordID) {
             if (true) {

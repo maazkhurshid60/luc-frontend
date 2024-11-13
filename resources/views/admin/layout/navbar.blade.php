@@ -1,4 +1,4 @@
-<header class="main-header">
+<header class="main-header skin-blue">
     <!-- Logo -->
     <a href="/" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -19,14 +19,24 @@
                 <!-- User Account -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('assets/backend/images/' . $user_image) }}" class="user-image rounded-circle"
-                            alt="User Image">
+                        @if (auth()->user()->image)
+                            <img src="{{ asset('storage/images/' . $user_image) }}" class="user-image rounded-circle"
+                                alt="User Image">
+                        @else
+                            <img src="{{ asset('assets/backend/images/' . $user_image) }}"
+                                class="user-image rounded-circle" alt="User Image">
+                        @endif
                     </a>
                     <ul class="dropdown-menu scale-up">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{ asset('assets/backend/images/' . $user_image) }}" class="rounded float-left"
-                                alt="User Image">
+                            @if (auth()->user()->image)
+                                <img src="{{ asset('storage/images/' . $user_image) }}" class="rounded float-left"
+                                    alt="User Image">
+                            @else
+                                <img src="{{ asset('assets/backend/images/' . $user_image) }}"
+                                    class="user-image rounded-circle" alt="User Image">
+                            @endif
                             <p>
                                 {{ Auth::user()->name }}
                             </p>

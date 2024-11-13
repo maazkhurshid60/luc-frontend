@@ -27,10 +27,11 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">{{ __($heading . ' List') }}</h3>
-                            {{-- <button  data-toggle="modal" data-target=".addModal"  class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button> --}}
-                            <a href="{{ route('team.create') }}"
-                                class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</a>
-
+                            @can('team.create')
+                                {{-- <button  data-toggle="modal" data-target=".addModal"  class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button> --}}
+                                <a href="{{ route('team.create') }}"
+                                    class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</a>
+                            @endcan
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -38,28 +39,28 @@
                             <form method="POST" id="search-form" class="form-inline" role="form">
 
                                 <!-- <div class="form-group mr-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
-                                                                                            </div>
+                                                                                                    <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
+                                                                                                </div>
 
-                                                                                            <div class="form-group mx-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
-                                                                                            </div>
-                                                                                             <div class="form-group mx-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
-                                                                                            </div>
-                                                                                            <div class="form-group mx-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
-                                                                                            </div>
-                                                                                            <div class="form-group mx-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
-                                                                                            </div>
-                                                                                            <div class="form-group mx-1">
-                                                                                                <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
-                                                                                            </div>
+                                                                                                <div class="form-group mx-1">
+                                                                                                    <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
+                                                                                                </div>
+                                                                                                 <div class="form-group mx-1">
+                                                                                                    <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
+                                                                                                </div>
+                                                                                                <div class="form-group mx-1">
+                                                                                                    <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
+                                                                                                </div>
+                                                                                                <div class="form-group mx-1">
+                                                                                                    <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
+                                                                                                </div>
+                                                                                                <div class="form-group mx-1">
+                                                                                                    <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
+                                                                                                </div>
 
 
 
-                                                                                            <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
+                                                                                                <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
                             </form>
                             <div class="table-responsive">
                                 <table id="dTable" class="table table-bordered table-striped spTable">

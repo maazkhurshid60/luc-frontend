@@ -20,6 +20,10 @@ class ProjectController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->can('project.view')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'project',
             'settings' => DB::table('settings')->first(),
@@ -30,13 +34,21 @@ class ProjectController extends Controller
 
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('project.view')) {
+            abort(401);
+        }
+
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="' . route('project.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('project.edit')) {
+                    $action .= '<a href="' . route('project.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('project.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
             ->editColumn('image', function ($item) {
@@ -46,7 +58,7 @@ class ProjectController extends Controller
                 return $item->category->title;
             })
             ->editColumn('date', function ($item) {
-                return setDate($item->date);
+                return Helper::setDate($item->date);
             })
 
             ->rawColumns(['action', 'image', 'date'])
@@ -55,6 +67,10 @@ class ProjectController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('project.create')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'project',
             'display_order' => Obj::max('display_order') + 1,
@@ -65,14 +81,17 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->gallery_images);
+        if (!auth()->user()->can('project.create')) {
+            abort(401);
+        }
+
         $categories_id = json_encode($request->input('category_select'));
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
+            'category_select' => 'required',
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
             'detial_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
-            'category_select' => 'required',
             'display_order' => 'required',
             'gallery_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:1024',
             'sections-group.*.input' => 'required|string',
@@ -80,6 +99,9 @@ class ProjectController extends Controller
             'sections-group.*.section_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:1024',
 
         ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
 
         $request['slug'] = Str::slug($request->post('slug'), '-');
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
@@ -90,9 +112,6 @@ class ProjectController extends Controller
             $request['color_code'] = '#daddff';
         }
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()]);
-        }
         if ($request->hasFile('image')) {
             $request['cover_image'] = Helper::handleImageUpload($request->file('image'));
         }
@@ -143,6 +162,10 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->can('project.edit')) {
+            abort(401);
+        }
+
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'project',
@@ -155,6 +178,10 @@ class ProjectController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('project.edit')) {
+            abort(401);
+        }
+
         $categories_id = json_encode($request->input('category_select'));
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
@@ -257,6 +284,10 @@ class ProjectController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('project.delete')) {
+            abort(401);
+        }
+
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->image)) {
             Storage::disk('public')->delete('images/' . $record->image);

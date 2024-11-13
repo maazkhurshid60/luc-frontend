@@ -243,6 +243,44 @@ class Helper
             echo "<option value='' disabled selected>No Options</option>";
         }
     }
+
+    public static function getRoles($config = [])
+    {
+        // Set the table to 'roles' by default
+        $config['table'] = 'roles';
+
+        // Define default values for other options
+        $cond = $config['cond'] ?? [];
+        $value = $config['value'] ?? 'id';
+        $key = $config['key'] ?? $value;
+        $select = $config['select'] ?? [];
+        $select = is_array($select) ? $select : [$select];
+        $selectOption = $config['selectOption'] ?? false;
+
+        // Add condition to exclude "Super Admin" role
+        $data = DB::table($config['table'])
+            ->where($cond)
+            ->where('name', '!=', 'Super Admin')
+            ->get();
+
+        // Start building the options output
+        $options = '';
+        if ($data->isNotEmpty()) {
+            if ($selectOption) {
+                $options .= "<option value='' disabled selected>Select option</option>";
+            }
+            foreach ($data as $row2) {
+                $selected = in_array($row2->$key, $select) ? 'selected' : '';
+                $options .= "<option value='" . $row2->$key . "' " . $selected . '>' . $row2->$value . '</option>';
+            }
+        } else {
+            $options .= "<option value='' disabled selected>No Options</option>";
+        }
+
+        // Return the options string
+        return $options;
+    }
+
     //older not checked
 
     public static function shout(string $string)

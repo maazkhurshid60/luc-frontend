@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Faq as Obj;
+use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Faq as Obj;
-use Auth,Helper,Image;
+
 class FaqController extends Controller
 {
     /**
@@ -17,29 +18,39 @@ class FaqController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('faq.view')) {
+            abort(401);
+        }
         $data = [
-            'menu'  => 'faq',
-            'settings'  => DB::table('settings')->first(),
+            'menu' => 'faq',
+            'settings' => DB::table('settings')->first(),
         ];
-        return view('admin.faq.index',$data);
+        return view('admin.faq.index', $data);
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('faq.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
-        
+
         return datatables($items)
-        ->addColumn('action',function($item){
-          
-            $action = '<a href="javascript:updateRecord('.$item->id.')"  class="btn btn-xs btn-primary" >Edit</a> ';
-            $action .= '<a href="javascript:delete_record('.$item->id.')"  class="btn btn-xs btn-danger" >Delete</a> ';
-            return $action;
-        })
-        ->editColumn('category_id',function($item){
-            return $item->category->title;
-        })
-    
-        ->rawColumns(['action'])
-        ->toJson();
+            ->addColumn('action', function ($item) {
+                $action = '';
+                if (auth()->user()->can('faq.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('faq.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                }
+                return $action;
+            })
+            ->editColumn('category_id', function ($item) {
+                return $item->category->title;
+            })
+
+            ->rawColumns(['action'])
+            ->toJson();
     }
     /**
      * Show the form for creating a new resource.
@@ -59,17 +70,19 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('faq.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'question' => 'required',
             'answer' => 'required',
-            'category_id'   => 'required'
+            'category_id' => 'required',
         ]);
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
         }
         $obj = Obj::create($request->all());
-        return response()->json(['success'=>'Record is successfully added','id'=>$obj->id]);
+        return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
     }
 
     /**
@@ -80,8 +93,11 @@ class FaqController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('faq.view')) {
+            abort(401);
+        }
         $data['data'] = Obj::findOrFail($id);
-        return view('admin.faq.edit',$data);
+        return view('admin.faq.edit', $data);
     }
 
     /**
@@ -92,7 +108,7 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -104,21 +120,23 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('faq.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'question' => 'required',
             'answer' => 'required',
-            'category_id'   => 'required'
+            'category_id' => 'required',
 
         ]);
-        
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
         }
-       
+
         $record->update($request->all());
-        return response()->json(['success'=>'Record is successfully Updated']);
+        return response()->json(['success' => 'Record is successfully Updated']);
     }
 
     /**
@@ -127,11 +145,13 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('faq.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         $record->delete();
-        return back()->with('success','Record Deleted successfully');
+        return back()->with('success', 'Record Deleted successfully');
     }
 }
-

@@ -2,10 +2,7 @@
 
 @section('content')
     @php
-        $data_route = route('project.datatable');
         $store_url = route('project.store');
-        $destroy_url = route('project.destroy', 11);
-        $update_url = route('project.update', 11);
         $heading = 'Add Project';
     @endphp
     <div class="content-wrapper">
@@ -16,11 +13,9 @@
                         {{ __('Dashboard') }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('project.index') }}"><i class="fa fa-list"></i>
                         {{ __('Project List') }}</a></li>
-
                 <li class="breadcrumb-item active">{{ __($heading) }}</li>
             </ol>
         </section>
-
 
         <section class="content">
             <div class="row">
@@ -87,7 +82,8 @@
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
                                     </div>
-                                    @can('meta-data.add')
+
+                                    @can('meta-data.create')
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
@@ -115,7 +111,8 @@
                                                     id="descriptionCharCount">0</span>/180</p>
                                         </div>
                                     @endcan
-                                    @can('og-data.add')
+
+                                    @can('og-data.create')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title"
@@ -138,6 +135,7 @@
                                             <hr>
                                         </div>
                                     @endcan
+
                                     <div class="col-md-4">
                                         <label for="client">Client</label>
                                         <input type="text" name="client" class="form-control form-control-sm">
@@ -222,13 +220,15 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp" multiple>
                                         <small class="form-text text-muted">You can upload up to 3 images.</small>
                                     </div>
-                                    @can('og-data.add')
+
+                                    @can('og-data.create')
                                         <div class="col-md-3">
                                             <label>{{ __('OG Image') }}</label>
                                             <input type="file" name="og_image" class="dropify" data-max-file-size="1M"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
                                     @endcan
+
                                     <div class="col-md-6 mt-3">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
@@ -241,8 +241,8 @@
                                     <div class="col-md-6 mt-3">
                                         <label>{{ __('Site Visibility') }}</label>
                                         <select name="site_visibility" class="form-control form-control-sm">
-                                            <option value="1">Show in Portfolio</option>
-                                            <option value="0">Hide from Portfolio</option>
+                                            <option value="1">Show in Projects</option>
+                                            <option value="0">Hide from Projects</option>
                                         </select>
                                     </div>
 

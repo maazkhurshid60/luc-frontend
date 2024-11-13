@@ -17,6 +17,9 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'job-category',
             'settings' => DB::table('settings')->first(),
@@ -25,6 +28,9 @@ class JobCategoryController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
@@ -56,6 +62,9 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('job-category.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
 
@@ -75,6 +84,9 @@ class JobCategoryController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
         $data['data'] = Obj::findOrFail($id);
         return view('admin.job-category.edit', $data);
     }
@@ -99,6 +111,9 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('job-category.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -120,6 +135,9 @@ class JobCategoryController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('job-category.delete')) {
+            abort(401);
+        }
         try {
             $record = Obj::findOrFail($request->input('id'));
             if ($record->jobs()->exists()) {

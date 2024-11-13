@@ -19,6 +19,9 @@ class TeamController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('team.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'team',
             'settings' => DB::table('settings')->first(),
@@ -27,14 +30,23 @@ class TeamController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('team.view')) {
+            abort(401);
+        }
         $items = Obj::select('*')->latest();
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:fileList(' . $item->id . ')"  class="btn btn-xs btn-secondary" >Files</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('team.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('team.edit')) {
+                    $action .= '<a href="javascript:fileList(' . $item->id . ')"  class="btn btn-xs btn-secondary" >Files</a> ';
+                }
+                if (auth()->user()->can('team.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
 
@@ -48,6 +60,9 @@ class TeamController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('team.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'team',
             'display_order' => Obj::max('display_order') + 1,
@@ -64,6 +79,9 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('team.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
             'designation' => 'required',
@@ -95,6 +113,9 @@ class TeamController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('team.view')) {
+            abort(401);
+        }
         $data['data'] = Obj::findOrFail($id);
         return view('admin.team.edit', $data);
     }
@@ -119,6 +140,9 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('team.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
@@ -182,6 +206,9 @@ class TeamController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('team.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->image)) {
             Storage::disk('public')->delete('images/' . $record->image);

@@ -24,6 +24,9 @@ class MenuController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('menu.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'menu',
             'settings' => DB::table('settings')->first(),
@@ -32,15 +35,22 @@ class MenuController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('menu.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
+                return view('admin.menu.action', $item);
 
-                $action = '<a href="' . route('menu.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                return $action;
             })
+            // ->addColumn('action', function ($item) {
+
+            //     $action = '<a href="' . route('menu.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
+            //     $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+            //     return $action;
+            // })
             // ->editColumn('parent',function($item){
             //     if($item->parent == 0) return 'Main Menu';
             //     else
@@ -63,6 +73,9 @@ class MenuController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('menu.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'menu',
             'display_order' => Obj::max('display_order') + 1,
@@ -128,6 +141,9 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('menu.edit')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'menu',
@@ -180,6 +196,9 @@ class MenuController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('menu.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->image)) {
             Storage::disk('public')->delete('images/' . $record->image);

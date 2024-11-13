@@ -25,6 +25,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('role.view')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'role',
         ];
@@ -38,6 +42,10 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('role.create')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'role',
         ];
@@ -46,7 +54,11 @@ class RoleController extends Controller
 
     public function datatable(Request $request)
     {
-        $items = Role::select('*');
+        if (!auth()->user()->can('role.view')) {
+            abort(401);
+        }
+
+        $items = Role::select('*')->where('id', '!=', 1);
         return datatables($items)
             ->addColumn('action', function ($item) {
                 if ($item->is_default == 0) {
@@ -110,6 +122,7 @@ class RoleController extends Controller
         if (!auth()->user()->can('role.edit')) {
             abort(401);
         }
+
         $obj = Role::findOrFail($id);
         $role_permissions = array();
 

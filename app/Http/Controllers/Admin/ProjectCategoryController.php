@@ -19,6 +19,9 @@ class ProjectCategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('project-category.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'project-category',
             'settings' => DB::table('settings')->first(),
@@ -28,13 +31,20 @@ class ProjectCategoryController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('project-category.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('project-category.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('project-category.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
 
@@ -59,6 +69,9 @@ class ProjectCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('project-category.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'icon_file' => 'required|image|mimes:svg',
@@ -74,7 +87,7 @@ class ProjectCategoryController extends Controller
         if ($request->hasFile('icon_file')) {
             $request['icon'] = Helper::handleImageUpload($request->file('icon_file'));
         }
-        
+
         $obj = Obj::create($request->all());
         return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
     }
@@ -87,6 +100,9 @@ class ProjectCategoryController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('project-category.view')) {
+            abort(401);
+        }
         $data['data'] = Obj::findOrFail($id);
         return view('admin.project-category.edit', $data);
     }
@@ -111,6 +127,9 @@ class ProjectCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('project-category.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -176,6 +195,9 @@ class ProjectCategoryController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('project-category.delete')) {
+            abort(401);
+        }
         try {
             $category = Obj::findOrFail($request->input('id'));
 

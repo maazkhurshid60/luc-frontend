@@ -4,7 +4,7 @@
 
     <body class="hold-transition login-page2 bg-light">
         <div class="position-absolute top-0 left-0 m-4" style="z-index: 1;">
-            <img src="{{ asset('backend/images/afcon-group-logo-white.png') }}" alt="Afcon Group Logo" class="img-fluid"
+            <img src="{{ asset('assets/backend/images/afcon-group-logo-white.png') }}" alt="Afcon Group Logo" class="img-fluid"
                 style="width: max-content;">
         </div>
 
@@ -13,7 +13,7 @@
             <div class="col-md-6 text-white d-flex justify-content-center vh-100 flex-column"
                 style="background-color: #0B63E5;">
                 <div class="text-center">
-                    <img src="{{ asset('backend/images/login-image.png') }}"class="">
+                    <img src="{{ asset('assets/backend/images/login-image.png') }}"class="">
                     <h3>Lorem ipsum dolor sit amet consectetur.</h3>
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
                 </div>

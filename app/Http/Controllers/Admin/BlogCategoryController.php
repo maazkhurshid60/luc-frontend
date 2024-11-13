@@ -20,6 +20,9 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'blog-category',
             'settings' => DB::table('settings')->first(),
@@ -27,15 +30,23 @@ class BlogCategoryController extends Controller
         ];
         return view('admin.blog-category.index', $data);
     }
+
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('blog-category.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('blog-category.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
 
@@ -60,6 +71,9 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('blog-category.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
 
@@ -80,6 +94,9 @@ class BlogCategoryController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
         $data['data'] = Obj::findOrFail($id);
         return view('admin.project-category.edit', $data);
     }
@@ -104,6 +121,9 @@ class BlogCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('blog-category.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -169,6 +189,9 @@ class BlogCategoryController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('blog-category.delete')) {
+            abort(401);
+        }
         try {
             $category = Obj::findOrFail($request->input('id'));
             $blogs = Blog::all();

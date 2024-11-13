@@ -22,6 +22,9 @@ class ClientController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('client.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'client',
             'display_order' => Obj::max('display_order') + 1,
@@ -31,13 +34,20 @@ class ClientController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('client.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('client.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('client.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
             ->editColumn('logo', function ($item) {
@@ -54,6 +64,9 @@ class ClientController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('client.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'client',
             'settings' => DB::table('settings')->first(),
@@ -69,6 +82,9 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('client.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:500',
             'display_order' => 'required',
@@ -98,6 +114,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
+        if (!auth()->user()->can('client.view')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'client',
@@ -127,6 +146,9 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('client.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:500',
@@ -157,6 +179,9 @@ class ClientController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('client.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->logo)) {
             Storage::disk('public')->delete('images/' . $record->logo);

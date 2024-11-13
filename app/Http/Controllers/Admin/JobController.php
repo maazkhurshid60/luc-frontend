@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Image;
 use App\Helpers\Helper;
+use App\Http\Controllers\Controller;
 use App\Models\Job as Obj;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Image;
 
 class JobController extends Controller
 {
@@ -24,6 +24,9 @@ class JobController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('job.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'job',
             'settings' => DB::table('settings')->first(),
@@ -32,6 +35,9 @@ class JobController extends Controller
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('job.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
@@ -58,6 +64,9 @@ class JobController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('job.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'job',
             'settings' => DB::table('settings')->first(),
@@ -73,6 +82,9 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('job.create')) {
+            abort(401);
+        }
         $request['slug'] = Str::slug($request->post('slug'), '-');
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -143,6 +155,9 @@ class JobController extends Controller
      */
     public function edit($id)
     {
+        if (!auth()->user()->can('job.edit')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'job',
@@ -161,6 +176,9 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('job.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -225,6 +243,9 @@ class JobController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('job.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
 
         if (!is_null($record->file)) {

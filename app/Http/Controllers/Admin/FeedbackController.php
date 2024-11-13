@@ -17,6 +17,9 @@ class FeedbackController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('feedback.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'feedback',
             'team' => Team::where('status', 'active')->pluck('id', 'name'),
@@ -27,6 +30,9 @@ class FeedbackController extends Controller
 
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('feedback.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         if ($request->has('name') && $request->input('name') !== "") {
@@ -49,13 +55,15 @@ class FeedbackController extends Controller
                 return $action;
             })
 
-
             ->rawColumns(['action'])
             ->toJson();
     }
 
     public function show($id)
     {
+        if (!auth()->user()->can('feedback.view')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'feedback',
@@ -67,6 +75,9 @@ class FeedbackController extends Controller
 
     public function destroy(Request $request)
     {
+        if (!auth()->user()->can('feedback.delete')) {
+            abort(401);
+        }
         $application = Obj::find($request->id);
 
         if ($application) {
