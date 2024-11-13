@@ -339,19 +339,11 @@
             }
         });
 
-        // Select all category links and the dropdown button element
         document.querySelectorAll('.category-option').forEach(item => {
             item.addEventListener('click', function(event) {
-                // Prevent the default link behavior
                 event.preventDefault();
-
-                // Get the selected category text
                 const selectedText = event.target.textContent;
-
-                // Update the dropdown button text
                 document.getElementById('selected-category').textContent = selectedText;
-
-                // Close the dropdown by simulating a click on the dropdown button
                 const dropdownButton = document.getElementById('selected-category');
                 const bootstrapDropdown = new bootstrap.Dropdown(dropdownButton);
                 bootstrapDropdown.hide();
