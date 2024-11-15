@@ -65,6 +65,30 @@
                     </ul>
                 </li>
             @endcanany
+
+            @canany(['service.view', 'company.view'])
+                <li class="treeview @if ($menu == 'service' || $menu == 'company') active menu-open @endif">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-wrench" aria-hidden="true"></i> <span>Company & Services</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @can('company.view')
+                            <li class="@if ($menu == 'company') active @endif"><a
+                                    href="{{ route('company.index') }}"><i class="fa fa-circle-o"></i> Company List</a>
+                            </li>
+                        @endcan
+                        @can('service.view')
+                            <li class="@if ($menu == 'service') active @endif"><a
+                                    href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services List</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcanany
+
             @canany(['project.view', 'project-category.view'])
                 <li class="treeview @if ($menu == 'project' || $menu == 'project-category') active menu-open @endif">
                     <a href="javascript:void(0)">
@@ -114,7 +138,6 @@
                 <li class="treeview @if (
                     $menu == 'testimonial' ||
                         $menu == 'team' ||
-                        $menu == 'service' ||
                         $menu == 'slider' ||
                         $menu == 'client' ||
                         $menu == 'address' ||
@@ -130,11 +153,6 @@
                         @can('slider.view')
                             <li class="@if ($menu == 'slider') active @endif"><a
                                     href="{{ route('slider.index') }}"><i class="fa fa-circle-o"></i> Slider</a>
-                            </li>
-                        @endcan
-                        @can('service.view')
-                            <li class="@if ($menu == 'service') active @endif"><a
-                                    href="{{ route('service.index') }}"><i class="fa fa-circle-o"></i> Services</a>
                             </li>
                         @endcan
                         @can('team.view')
@@ -228,7 +246,7 @@
                     </ul>
                 </li>
             @endcanany
-            @can('settings.view')
+            @can('setting.view')
                 <li class="@if ($menu == 'settings') active selected @endif">
                     <a href="{{ route('settings.index') }}">
                         <i class="fa fa-gear"></i> <span>{{ __('Settings') }}</span>

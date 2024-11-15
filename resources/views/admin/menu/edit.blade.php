@@ -136,11 +136,11 @@
                                             value="{{ $data->heading }}">
                                         <span class="text-danger"><small>For Site Home page & Inside Page</small></span>
                                     </div>
-                                    {{-- <div class="col-md-12 my-2">
+                                    <div class="col-md-8 my-2">
                                         <textarea id="editor" cols="30" rows="10">@php
                                             echo $data->description;
                                         @endphp</textarea>
-                                    </div> --}}
+                                    </div>
                                     <div class="col-md-4">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file"
@@ -256,7 +256,7 @@
             $(".updateFormError").show();
             $(".updateFormError").html("<strong><i class='fa fa-spin fa-spinner fa-2x fa-fw'></i> Loading....</strong>");
             var form = new FormData($('#updateForm')[0]);
-            // form.append('description', editor.getData());
+            form.append('description', editor.getData());
             $.ajax({
                 type: "POST",
                 url: "{{ $update_url }}",
@@ -289,13 +289,13 @@
             return false;
         }
 
-        // var editor = CKEDITOR.replace('editor', {
-        //     filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-        //     filebrowserUploadMethod: 'form',
-        //     baseFloatZIndex: 10005,
-        //     allowedContent: true,
-        //     font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
+        var editor = CKEDITOR.replace('editor', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form',
+            baseFloatZIndex: 10005,
+            allowedContent: true,
+            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
-        // });
+        });
     </script>
 @endsection

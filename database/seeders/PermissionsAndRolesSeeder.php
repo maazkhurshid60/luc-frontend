@@ -23,6 +23,7 @@ class PermissionsAndRolesSeeder extends Seeder
             'project-category' => ['view', 'create', 'edit', 'delete'],
             'project' => ['view', 'create', 'edit', 'delete'],
             'service' => ['view', 'create', 'edit', 'delete'],
+            'company' => ['view', 'create', 'edit', 'delete'],
             'blog-category' => ['view', 'create', 'edit', 'delete'],
             'blog' => ['view', 'create', 'edit', 'delete'],
             'team' => ['view', 'create', 'edit', 'delete'],

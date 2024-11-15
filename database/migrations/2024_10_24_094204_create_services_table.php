@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('bg_color')->nullable();
             $table->string('second_image')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
-
+            $table->bigInteger('company_id')->nullable();
             $table->string('position')->nullable();
             $table->integer('display_order')->nullable();
             $table->boolean('search_engine')->nullable();
