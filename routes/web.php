@@ -1,42 +1,43 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\AddressController;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\Dashboard;
+use App\Http\Controllers\Admin\DataController;
+use App\Http\Controllers\Admin\FaqCategoryController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\HiringApplicationController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductFileController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\TeamFileController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CareerController;
-use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\HireProController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OurReachController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\DataController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\AddressController;
-use App\Http\Controllers\Admin\CounterController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\FeedbackController;
-use App\Http\Controllers\Admin\TeamFileController;
-use App\Http\Controllers\Admin\ApplicationController;
-use App\Http\Controllers\Admin\FaqCategoryController;
-use App\Http\Controllers\Admin\JobCategoryController;
-use App\Http\Controllers\Admin\ProductFileController;
-use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\BlogCategoryController;
-use App\Http\Controllers\Admin\ProjectCategoryController;
-use App\Http\Controllers\Admin\HiringApplicationController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/settings', [Dashboard::class, 'settings'])->name('settings.index');
     Route::resource('/hiring-application', HiringApplicationController::class);
     Route::resource('/feedback', FeedbackController::class);
+    Route::resource('/company', CompanyController::class);
     Route::resource('/role', RoleController::Class);
     Route::resource('/user', UserController::Class);
     Route::put('password/{user}', [UserController::class, 'updatePassword'])->name('user.update.password');
@@ -113,6 +115,7 @@ Route::prefix('admin/datatable')->middleware('auth')->group(function () {
     Route::get('/hiring-application', [HiringApplicationController::class, 'datatable'])->name('hiring-application.datatable');
     Route::get('/feedback', [FeedbackController::class, 'datatable'])->name('feedback.datatable');
     Route::get('/address', [AddressController::class, 'datatable'])->name('address.datatable');
+    Route::get('/company', [CompanyController::class, 'datatable'])->name('company.datatable');
     Route::get('/role', [RoleController::class, 'datatable'])->name('role.datatable');
     Route::get('/user', [UserController::class, 'datatable'])->name('user.datatable');
 });

@@ -41,9 +41,13 @@ class CounterController extends Controller
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                $action = '';
+                if (auth()->user()->can('counter.edit')) {
+                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                }
+                if (auth()->user()->can('counter.delete')) {
+                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                }
                 return $action;
             })
             ->rawColumns(['action'])

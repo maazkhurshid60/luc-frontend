@@ -124,9 +124,9 @@
                                         <input type="text" name="heading" class="form-control form-control-sm">
                                         <span class="text-danger"><small>For Site Home page & Inside Page</small></span>
                                     </div>
-                                    {{-- <div class="col-md-12 my-2">
-                                        <textarea n id="editor" cols="30" rows="10"> </textarea>
-                                    </div> --}}
+                                    <div class="col-md-8 my-2">
+                                        <textarea n id="editor" cols="30" rows="10"></textarea>
+                                    </div>
                                     <div class="col-md-4">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file" id="filez1" class="filez1"
@@ -230,7 +230,7 @@
             $(".addFormError").show();
             $(".addFormError").html("<strong><i class='fa fa-spin fa-spinner fa-2x fa-fw'></i> Loading....</strong>");
             var form = new FormData($('#addForm')[0]);
-            // form.append('description', editor.getData());
+            form.append('description', editor.getData());
             $.ajax({
                 type: "POST",
                 url: "{{ $store_url }}",
@@ -264,17 +264,17 @@
             return false;
         }
 
-        // var editor = CKEDITOR.replace('editor', {
-        //     filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-        //     filebrowserUploadMethod: 'form',
-        //     baseFloatZIndex: 10005,
-        //     allowedContent: true,
-        //     font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
+        var editor = CKEDITOR.replace('editor', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form',
+            baseFloatZIndex: 10005,
+            allowedContent: true,
+            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
-        // });
-        // editor.setData(
-        //     '<section><div class="container"><div class="row"><div class="col-lg-12"><div class="heading-text heading-section"><h2>Heading</h2></div></div><div class="col-lg-12">Contents.</div></div></div></section>'
-        // );
+        });
+        editor.setData(
+            '<section><div class="container"><div class="row"><div class="col-lg-12"><div class="heading-text heading-section"><h2>Heading</h2></div></div><div class="col-lg-12">Contents.</div><ul><li class="col-lg-12">bullet point 1</li><li class="col-lg-12">bullet point 2</li><li class="col-lg-12" >bullet point 3</li></ul ></div></div></section>'
+        );
     </script>
     <script>
         // $(document).on('click', '#show_services', function(event) {
