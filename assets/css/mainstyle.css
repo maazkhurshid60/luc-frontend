@@ -779,6 +779,21 @@
 .our-blog-card:hover {
   box-shadow: 0px 0px 14px 0px rgb(20, 29, 56, 0.25);
 }
+.contact-details{
+  border-radius: 20px;
+  box-shadow: 0 0 14px 0 #141d381a;
+}
+.contact-details-sec{
+  background: url(../images/counter-sec-bg.webp);
+  padding: 60px;
+  border-radius: 20px 0 0 20px;
+}
+.contact-details-sec p{
+  margin-bottom: 40px;
+}
+.contact-form-sec2{
+  padding: 60px;
+}
 /* Projects */
 .projects-bg {
   background-image: url(../images/projects-bg.webp);
@@ -1337,6 +1352,16 @@
   .blog-card-content {
     padding: 16px 0px;
   }
+  .contact-details-sec{
+    padding: 30px;
+    border-radius: 20px 0 0 20px;
+  }
+  .contact-details-sec p{
+    margin-bottom: 20px;
+  }
+  .contact-form-sec2{
+    padding: 30px;
+  }
   /* Projects */
   .project--img {
     height: 100%;
@@ -1532,6 +1557,9 @@
   /* services detail */
   .our--blog .our-blog-card {
     width: 100% !important;
+  }
+  .contact-details-sec{
+    border-radius: 20px 20px 0 0;
   }
   /* Projects */
   .project-img-wrap {
