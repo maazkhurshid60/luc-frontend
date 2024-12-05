@@ -377,11 +377,63 @@
                             </ul>
                             <div class="d-flex flex-column gap-2">
                                 <span class="mb-2"><a href="#"
-                                        class="text-decoration-none wht--clr primary-btn d-flex justify-content-center w-100">Apply
+                                        class="app_btn text-decoration-none wht--clr primary-btn d-flex justify-content-center w-100" data-bs-toggle="modal" data-bs-target="#app_from">Apply
                                         Now<img src="../assets/icons/arrow1.svg" alt="" class="ms-2"></a></span>
                                 <span class="mt-2"><a href="careers.html"
                                         class="text-decoration-none primary--clr body-txt2 fw-sb d-flex justify-content-center w-100">See
                                         All Jobs</a></span>
+                            </div>
+                            <div class="modal fade" id="app_from" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-wrapper container">
+                                    <div class="modal-content">
+                                        <div class="container position-relative modal-wrapper">
+                                            <a href="#" class="text-decoration-none cursor-pointer"><i
+                                                class="fa-solid fa-xmark close-model primary--clr cursor-pointer position-absolute"
+                                                data-bs-dismiss="modal"></i></a>
+                                            <div class="row px-2 py-3">
+                                                <div class="col-md-12">
+                                                    <h2 class="head--2 secondary--clr mb-4 text-center">Application Form</h2>
+                                                    <form class="row g-lg-4 g-2 justify-content-center">
+                                                        <div class=" col-7">
+                                                            <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
+                                                            <input type="text" class="form-control req-quote-input" id="nameinput"
+                                                                placeholder="Full Name">
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <label for="inputEmail4" class="form-label mb-2 body-txt2 secondary--clr">Email</label>
+                                                            <input type="email" class="form-control req-quote-input" id="inputEmail4"
+                                                                placeholder="Email Address">
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <div class="phoneno-by-country position-relative d-flex flex-column">
+                                                                <label for="phoneNumbr" class="form-label mb-2 body-txt2 secondary--clr w-100">Phone
+                                                                    Number</label>
+                                                                <input type="text" id="mobile_code" class="form-control w-100 req-quote-input"
+                                                                    placeholder=" (555) 000-0000" name="name" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <label for="textArea" class="form-label mb-2 body-txt2 secondary--clr">Cover Letter</label>
+                                                            <textarea class="form-control req-quote-input" id="textArea" rows="3"
+                                                                placeholder="Tell us about your interset..."></textarea>
+                                                        </div>
+                                                        <div class="col-7">
+                                                            <label for="cv" class="form-label mb-2 body-txt2 secondary--clr">Attach your CV</label>
+                                                            <input type="file" id="mobile_code" class="form-control w-100 cv-input"
+                                                                    placeholder=" (555) 000-0000" name="cv" />
+                                                        </div>
+                                                        <div class="col-7 d-flex justify-content-center">
+                                                            <button type="submit"
+                                                                class="btn primary-btn req-quote-sub wht--clr d-flex justify-content-center align-items-center w-100">Submit
+                                                                <img src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -391,7 +443,8 @@
 
     </div>
     <!-- ///////////////////////// Main Content Ends /////////////////////// -->
-    <!-- ///////////////////////// Footer Section ///////////////////////// -->    <footer>
+    <!-- ///////////////////////// Footer Section ///////////////////////// -->
+    <footer>
         <div class="container-fluid afcon--footer myt-40">
             <div class="container">
                 <div class="row justify-content-center">
@@ -412,7 +465,8 @@
                     <div class="row px-0 flex-md-row flex-column">
                         <div
                             class="footer-quicklinks d-flex justify-content-md-start justify-content-center px-0  mb-4 ">
-                            <ul class="navbar-nav d-flex flex-row justify-content-md-start  justify-content-between  footer-quick-links gap-lg-4 gap-md-3 gap-0">
+                            <ul
+                                class="navbar-nav d-flex flex-row justify-content-md-start  justify-content-between  footer-quick-links gap-lg-4 gap-md-3 gap-0">
                                 <li class="nav-item">
                                     <a href="contact-us.html"
                                         class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
@@ -453,6 +507,7 @@
     <div id="scrollToTopBtn">
         <i class="fa-solid fa-arrow-up"></i>
     </div>
+
     <!-- ///////////////////////// Footer Section Ends ///////////////////////// -->
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/jquery.min.js"></script>
