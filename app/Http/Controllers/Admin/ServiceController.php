@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Project;
 use App\Models\Service as Obj;
 use Illuminate\Http\Request;
@@ -69,6 +70,7 @@ class ServiceController extends Controller
             'menu' => 'service',
             'display_order' => Obj::max('display_order') + 1,
             'settings' => DB::table('settings')->first(),
+            'service_company' => Company::all()
         ];
         return view('admin.service.create', $data);
     }
@@ -95,6 +97,7 @@ class ServiceController extends Controller
             'image3' => 'nullable|image|mimes:svg|max:1024',
             'projectcategory' => 'required',
             'featured_project' => 'required',
+            'company_select' => 'required',
 
         ]);
         if ($validator->fails()) {
@@ -119,7 +122,6 @@ class ServiceController extends Controller
             $extension = $request->image3->getClientOriginalExtension();
             if ($extension == 'svg') {
                 return response()->json(['errors' => ['Banner image format not supported.']]);
-
             }
             $banner_name = $request->file('image3')->store('images', 'public');
 
@@ -129,7 +131,6 @@ class ServiceController extends Controller
             Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(config('constants.store_thumb_path') . $image3);
-
         }
         $request['position'] = json_encode($request->input('position'));
         $request['slug'] = Str::slug($request->post('slug'), '-');
@@ -137,7 +138,8 @@ class ServiceController extends Controller
 
         $featuredProjects = json_encode($request->input('featured_project'), true);
         $request['featured_projects'] = $featuredProjects; // Assuming `featured_pro
-
+        $request['company_id'] = $request->company_select;
+        // dd($request->all());
         $obj = Obj::create($request->all());
 
         return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
@@ -171,6 +173,7 @@ class ServiceController extends Controller
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
+            'service_company' => Company::all()
         ];
         return view('admin.service.edit', $data);
     }
@@ -196,6 +199,7 @@ class ServiceController extends Controller
             'image3' => 'nullable|image|mimes:svg|max:1024',
             'projectcategory' => 'required',
             'featured_project' => 'required',
+            'company_select' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -221,7 +225,6 @@ class ServiceController extends Controller
             $extension = $request->image3->getClientOriginalExtension();
             if ($extension == 'svg') {
                 return response()->json(['errors' => ['Banner image format not supported.']]);
-
             }
 
             $banner_name = $request->file('image3')->store('images', 'public');
@@ -232,7 +235,6 @@ class ServiceController extends Controller
             Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(config('constants.store_thumb_path') . $image3);
-
         }
 
         $featuredProjects = json_encode($request->input('featured_project'), true);
@@ -241,6 +243,7 @@ class ServiceController extends Controller
         // $request['slug'] = $slug = Str::slug($request->post('title'));
         $request['position'] = json_encode($request->input('position'));
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
+        $request['company_id'] = $request->company_select;
         $record->update($request->all());
         return response()->json(['success' => 'Record is successfully Updated']);
     }
@@ -285,5 +288,4 @@ class ServiceController extends Controller
         // Return the results as JSON
         return response()->json($featuredProjects);
     }
-
 }

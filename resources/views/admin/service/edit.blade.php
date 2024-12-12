@@ -114,6 +114,18 @@
                                         <input type="text" value="{{ $data->bg_color }}" name="bg_color"
                                             class="form-control form-control-sm">
                                     </div>
+                                    <div class="col-md-6">
+                                        <label>Project  Company</span></label>
+                                        <select id="company_select" name="company_select"
+                                            class="form-control form-control-sm">
+                                            <option value="" disabled selected>Select a company</option>
+                                            @foreach ($service_company as $company)
+                                            <option value="{{ $company->id }}" {{ $data->company_id == $company->id ? 'selected' : '' }}>
+                                                {{ $company->name }}
+                                            </option>
+                                        @endforeach
+                                        </select>
+                                    </div>
                                     <div class="col-md-12">
                                         <label>Seo Keywords Heading</span></label>
                                         <input type="text" name="seo_more_heading"

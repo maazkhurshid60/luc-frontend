@@ -74,7 +74,7 @@
                                 vulputate velit arcu vitae mi. Donec ac nisi ex.
                             </p>
                             <span class="d-lg-block d-none">
-                                <a href="{{ route('services.index') }}"
+                                <a href="{{ route('companies.index') }}"
                                     class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">View All
                                     <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                         class="ms-2">
@@ -86,12 +86,12 @@
                                 @if ($latest_services[0])
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[0]->icon ? 'storage/images/' . $latest_services[0]->icon : 'assets/frontend/icons/services-icon-1.svg') }}"
+                                            <img src="{{ asset($latest_services[0]->companyIcon ? 'storage/images/' . $latest_services[0]->companyIcon : 'assets/frontend/icons/services-icon-1.svg') }}"
                                                 alt="" class="card-img" />
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[0]->title }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[0]->description }}</p>
-                                        <a href="{{ url('services/' . $latest_services[0]->slug) }}"
+                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[0]->name }}</h3>
+                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[0]->short_description }}</p>
+                                        <a href="{{ url('company/' . $latest_services[0]->slug) }}"
                                             class="text-decoration-none">
                                             <button class="card-sec-btn primary--clr">Learn More
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
@@ -103,12 +103,12 @@
                                 @if ($latest_services[1])
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[1]->icon ? 'storage/images/' . $latest_services[1]->icon : 'assets/frontend/icons/services-icon-2.svg') }}"
+                                            <img src="{{ asset($latest_services[1]->companyIcon ? 'storage/images/' . $latest_services[0]->companyIcon : 'assets/frontend/icons/services-icon-1.svg') }}"
                                                 alt="" class="card-img" />
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[1]->title }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[1]->description }}</p>
-                                        <a href="{{ url('services/' . $latest_services[1]->slug) }}"
+                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[1]->name }}</h3>
+                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[1]->short_description }}</p>
+                                        <a href="{{ url('company/' . $latest_services[1]->slug) }}"
                                             class="text-decoration-none">
                                             <button class="card-sec-btn primary--clr">Learn More
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
@@ -122,12 +122,12 @@
                                 @if ($latest_services[2])
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[2]->icon ? 'storage/images/' . $latest_services[2]->icon : 'assets/frontend/icons/services-icon-3.svg') }}"
+                                            <img src="{{ asset($latest_services[2]->companyIcon ? 'storage/images/' . $latest_services[2]->companyIcon : 'assets/frontend/icons/services-icon-3.svg') }}"
                                                 alt="" class="card-img" />
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[2]->title }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[2]->description }}</p>
-                                        <a href="{{ url('services/' . $latest_services[2]->slug) }}"
+                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[2]->name }}</h3>
+                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[2]->short_description }}</p>
+                                        <a href="{{ url('company/' . $latest_services[2]->slug) }}"
                                             class="text-decoration-none">
                                             <button class="card-sec-btn primary--clr">Learn More
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
@@ -136,7 +136,7 @@
                                         </a>
                                     </div>
                                 @endif
-                                @if ($latest_services[3])
+                                {{-- @if ($latest_services[3])
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
                                             <img src="{{ asset($latest_services[3]->icon ? 'storage/images/' . $latest_services[3]->icon : 'assets/frontend/icons/services-icon-4.svg') }}"
@@ -151,11 +151,11 @@
                                                     class="ms-2" />
                                             </button></a>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <span class="d-lg-none d-flex justify-content-center pyt-60">
-                            <a href="{{ route('services.index') }}"
+                            <a href="{{ route('companies.index') }}"
                                 class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">View All
                                 <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt="" class="ms-2">
                             </a>
@@ -180,4 +180,52 @@
     </div>
 @endsection
 @section('custom-js')
+<script>
+    $(document).ready(function () {
+    function handleFormSubmission(formSelector, routeName) {
+        $(formSelector).on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Clear previous errors
+            $(formSelector + ' .error-message').remove();
+            $(formSelector + ' .success-message').remove();
+
+            let formData = {
+                name: $(formSelector + ' #nameinput').val(),
+                email: $(formSelector + ' #inputEmail4').val(),
+                subject: $(formSelector + ' #subjectsInput').val(),
+                service: $(formSelector + ' #services').val(), 
+                phone: $(formSelector + ' #mobile_code').val(),
+                message: $(formSelector + ' #textArea').val(),
+                type: $(formSelector + ' #formType').val(), // Form type
+                _token: '{{ csrf_token() }}' // CSRF token for security
+            };
+
+            $.ajax({
+                url: routeName,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.response === 'success') {
+                        // Display success message
+                        $(formSelector).append('<div class="success-message text-success text-center mt-3">' + response.message + '</div>');
+                        $(formSelector)[0].reset(); // Reset form after success
+                    }
+                },
+                error: function (xhr) {
+                    let errors = xhr.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        let inputField = $(formSelector + ' #' + key);
+                        inputField.after('<span class="error-message text-danger">' + value[0] + '</span>');
+                    });
+                }
+            });
+        });
+    }
+
+    handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
+    handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
+    handleFormSubmission('#projectForm', '{{ route('projectform') }}');
+});
+</script>
 @endsection

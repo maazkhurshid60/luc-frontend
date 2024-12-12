@@ -31,6 +31,7 @@ class Job extends Model
         'og_description',
         'og_image',
         'og_type',
+		'about_description',
     ];
     public function category()
     {

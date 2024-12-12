@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('short_description')->nullable();
+            $table->string('company_email')->nullable();
             $table->string('contact')->nullable();
             $table->string('image')->nullable();
+            $table->string('companyIcon')->nullable();
             $table->string('address')->nullable();
             $table->string('address_2')->nullable();
             $table->longText('contents')->nullable();

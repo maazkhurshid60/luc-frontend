@@ -116,6 +116,9 @@ class MenuController extends Controller
         if ($request->hasFile('file4')) {
             $request['og_image'] = Helper::handleImageUpload($request->file('file4'));
         }
+        if ($request->hasFile('aboutimg')) {
+            $request['about_img'] = Helper::handleImageUpload($request->file('aboutimg'));
+        }
         $request['show_services'] = $request->show_services == 'on' ? '1' : '0';
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
         $obj = Obj::create($request->all());
@@ -180,6 +183,9 @@ class MenuController extends Controller
         }
         if ($request->hasFile('file4')) {
             $request['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        }
+        if ($request->hasFile('aboutimg')) {
+            $request['about_img'] = Helper::handleImageUpload($request->file('aboutimg'),$record->about_image);
         }
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
         $request['show_services'] = $request->show_services == 'on' ? '1' : '0';

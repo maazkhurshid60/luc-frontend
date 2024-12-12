@@ -150,6 +150,18 @@
                                         <label for="link">Link/URL</label>
                                         <input type="text" name="link" class="form-control form-control-sm">
                                     </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="sector">Sector</label>
+                                        <input type="text" name="sector" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="country">Country</label>
+                                        <input type="text" name="country" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="industry">Industry</label>
+                                        <input type="text" name="industry" class="form-control form-control-sm">
+                                    </div>
 
                                     <div class="col-md-12 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>

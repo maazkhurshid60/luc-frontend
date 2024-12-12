@@ -17,7 +17,8 @@
                 <p class="body-txt2 txt--clr text-center mb-5">Got a project? Drop us a line if you want to work
                     together on
                     something exciting. Or do you need our help? Feel free to contact us.</p>
-                <form class="row g-4">
+                <form class="row g-4" id="quoteForm">
+                    <input type="hidden" id="formType" value="quote_form">
                     <div class="col-md-6">
                         <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
                         <input type="text" class="form-control req-quote-input" id="nameinput"

@@ -29,5 +29,8 @@ class Menu extends Model
         'og_description',
         'og_image',
         'og_type',
+        'about_img',
+        'about_description',
+
     ];
 }

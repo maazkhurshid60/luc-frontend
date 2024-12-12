@@ -213,6 +213,24 @@
 
                                     </div>
                                     <div class="col-md-12">
+                                        <div class="box-header">
+                                            <hr>
+                                            <h3 class="box-title">About Section Details</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea n id="editor2" cols="30" rows="10">
+                                            {{$data->about_description;}}
+                                        </textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>{{ __('About Img') }} <span class="text-danger">*</span></label>
+                                        <input type="file" name="aboutimg" id="filez2" class="filez2"
+                                        data-default-file="{{ asset('storage/images/' . $data->about_img) }}"
+                                            data-max-file-size="1M"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                    </div>
+                                    <div class="col-md-12">
                                         <br>
                                         <div class="alert alert-danger updateFormError" style="display: none;"></div>
                                         <button type="submit"
@@ -250,6 +268,7 @@
     <script type="text/javascript">
         $(".filez1").dropify();
         $(".filez4").dropify();
+        $(".filez2").dropify();
 
         function update_validation() {
             
@@ -257,6 +276,7 @@
             $(".updateFormError").html("<strong><i class='fa fa-spin fa-spinner fa-2x fa-fw'></i> Loading....</strong>");
             var form = new FormData($('#updateForm')[0]);
             form.append('description', editor.getData());
+            form.append('about_description', editor2.getData());
             $.ajax({
                 type: "POST",
                 url: "{{ $update_url }}",
@@ -290,6 +310,14 @@
         }
 
         var editor = CKEDITOR.replace('editor', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form',
+            baseFloatZIndex: 10005,
+            allowedContent: true,
+            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
+
+        });
+        var editor2 = CKEDITOR.replace('editor2', {
             filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form',
             baseFloatZIndex: 10005,

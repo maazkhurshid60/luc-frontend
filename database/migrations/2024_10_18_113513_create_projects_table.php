@@ -43,6 +43,10 @@ return new class extends Migration
             $table->string('og_description')->nullable();
             $table->string('og_image')->nullable();
             $table->string('og_type')->nullable();
+
+            $table->string('sector')->nullable(); 
+            $table->string('country')->nullable(); 
+            $table->string('industry')->nullable(); 
             $table->timestamps();
         });
     }

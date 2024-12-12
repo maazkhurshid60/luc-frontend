@@ -10,8 +10,10 @@ class Company extends Model
         'name',
         'slug',
         'short_description',
+        'company_email',
         'contact',
         'image',
+        'companyIcon',
         'address',
         'address_2',
         'contents',
@@ -30,4 +32,8 @@ class Company extends Model
         'og_image',
         'og_type',
     ];
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'company_id');
+    }
 }

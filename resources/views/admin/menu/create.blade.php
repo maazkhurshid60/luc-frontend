@@ -190,6 +190,21 @@
 
                                     </div>
                                     <div class="col-md-12">
+                                        <div class="box-header">
+                                            <hr>
+                                            <h3 class="box-title">About Section Details</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea n id="editor2" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>{{ __('About Img') }} <span class="text-danger">*</span></label>
+                                        <input type="file" name="aboutimg" id="filez2" class="filez2"
+                                            data-max-file-size="1M"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                    </div>
+                                    <div class="col-md-12">
                                         <div class="alert alert-danger addFormError" style="display: none;"></div>
                                         <button class="btn my-2 btn-sm btn-primary float-right">Save Record</button>
                                     </div>
@@ -224,6 +239,7 @@
     <script type="text/javascript">
         $(".filez1").dropify();
         $(".filez4").dropify();
+        $(".filez2").dropify();
 
         function form_validation() {
 
@@ -231,6 +247,7 @@
             $(".addFormError").html("<strong><i class='fa fa-spin fa-spinner fa-2x fa-fw'></i> Loading....</strong>");
             var form = new FormData($('#addForm')[0]);
             form.append('description', editor.getData());
+            form.append('about_description', editor2.getData());
             $.ajax({
                 type: "POST",
                 url: "{{ $store_url }}",
@@ -273,6 +290,17 @@
 
         });
         editor.setData(
+            '<section><div class="container"><div class="row"><div class="col-lg-12"><div class="heading-text heading-section"><h2>Heading</h2></div></div><div class="col-lg-12">Contents.</div><ul><li class="col-lg-12">bullet point 1</li><li class="col-lg-12">bullet point 2</li><li class="col-lg-12" >bullet point 3</li></ul ></div></div></section>'
+        );
+        var editor2 = CKEDITOR.replace('editor2', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form',
+            baseFloatZIndex: 10005,
+            allowedContent: true,
+            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
+
+        });
+        editor2.setData(
             '<section><div class="container"><div class="row"><div class="col-lg-12"><div class="heading-text heading-section"><h2>Heading</h2></div></div><div class="col-lg-12">Contents.</div><ul><li class="col-lg-12">bullet point 1</li><li class="col-lg-12">bullet point 2</li><li class="col-lg-12" >bullet point 3</li></ul ></div></div></section>'
         );
     </script>

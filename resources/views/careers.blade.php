@@ -83,16 +83,19 @@
 
                 <div class="row job-posts-listing d-flex flex-lg-row flex-column justify-content-between gy-4 ">
 
-                    @include('partials.career-filters')
+                    {{-- @include('partials.career-filters') --}}
 
                     <div class="career-archives-sec d-flex flex-column justify-content-start gap-4 pyb-60 px-0">
                         <h3 class="head--3 secondary--clr mb-0">{{ $count > 1 ? $count . ' Jobs' : $count . ' Job' }}</h3>
-                        @foreach ($jobs as $job)
-                            <div class="col-md-12 mb-3">
-                                @include('include.job-card')
-                            </div>
-                        @endforeach
+                        <div class="row">
+                            @foreach ($jobs as $job)
+                                <div class="col-md-6 col-sm-12 mb-3">
+                                    @include('include.job-card')
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
+                    
                     <hr class="m-0" />
                     @include('include.simple-pagination', ['paginator' => $jobs])
                 </div>

@@ -26,7 +26,9 @@ return new class extends Migration
 
             $table->enum('display', ['yes', 'no'])->default('yes');
             $table->enum('show_services', ['1', '0'])->default('0');
-
+            $table->text('about_description')->nullable();
+            $table->string('about_img')->nullable();
+            
             $table->integer('display_order')->nullable();
             $table->boolean('search_engine')->nullable();
 

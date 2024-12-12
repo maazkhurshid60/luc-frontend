@@ -1,43 +1,47 @@
 <?php
 
-use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\Admin\AddressController;
-use App\Http\Controllers\Admin\ApplicationController;
-use App\Http\Controllers\Admin\BlogCategoryController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\CompanyController;
-use App\Http\Controllers\Admin\CounterController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\Dashboard;
-use App\Http\Controllers\Admin\DataController;
-use App\Http\Controllers\Admin\FaqCategoryController;
-use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\FeedbackController;
-use App\Http\Controllers\Admin\HiringApplicationController;
-use App\Http\Controllers\Admin\JobCategoryController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductFileController;
-use App\Http\Controllers\Admin\ProjectCategoryController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\Admin\TeamFileController;
-use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\AboutusEditsController;
 use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\HireProController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OurReachController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\DataController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\AddressController;
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\CounterController;
+use App\Http\Controllers\Admin\JourneyController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\TeamFileController;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\FaqCategoryController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\ProductFileController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\QuoteationFormController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
+use App\Http\Controllers\Admin\HiringApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,10 +58,13 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::post('/contact-us', [HomeController::class, 'feedback_submit'])->name('contact_us.submit');
-
+Route::post('/quoteform',[HomeController::class,'quoteform'])->name('quoteform');
+Route::post('/contactform',[HomeController::class,'quoteform'])->name('contactform');
+Route::post('/projectform',[HomeController::class,'quoteform'])->name('projectform');
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
     Route::post('/data', [DataController::class, 'index'])->name('data.index');
+    Route::post('/about-details-edits', [AboutusEditsController::class, 'HandlerforAbout'])->name('aboutdetails.store');
 
     // In your web.php or api.php
     Route::get('/featured-projects', [ServiceController::class, 'getFeaturedProjects'])->name('featured.projects');
@@ -85,8 +92,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/product-file', ProductFileController::class);
     Route::resource('/team-file', TeamFileController::class);
     Route::get('/settings', [Dashboard::class, 'settings'])->name('settings.index');
+    Route::get('/aboutus-details', [AboutusEditsController::class, 'index'])->name('aboutdetails.index');
     Route::resource('/hiring-application', HiringApplicationController::class);
     Route::resource('/feedback', FeedbackController::class);
+    Route::resource('/quoteationform', QuoteationFormController::class);
+    Route::resource('/journey', JourneyController::class);
     Route::resource('/company', CompanyController::class);
     Route::resource('/role', RoleController::Class);
     Route::resource('/user', UserController::Class);
@@ -113,6 +123,8 @@ Route::prefix('admin/datatable')->middleware('auth')->group(function () {
     Route::get('/job', [JobController::class, 'datatable'])->name('job.datatable');
     Route::get('/application', [ApplicationController::class, 'datatable'])->name('application.datatable');
     Route::get('/hiring-application', [HiringApplicationController::class, 'datatable'])->name('hiring-application.datatable');
+    Route::get('/quotation-form', [QuoteationFormController::class, 'datatable'])->name('quotation-form.datatable');
+    Route::get('/journey', [JourneyController::class, 'datatable'])->name('journey.datatable');
     Route::get('/feedback', [FeedbackController::class, 'datatable'])->name('feedback.datatable');
     Route::get('/address', [AddressController::class, 'datatable'])->name('address.datatable');
     Route::get('/company', [CompanyController::class, 'datatable'])->name('company.datatable');
@@ -127,9 +139,10 @@ Route::get('clients', [ClientsController::class, 'index'])->name('clients.index'
 Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('blog/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 
-Route::get('services', [ServicesController::class, 'index'])->name('services.index');
-Route::get('/services/{slug}', [ServicesController::class, 'details'])->name('services.details');
-
+// Route::get('services', [ServicesController::class, 'index'])->name('services.index');
+// Route::get('/services/{slug}', [ServicesController::class, 'details'])->name('services.details');
+Route::get('/companies', [ServicesController::class, 'index'])->name('companies.index');
+Route::get('/company/{slug}', [ServicesController::class, 'details'])->name('company.details');
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us.index');
 Route::get('/our-reach', [OurReachController::class, 'index'])->name('our-reach.index');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us.index');

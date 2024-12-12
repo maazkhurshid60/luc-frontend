@@ -92,6 +92,8 @@ class CompanyController extends Controller
             'short_description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
             'ogImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'company_icon' => 'nullable|image|mimes:svg|max:1024',
+            'company_email' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
@@ -105,6 +107,9 @@ class CompanyController extends Controller
         }
         if ($request->hasFile('ogimage')) {
             $request['og_image'] = Helper::handleImageUpload($request->file('ogimage'));
+        }
+        if ($request->hasFile('company_icon')) {
+            $request['companyIcon'] = Helper::handleImageUpload($request->file('company_icon'));
         }
 
         $conpany = Obj::create($request->all());
@@ -153,6 +158,7 @@ class CompanyController extends Controller
             'contact' => 'required',
             'company_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'ogImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'company_icon' => 'nullable|image|mimes:svg|max:1024',
         ]);
 
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
@@ -166,6 +172,9 @@ class CompanyController extends Controller
 
         if ($request->hasFile('ogImage')) {
             $request['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        }
+        if ($request->hasFile('company_icon')) {
+            $request['companyIcon'] = Helper::handleImageUpload($request->file('company_icon'),$record->companyIcon);
         }
 
         $record->update($request->all());

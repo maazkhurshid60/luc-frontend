@@ -66,7 +66,7 @@
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle body-txt1 wht--clr primary-menu-links {{ request()->routeIs('services.index') ? 'active' : '' }}"
-                                            href="{{ route('services.index') }}" role="button" aria-expanded="false">
+                                            href="{{ route('companies.index') }}" role="button" aria-expanded="false">
                                             Services
                                         </a>
                                         <ul class="dropdown-menu hover-dropdown-menu">
@@ -88,10 +88,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr"
                                             href="{{ route('our-reach.index') }}">Our Reach</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('blogs.index') ? 'active' : '' }}"
                                             href="{{ route('blogs.index') }}">Blog</a>

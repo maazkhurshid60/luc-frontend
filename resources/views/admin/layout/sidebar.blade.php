@@ -28,13 +28,20 @@
                     <i class="fa fa-dashboard"></i> <span>{{ __('Dashbaord') }}</span>
                 </a>
             </li>
-            @can('menu.view')
-                <li class="@if ($menu == 'menu') active selected @endif">
-                    <a href="{{ route('menu.index') }}">
-                        <i class="fa fa-list"></i> <span>{{ __('Menu') }}</span>
+            @can('journey.view')
+                <li class="@if ($menu == 'journey') active selected @endif">
+                    <a href="{{ route('journey.index') }}">
+                        <i class="fa fa-list"></i> <span>{{ __('Journey') }}</span>
                     </a>
                 </li>
             @endcan
+            @can('menu.view')
+            <li class="@if ($menu == 'menu') active selected @endif">
+                <a href="{{ route('menu.index') }}">
+                    <i class="fa fa-list"></i> <span>{{ __('Menu') }}</span>
+                </a>
+            </li>
+        @endcan
             @can('product.view')
                 <li class="@if ($menu == 'product') active selected @endif">
                     <a href="{{ route('product.index') }}">
@@ -142,6 +149,8 @@
                         $menu == 'client' ||
                         $menu == 'address' ||
                         $menu == 'counter' ||
+                        $menu == 'quotation' ||
+                        $menu == 'aboutus-edits'||
                         $menu == 'hiring-application') active menu-open @endif">
                     <a href="javascript:void(0)">
                         <i class="fa fa-tag"></i> <span>General Tools</span>
@@ -191,6 +200,18 @@
                                     href="{{ route('counter.index') }}"><i class="fa fa-circle-o"></i> Counters</a>
                             </li>
                         @endcan
+                        @can('quotation.view')
+                            <li class="@if ($menu == 'quotation') active @endif"><a
+                                    href="{{ route('quoteationform.index') }}"><i class="fa fa-circle-o"></i> Quoteation
+                                    Form</a>
+                            </li>
+                        @endcan
+                        @can('aboutus-edits.view')
+                            <li class="@if ($menu == 'aboutus-edits') active @endif"><a
+                                    href="{{ route('aboutdetails.index') }}"><i class="fa fa-circle-o"></i> About Details</a>
+                            </li>
+                        @endcan
+
                     </ul>
                 </li>
             @endcanany

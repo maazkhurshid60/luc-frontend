@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
@@ -34,5 +35,9 @@ class Service extends Model
         'second_image',
         'seo_more_heading',
         'seo_more_content',
+        'company_id',
     ];
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
 }

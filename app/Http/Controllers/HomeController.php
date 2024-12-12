@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactUs;
-use App\Models\Blog;
-use App\Models\Faq;
-use App\Models\FaqCategory;
-use App\Models\Feedback;
-use App\Models\Job;
-use App\Models\Menu;
-use App\Models\Project;
-use App\Models\ProjectCategory;
-use App\Models\Service;
-use App\Models\Team;
-use Carbon\Carbon;
 use DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 use Mail;
+use Carbon\Carbon;
+use App\Models\Faq;
+use App\Models\Job;
+use App\Models\Blog;
+use App\Models\Menu;
+use App\Models\Team;
+use App\Mail\ContactUs;
+use App\Models\Company;
+use App\Models\Project;
+use App\Models\Service;
+use App\Models\Feedback;
+use App\Models\FaqCategory;
+use Illuminate\Http\Request;
+use App\Models\QuoteationForm;
+use App\Models\ProjectCategory;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HomeController extends Controller
@@ -35,7 +37,7 @@ class HomeController extends Controller
             'data' => Menu::where('slug', 'home')->first(),
             // 'about_us' => Menu::where('slug', 'about-us')->first(),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
-            'latest_services' => Service::where('status', 'active')->latest()->take(4)->get(),
+            'latest_services' => Company::where('status', 'active')->latest()->take(4)->get(),
             'latest_blogs' => Blog::where('status', 'active')->latest()->take(3)->get(),
             'jobs' => Job::where('status', 'active')->whereDate('apply_before', '>=', Carbon::now())->latest()->take(4)->get(),
             'faqs' => Faq::where('status', 'active')->get(),
@@ -262,9 +264,9 @@ class HomeController extends Controller
     public function feedback_submit(Request $request)
     {
 
-        if (is_null($request->input('g-recaptcha-response'))) {
-            return response()->json(['success' => 'false', 'message' => 'Captcha Verification Failed! Please Complete Captcha to Continue.'], 422);
-        }
+        // if (is_null($request->input('g-recaptcha-response'))) {
+        //     return response()->json(['success' => 'false', 'message' => 'Captcha Verification Failed! Please Complete Captcha to Continue.'], 422);
+        // }
 
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
@@ -298,6 +300,41 @@ class HomeController extends Controller
 
         return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
+    public function quoteform(Request $request)
+{
+    $validator = \Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'subject' => 'nullable|string|max:255', // Allow subject to be nullable since we might set it dynamically
+        'service' => 'nullable|string|max:255',
+        'phone' => 'nullable|string|max:15',
+        'message' => 'required|string|max:1000',
+        'type' => 'required|string|in:quote_form,contact_form,project_form',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+    }
+
+    // Dynamically set the subject based on type
+    $data = $request->all(); // Get all input fields as an array
+    if ($request->type === 'project_form') {
+        $data['subject'] = 'This form is from the project form';
+    }
+
+    // Store form data
+    QuoteationForm::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'subject' => $data['subject'],
+        'service' => $data['service'] ?? null, // Handle nullable fields gracefully
+        'contact_no' => $data['phone'] ?? null,
+        'message' => $data['message'],
+        'type' => $data['type'],
+    ]);
+
+    return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
+}
 
     public function PageNotFound()
     {

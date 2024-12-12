@@ -153,7 +153,21 @@
                                         <input type="text" name="link" value="{{ $data->link }}"
                                             class="form-control form-control-sm">
                                     </div>
-
+                                    <div class="col-md-4 mb-2">
+                                        <label for="sector">Sector</label>
+                                        <input type="text" name="sector" value="{{ $data->sector }}"
+                                            class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="country">Country</label>
+                                        <input type="text" name="country" value="{{ $data->country }}"
+                                            class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="industry">Industry</label>
+                                        <input type="text" name="industry" value="{{ $data->industry }}"
+                                            class="form-control form-control-sm">
+                                    </div>
                                     <div class="col-md-12 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>
                                         <textarea class="form-control " id="description_editor" name="description" maxlength="150">{{ $data->description }}</textarea>

@@ -110,9 +110,21 @@
                                         <label>Background Color <span class="text-danger">*</span></label>
                                         <input type="text" name="bg_color" class="form-control form-control-sm">
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label>Project Company</span></label>
+                                        <select id="company_select" name="company_select"
+                                            class="form-control form-control-sm">
+                                            <option value="" disabled selected>Select a company</option>
+                                            @foreach ($service_company as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                <!-- Replace 'id' and 'name' with your column names -->
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
                                         <label>Seo Keywords Heading</span></label>
-                                        <input type="text" name="seo_more_heading" class="form-control form-control-sm">
+                                        <input type="text" name="seo_more_heading"
+                                            class="form-control form-control-sm">
                                     </div>
 
                                     <div class="col-md-12 form-group">

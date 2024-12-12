@@ -110,7 +110,18 @@
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
                                     @endcan
+                                    <div class="col-md-3 form-group">
+                                        <label>{{ __(' Icon') }} <span class="text-danger">*</span></label>
+                                        <input type="file" name="company_icon" class="dropify"
+                                            data-default-file="{{ asset('storage/images/' . $data->companyIcon) }}"
+                                            data-max-file-size="1M"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                    </div>
                                     <div class="col-md-3">
+                                        <label for="company_email">Company Email</label>
+                                        <input type="text" class="form-control form-control-sm" name="company_email"
+                                            id="company_email" value="{{ $data->company_email }}">
+                                        <br>
                                         <label for="address">Address</label>
                                         <input type="text" class="form-control form-control-sm" name="address"
                                             id="address" value="{{ $data->address }}">

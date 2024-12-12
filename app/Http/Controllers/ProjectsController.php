@@ -13,33 +13,57 @@ class ProjectsController extends Controller
 {
     public function index(Request $request)
     {
-
-        if ($request->cat) {
-            $data = [
-                'settings' => DB::table('settings')->find(1),
-                'projects' => Project::where('status', 'active')->where('site_visibility', 1)->where('category_id', $request->cat)->orderBy('display_order')->paginate(100),
-                'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
-                'data' => Menu::where('slug', 'projects')->first(),
-                'service_menu' => Menu::where('slug', 'services')->first(),
-                'cat' => $request->cat,
-            ];
-        } else {
-
-            $data = [
-                'settings' => DB::table('settings')->find(1),
-                'projects' => Project::where('status', 'active')->where('site_visibility', 1)->orderBy('display_order')->paginate(100),
-                'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
-                'data' => Menu::where('slug', 'projects')->first(),
-                'service_menu' => Menu::where('slug', 'services')->first(),
-            ];
+        // Base query for projects
+        $query = Project::where('status', 'active')->where('site_visibility', 1);
+    
+        // Apply filters from the request
+        if ($request->has('cat')) {
+            $query->where('category_id', $request->cat);
         }
-        // dd($data);
+        if ($request->has('sector')) {
+            $query->where('sector', $request->sector);
+        }
+        if ($request->has('country')) {
+            $query->where('country', $request->country);
+        }
+        if ($request->has('industry')) {
+            $query->where('industry', $request->industry);
+        }
+    
+        // Get unique values for filters
+        $sectors = Project::distinct()->pluck('sector')->filter()->sort();
+        $countries = Project::distinct()->pluck('country')->filter()->sort();
+        $industries = Project::distinct()->pluck('industry')->filter()->sort();
+    
+        // Paginate filtered projects
+        $projects = $query->orderBy('display_order')->paginate(100);
+    
+        // Prepare data for the view
+        $data = [
+            'settings' => DB::table('settings')->find(1),
+            'projects' => $projects,
+            'projectCategories' => ProjectCategory::whereNull('parent_id')->get(),
+            'sectors' => $sectors,
+            'countries' => $countries,
+            'industries' => $industries,
+            'data' => Menu::where('slug', 'projects')->first(),
+            'service_menu' => Menu::where('slug', 'services')->first(),
+        ];
+           
         if (is_null($data['data'])) {
             return $this->PageNotFound();
         }
 
+        if($request->ajax()){
+            $html = '';
+            foreach ($projects as $index => $project){
+                $html .=view('include.project-card',compact('index','project'));
+            }
+            return $html;
+        }
+    
         return view('projects', $data);
-    }
+    }    
 
     public function details($slug)
     {

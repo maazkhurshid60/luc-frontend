@@ -26,6 +26,7 @@ class DataController extends Controller
     public function index(Request $request)
     {
         $type = $request->input('type');
+        // dd($type);
         return $this->$type($request);
     }
     public function delete_product_file(Request $request)
@@ -67,6 +68,7 @@ class DataController extends Controller
 
     public function update_settings(Request $request)
     {
+        // dd($request->all());
         $record = Settings::find($request->input('id'));
 
         if (!$record) {

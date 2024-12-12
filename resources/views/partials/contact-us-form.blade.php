@@ -9,7 +9,8 @@
                 <h2 class="head--2">Contact Us</h2>
                 <p class="body-txt1 txt--clr">Got a project? Drop us a line if you want to work together on
                     something exciting. Or do you need our help? Feel free to contact us.</p>
-                <form class="row g-lg-4 g-2">
+                <form class="row g-lg-4 g-2" id="contactForm">
+                    <input type="hidden" id="formType" value="contact_form">
                     <div class="col-lg-6 col-12">
                         <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
                         <input type="text" class="form-control req-quote-input" id="nameinput"
@@ -30,7 +31,7 @@
                             <label for="phoneNumbr" class="form-label mb-2 body-txt2 secondary--clr w-100">Phone
                                 Number</label>
                             <input type="text" id="mobile_code" class="form-control w-100 req-quote-input"
-                                placeholder=" (555) 000-0000" name="name" />
+                                placeholder=" (555) 000-0000"  />
                         </div>
                     </div>
                     <div class="col-12">

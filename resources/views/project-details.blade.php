@@ -88,7 +88,8 @@
                                         Us</a></span>
                             </div>
                             <div class="side-bor--form">
-                                <form class="row g-4">
+                                <form class="row g-4" id="projectForm">
+                                    <input type="hidden" id="formType" value="project_form">
                                     <div class="col-12">
                                         <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
                                         <input type="text" class="form-control req-quote-input" id="nameinput"
@@ -104,7 +105,7 @@
                                         <label for="subjectsInput"
                                             class="form-label mb-2 body-txt2 secondary--clr">Services</label>
                                         <select class="form-select req-quote-input body-txt2 grey--clr "
-                                            aria-label="Default select example">
+                                            aria-label="Default select example" id="services">
                                             <option class="body-txt2 grey--clr" selected>Select Services</option>
                                             <option class="body-txt2 grey--clr" value="1">One</option>
                                             <option class="body-txt2 grey--clr" value="2">Two</option>
@@ -119,7 +120,7 @@
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit"
-                                            class="btn primary-btn project-det-register wht--clr">Register<img
+                                            class="btn primary-btn project-det-register wht--clr">Get Quote<img
                                                 src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                                 class="ms-3"></button>
                                     </div>
@@ -202,4 +203,52 @@
     </div>
 @endsection
 @section('custom-js')
+<script>
+    $(document).ready(function () {
+    function handleFormSubmission(formSelector, routeName) {
+        $(formSelector).on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Clear previous errors
+            $(formSelector + ' .error-message').remove();
+            $(formSelector + ' .success-message').remove();
+
+            let formData = {
+                name: $(formSelector + ' #nameinput').val(),
+                email: $(formSelector + ' #inputEmail4').val(),
+                subject: $(formSelector + ' #subjectsInput').val(),
+                service: $(formSelector + ' #services').val(), 
+                phone: $(formSelector + ' #mobile_code').val(),
+                message: $(formSelector + ' #textArea').val(),
+                type: $(formSelector + ' #formType').val(), // Form type
+                _token: '{{ csrf_token() }}' // CSRF token for security
+            };
+
+            $.ajax({
+                url: routeName,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.response === 'success') {
+                        // Display success message
+                        $(formSelector).append('<div class="success-message text-success text-center mt-3">' + response.message + '</div>');
+                        $(formSelector)[0].reset(); // Reset form after success
+                    }
+                },
+                error: function (xhr) {
+                    let errors = xhr.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        let inputField = $(formSelector + ' #' + key);
+                        inputField.after('<span class="error-message text-danger">' + value[0] + '</span>');
+                    });
+                }
+            });
+        });
+    }
+
+    handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
+    handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
+    handleFormSubmission('#projectForm', '{{ route('projectform') }}');
+});
+</script>
 @endsection

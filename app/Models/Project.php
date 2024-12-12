@@ -32,6 +32,9 @@ class Project extends Model
         'og_description',
         'og_image',
         'og_type',
+        'sector',
+        'country',
+        'industry',
     ];
     public function category()
     {

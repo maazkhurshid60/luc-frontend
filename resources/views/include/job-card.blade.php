@@ -38,7 +38,7 @@
             at donec. Sed interdum laoreet accumsan sit netus
             craslaoreet. Nulla sed varius nibh mauris leo eu congue...
         </p>
-        <span class=""><a href="career-details.html"
+        <span class=""><a href="{{route('career.show',$job->slug)}}"
                 class="text-decoration-none primary--clr secondary-btn d-flex justify-content-center">View
                 Details<img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                     class="ms-2" /></a></span>

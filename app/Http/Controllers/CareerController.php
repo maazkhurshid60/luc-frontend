@@ -45,7 +45,7 @@ class CareerController extends Controller
         //     return 'No page found in database';
         // }
         return view('careers', $data);
-        return view('career-details', $data);
+        // return view('career-details', $data);
     }
 
     public function show($slug)
@@ -62,7 +62,7 @@ class CareerController extends Controller
 
         ];
 
-        return view('jobs_application', compact('data'));
+        return view('career-details', compact('data'));
 
     }
     public function submit_application(Request $request)

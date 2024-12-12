@@ -17,7 +17,7 @@
         ])
 
         <!-- About Us Section Start-->
-        <div class="container-fluid d-flex flex-column justify-content-center py-40px">
+        {{-- <div class="container-fluid d-flex flex-column justify-content-center py-40px">
             <div class="container">
                 <div class="row flex-md-row flex-column">
                     <div class="hero-sec-img d-md-flex flex-column justify-content-center align-items-start ">
@@ -44,14 +44,11 @@
                         <span class="body-txt1 txt--clr mb-0 pyb-60"><img
                                 src="{{ asset('assets/frontend/icons/cube-icon.svg') }}" alt=""
                                 class="me-4" />Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span>
-                        <button class="secondary-btn primary--clr d-none">
-                            Learn More<img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                class="ms-2" />
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        @include('partials.about-us')
         <!-- About Us Section End-->
 
         @include('partials.counter')
@@ -61,68 +58,26 @@
             <div class="container">
                 <div class="row gap-md-0 gap-4">
                     <div class="hero-sec-img d-flex flex-column justify-content-center">
-                        <h2 class="head--2 secondary--clr text-md-start text-center pyb-40 mb-0">Share your journey from
-                            the
-                            beginning to now</h2>
-                        <img src="{{ asset('assets/frontend/images/low-angle-shot-high-buildings-with-metal-stairs-gloomy-day.webp') }}"
+                        <h2 class="head--2 secondary--clr text-md-start text-center pyb-40 mb-0">
+                        {{$about_details->journey_heading}}
+                        </h2>
+                        <img src="{{ asset($about_details->journey_img ? 'storage/images/' . $about_details->journey_img : 'assets/frontend/images/low-angle-shot-high-buildings-with-metal-stairs-gloomy-day.webp') }}"
                             alt="" class="our-vision-sec-img">
                     </div>
                     <div class="col-md-6 timeline-sec">
-                        <div class="timline-item d-flex pyb-40">
-                            <div class="timeline-icon">
-                                <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="">
+                        @foreach ($journeys as $journey)
+                            <div class="timline-item d-flex pyb-40">
+                                <div class="timeline-icon">
+                                    <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="Timeline Icon">
+                                </div>
+                                <div class="timeline-details">
+                                    <p class="body-txt2 secondary--clr mb-0 pb-lg-3 pb-2">{{ $journey->year }} •
+                                        {{ $journey->month }}</p>
+                                    <h3 class="head--3 mb-0 pb-lg-2 pb-1">{{ $journey->title }}</h3>
+                                    <p class="body-txt2 txt--clr mb-0">{{ $journey->description }}</p>
+                                </div>
                             </div>
-                            <div class="timeline-details">
-                                <p class="body-txt2 secondary--clr mb-0 pb-lg-3 pb-2">Year • Month</p>
-                                <h3 class="head--3 mb-0 pb-lg-2 pb-1">Lorem Ipsum</h3>
-                                <p class="body-txt2 txt--clr mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Suspendisse varius enim in eros elementum tristique.</p>
-                            </div>
-                        </div>
-                        <div class="timline-item d-flex pyb-40">
-                            <div class="timeline-icon">
-                                <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="">
-                            </div>
-                            <div class="timeline-details">
-                                <p class="body-txt2 secondary--clr mb-0 pb-3">Year • Month</p>
-                                <h3 class="head--3 mb-0 pb-2">Lorem Ipsum</h3>
-                                <p class="body-txt2 txt--clr mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Suspendisse varius enim in eros elementum tristique.</p>
-                            </div>
-                        </div>
-                        <div class="timline-item d-flex pyb-40">
-                            <div class="timeline-icon">
-                                <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="">
-                            </div>
-                            <div class="timeline-details">
-                                <p class="body-txt2 secondary--clr mb-0 pb-3">Year • Month</p>
-                                <h3 class="head--3 mb-0 pb-2">Lorem Ipsum</h3>
-                                <p class="body-txt2 txt--clr mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Suspendisse varius enim in eros elementum tristique.</p>
-                            </div>
-                        </div>
-                        <div class="timline-item d-flex pyb-40">
-                            <div class="timeline-icon">
-                                <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="">
-                            </div>
-                            <div class="timeline-details">
-                                <p class="body-txt2 secondary--clr mb-0 pb-3">Year • Month</p>
-                                <h3 class="head--3 mb-0 pb-2">Lorem Ipsum</h3>
-                                <p class="body-txt2 txt--clr mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Suspendisse varius enim in eros elementum tristique.</p>
-                            </div>
-                        </div>
-                        <div class="timline-item d-flex ">
-                            <div class="timeline-icon">
-                                <img src="{{ asset('assets/frontend/icons/timeline-img.svg') }}" alt="">
-                            </div>
-                            <div class="timeline-details">
-                                <p class="body-txt2 secondary--clr mb-0 pb-3">Year • Month</p>
-                                <h3 class="head--3 mb-0 pb-2">Lorem Ipsum</h3>
-                                <p class="body-txt2 txt--clr mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Suspendisse varius enim in eros elementum tristique.</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -134,20 +89,13 @@
             <div class="container">
                 <div class="row">
                     <div class="hero-sec-text d-flex flex-column justify-content-center">
-                        <h2 class="head--2 secondary--clr text-md-start text-center">Our Vision</h2>
-                        <p class="body-txt1 txt--clr text-md-start text-center">Lorem ipsum dolor sit amet consectetur.
-                            Leo quisque justo turpis quam volutpat tellus risus condimentum. Aliquet morbi a in
-                            ultricies vitae sagittis. Neque adipiscing facilisi nullam nisl lacus enim in consectetur.
-                            Quisque natoque quis amet mauris in cras sed ornare volutpat. Massa dictumst nibh at varius
-                            sit. Mi urna eget sodales orci tellus rhoncus. Diam in viverra integer id lacinia sit massa.
-                            Eu congue ut suspendisse nunc ut arcu nisi vestibulum adipiscing. Accumsan purus risus vel
-                            sit enim pellentesque felis habitant adipiscing. Eget sapien aenean placerat fermentum leo.
-                            Suscipit viverra erat et malesuada eget quam. Eget tortor fringilla sed nunc. Erat mi mattis
-                            id integer massa dignissim tincidunt nisi mollis. Pharetra lectus phasellus enim tincidunt.
+                        <h2 class="head--2 secondary--clr text-md-start text-center">{{$about_details->vision_heading}}</h2>
+                        <p class="body-txt1 txt--clr text-md-start text-center">
+                            {{$about_details->vision_desc}}
                         </p>
                     </div>
                     <div class="hero-sec-img-right">
-                        <img src="{{ asset('assets/frontend/images/our-vision-img.webp') }}" alt=""
+                        <img src="{{ asset($about_details->vision_img ? 'storage/images/' . $about_details->vision_img : 'assets/frontend/images/our-vision-img.webp') }}" alt=""
                             class="our-vision-sec-img">
                     </div>
                 </div>
