@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Application;
-use App\Models\Job;
-use App\Models\JobCategory;
-use App\Models\Menu;
-use Carbon\Carbon;
 use DB;
+use Carbon\Carbon;
+use App\Models\Job;
+use App\Models\Menu;
+use App\Models\Project;
+use App\Models\Application;
+use App\Models\JobCategory;
 use Illuminate\Http\Request;
 
 class CareerController extends Controller
@@ -57,6 +58,7 @@ class CareerController extends Controller
         }
 
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'page' => $job,
 

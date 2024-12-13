@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\Company;
-use App\Models\Faq;
-use App\Models\Menu;
 use DB;
+use App\Models\Faq;
+use App\Models\Blog;
+use App\Models\Menu;
+use App\Models\Company;
+use App\Models\Project;
 
 class ServicesController extends Controller
 {
@@ -16,6 +17,7 @@ class ServicesController extends Controller
     {
         $data = [
             'settings' => DB::table('settings')->find(1),
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'data' => Menu::where('slug', 'services')->first(),
             'companies' => Company::orderBy('display_order', 'asc')->latest()->get(),
         ];
@@ -43,6 +45,7 @@ class ServicesController extends Controller
             ->get();
         
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'data' => $obj,
             'services' => $obj->services,

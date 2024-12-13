@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\contactUs;
-use app\Models\Feedback;
+use DB;
 use App\Models\Menu;
 use App\Models\Team;
-use DB;
+use App\Mail\contactUs;
+use App\Models\Project;
+use app\Models\Feedback;
 use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
@@ -14,6 +15,7 @@ class ContactUsController extends Controller
     public function index()
     {
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'data' => Menu::where('slug', 'contact-us')->first(),
             'alladdress' => DB::table('address')->get(),

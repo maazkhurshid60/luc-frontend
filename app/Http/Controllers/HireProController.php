@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Mail\Hiring;
-use App\Models\HiringApplication;
 use App\Models\Menu;
 use App\Models\Team;
-use DB;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Models\HiringApplication;
 use Illuminate\Support\Facades\Mail;
 
 class HireProController extends Controller
@@ -15,6 +16,7 @@ class HireProController extends Controller
     public function index()
     {
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'teams' => Team::where('status', 'active')->orderBy('display_order')->with('files', function ($query) {
                 $query->orderBy('display_order');

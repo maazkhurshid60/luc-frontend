@@ -68,6 +68,7 @@ class ProjectsController extends Controller
     public function details($slug)
     {
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'data' => Project::where('slug', $slug)->where('status', 'active')->first(),
         ];

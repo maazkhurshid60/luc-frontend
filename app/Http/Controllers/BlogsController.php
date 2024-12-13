@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\BlogCategory;
-use App\Models\Menu;
 use DB;
+use App\Models\Blog;
+use App\Models\Menu;
+use App\Models\Project;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
@@ -38,6 +39,7 @@ class BlogsController extends Controller
         }
     
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'data' => Menu::where('slug', 'blog')->orWhere('slug', 'blogs')->first(),
             'blogs' => $blogs,
@@ -58,6 +60,7 @@ class BlogsController extends Controller
 
         $blogs = Blog::where('slug', $slug)->first();
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
             'data' => $blogs,
             'related' => Blog::where('category_id', $blogs->category_id)->where('id', '!=', $blogs->id)->where('status', 'active')->latest()->take(3)->get(),

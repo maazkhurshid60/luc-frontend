@@ -64,7 +64,11 @@
                                         <a class="nav-link body-txt1 wht--clr primary-menu-links {{ request()->routeIs('about-us.index') ? 'active' : '' }}"
                                             href="{{ route('about-us.index') }}">About Us</a>
                                     </li>
-                                    <li class="nav-item dropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link body-txt1 wht--clr primary-menu-links {{ request()->routeIs('companies.index') ? 'active' : '' }}"
+                                            href="{{ route('companies.index') }}">Services</a>
+                                    </li>
+                                    {{-- <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle body-txt1 wht--clr primary-menu-links {{ request()->routeIs('services.index') ? 'active' : '' }}"
                                             href="{{ route('companies.index') }}" role="button" aria-expanded="false">
                                             Services
@@ -75,17 +79,21 @@
                                                     href="pages/services-detail.html">Technology</a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle primary-menu-links body-txt1 wht--clr {{ request()->routeIs('projects.index') ? 'active' : '' }}"
                                             href="{{ route('projects.index') }}" role="button" aria-expanded="false">
                                             Projects
                                         </a>
                                         <ul class="dropdown-menu hover-dropdown-menu">
+                                            {{-- {{$projects}} --}}
+                                            @foreach ($projects as $project)
                                             <li>
                                                 <a class="dropdown-item secondary--font fw-md"
-                                                    href="pages/project-details.html">PMR</a>
+                                                    href="{{ url('projects') . '/' . $project->slug }}">{{$project->name}}</a>
                                             </li>
+                                            @endforeach
+                                         
                                         </ul>
                                     </li>
                                     {{-- <li class="nav-item">
