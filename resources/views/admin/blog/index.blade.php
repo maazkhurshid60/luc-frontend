@@ -2,7 +2,8 @@
 
 @section('content')
     @php
-        $columns = ['ID', 'title', 'user', 'tags', 'image', 'status', 'date'];
+        // $lang = getTranslation('title', 'en');
+        $columns = ['ID', 'title', 'Author','image', 'status', 'date'];
         $data_route = route('blog.datatable');
         $store_url = route('blog.store');
         $destroy_url = route('blog.destroy', 11);
@@ -76,6 +77,8 @@
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}'; // Hardcoded language
+
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -99,25 +102,21 @@
             responsive: true,
             ajax: {
                 url: '{{ $data_route }}',
-
             },
-            columns: [
-
-                {
+            columns: [{
                     data: 'id',
                     name: 'id'
                 },
                 {
                     data: 'title',
-                    name: 'title'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'user',
                     name: 'user'
-                },
-                {
-                    data: 'tags',
-                    name: 'tags'
                 },
                 {
                     data: 'image',
@@ -139,8 +138,6 @@
                 }
             ]
         });
-
-
 
         function delete_record(recordID) {
             swal({

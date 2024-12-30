@@ -132,6 +132,7 @@
 
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -165,7 +166,10 @@
                 },
                 {
                     data: 'title',
-                    name: 'title'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'created_at',
@@ -258,16 +262,20 @@
         }
 
 
-        function updateRecord(id) {
-            url = "{{ $update_url }}";
-            url = url.replace('11', id);
+        function updateRecord(id, lang) {
+            let url = "{{ $update_url }}"; // Template URL
+            url = url.replace('11', id); // Replace placeholder with ID
+            url += `?lang=${lang}`; // Append the language parameter
+
             $(".extraModal").modal();
             $(".extraModalTitle").html("{{ __('Update Record') }}");
             $(".extraModalBody").html("<i class='fa fa-spin fa-spinner'></i> {{ __('Loading...') }}");
+
             $.get(url, function(res) {
-                $(".extraModalBody").html(res);
-            })
+                $(".extraModalBody").html(res); // Populate modal with response
+            });
         }
+
 
 
         function delete_record(recordID) {

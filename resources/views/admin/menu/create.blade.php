@@ -36,43 +36,18 @@
                                 @csrf
 
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="name"
                                             id="generate-slug" target="#SlugMenuCreateForm">
                                     </div>
-                                    <div class="col-md-4 form-group char-counter">
+                                    <div class="col-md-6 form-group char-counter">
                                         <label>{{ __('Slug') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="slug"
                                             id="SlugMenuCreateForm">
                                         <small><span class="text-red">Char Counter : 0</span></small>
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <label for="">Parent</label>
-                                        <select name="parent" id="parent" class="form-control form-control-sm">
-                                            <option value="0">No parent</option>
-                                            {{ App\Helpers\Helper::menuOptions() }}
-                                        </select>
-                                    </div> --}}
-                                    <div class="col-md-2">
-                                        <label>Display Order <span class="text-danger">*</span></label>
-                                        <input type="number" name="display_order" class="form-control form-control-sm"
-                                            min="1" value="{{ $display_order }}">
-                                    </div>
-                                    {{-- <div class="col-md-2" style="margin-top: 3%;">
-                                        <span class="">
-                                            <input type="checkbox" id="show_services" name="show_services"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="show_services">Show Services </label>
-                                        </span>
-                                    </div> --}}
-                                    <div class="col-md-2" style="margin-top: 2%;">
-                                        <span class="">
-                                            <input type="checkbox" id="search_engine" name="search_engine"
-                                                class="filled-in chk-col-purple" checked />
-                                            <label for="search_engine">Discourage search engines from indexing </label>
-                                        </span>
-                                    </div>
+                               
                                     @can('meta-data.create')
                                         <div class="col-md-12">
                                             <hr>
@@ -124,7 +99,7 @@
                                         <input type="text" name="heading" class="form-control form-control-sm">
                                         <span class="text-danger"><small>For Site Home page & Inside Page</small></span>
                                     </div>
-                                    <div class="col-md-8 my-2">
+                                    <div class="col-md-12 my-2">
                                         <textarea n id="editor" cols="30" rows="10"></textarea>
                                     </div>
                                     <div class="col-md-4">
@@ -140,55 +115,14 @@
                                                 data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                         </div>
                                     @endcan
-                                    <div class="col-md-4">
-                                        <label for="display">Display</label>
-                                        <select name="display" class="form-control form-control-sm">
-                                            <option>Yes</option>
-                                            <option>No</option>
-                                        </select>
-                                        <br>
-
-                                        <label>Position <span class="text-danger">*</span></label>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="top" value="top" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="top">Top Bar</label>
-                                        </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="navigation" value="navigation" name="position[]"
+                                    <div class="col-md-2" style="margin-top: 2%;">
+                                        <span class="">
+                                            <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple" checked />
-                                            <label for="navigation">Navigation Bar</label>
+                                            <label for="search_engine">Discourage search engines from indexing </label>
                                         </span>
-                                        {{-- <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="footer" value="footer" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="footer">Footer(products)</label>
-                                        </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="other" value="other" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="other">Footer (services)</label>
-                                        </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="organization" value="organization"
-                                                name="position[]" class="filled-in chk-col-purple" />
-                                            <label for="organization">Footer (organization)</label>
-                                        </span> --}}
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="bottom" value="bottom" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="bottom">Bottom </label>
-                                        </span>
-                                        <br>
-
-
                                     </div>
+                           
                                     <div class="col-md-12">
                                         <div class="box-header">
                                             <hr>
@@ -301,17 +235,7 @@
 
         });
         editor2.setData(
-            '<section><div class="container"><div class="row"><div class="col-lg-12"><div class="heading-text heading-section"><h2>Heading</h2></div></div><div class="col-lg-12">Contents.</div><ul><li class="col-lg-12">bullet point 1</li><li class="col-lg-12">bullet point 2</li><li class="col-lg-12" >bullet point 3</li></ul ></div></div></section>'
+            '<h2 class="head--2 secondary--clr line-ht3 mb-0 pyb-40">What makes our company different </h2><p class="body-txt1 txt--clr mb-0 pyb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Suspendisse varius enim in eros elementum tristique. Duiscursus, mi quis viverra ornare, eros dolor interdum nulla, utcommodo diam libero vitae erat.</p><li class="body-txt1 txt--clr mb-0 pb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li><li class="body-txt1 txt--clr mb-0 pb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li><li class="body-txt1 txt--clr mb-0 pyb-60">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>'
         );
-    </script>
-    <script>
-        // $(document).on('click', '#show_services', function(event) {
-        //     // event.preventDefault();
-        //     if ($(this).prop("checked") == true) {
-        //         $('#parent').prop('disabled', true);
-        //     } else if ($(this).prop("checked") == false) {
-        //         $('#parent').prop('disabled', false);
-        //     }
-        // });
     </script>
 @endsection

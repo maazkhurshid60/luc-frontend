@@ -9,8 +9,8 @@
     <div class="main">
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/career-details-hero-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
-            'parent' => ['name' => 'Careers', 'route' => 'careers.index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
+            'parent' => ['name' => __('lang.careers'), 'route' => 'careers.index'],
             'page_title' => $data['page']->title,
         ])
 
@@ -52,22 +52,25 @@
                         <hr class="grey--clr">
                         <div class="job-list-detail text-md-start text-center">
                             <div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
-                                <h3 class="head--3 secondary--clr">Job Description</h3>
+                                <h3 class="head--3 secondary--clr">{{ __('lang.job_description') }}</h3>
                                 <span class="body-txt1 secondary--clr d-flex align-items-center mb-0">
-                                    <p class="body-txt1 txt--clr mb-0">Posted on: </p>
+                                    <p class="body-txt1 txt--clr mb-0">{{ __('lang.posted_on') }}</p>
                                     {{ \Carbon\Carbon::parse($data['page']->created_at)->diffForHumans() }}
                                 </span>
                             </div>
                             {!! $data['page']->contents !!}
 
                             <div class="d-flex flex-column gap-2">
-                                <span class="mb-2"><a href="#"
-                                        class="text-decoration-none wht--clr primary-btn d-flex justify-content-center w-100">Apply
-                                        Now<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
-                                            class="ms-2"></a></span>
-                                <span class="mt-2"><a href="{{route('careers.index')}}"
-                                        class="text-decoration-none primary--clr body-txt2 fw-sb d-flex justify-content-center w-100">See
-                                        All Jobs</a></span>
+                                <span class="mb-2">
+                                    <a href="#" class="text-decoration-none wht--clr primary-btn d-flex justify-content-center w-100">
+                                        {{ __('lang.apply_now') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt="" class="ms-2">
+                                    </a>
+                                </span>
+                                <span class="mt-2">
+                                    <a href="{{ route('careers.index') }}" class="text-decoration-none primary--clr body-txt2 fw-sb d-flex justify-content-center w-100">
+                                        {{ __('lang.see_all_jobs') }}
+                                    </a>
+                                </span>                                
                             </div>
                         </div>
                     </div>

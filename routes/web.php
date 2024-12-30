@@ -53,6 +53,8 @@ use App\Http\Controllers\Admin\HiringApplicationController;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+// dd(session()->all());
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Auth::routes(['register' => false, 'reset' => false]);
@@ -158,5 +160,6 @@ Route::get('/hirepro', [HireProController::class, 'index'])->name('hirepro.index
 Route::POST('/hirepro-application', [HireProController::class, 'submit_application'])->name('hirepro.submit_application');
 
 Route::post('/get-technologies-options', [HomeController::class, 'getTechnologies'])->name('get.technologies');
+Route::get('/change-language', [HomeController::class, 'changeLanguage'])->name('change-language');
 
 Route::any('/{slug}', [HomeController::class, 'pages']);

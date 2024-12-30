@@ -28,11 +28,11 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/blog-details-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => ['name' => 'Blogs', 'route' => 'blogs.index'],
             'page_title' => $data->title,
         ])
-
+    {{-- @dd($data->category) --}}
         <div class="container-fluid py-40px">
             <div class="container">
                 <div class="row flex-md-row flex-column-reverse gap-md-0 gap-4 pyb-80">

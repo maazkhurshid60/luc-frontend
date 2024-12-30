@@ -30,6 +30,7 @@
                                 onsubmit="return update_validation()">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $settings->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
                                     <div class="col-md-4 form-group">
                                         <label>Site Name</label>
@@ -104,7 +105,7 @@
                                                 <input type="text" name="instagram" value="{{ $settings->instagram }}"
                                                     class="form-control form-control-sm">
                                             </div>
-											<div class="col-md-4 form-group">
+                                            <div class="col-md-4 form-group">
                                                 <label>Linkedin</label>
                                                 <input type="text" name="linkedin" value="{{ $settings->linkedin }}"
                                                     class="form-control form-control-sm">
@@ -114,7 +115,8 @@
                                     <div class="col-md-4 form-group">
                                         <label>Logo</label>
                                         <input type="file" name="logo_image" class="form-control my-2 dropify"
-                                            data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif svg webp"
+                                            data-max-file-size="1M"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp"
                                             data-default-file="{{ asset('storage/images/' . $settings->logo) }}">
                                         <label>Icon</label>
                                         <input type="file" name="icon_image" class="form-control my-2 dropify2"
@@ -147,6 +149,8 @@
 
                                     <div class="col-md-12">
                                         <button class="btn btn-sm btn-primary float-right">Update Settings</button>
+                                        <a href="{{ route('settings.index', 'lang=fr') }}"
+                                            class="btn btn-sm btn-primary float-right mr-3">Edit French</a>
                                     </div>
                                 </div>
                             </form>

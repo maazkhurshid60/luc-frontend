@@ -24,24 +24,14 @@ class QuoteationFormController extends Controller
     }
     public function datatable(Request $request)
     {
-        if (!auth()->user()->can('lead.view')) {
+        // dd($request->all());
+        if (!auth()->user()->can('quotation.view')) {
             abort(401);
         }
         $items = Obj::select('*');
-
-        if ($request->has('client') && $request->input('client') !== "") {
-            $items->where('name', 'like', '%' . $request->input('client') . '%');
-        }
-
-        if ($request->has('member') && !empty($request->input('member'))) {
-            $items->where('team_id', $request->input('member'));
-        }
-        if ($request->has('service') && !empty($request->input('service'))) {
-            $items->whereJsonContains('service', $request->input('service'));
-        }
-
-        if ($request->has('technology') && !empty($request->input('technology'))) {
-            $items->whereJsonContains('technology', $request->input('technology'));
+        // dd($items->get());
+        if ($request->has('type')) {
+            $items->where('type', $request->input('type'));
         }
 
         return datatables($items)
@@ -55,7 +45,9 @@ class QuoteationFormController extends Controller
                 }
                 return $action;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->editColumn('team_id', function ($item) {
                 if (!is_null($item->team_id)) {
                     return $item->team->name;
@@ -67,7 +59,7 @@ class QuoteationFormController extends Controller
     }
     public function show($id)
     {
-        if (!auth()->user()->can('lead.view')) {
+        if (!auth()->user()->can('quotation.view')) {
             abort(401);
         }
         $element = Obj::findOrFail($id);

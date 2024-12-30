@@ -15,11 +15,14 @@ use App\Models\Company;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Feedback;
+use App\Models\Settings;
 use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 use App\Models\QuoteationForm;
 use App\Models\ProjectCategory;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HomeController extends Controller
@@ -33,7 +36,7 @@ class HomeController extends Controller
     {
         $select = ['name', 'heading', 'short_description'];
         $data = [
-            'settings' => DB::table('settings')->find(1),
+            'settings' => Settings::find(1),
             'data' => Menu::where('slug', 'home')->first(),
             // 'about_us' => Menu::where('slug', 'about-us')->first(),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
@@ -52,7 +55,7 @@ class HomeController extends Controller
                 'careers' => Menu::where('slug', 'careers')->select($select)->first(),
             ],
         ];
-        // dd($data);
+        // dd($data['settings']);
         if (!$data['data']) {
             return view('errors.404');
         }
@@ -263,7 +266,6 @@ class HomeController extends Controller
 
     public function feedback_submit(Request $request)
     {
-
         // if (is_null($request->input('g-recaptcha-response'))) {
         //     return response()->json(['success' => 'false', 'message' => 'Captcha Verification Failed! Please Complete Captcha to Continue.'], 422);
         // }
@@ -301,40 +303,40 @@ class HomeController extends Controller
         return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
     public function quoteform(Request $request)
-{
-    $validator = \Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-        'email' => 'required|email',
-        'subject' => 'nullable|string|max:255', // Allow subject to be nullable since we might set it dynamically
-        'service' => 'nullable|string|max:255',
-        'phone' => 'nullable|string|max:15',
-        'message' => 'required|string|max:1000',
-        'type' => 'required|string|in:quote_form,contact_form,project_form',
-    ]);
+    {
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'subject' => 'nullable|string|max:255', // Allow subject to be nullable since we might set it dynamically
+            'service' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:15',
+            'message' => 'required|string|max:1000',
+            'type' => 'required|string|in:quote_form,contact_form,project_form',
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        // Dynamically set the subject based on type
+        $data = $request->all(); // Get all input fields as an array
+        if ($request->type === 'project_form') {
+            $data['subject'] = 'This form is from the project form';
+        }
+
+        // Store form data
+        QuoteationForm::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'subject' => $data['subject'],
+            'service' => $data['service'] ?? null, // Handle nullable fields gracefully
+            'contact_no' => $data['phone'] ?? null,
+            'message' => $data['message'],
+            'type' => $data['type'],
+        ]);
+
+        return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
-
-    // Dynamically set the subject based on type
-    $data = $request->all(); // Get all input fields as an array
-    if ($request->type === 'project_form') {
-        $data['subject'] = 'This form is from the project form';
-    }
-
-    // Store form data
-    QuoteationForm::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'subject' => $data['subject'],
-        'service' => $data['service'] ?? null, // Handle nullable fields gracefully
-        'contact_no' => $data['phone'] ?? null,
-        'message' => $data['message'],
-        'type' => $data['type'],
-    ]);
-
-    return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
-}
 
     public function PageNotFound()
     {
@@ -379,4 +381,5 @@ class HomeController extends Controller
             'headings' => $headings,
         ]);
     }
+
 }

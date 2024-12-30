@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $columns = ['ID', 'title', 'Featured', 'status', 'date'];
+        $columns = ['ID', 'title','status', 'date'];
         $data_route = route('service.datatable');
         $store_url = route('service.store');
         $destroy_url = route('service.destroy', 11);
@@ -39,28 +39,28 @@
                             <form method="POST" id="search-form" class="form-inline" role="form">
 
                                 <!-- <div class="form-group mr-1">
-                        <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
-                    </div>
+                            <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
+                        </div>
 
-                    <div class="form-group mx-1">
-                        <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
-                    </div>
-                     <div class="form-group mx-1">
-                        <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
-                    </div>
-                    <div class="form-group mx-1">
-                        <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
-                    </div>
-                    <div class="form-group mx-1">
-                        <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
-                    </div>
-                    <div class="form-group mx-1">
-                        <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
-                    </div>
+                        <div class="form-group mx-1">
+                            <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
+                        </div>
+                         <div class="form-group mx-1">
+                            <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
+                        </div>
+                        <div class="form-group mx-1">
+                            <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
+                        </div>
+                        <div class="form-group mx-1">
+                            <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
+                        </div>
+                        <div class="form-group mx-1">
+                            <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
+                        </div>
 
 
 
-                    <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
+                        <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
                             </form>
                             <div class="table-responsive">
                                 <table id="dTable" class="table table-bordered table-striped spTable">
@@ -90,7 +90,8 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content brad0">
                     <div class="modal-header brad0">
-                        <h4 class="modal-title addModalTitle" id="myLargeModalLabel">{{ __($heading . ' Registration') }}</h4>
+                        <h4 class="modal-title addModalTitle" id="myLargeModalLabel">{{ __($heading . ' Registration') }}
+                        </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body addModalBody">
@@ -167,6 +168,7 @@
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -200,11 +202,10 @@
                 },
                 {
                     data: 'title',
-                    name: 'title'
-                },
-                {
-                    data: 'is_featured',
-                    name: 'is_featured'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'status',

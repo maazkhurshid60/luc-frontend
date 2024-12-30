@@ -33,14 +33,13 @@
                 <p class="mb-0">{{ \App\Helpers\Helper::setDate($job->apply_before) }}</p>
             </span>
         </div>
-        <p class="body-txt2 mb-3">
+        {{-- <p class="body-txt2 mb-3">
             Lorem ipsum dolor sit amet consectetur. Urna auctor laoreet
             at donec. Sed interdum laoreet accumsan sit netus
             craslaoreet. Nulla sed varius nibh mauris leo eu congue...
-        </p>
-        <span class=""><a href="{{route('career.show',$job->slug)}}"
-                class="text-decoration-none primary--clr secondary-btn d-flex justify-content-center">View
-                Details<img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
+        </p> --}}
+        <span class="mt-3"><a href="{{route('career.show',$job->slug)}}"
+                class="text-decoration-none primary--clr secondary-btn d-flex justify-content-center"> {{ __('lang.VIEW_DETAILS') }}<img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                     class="ms-2" /></a></span>
     </div>
 </div>

@@ -36,11 +36,11 @@
                                 @csrf
 
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>Slug <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="slug">
                                     </div>
@@ -81,11 +81,6 @@
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>Display Order <span class="text-danger">*</span></label>
-                                        <input type="number" name="display_order" class="form-control form-control-sm"
-                                            value="{{ $display_order }}">
-                                    </div>
 
                                     <div class="col-md-4">
                                         <label>Project Categories <span class="text-danger">*</span></label>
@@ -102,15 +97,9 @@
                                         <select name="featured_project[]" id="featured_project"
                                             class="form-control form-control-sm" multiple>
                                             <option value="">Select</option>
-                                            <!-- Options will be populated dynamically -->
                                         </select>
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <label>Background Color <span class="text-danger">*</span></label>
-                                        <input type="text" name="bg_color" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 mb-3 ">
                                         <label>Project Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
@@ -121,19 +110,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label>Seo Keywords Heading</span></label>
-                                        <input type="text" name="seo_more_heading"
-                                            class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-12 form-group">
-                                        <label>Seo Keywords Content</label>
-                                        <textarea class="form-control" id="seo_more_content" name="seo_more_content"></textarea>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
                                     <div class="col-md-12 form-group">
                                         <label>Short Description</label>
                                         <textarea class="form-control" id="description_editor"></textarea>
@@ -143,92 +119,26 @@
                                         <textarea id="editor" cols="30" rows="10"></textarea>
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __(' Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="image" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __(' ICON') }}</label>
-                                        <input type="file" name="image2" id="filez2" class="filez2"
-                                            data-max-file-size="1M" data-allowed-file-extensions="svg">
-                                        <small class="text-muted">This image will appear on home page</small>
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>Service Icon</label>
-                                        <input type="file" name="image4" id="filez4" class="filez4"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __(' BANNER') }}</label>
-                                        <input type="file" name="image3" id="filez3" class="filez3"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __('Secondary Image') }}</label>
-                                        <input type="file" name="image6" id="filez5" class="filez5"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                        <small class="text-muted">This image will appear in related services
-                                            section</small>
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __(' OG Image') }}</label>
                                         <input type="file" name="image5" id="filez5" class="filez5"
                                             data-max-file-size="2M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>
                                             <option value="in-active">In-active</option>
                                         </select>
                                         <br>
-                                        <label for="is_featured">Is Featured</label>
-                                        <select name="is_featured" class="form-control form-control-sm">
-                                            <option value="1">Yes</option>
-                                            <option value="0" selected>No</option>
-                                        </select>
-                                        <br>
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>Position</label>
-                                        <br>
-                                        {{-- <span class="mx-2">
-                               <input type="checkbox" id="top" value="top" name="position[]" class="filled-in chk-col-purple" />
-                               <label for="top">Top Bar</label>   
-                             </span>
-                             <span class="mx-2">
-                               <input type="checkbox" id="navigation" value="navigation" name="position[]" class="filled-in chk-col-purple" />
-                               <label for="navigation">Navigation Bar</label>   
-                             </span>
-                              --}}
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="footer" value="footer" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="footer">Footer (products)</label>
-                                        </span> <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="other" value="other" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="other">Footer (services)</label>
-                                        </span> <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="organization" value="organization"
-                                                name="position[]" class="filled-in chk-col-purple" />
-                                            <label for="organization">Footer (organization)</label>
-                                        </span>
-                                        {{-- <span class="mx-2">
-                               <input type="checkbox" id="bottom" value="bottom" name="position[]" class="filled-in chk-col-purple"  />
-                               <label for="bottom">Bottom </label>  
-                             </span> --}}
-                                    </div>
-                                    <div class="col-md-3" style="margin-top: 3%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple" checked />

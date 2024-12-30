@@ -96,16 +96,16 @@
                             @csrf
                             <div class=" row">
                                 <div class="col-md-12 form-group">
-                                    <label>Question</label>
+                                    <label>Question <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" name="question">
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label>Answer</label>
+                                    <label>Answer <span class="text-danger">*</span></label>
                                     <textarea name="answer" id="" class="form-control form-control-sm"></textarea>
                                 </div>
                                 <div class="col-md-8">
-                                    <label>Select Category</label>
+                                    <label>Select Category <span class="text-danger">*</span></label>
                                     <select name="category_id" class="form-control form-control-sm">
                                         {{ App\Helpers\Helper::getOptions([
                                             'table' => 'faq_categories',
@@ -169,6 +169,7 @@
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -202,11 +203,17 @@
                 },
                 {
                     data: 'question',
-                    name: 'question'
+                    name: 'question',
+                    render: function(data, type, row) {
+                        return row.question[lang];
+                    }
                 },
                 {
                     data: 'answer',
-                    name: 'answer'
+                    name: 'answer',
+                    render: function(data, type, row) {
+                        return row.answer[lang];
+                    }
                 },
                 {
                     data: 'category_id',
@@ -309,15 +316,18 @@
         }
 
 
-        function updateRecord(id) {
-            url = "{{ $update_url }}";
-            url = url.replace('11', id);
+        function updateRecord(id, lang) {
+            let url = "{{ $update_url }}"; // Template URL
+            url = url.replace('11', id); // Replace placeholder with ID
+            url += `?lang=${lang}`; // Append the language parameter
+
             $(".extraModal").modal();
             $(".extraModalTitle").html("{{ __('Update Record') }}");
             $(".extraModalBody").html("<i class='fa fa-spin fa-spinner'></i> {{ __('Loading...') }}");
+
             $.get(url, function(res) {
-                $(".extraModalBody").html(res);
-            })
+                $(".extraModalBody").html(res); // Populate modal with response
+            });
         }
 
         function delete_record(recordID) {

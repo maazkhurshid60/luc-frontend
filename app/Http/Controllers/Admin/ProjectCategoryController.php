@@ -22,10 +22,12 @@ class ProjectCategoryController extends Controller
         if (!auth()->user()->can('project-category.view')) {
             abort(401);
         }
+        $lang = 'en';
         $data = [
             'menu' => 'project-category',
             'settings' => DB::table('settings')->first(),
             'parentcategories' => Obj::whereNull('parent_id')->get(),
+            'lang' => $lang,
         ];
         return view('admin.project-category.index', $data);
     }
@@ -37,17 +39,18 @@ class ProjectCategoryController extends Controller
         $items = Obj::select('*');
 
         return datatables($items)
-            ->addColumn('action', function ($item) {
-                $action = '';
-                if (auth()->user()->can('project-category.edit')) {
-                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                }
-                if (auth()->user()->can('project-category.delete')) {
-                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                }
-                return $action;
-            })
-
+        ->addColumn('action', function ($item) {
+            $editEn = '<a href="javascript:updateRecord(' . $item->id . ', \'en\')" class="btn btn-xs btn-primary">Edit EN</a>';
+            $editFr = '<a href="javascript:updateRecord(' . $item->id . ', \'fr\')" class="btn btn-xs btn-secondary">Edit FR</a>';
+            $delete = '';
+            if (auth()->user()->can('blog-category.delete')) {
+                $delete = '<a href="javascript:delete_record(' . $item->id . ')" class="btn btn-xs btn-danger">Delete</a>';
+            }
+            return $editEn . ' ' . $editFr . ' ' . $delete;
+        })
+        ->editColumn('created_at', function ($item) {
+            return \App\Helpers\Helper::setDate($item->created_at);
+        })
             ->rawColumns(['action'])
             ->toJson();
     }
@@ -74,18 +77,10 @@ class ProjectCategoryController extends Controller
         }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
-            'icon_file' => 'required|image|mimes:svg',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
 
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
-        }
-        if ($request->hasFile('file')) {
-            $request['image'] = Helper::handleImageUpload($request->file('file'));
-        }
-        if ($request->hasFile('icon_file')) {
-            $request['icon'] = Helper::handleImageUpload($request->file('icon_file'));
         }
 
         $obj = Obj::create($request->all());
@@ -98,12 +93,16 @@ class ProjectCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         if (!auth()->user()->can('project-category.view')) {
             abort(401);
         }
-        $data['data'] = Obj::findOrFail($id);
+        $lang = $request->lang ?? 'en';
+        $data = [
+            'data' => Obj::findOrFail($id),
+            'lang' => $lang,
+        ];
         return view('admin.project-category.edit', $data);
     }
 
@@ -133,18 +132,10 @@ class ProjectCategoryController extends Controller
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
-            'icon_file' => 'nullable|image|mimes:svg',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
-        }
-        if ($request->hasFile('file')) {
-            $request['image'] = Helper::handleImageUpload($request->file('file'), $record->image);
-        }
-        if ($request->hasFile('icon_file')) {
-            $request['icon'] = Helper::handleImageUpload($request->file('icon_file'));
         }
 
         $record->update($request->all());
@@ -157,42 +148,6 @@ class ProjectCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Request $request,$id)
-    // {
-    //     Project::where('categories_id' '')
-    //     $record = Obj::findOrFail($request->input('id'));
-    //     $record->delete();
-    //     return back()->with('success','Record Deleted successfully');
-    // }
-
-    // public function destroy(Request $request, $id)
-    //  {
-
-    //      $category = Obj::findOrFail($request->input('id'));
-
-    //          $projects = DB::table('projects')->get();
-    //          $categoryInProjects = false;
-    //          foreach ($projects as $project) {
-    //              $categories_ids = json_decode($project->categories_id, true);
-    //              if (is_array($categories_ids) && in_array($request->input('id'), $categories_ids)) {
-    //                  $categoryInProjects = true;
-    //                  break;
-    //              }
-    //          }
-
-    //          \Log::info("Category in projects: ", [$categoryInProjects]);
-
-    //          if ($categoryInProjects) {
-    //              return back()->with('error', 'Category is associated with a project and cannot be deleted');
-    //          }
-
-    //          // Delete the category
-    //          $category->delete();
-    //          \Log::info("Category deleted: ", [$category]);
-
-    //          return back()->with('success', 'Category deleted successfully');
-    //  }
-
     public function destroy(Request $request, $id)
     {
         if (!auth()->user()->can('project-category.delete')) {

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->json('name')->nullable();
             $table->string('slug')->nullable();
-            $table->text('heading')->nullable();
-            $table->text('short_description')->nullable();
-            $table->text('description')->nullable();
+            $table->json('heading')->nullable();
+            $table->json('short_description')->nullable();
+            $table->json('description')->nullable();
             $table->string('image')->nullable();
             $table->string('video')->nullable();
 
@@ -26,20 +26,20 @@ return new class extends Migration
 
             $table->enum('display', ['yes', 'no'])->default('yes');
             $table->enum('show_services', ['1', '0'])->default('0');
-            $table->text('about_description')->nullable();
-            $table->string('about_img')->nullable();
+            $table->json('about_description')->nullable();
+            $table->json('about_img')->nullable();
             
             $table->integer('display_order')->nullable();
             $table->boolean('search_engine')->nullable();
 
-            $table->string('page_title')->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->json('page_title')->nullable();
+            $table->json('meta_keywords')->nullable();
+            $table->json('meta_description')->nullable();
 
-            $table->string('og_title')->nullable();
-            $table->string('og_description')->nullable();
-            $table->string('og_image')->nullable();
-            $table->string('og_type')->nullable();
+            $table->json('og_title')->nullable();
+            $table->json('og_description')->nullable();
+            $table->json('og_image')->nullable();
+            $table->json('og_type')->nullable();
 
             $table->timestamps();
         });

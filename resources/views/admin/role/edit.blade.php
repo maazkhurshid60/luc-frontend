@@ -96,7 +96,7 @@
                                                             onchange="select_check_box_all($(this))" value="menu">
                                                         <label for="menu.all">Select All</label>
                                                     </div>
-                                                    <div class="col-md-8 user">
+                                                    <div class="col-md-8 menu">
                                                         <input type="checkbox" class="filled-in chk-col-red" name="Permission[]"
                                                             id="menu.permission" value="menu.permission"
                                                             {{ in_array('menu.permission', $role_permissions) ? 'checked' : '' }}>
@@ -262,37 +262,7 @@
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
-                                            <div class="col-md-6 row allPermissions">
-                                                <div class="col-md-4">
-                                                    <h4>{{ __('Product') }}</h4>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        id="product.all" onchange="select_check_box_all($(this))"
-                                                        value="product">
-                                                    <label for="product.all">Select All</label>
-                                                </div>
-                                                <div class="col-md-8 product">
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="product.view" value="product.view"
-                                                        {{ in_array('product.view', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="product.view">View</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="product.create" value="product.create"
-                                                        {{ in_array('product.create', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="product.create">Create</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="product.edit" value="product.edit"
-                                                        {{ in_array('product.edit', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="product.edit">Edit</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="product.delete" value="product.delete"
-                                                        {{ in_array('product.delete', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="product.delete">Delete</label>
-                                                </div>
-                                            </div>
+                                      
                                             <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
                                                     <h4>{{ __('Services') }}</h4>
@@ -323,9 +293,6 @@
                                                         {{ in_array('service.delete', $role_permissions) ? 'checked' : '' }}>
                                                     <label for="service.delete">Delete</label>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <hr>
                                             </div>
                                             <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
@@ -362,6 +329,10 @@
                                                     <label for="blog-category.delete">Delete</label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                        
                                             <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
                                                     <h4>{{ __('Blogs') }}</h4>
@@ -393,76 +364,43 @@
                                                     <label for="blog.delete">Delete</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <hr>
-                                            </div>
                                             <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
-                                                    <h4>{{ __('Team') }}</h4>
+                                                    <h4>{{ __('Jobs') }}</h4>
                                                     <br>
                                                     <input type="checkbox" class="filled-in chk-col-purple"
-                                                        id="team.all" onchange="select_check_box_all($(this))"
-                                                        value="team">
-                                                    <label for="team.all">Select All</label>
+                                                        id="job.all" onchange="select_check_box_all($(this))"
+                                                        value="job">
+                                                    <label for="job.all">Select All</label>
                                                 </div>
-                                                <div class="col-md-8 team">
+                                                <div class="col-md-8 job">
                                                     <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="team.view" value="team.view"
-                                                        {{ in_array('team.view', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="team.view">View</label>
+                                                        name="Permission[]" id="job.view" value="job.view"
+                                                        {{ in_array('job.view', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="job.view">View</label>
                                                     <br>
                                                     <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="team.create" value="team.create"
-                                                        {{ in_array('team.create', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="team.create">Create</label>
+                                                        name="Permission[]" id="job.create" value="job.create"
+                                                        {{ in_array('job.create', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="job.create">Create</label>
                                                     <br>
                                                     <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="team.edit" value="team.edit"
-                                                        {{ in_array('team.edit', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="team.edit">Edit</label>
+                                                        name="Permission[]" id="job.edit" value="job.edit"
+                                                        {{ in_array('job.edit', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="job.edit">Edit</label>
                                                     <br>
                                                     <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="team.delete" value="team.delete"
-                                                        {{ in_array('team.delete', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="team.delete">Delete</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 row allPermissions">
-                                                <div class="col-md-4">
-                                                    <h4>{{ __('Leads') }}</h4>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        id="lead.all" onchange="select_check_box_all($(this))"
-                                                        value="lead">
-                                                    <label for="lead.all">Select All</label>
-                                                </div>
-                                                <div class="col-md-8 lead">
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="lead.view" value="lead.view"
-                                                        {{ in_array('lead.view', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="lead.view">View</label>
-                                                    <br>
-                                                    {{-- <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="lead.create" value="lead.create"
-                                                        {{ in_array('lead.create', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="lead.create">Create</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="lead.edit" value="lead.edit"
-                                                        {{ in_array('lead.edit', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="lead.edit">Edit</label>
-                                                    <br> --}}
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="lead.delete" value="lead.delete"
-                                                        {{ in_array('lead.delete', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="lead.delete">Delete</label>
+                                                        name="Permission[]" id="job.delete" value="job.delete"
+                                                        {{ in_array('job.delete', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="job.delete">Delete</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
-                                            <div class="col-md-4 row allPermissions">
+                                      
+                                  
+                                            <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
                                                     <h4>{{ __('Job Categories') }}</h4>
                                                     <br>
@@ -497,38 +435,7 @@
                                                     <label for="job-category.delete">Delete</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 row allPermissions">
-                                                <div class="col-md-4">
-                                                    <h4>{{ __('Jobs') }}</h4>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        id="job.all" onchange="select_check_box_all($(this))"
-                                                        value="job">
-                                                    <label for="job.all">Select All</label>
-                                                </div>
-                                                <div class="col-md-8 job">
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="job.view" value="job.view"
-                                                        {{ in_array('job.view', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="job.view">View</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="job.create" value="job.create"
-                                                        {{ in_array('job.create', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="job.create">Create</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="job.edit" value="job.edit"
-                                                        {{ in_array('job.edit', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="job.edit">Edit</label>
-                                                    <br>
-                                                    <input type="checkbox" class="filled-in chk-col-purple"
-                                                        name="Permission[]" id="job.delete" value="job.delete"
-                                                        {{ in_array('job.delete', $role_permissions) ? 'checked' : '' }}>
-                                                    <label for="job.delete">Delete</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 row allPermissions">
+                                            <div class="col-md-6 row allPermissions">
                                                 <div class="col-md-4">
                                                     <h4>{{ __('Job Applications') }}</h4>
                                                     <br>
@@ -562,6 +469,150 @@
                                                         value="job-application.delete"
                                                         {{ in_array('job-application.delete', $role_permissions) ? 'checked' : '' }}>
                                                     <label for="job-application.delete">Delete</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 row allPermissions">
+                                                <div class="col-md-4">
+                                                    <h4>{{ __('Journey') }}</h4>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        id="journey.all" onchange="select_check_box_all($(this))"
+                                                        value="journey">
+                                                    <label for="journey.all">Select All</label>
+                                                </div>
+                                                <div class="col-md-8 journey">
+                                                    <br><br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="journey.view"
+                                                        value="journey.view"
+                                                        {{ in_array('journey.view', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="journey.view">View</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="journey.create"
+                                                        value="journey.create"
+                                                        {{ in_array('journey.create', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="journey.create">Create</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="journey.edit"
+                                                        value="journey.edit"
+                                                        {{ in_array('journey.edit', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="journey.edit">Edit</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="journey.delete"
+                                                        value="journey.delete"
+                                                        {{ in_array('journey.delete', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="journey.delete">Delete</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 row allPermissions">
+                                                <div class="col-md-4">
+                                                    <h4>{{ __('Company') }}</h4>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        id="company.all" onchange="select_check_box_all($(this))"
+                                                        value="company">
+                                                    <label for="company.all">Select All</label>
+                                                </div>
+                                                <div class="col-md-8 company">
+                                                    <br><br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="company.view"
+                                                        value="company.view"
+                                                        {{ in_array('company.view', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="company.view">View</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="company.create"
+                                                        value="company.create"
+                                                        {{ in_array('company.create', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="company.create">Create</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="company.edit"
+                                                        value="company.edit"
+                                                        {{ in_array('company.edit', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="company.edit">Edit</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="company.delete"
+                                                        value="company.delete"
+                                                        {{ in_array('company.delete', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="company.delete">Delete</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 row allPermissions">
+                                                <div class="col-md-4">
+                                                    <h4>{{ __('Leads') }}</h4>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        id="quotation.all" onchange="select_check_box_all($(this))"
+                                                        value="quotation">
+                                                    <label for="quotation.all">Select All</label>
+                                                </div>
+                                                <div class="col-md-8 quotation">
+                                                    <br><br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="quotation.view"
+                                                        value="quotation.view"
+                                                        {{ in_array('quotation.view', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="quotation.view">View</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="quotation.create"
+                                                        value="quotation.create"
+                                                        {{ in_array('quotation.create', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="quotation.create">Create</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="quotation.edit"
+                                                        value="quotation.edit"
+                                                        {{ in_array('quotation.edit', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="quotation.edit">Edit</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="quotation.delete"
+                                                        value="quotation.delete"
+                                                        {{ in_array('quotation.delete', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="quotation.delete">Delete</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 row allPermissions">
+                                                <div class="col-md-4">
+                                                    <h4>{{ __('About Details') }}</h4>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        id="aboutus-edits.all" onchange="select_check_box_all($(this))"
+                                                        value="aboutus-edits">
+                                                    <label for="aboutus-edits.all">Select All</label>
+                                                </div>
+                                                <div class="col-md-8 aboutus-edits">
+                                                    <br><br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="aboutus-edits.view"
+                                                        value="aboutus-edits.view"
+                                                        {{ in_array('aboutus-edits.view', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="aboutus-edits.view">View</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="aboutus-edits.create"
+                                                        value="aboutus-edits.create"
+                                                        {{ in_array('aboutus-edits.create', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="aboutus-edits.create">Create</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="aboutus-edits.edit"
+                                                        value="aboutus-edits.edit"
+                                                        {{ in_array('aboutus-edits.edit', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="aboutus-edits.edit">Edit</label>
+                                                    <br>
+                                                    <input type="checkbox" class="filled-in chk-col-purple"
+                                                        name="Permission[]" id="aboutus-edits.delete"
+                                                        value="aboutus-edits.delete"
+                                                        {{ in_array('aboutus-edits.delete', $role_permissions) ? 'checked' : '' }}>
+                                                    <label for="aboutus-edits.delete">Delete</label>
                                                 </div>
                                             </div>
                                         </div>

@@ -36,6 +36,7 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
                                     <div class="col-md-8 form-group">
                                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
@@ -43,17 +44,17 @@
                                             class="form-control form-control-sm" name="name">
                                     </div>
 
-                                    <div class="col-md-4" style="display: none;">
+                                    {{-- <div class="col-md-4" style="display: none;">
                                         <label for="">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
                                             {{ App\Helpers\Helper::getOptions([
                                                 'table' => 'projects_categories',
                                                 'value' => 'title',
                                                 'key' => 'id',
-                                                'select' => $data->category_id,
+                                                'select' => json_decode($data->category_id),
                                             ]) }}
                                         </select>
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="col-md-4">
@@ -65,16 +66,14 @@
                                                 'value' => 'title',
                                                 'key' => 'id',
                                                 'select' => json_decode($data->categories_id),
+                                                'language' => $lang ?? 'en', 
+                                                'selectOption' => false,
                                             ]) !!}
+
                                         </select>
                                     </div>
 
 
-                                    <div class="col-md-4">
-                                        <label for="pagetitle">Background Color Code</label>
-                                        <input type="text" name="color_code" class="form-control form-control-sm"
-                                            value="{{ $data->color_code }}">
-                                    </div>
 
                                     <div class="col-md-4">
                                         <label>Display Order <span class="text-danger">*</span></label>

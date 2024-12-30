@@ -20,9 +20,11 @@ class JobCategoryController extends Controller
         if (!auth()->user()->can('job-category.view')) {
             abort(401);
         }
+        $lang = 'en';
         $data = [
             'menu' => 'job-category',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.job-category.index', $data);
     }
@@ -35,12 +37,19 @@ class JobCategoryController extends Controller
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                return $action;
+                if (auth()->user()->can('job-category.edit')) {
+                    $editEn = '<a href="javascript:updateRecord(' . $item->id . ', \'en\')" class="btn btn-xs btn-primary">Edit EN</a>';
+                    $editFr = '<a href="javascript:updateRecord(' . $item->id . ', \'fr\')" class="btn btn-xs btn-secondary">Edit FR</a>';
+                }
+                $delete = '';
+                if (auth()->user()->can('job-category.delete')) {
+                    $delete = '<a href="javascript:delete_record(' . $item->id . ')" class="btn btn-xs btn-danger">Delete</a>';
+                }
+                return $editEn . ' ' . $editFr . ' ' . $delete;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
@@ -82,12 +91,16 @@ class JobCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         if (!auth()->user()->can('job-category.view')) {
             abort(401);
         }
-        $data['data'] = Obj::findOrFail($id);
+        $lang = $request->lang ?? 'en';
+        $data = [
+            'data' => Obj::findOrFail($id),
+            'lang' => $lang,
+        ];
         return view('admin.job-category.edit', $data);
     }
 

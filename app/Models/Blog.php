@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Blog extends Model
 {
+    use HasTranslations;
     protected $fillable = [
         'title',
         'short_description',
@@ -22,19 +24,18 @@ class Blog extends Model
         'search_engine',
         'display_order',
         'category_id',
-        'breadcrumb',
         'service_id',
         'cover_image',
-        'pro_id',
         'date',
         'og_title',
         'og_description',
         'og_image',
         'og_type',
     ];
+    public $translatable = ['title','short_description','contents','page_title','meta_keywords','meta_description','og_title','og_description','og_type'];
 
     public function category()
     {
-        return $this->belongsTo(BlogCategory::class, );
+        return $this->belongsTo(BlogCategory::class,'category_id');
     }
 }

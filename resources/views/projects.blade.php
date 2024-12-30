@@ -28,7 +28,7 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/projects-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => '',
             'page_title' => $data->name,
         ])
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="d-flex flex-column justify-content-center  align-items-center  text-center">
                         <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center ">
-                            Our Projects
+                            {{__('lang.OUR_PROJECTS')}}
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 txt--clr text-center">
                             {{ $data->short_description }}

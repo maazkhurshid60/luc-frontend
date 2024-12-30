@@ -27,8 +27,8 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/services-details-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
-            'parent' => ['name' => 'Company', 'route' => 'companies.index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
+            'parent' => ['name' => __('lang.COMPANY'), 'route' => 'companies.index'],
             'page_title' => $data->name,
         ])
 
@@ -52,7 +52,7 @@
                 <div class="row justify-content-center gy-4">
                     <div class="services-sec d-flex flex-column justify-content-center  align-items-center  text-center">
                         <h2 class="head--2 mb-0 pyb-40 wht--clr text-center ">
-                            How It Works
+                           {{__('lang.HOW_IT_WORKS')}}
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 wht--clr text-center">
                             {{ $data->short_description }}
@@ -114,27 +114,25 @@
             <div class="container">
                 <div class="row">
                     <h2 class="head--2 secondary--clr text-center pyb-40 mb-0">
-                        Have A Project Idea! Drop Us A Line
+                        {{ __('lang.project_idea_title') }}
                     </h2>
                     <p class="body-txt1 txt--clr text-center pyb-60 mb-0 px-5">
-                        Nunc convallis semper justo quis tempor. Praesent molestie, lorem sed imperdiet tempor, libero urna
-                        semper
-                        urna, facilisis vulputate velit arcu vitae mi. Donec ac nisi ex.
+                        {{ __('lang.project_idea_desc') }}
                     </p>
                 </div>
-                <div class="row  contact-details">
+                <div class="row contact-details">
                     <div class="col-md-5 contact-details-sec">
-                        <h3 class="head--3 wht--clr mb-0">Contact Detail</h3>
-                        <p class="body-txt2 wht--clr">Do you need our help? Feel free to contact us.</p>
-                        <h3 class="head--3 wht--clr mb-0">Email:</h3>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.contact_detail') }}</h3>
+                        <p class="body-txt2 wht--clr">{{ __('lang.need_help') }}</p>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.email') }}</h3>
                         <p class="body-txt2 wht--clr">{{ $data->company_email }}</p>
-                        <h3 class="head--3 wht--clr mb-0">Contact No:</h3>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.contact_no') }}</h3>
                         <p class="body-txt2 wht--clr">{{ $data->contact }}</p>
-                        <h3 class="head--3 wht--clr mb-0">Address 01:</h3>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.address_1') }}</h3>
                         <p class="body-txt2 wht--clr">{{ $data->address }}</p>
-                        <h3 class="head--3 wht--clr mb-0">Address 02:</h3>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.address_2') }}</h3>
                         <p class="body-txt2 wht--clr">{{ $data->address_2 }}</p>
-                        <h3 class="head--3 wht--clr mb-0">Follow us on:</h3>
+                        <h3 class="head--3 wht--clr mb-0">{{ __('lang.follow_us') }}</h3>
                         <div class="d-flex justify-content-start ">
                             <div class="socail-links d-flex justify-content-center align-items-center me-2">
                                 <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
@@ -151,41 +149,34 @@
                         </div>
                     </div>
                     <div class="col-md-7 contact-form-sec2">
-                        <h3 class="head--3 secondary--clr text-start mb-3">Request A Quote — let’s work together.</h3>
-                        <p class="body-txt2 txt--clr text-start mb-4">Got a project? Drop us a line if you want to work
-                            together on
-                            something exciting.</p>
+                        <h3 class="head--3 secondary--clr text-start mb-3">{{ __('lang.request_quote') }}</h3>
+                        <p class="body-txt2 txt--clr text-start mb-4">{{ __('lang.quote_desc') }}</p>
                         <form class="row g-4" id="quoteForm">
                             <input type="hidden" id="formType" value="quote_form">
                             <div class="col-12">
-                                <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
-                                <input type="text" class="form-control req-quote-input" id="nameinput"
-                                    placeholder="Full Name">
+                                <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.name') }}</label>
+                                <input type="text" class="form-control req-quote-input" id="nameinput" placeholder="{{ __('lang.name') }}">
                             </div>
                             <div class="col-12">
-                                <label for="inputEmail4" class="form-label mb-2 body-txt2 secondary--clr">Email</label>
-                                <input type="email" class="form-control req-quote-input" id="inputEmail4"
-                                    placeholder="Email Address">
+                                <label for="inputEmail4" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.email') }}</label>
+                                <input type="email" class="form-control req-quote-input" id="inputEmail4" placeholder="{{ __('lang.email_placeholder') }}">
                             </div>
                             <div class="col-12">
-                                <label for="subjectsInput" class="form-label mb-2 body-txt2 secondary--clr">Subjects</label>
-                                <input type="text" class="form-control req-quote-input" id="subjectsInput"
-                                    placeholder="Subject">
+                                <label for="subjectsInput" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.subject') }}</label>
+                                <input type="text" class="form-control req-quote-input" id="subjectsInput" placeholder="{{ __('lang.subject') }}">
                             </div>
                             <div class="col-12">
-                                <label for="textArea" class="form-label mb-2 body-txt2 secondary--clr">Message</label>
-                                <textarea class="form-control req-quote-input" id="textArea" rows="3"
-                                    placeholder="Tell us about your project..."></textarea>
+                                <label for="textArea" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.message') }}</label>
+                                <textarea class="form-control req-quote-input" id="textArea" rows="3" placeholder="{{ __('lang.message_placeholder') }}"></textarea>
                             </div>
                             <div class="col-12 d-flex justify-content-start">
-                                <button type="submit" class=" primary-btn req-quote-sub wht--clr">Submit<img
-                                        src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
+                                <button type="submit" class=" primary-btn req-quote-sub wht--clr">{{ __('lang.submit') }}<img src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
         @include('partials.faqs')
 
     </div>

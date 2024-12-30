@@ -66,37 +66,39 @@
                                 alt="" class="pyb-60" />
                         </a>
 
-                        <p class="head--2 wht--clr mb-0">Subscribe To Our Newsletter</p>
+                        <p class="head--2 wht--clr mb-0">{{ __('lang.SUBSCRIBE_TO_OUR_NEWSLETTER') }}</p>
                     </div>
                     <div class="footer--searchbar text-center d-flex justify-content-center pyb-60">
                         <form class="d-flex flex-md-row justify-content-center flex-column gap-3" role="search">
                             <input class="form-control me-4 newsletter-search w-md-0 w-100 " type="search"
-                                placeholder="Enter Your Email . . . " aria-label="Search" />
+                                placeholder="{{ __('lang.ENTER_YOUR_EMAIL') }}" aria-label="Search" />
                             <button class="primary-btn wht--clr m-auto" type="submit">
-                                Search<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
-                                    class="ms-2" />
+                                {{ __('lang.SEARCH') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}"
+                                    alt="" class="ms-2" />
                             </button>
                         </form>
                     </div>
-                    <div class="row  flex-md-row flex-column">
-                        <div class="footer-quicklinks d-flex justify-content-md-start justify-content-center   mb-4 ">
+
+                    <div class="row flex-md-row flex-column">
+                        <div class="footer-quicklinks d-flex justify-content-md-start justify-content-center mb-4">
                             <ul
                                 class="navbar-nav d-flex flex-row justify-content-start justify-content-start footer-quick-links gap-lg-4 gap-md-3 gap-0">
                                 <li class="nav-item">
                                     <a href="{{ Route('contact-us.index') }}"
-                                        class="nav-link text-decoration-none wht--clr body-txt2">Contact Us</a>
+                                        class="nav-link text-decoration-none wht--clr body-txt2">{{ __('lang.CONTACT_US') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/terms-of-services') }}"
-                                        class="nav-link text-decoration-none wht--clr body-txt2">Term of Services</a>
+                                        class="nav-link text-decoration-none wht--clr body-txt2">{{ __('lang.TERM_OF_SERVICES') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/privacy-policy') }}"
-                                        class="nav-link text-decoration-none wht--clr body-txt2">Privacy Policy</a>
+                                        class="nav-link text-decoration-none wht--clr body-txt2">{{ __('lang.PRIVACY_POLICY') }}</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="footer-socail-links d-flex justify-content-evenly align-items-center  mb-4">
+
+                        <div class="footer-socail-links d-flex justify-content-evenly align-items-center mb-4">
                             <a href="{{ $settings->fb }}">
                                 <div class="socail-links d-flex justify-content-center align-items-center">
                                     <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
@@ -118,11 +120,12 @@
                                 </div>
                             </a>
                         </div>
+
                         <div
                             class="footer-copyright d-flex justify-content-md-end justify-content-center align-items-center mb-4">
                             <p class="body-txt2 wht--clr mb-0">
-                                &copy; {{ date('Y') }} {{ $settings->siteName ?? env('APP_NAME') }} - All rights
-                                reserved
+                                &copy; {{ date('Y') }} {{ $settings->siteName ?? env('APP_NAME') }} -
+                                {{ __('lang.ALL_RIGHTS_RESERVED') }}
                             </p>
                         </div>
                     </div>
@@ -141,6 +144,50 @@
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
     @yield('custom-js')
+    <script>
+        function setLanguage(lang) {
+            localStorage.setItem('lang', lang);
+
+            const flagImg = document.getElementById('current-lang-flag');
+            const langText = document.getElementById('current-lang-text');
+
+            if (lang === 'fr') {
+                flagImg.src = '{{ asset('assets/frontend/icons/french-flag.svg') }}';
+                langText.innerText = 'French';
+            } else {
+                flagImg.src = '{{ asset('assets/frontend/icons/english-flag.svg') }}';
+                langText.innerText = 'English';
+            }
+
+            window.location.reload();
+        }
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const flagImg = document.getElementById('current-lang-flag');
+            const langText = document.getElementById('current-lang-text');
+
+            if (currentLang === 'fr') {
+                flagImg.src = '{{ asset('assets/frontend/icons/french-flag.svg') }}';
+                langText.innerText = 'French';
+            } else {
+                flagImg.src = '{{ asset('assets/frontend/icons/english-flag.svg') }}';
+                langText.innerText = 'English';
+            }
+
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                let url = new URL(link.href);
+                if (!url.origin === window.location.origin) return;
+
+                if (!url.searchParams.has('lang')) {
+                    url.searchParams.set('lang', currentLang);
+                    link.href = url.toString();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

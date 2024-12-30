@@ -46,12 +46,12 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="pagetitle">Title </label>
+                                        <label for="pagetitle">Title <span class="text-danger">*</span></label>
                                         <input type="text" name="title" id="page_title"
                                             class="form-control form-control-sm" maxlength="80">
                                     </div>
                                     <div class="col-md-12">
-                                        <label for="pagetitle">Description </label>
+                                        <label for="pagetitle">Description <span class="text-danger">*</span></label>
                                         <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
                                     </div>
 

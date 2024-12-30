@@ -38,8 +38,7 @@
                         </p>
                         <div class="d-flex justify-content-md-start  justify-content-center">
                             <span class=""><a href="pages/contact-us.html"
-                                    class="text-decoration-none primary-btn d-flex  justify-content-center">Request A
-                                    Quote<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
+                                    class="text-decoration-none primary-btn d-flex  justify-content-center">{{ __('lang.REQUEST_A_QUOTE') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                         class="ms-2"></a></span>
                         </div>
                     </div>
@@ -65,17 +64,15 @@
                     <div class="row flex-md-row flex-column">
                         <div
                             class="services-sec-col d-md-flex flex-column justify-content-center align-items-lg-start align-items-center text-lg-start text-md-center">
-                            <h2 class="head--2 mb-0 pyb-40 secondary--clr ">
-                                Explore Our Services
+                            <h2 class="head--2 mb-0 pyb-40 secondary--clr">
+                                {{ __('lang.EXPLORE_OUR_SERVICES') }}
                             </h2>
                             <p class="body-txt1 mb-0 pyb-60 txt--clr txt--clr">
-                                Nunc convallis semper justo quis tempor. Praesent molestie,
-                                lorem sed imperdiet tempor, libero urna semper urna, facilisis
-                                vulputate velit arcu vitae mi. Donec ac nisi ex.
-                            </p>
+                                {{ __('lang.SERVICES_DESCRIPTION') }}
+                            </p>                            
                             <span class="d-lg-block d-none">
                                 <a href="{{ route('companies.index') }}"
-                                    class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">View All
+                                    class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">{{ __('lang.VIEW_ALL') }}
                                     <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                         class="ms-2">
                                 </a>
@@ -93,7 +90,7 @@
                                         <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[0]->short_description }}</p>
                                         <a href="{{ url('company/' . $latest_services[0]->slug) }}"
                                             class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr">Learn More
+                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                                                     class="ms-2" />
                                             </button>
@@ -110,7 +107,7 @@
                                         <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[1]->short_description }}</p>
                                         <a href="{{ url('company/' . $latest_services[1]->slug) }}"
                                             class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr">Learn More
+                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                                                     class="ms-2" />
                                             </button>
@@ -129,7 +126,7 @@
                                         <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[2]->short_description }}</p>
                                         <a href="{{ url('company/' . $latest_services[2]->slug) }}"
                                             class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr">Learn More
+                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                                                     class="ms-2" />
                                             </button>
@@ -156,7 +153,7 @@
                         </div>
                         <span class="d-lg-none d-flex justify-content-center pyt-60">
                             <a href="{{ route('companies.index') }}"
-                                class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">View All
+                                class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">{{ __('lang.VIEW_ALL') }}
                                 <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt="" class="ms-2">
                             </a>
                         </span>
@@ -167,8 +164,8 @@
         <!-- Services Section End-->
 
         @include('partials.projects')
-
-        @include('partials.maps')
+        <div style="height: 200px"></div>
+        {{-- @include('partials.maps') --}}
 
         @include('partials.latest-blogs')
 

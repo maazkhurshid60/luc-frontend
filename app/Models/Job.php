@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Job extends Model
 {
+	use HasTranslations;
     protected $fillable = [
     	'title',
     	'contents',
@@ -33,6 +35,23 @@ class Job extends Model
         'og_type',
 		'about_description',
     ];
+	public $translatable = [
+		'title',
+		'contents',
+		'location',
+		'type',
+		'job_type',
+		'department',
+		'level',
+		'experience',
+		'education',
+		'page_title',
+		'meta_keywords',
+		'meta_description',
+		'og_title',
+		'og_description',
+		'og_type',
+	];
     public function category()
     {
     	return $this->belongsTo('App\Models\JobCategory','category_id');

@@ -36,8 +36,9 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-12 form-group">
                                         <label>{{ __('Title') }} :</label>
                                         <input type="text" value="{{ $data->title }}"
                                             class="form-control form-control-sm" name="title">
@@ -82,13 +83,9 @@
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>Display Order</label>
-                                        <input type="number" value="{{ $data->display_order }}" name="display_order"
-                                            class="form-control form-control-sm">
-                                    </div>
 
-                                    <div class="col-md-4">
+
+                                    <div class="col-md-4 mb-3">
                                         <label>Project Categories <span class="text-danger">*</span></label>
                                         <select name="projectcategory" class="form-control form-control-sm">
                                             <option selected value="">Select</option>
@@ -109,12 +106,8 @@
                                         </select>
                                     </div>
 
+                    
                                     <div class="col-md-4">
-                                        <label>Background Color <span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $data->bg_color }}" name="bg_color"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-6">
                                         <label>Project  Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
@@ -126,16 +119,7 @@
                                         @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-12">
-                                        <label>Seo Keywords Heading</span></label>
-                                        <input type="text" name="seo_more_heading"
-                                            value="{{ $data->seo_more_heading }}" class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-12 form-group">
-                                        <label>Seo Keywords Content</label>
-                                        <textarea class="form-control" id="seo_more_content" name="seo_more_content">{{ $data->seo_more_content }}</textarea>
-                                    </div>
+                                 
                                     <div class="col-md-12 form-group">
                                         <label>Short Description</label>
                                         <textarea class="form-control " id="description_editor" name="description">{!! $data->description !!}</textarea>
@@ -145,7 +129,7 @@
                                             echo $data->contents;
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Image') }}</label>
                                         <input type="file" name="image"
                                             data-default-file="{{ asset('storage/images/' . $data->file) }}"
@@ -153,116 +137,27 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('ICON') }}</label>
-                                        <input type="file" name="image2"
-                                            data-default-file="{{ asset('storage/images/' . $data->file2) }}"
-                                            id="filez2" class="filez2" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                        <small class="text-muted">This image will appear on home page</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>Service Icon </label>
-                                        <input type="file" name="image4"
-                                            data-default-file="{{ asset('storage/images/' . $data->file4) }}"
-                                            id="filez4" class="filez4" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __(' BANNER') }}</label>
-                                        <input type="file" name="image3"
-                                            data-default-file="{{ asset('storage/images/' . $data->banner) }}"
-                                            id="filez3" class="filez3" data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __('Secondary Image') }}</label>
-                                        <input type="file" name="image6"
-                                            data-default-file="{{ asset('storage/images/' . $data->second_image) }}"
-                                            id="filez5" class="filez5" data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                        <small class="text-muted">This image will appear in related services
-                                            section</small>
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __(' OG Image') }}</label>
                                         <input type="file" name="image5"
                                             data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
                                             id="filez5" class="filez5" data-max-file-size="2M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option @if ($data->status == 'active') selected @endif>Active</option>
                                             <option @if ($data->status == 'in-active') selected @endif>In-active</option>
                                         </select>
                                         <br>
-                                        <label for="is_featured">Is Featured</label>
-                                        <select name="is_featured" class="form-control form-control-sm">
-                                            <option value="1" @if ($data->is_featured == 1) selected @endif>Yes
-                                            </option>
-                                            <option value="0" @if ($data->is_featured == 0) selected @endif>No
-                                            </option>
-                                        </select>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        @php
-                                            $position = json_decode($data->position);
-                                            if (empty($position)) {
-                                                $position = [];
-                                            }
-                                        @endphp
-                                        <br>
-                                        <label>Position</label>
-                                        <br>
-                                        {{--  <span class="mx-2">
-                              <input type="checkbox" id="top" value="top" name="position[]" class="filled-in chk-col-purple" @if (in_array('top', $position))
-                                checked="" 
-                              @endif />
-                              <label for="top">Top Bar</label>   
-                            </span> --}}
-                                        {{-- <span class="mx-2">
-                              <input type="checkbox" id="navigation" value="navigation" name="position[]" class="filled-in chk-col-purple" @if (in_array('navigation', $position))
-                                checked="" 
-                              @endif />
-                              <label for="navigation">Navigation Bar</label>   
-                            </span>
-                             --}}
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="footer" value="footer" name="position[]"
-                                                class="filled-in chk-col-purple"
-                                                @if (in_array('footer', $position)) checked="" @endif />
-                                            <label for="footer">Footer (products)</label>
-                                        </span><br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" value="other" id="other" name="position[]"
-                                                @if (in_array('other', $position)) checked="" @endif
-                                                class="filled-in chk-col-purple" />
-                                            <label for="other">Footer (services)</label>
-                                        </span><br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" value="organization" id="organization"
-                                                name="position[]" @if (in_array('organization', $position)) checked="" @endif
-                                                class="filled-in chk-col-purple" />
-                                            <label for="organization">Footer (organization)</label>
-                                        </span>
-                                        {{-- <span class="mx-2">
-                              <input type="checkbox" id="bottom" value="bottom" name="position[]"  @if (in_array('bottom', $position))
-                                checked="" 
-                              @endif class="filled-in chk-col-purple"  />
-                              <label for="bottom">Bottom </label>  
-                            </span> --}}
-                                    </div>
-                                    <div class="col-md-3" style="margin-top: 3%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple"
                                                 {{ $data->search_engine == '1' ? 'checked' : '' }} />
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
-                                    </div>
+                                    </div>  
                                     <div class="col-md-12">
                                         <br>
                                         <div class="alert alert-danger updateFormError" style="display: none;"></div>

@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('job_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->json('title')->nullable();
             $table->string('slug')->nullable();
-            $table->longText('description')->nullable();
+            $table->json('description')->nullable();
             $table->string('file')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
             $table->string('page_title')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->string('meta_description')->nullable();
-
             $table->timestamps();
         });
     }

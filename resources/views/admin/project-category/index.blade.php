@@ -105,22 +105,8 @@
                                     </select>
                                 </div> --}}
                                 <div class="col-md-12 form-group">
-                                    <label>Title</label>
+                                    <label>Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" name="title">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>{{ __('Image') }}</label>
-                                    <input type="file" name="file" id="filez1" class="filez1"
-                                        data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    <small class="text-muted">Use an Image with an aspect ratio of 1:1 or dimentions of
-                                        290px x 290px</small>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>{{ __('Icon') }}</label>
-                                    <input type="file" name="icon_file" class="filez1" data-max-file-size="1M"
-                                        data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                 </div>
 
                                 <div class="col-md-12">
@@ -173,6 +159,7 @@
 
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -206,7 +193,10 @@
                 },
                 {
                     data: 'title',
-                    name: 'title'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'created_at',
@@ -299,15 +289,18 @@
         }
 
 
-        function updateRecord(id) {
-            url = "{{ $update_url }}";
-            url = url.replace('11', id);
+        function updateRecord(id, lang) {
+            let url = "{{ $update_url }}"; // Template URL
+            url = url.replace('11', id); // Replace placeholder with ID
+            url += `?lang=${lang}`; // Append the language parameter
+
             $(".extraModal").modal();
             $(".extraModalTitle").html("{{ __('Update Record') }}");
             $(".extraModalBody").html("<i class='fa fa-spin fa-spinner'></i> {{ __('Loading...') }}");
+
             $.get(url, function(res) {
-                $(".extraModalBody").html(res);
-            })
+                $(".extraModalBody").html(res); // Populate modal with response
+            });
         }
         //    function delete_record(recordID) {
         //     swal({

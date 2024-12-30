@@ -23,9 +23,11 @@ class CompanyController extends Controller
         if (!auth()->user()->can('company.view')) {
             abort(401);
         }
+        $lang = 'en';
         $data = [
             'menu' => 'company',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.company.index', $data);
     }
@@ -40,12 +42,26 @@ class CompanyController extends Controller
         return datatables($items)
             ->addColumn('action', function ($item) {
                 $action = '';
+                $action .= '
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                ';
                 if (auth()->user()->can('company.edit')) {
-                    $action .= '<a href="' . route('company.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                    $action .= '<a class="dropdown-item" href="' . route('company.edit', $item->id) . '?lang=en">Edit (EN)</a>';
                 }
+                if (auth()->user()->can('company.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('company.edit', $item->id) . '?lang=fr">French</a>';
+                }
+                $action .= '</div></div>';
                 if (auth()->user()->can('company.delete')) {
-                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                    $action .= '<a class="btn btn-danger btn-xs ml-2" href="javascript:void(0)" onclick="delete_record(' . $item->id . ')">Delete</a>';
                 }
+
                 return $action;
             })
             ->editColumn('created_at', function ($item) {
@@ -53,7 +69,6 @@ class CompanyController extends Controller
             })
             ->addColumn('image', function ($item) {
                 return '<img style="width:35px !important;" src="' . asset('storage/images/' . $item->image) . '"></img>';
-
             })
             ->rawColumns(['action', 'image'])
             ->toJson();
@@ -83,17 +98,28 @@ class CompanyController extends Controller
         if (!auth()->user()->can('company.create')) {
             abort(401);
         }
-
+        // dd($request->all());
         $categories_id = json_encode($request->input('category_select'));
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'slug' => 'required',
-            'contact' => 'required',
-            'short_description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
-            'ogImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'name' => 'required|string',
+            'slug' => 'required|string',
+            'contact' => 'required|string',
+            'short_description' => 'required|string',
+            'company_email' => 'required|email',
+            'company_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'ogimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'company_icon' => 'nullable|image|mimes:svg|max:1024',
-            'company_email' => 'required'
+            'page_title' => 'nullable|string|max:80',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string|max:180',
+            'og_title' => 'nullable|string',
+            'og_description' => 'nullable|string',
+            'og_type' => 'nullable|string',
+            'display_order' => 'required|integer|min:1',
+            'facebook' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'instagram' => 'nullable|url',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
@@ -111,9 +137,9 @@ class CompanyController extends Controller
         if ($request->hasFile('company_icon')) {
             $request['companyIcon'] = Helper::handleImageUpload($request->file('company_icon'));
         }
-
+        // dump($request->all());
         $conpany = Obj::create($request->all());
-
+        // dd($conpany);
         return response()->json(['success' => 'Record is successfully added']);
     }
 
@@ -128,17 +154,19 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
+        // dd($request->all());
         if (!auth()->user()->can('company.edit')) {
             abort(401);
         }
-
+        $lang = $request->lang ?? 'en';
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'company',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
+            'lang' => $lang,
         ];
         return view('admin.company.edit', $data);
     }
@@ -155,10 +183,23 @@ class CompanyController extends Controller
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'name' => 'required|unique:companies,name,' . $record->id,
-            'contact' => 'required',
+            'contact' => 'required|string',
+            'short_description' => 'required|string',
+            'company_email' => 'required|email',
             'company_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'ogImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'ogimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'company_icon' => 'nullable|image|mimes:svg|max:1024',
+            'page_title' => 'nullable|string|max:80',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string|max:180',
+            'og_title' => 'nullable|string',
+            'og_description' => 'nullable|string',
+            'og_type' => 'nullable|string',
+            'display_order' => 'required|integer|min:1',
+            'facebook' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'instagram' => 'nullable|url',
         ]);
 
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
@@ -174,11 +215,11 @@ class CompanyController extends Controller
             $request['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
         }
         if ($request->hasFile('company_icon')) {
-            $request['companyIcon'] = Helper::handleImageUpload($request->file('company_icon'),$record->companyIcon);
+            $request['companyIcon'] = Helper::handleImageUpload($request->file('company_icon'), $record->companyIcon);
         }
 
         $record->update($request->all());
-
+        
         return response()->json(['success' => 'Record is successfully Updated']);
     }
 
@@ -212,7 +253,7 @@ class CompanyController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Company deleted successfully']);
         } catch (\Exception $e) {
-            \Log::error("Error deleting Company: ", ['error' => $e->getMessage()]);
+            \Log::error('Error deleting Company: ', ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'message' => 'An error occurred while trying to delete the Company']);
         }
     }

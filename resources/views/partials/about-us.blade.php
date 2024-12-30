@@ -11,7 +11,7 @@
                 {!! $data->about_description !!}
                 @if (request()->path() == '/')
                     <a href="{{ route('about-us.index') }}" class="text-decoration-none">
-                        <button class="secondary-btn primary--clr">Learn More
+                        <button class="secondary-btn primary--clr">{{ __('lang.LEARN_MORE') }}
                             <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt="" class="ms-2" />
                         </button>
                     </a>

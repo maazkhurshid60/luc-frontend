@@ -27,9 +27,9 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/contact-us-hero-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => '',
-            'page_title' => 'Contact Us',
+            'page_title' => $data->name ?? '',
         ])
 
         <div class="container-fluid d-flex flex-column justify-content-center py-40px ">

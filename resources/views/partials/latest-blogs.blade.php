@@ -3,14 +3,11 @@
     <div class="container">
         <div class="row">
             <h2 class="head--2 wht--clr text-center pyb-40 mb-0">
-                Latest Blogs
+                {{ __('lang.LATEST_BLOGS') }}
             </h2>
             <p class="body-txt1 wht--clr text-center pyb-60 mb-0 px-5">
-                Nunc convallis semper justo quis tempor. Praesent molestie, lorem sed imperdiet tempor, libero
-                urna
-                semper
-                urna, facilisis vulputate velit arcu vitae mi. Donec ac nisi ex.
-            </p>
+                {{ __('lang.BLOGS_DESCRIPTION') }}
+            </p>            
             <div class="blog-slider d-flex align-items-center justify-content-center pyb-60">
                 @foreach ($latest_blogs as $blog)
                     <div class="slick-slide col-12">

@@ -36,52 +36,15 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-12 form-group">
                                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
                                         <input type="text" value="{{ $data->name }}"
                                             class="form-control form-control-sm" name="name" id="generate-slug"
                                             target="#SlugMenuEditForm">
                                     </div>
-                                    {{-- <div class="col-md-6 form-group char-counter">
-                                        <label>{{ __('Slug') }} <span class="text-danger">*</span></label>
-                                        <input type="text" value="{{ $data->slug }}"
-                                            class="form-control form-control-sm" name="slug" id="SlugMenuEditForm">
-                                        <small><span class="text-red">Char Counter :
-                                                {{ strlen($data->slug) }}</span></small>
-                                    </div> --}}
-                                    {{-- <div class="col-md-3">
-                                        <label for="">Parent</label>
-                                        <select name="parent" class="form-control form-control-sm">
-                                            <option value="0">No parent</option>
-                                            @php
-                                                App\Helpers\Helper::menuOptions($data->parent, $data->id);
-                                            @endphp
-
-                                        </select>
-                                    </div> --}}
-                                    <div class="col-md-3">
-                                        <label>Display Order <span class="text-danger">*</span></label>
-                                        <input type="number" value="{{ $data->display_order }}" name="display_order"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    {{-- <div class="col-md-2" style="margin-top: 3%;">
-                                        <span class="">
-                                            <input type="checkbox" id="show_services" name="show_services"
-                                                class="filled-in chk-col-purple"
-                                                {{ $data->show_services == '1' ? 'checked' : '' }} />
-                                            <label for="show_services">Show Services </label>
-                                        </span>
-                                    </div> --}}
-
-                                    <div class="col-md-3" style="margin-top: 3%;">
-                                        <span class="">
-                                            <input type="checkbox" id="search_engine" name="search_engine"
-                                                class="filled-in chk-col-purple"
-                                                {{ $data->search_engine == '1' ? 'checked' : '' }} />
-                                            <label for="search_engine">Discourage search engines from indexing </label>
-                                        </span>
-                                    </div>
+                             
                                     @can('meta-data.edit')
                                         <div class="col-md-12">
                                             <hr>
@@ -136,7 +99,7 @@
                                             value="{{ $data->heading }}">
                                         <span class="text-danger"><small>For Site Home page & Inside Page</small></span>
                                     </div>
-                                    <div class="col-md-8 my-2">
+                                    <div class="col-md-12 my-2">
                                         <textarea id="editor" cols="30" rows="10">@php
                                             echo $data->description;
                                         @endphp</textarea>
@@ -157,60 +120,13 @@
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
                                     @endcan
-                                    <div class="col-md-4">
-                                        <label for="display">Display</label>
-                                        <select name="display" class="form-control form-control-sm">
-                                            <option @if ($data->display == 'yes') selected @endif>Yes</option>
-                                            <option @if ($data->display == 'no') selected @endif>No</option>
-                                        </select>
-                                        @php
-                                            $position = json_decode($data->position);
-                                        @endphp
-                                        <br>
-                                        <label>Position <span class="text-danger">*</span></label>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="top" value="top" name="position[]"
+                                    <div class="col-md-3" style="margin-top: 3%;">
+                                        <span class="">
+                                            <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple"
-                                                @if (in_array('top', $position)) checked="" @endif />
-                                            <label for="top">Top Bar</label>
+                                                {{ $data->search_engine == '1' ? 'checked' : '' }} />
+                                            <label for="search_engine">Discourage search engines from indexing </label>
                                         </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="navigation" value="navigation" name="position[]"
-                                                class="filled-in chk-col-purple"
-                                                @if (in_array('navigation', $position)) checked="" @endif />
-                                            <label for="navigation">Navigation Bar</label>
-                                        </span>
-                                        {{-- <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="footer" value="footer" name="position[]"
-                                                class="filled-in chk-col-purple"
-                                                @if (in_array('footer', $position)) checked="" @endif />
-                                            <label for="footer">Footer (products)</label>
-                                        </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" value="other" id="other" name="position[]"
-                                                @if (in_array('other', $position)) checked="" @endif
-                                                class="filled-in chk-col-purple" />
-                                            <label for="other">Footer (services)</label>
-                                        </span>
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" value="organization" id="organization"
-                                                name="position[]" @if (in_array('organization', $position)) checked="" @endif
-                                                class="filled-in chk-col-purple" />
-                                            <label for="organization">Footer (organization)</label>
-                                        </span> --}}
-                                        <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="bottom" value="bottom" name="position[]"
-                                                @if (in_array('bottom', $position)) checked="" @endif
-                                                class="filled-in chk-col-purple" />
-                                            <label for="bottom">Bottom </label>
-                                        </span>
-
                                     </div>
                                     <div class="col-md-12">
                                         <div class="box-header">

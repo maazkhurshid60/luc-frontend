@@ -27,7 +27,7 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/services-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => '',
             'page_title' => $data->name,
         ])

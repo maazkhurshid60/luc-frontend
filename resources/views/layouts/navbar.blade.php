@@ -14,22 +14,32 @@
                     <div class="btn-group secondary--font">
                         <button type="button" class="btn dropdown-toggle lang-switch-selected p-0 body-txt2"
                             data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                            <span><img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" class="me-2"
-                                    alt="" />English</span>
+                            <span>
+                                <img id="current-lang-flag" src="{{ asset('assets/frontend/icons/english-flag.svg') }}"
+                                    class="me-2" alt="" />
+                                <span id="current-lang-text">English</span>
+                            </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end mt-2 lang-dropdown">
                             <li>
-                                <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
-                                        src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt=""
-                                        class="me-2" />English</a>
+                                <a class="dropdown-item lang-switch-drop body-txt2" href="#" data-lang="en"
+                                    onclick="setLanguage('en')">
+                                    <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt=""
+                                        class="me-2" />
+                                    English
+                                </a>
                             </li>
                             <li>
-                                <a class="dropdown-item lang-switch-drop body-txt2" href="#"><img
-                                        src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt=""
-                                        class="me-2" />French</a>
+                                <a class="dropdown-item lang-switch-drop body-txt2" href="#" data-lang="fr"
+                                    onclick="setLanguage('fr')">
+                                    <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt=""
+                                        class="me-2" />
+                                    French
+                                </a>
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -87,13 +97,19 @@
                                         </a>
                                         <ul class="dropdown-menu hover-dropdown-menu">
                                             {{-- {{$projects}} --}}
+                                            @php
+                                                $projects = App\Models\Project::where('status', 'active')
+                                                    ->latest()
+                                                    ->take(9)
+                                                    ->get();
+                                            @endphp
                                             @foreach ($projects as $project)
-                                            <li>
-                                                <a class="dropdown-item secondary--font fw-md"
-                                                    href="{{ url('projects') . '/' . $project->slug }}">{{$project->name}}</a>
-                                            </li>
+                                                <li>
+                                                    <a class="dropdown-item secondary--font fw-md"
+                                                        href="{{ url('projects') . '/' . $project->slug }}">{{ $project->name }}</a>
+                                                </li>
                                             @endforeach
-                                         
+
                                         </ul>
                                     </li>
                                     {{-- <li class="nav-item">

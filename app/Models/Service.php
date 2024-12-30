@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Service extends Model
 {
+    use HasTranslations; 
     protected $fillable = [
         'title',
         'icon',
@@ -36,6 +38,19 @@ class Service extends Model
         'seo_more_heading',
         'seo_more_content',
         'company_id',
+    ];
+    public $translatable = [
+        'title',
+        'description',
+        'contents',
+        'seo_more_heading',
+        'seo_more_content',
+        'page_title',
+        'meta_keywords',
+        'meta_description',
+        'og_title',
+        'og_description',
+        'og_type'
     ];
     public function company(){
         return $this->belongsTo(Company::class);

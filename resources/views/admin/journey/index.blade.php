@@ -167,6 +167,7 @@
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -204,11 +205,17 @@
                 },
                 {
                     data: 'month',
-                    name: 'month'
+                    name: 'month',
+                    render: function(data, type, row) {
+                        return row.month[lang];
+                    }
                 },
                 {
                     data: 'title',
-                    name: 'title'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'created_at',

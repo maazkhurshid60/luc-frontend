@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('journeys', function (Blueprint $table) {
             $table->id();
             $table->string('year')->nullable();
-            $table->string('month')->nullable(); 
-            $table->string('title');
-            $table->text('description')->nullable(); 
+            $table->json('month')->nullable(); 
+            $table->json('title');
+            $table->json('description')->nullable(); 
             $table->timestamps();
         });
     }

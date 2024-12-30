@@ -25,10 +25,11 @@ class ServiceController extends Controller
         if (!auth()->user()->can('service.view')) {
             abort(401);
         }
-
+        $lang = 'en';
         $data = [
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.service.index', $data);
     }
@@ -43,15 +44,31 @@ class ServiceController extends Controller
         return datatables($items)
             ->addColumn('action', function ($item) {
                 $action = '';
+                $action .= '
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                ';
                 if (auth()->user()->can('service.edit')) {
-                    $action .= '<a href="' . route('service.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
+                    $action .= '<a class="dropdown-item" href="' . route('service.edit', $item->id) . '?lang=en">Edit (EN)</a>';
                 }
+                if (auth()->user()->can('service.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('service.edit', $item->id) . '?lang=fr">French</a>';
+                }
+                $action .= '</div></div>';
                 if (auth()->user()->can('service.delete')) {
-                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
+                    $action .= '<a class="btn btn-danger btn-xs ml-2" href="javascript:void(0)" onclick="delete_record(' . $item->id . ')">Delete</a>';
                 }
+
                 return $action;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
@@ -90,13 +107,11 @@ class ServiceController extends Controller
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'status' => 'required',
-            'display_order' => 'required',
             'slug' => 'required|unique:services',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif ,webp|max:1024',
             'image2' => 'required|image|mimes:svg|max:1024',
             'image3' => 'nullable|image|mimes:svg|max:1024',
             'projectcategory' => 'required',
-            'featured_project' => 'required',
             'company_select' => 'required',
 
         ]);
@@ -162,18 +177,19 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         if (!auth()->user()->can('service.edit')) {
             abort(401);
         }
-
+        $lang = $request->lang ?? 'en';
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
-            'service_company' => Company::all()
+            'service_company' => Company::all(),
+            'lang' => $lang,
         ];
         return view('admin.service.edit', $data);
     }
@@ -190,7 +206,7 @@ class ServiceController extends Controller
         if (!auth()->user()->can('service.edit')) {
             abort(401);
         }
-
+        // dd($request->all());
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',

@@ -27,7 +27,7 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/careers-hero-sec-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => '',
             'page_title' => $data->name,
         ])
@@ -36,12 +36,10 @@
             <div class="container">
                 <div class="row">
                     <h2 class="head--2 secondary--clr text-center pyb-40 mb-0">
-                        Our Careers
+                        {{__('lang.OUR_CAREERS')}}
                     </h2>
                     <p class="body-txt1 txt--clr text-center pyb-60 mb-0">
-                        Nunc convallis semper justo quis tempor. Praesent molestie, lorem
-                        sed imperdiet tempor, libero urna semper urna, facilisis vulputate
-                        velit arcu vitae mi. Donec ac nisi ex.
+                        {{__('lang.CAREER_DESC')}}
                     </p>
                 </div>
                 <div class="row pyb-60">
@@ -107,46 +105,39 @@
                 <div class="row flex-column">
                     <div class="services-sec d-flex flex-column justify-content-center align-items-center text-center">
                         <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center">
-                            Why Join Us
+                            {{ __('lang.why_join_us') }}
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 txt--clr text-center">
-                            Thousands of jobs in the computer, engineering and technology
-                            sectors are waiting for you.
+                            {{ __('lang.join_us_description') }}
                         </p>
                     </div>
                     <div class="services-sec">
                         <div class="our--services d-flex justify-content-between flex-wrap">
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-1.svg') }}" alt=""
-                                        class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-1.svg') }}" alt="" class="card-img" />
                                 </div>
-                                <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
+                                <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
-                                    Donec mi lorem, consequat a quam nec, pellentesque pulvinar
-                                    sem. Morbi lacus magna.
+                                    {{ __('lang.technology_description') }}
                                 </p>
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-3.svg') }}" alt=""
-                                        class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-3.svg') }}" alt="" class="card-img" />
                                 </div>
-                                <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
+                                <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
-                                    Donec mi lorem, consequat a quam nec, pellentesque pulvinar
-                                    sem. Morbi lacus magna.
+                                    {{ __('lang.technology_description') }}
                                 </p>
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-4.svg') }}" alt=""
-                                        class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-4.svg') }}" alt="" class="card-img" />
                                 </div>
-                                <h3 class="head--3 mb-3 secondary--clr">Technology</h3>
+                                <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
-                                    Donec mi lorem, consequat a quam nec, pellentesque pulvinar
-                                    sem. Morbi lacus magna.
+                                    {{ __('lang.technology_description') }}
                                 </p>
                             </div>
                         </div>

@@ -67,10 +67,6 @@
                                             <th>{{ __('ID') }}</th>
                                             <th>{{ __('Name') }}</th>
                                             <th>{{ __('Slug') }}</th>
-                                            <th>{{ __('Position') }}</th>
-                                            <th>{{ __('Display') }}</th>
-                                            <th>{{ __('Display Order') }}</th>
-                                            {{-- <th>{{ __('Parent') }}</th> --}}
                                             <th class="notexport ">{{ __('Action') }}</th>
 
 
@@ -140,6 +136,7 @@
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
@@ -171,28 +168,15 @@
                 },
                 {
                     data: 'name',
-                    name: 'name'
+                    name: 'name',
+                    render: function(data, type, row) {
+                        return row.name[lang];
+                    }
                 },
                 {
                     data: 'slug',
-                    name: 'slug'
+                    name: 'slug',
                 },
-                {
-                    data: 'position',
-                    name: 'position'
-                },
-                {
-                    data: 'display',
-                    name: 'display'
-                },
-                {
-                    data: 'display_order',
-                    name: 'display_order'
-                },
-                // {
-                //     data: 'parent',
-                //     name: 'parent'
-                // },
                 {
                     data: 'action',
                     name: 'action',

@@ -11,14 +11,27 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutusEditsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $lang = $request->lang ?? 'en';
+        $aboutDetails = DB::table('aboutus_edits')->first();
+    
+        // Decode the JSON fields based on language
+        if ($aboutDetails) {
+            $aboutDetails->journey_heading = json_decode($aboutDetails->journey_heading, true)[$lang] ?? '';
+            $aboutDetails->vision_heading = json_decode($aboutDetails->vision_heading, true)[$lang] ?? '';
+            $aboutDetails->vision_desc = json_decode($aboutDetails->vision_desc, true)[$lang] ?? '';
+        }
+    
         $data = [
             'menu' => 'settings',
-            'about_details' => DB::table('aboutus_edits')->get()->first(),
+            'about_details' => $aboutDetails,
+            'lang' => $lang,
         ];
+    
         return view('admin.about-details.index', $data);
     }
+    
 
     public function HandlerforAbout(Request $request)
     {
@@ -28,12 +41,6 @@ class AboutusEditsController extends Controller
 
     public function update(Request $request)
     {
-        $record = AboutusEdits::find($request->input('id'));
-
-        if (!$record) {
-            return response()->json(['error' => 'Settings record not found'], 404);
-        }
-
         $validator = \Validator::make($request->all(), [
             'journey_heading' => 'required|max:200',
             'vision_heading' => 'required',
@@ -46,19 +53,25 @@ class AboutusEditsController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $data = $request->all();
+        // Prepare the data
+        $data = $request->except(['journeyimg', 'visionimg']);
 
+        // Handle image uploads
         if ($request->hasFile('journeyimg')) {
-            $data['journey_img'] = $this->handleImageUpload($request->file('journeyimg'), $record->journey_img);
+            $data['journey_img'] = $this->handleImageUpload($request->file('journeyimg'), $request->journey_img ?? null);
         }
 
         if ($request->hasFile('visionimg')) {
-            $data['vision_img'] = $this->handleImageUpload($request->file('visionimg'), $record->vision_img);
+            $data['vision_img'] = $this->handleImageUpload($request->file('visionimg'), $request->vision_img ?? null);
         }
 
-        $record->update($data);
+        // Update or create record
+        $record = AboutusEdits::updateOrCreate(
+            ['id' => $request->input('id')], // Matching condition
+            $data, // Data to update or insert
+        );
 
-        return response()->json(['success' => 'Settings Updated']);
+        return response()->json(['success' => $record->wasRecentlyCreated ? 'Record Created' : 'Record Updated']);
     }
 
     private function handleImageUpload($image, $oldImage = null)
@@ -83,9 +96,11 @@ class AboutusEditsController extends Controller
         $imagePath = public_path('storage/images/' . $fileName);
         $thumbPath = config('constants.store_thumb_path') . $fileName;
 
-        Image::make($imagePath)->resize(150, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($thumbPath);
+        Image::make($imagePath)
+            ->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->save($thumbPath);
 
         if ($oldImage) {
             Storage::disk('public')->delete('images/' . $oldImage);

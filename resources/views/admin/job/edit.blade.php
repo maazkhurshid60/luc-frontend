@@ -36,6 +36,7 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
                                     <div class="col-md-8 form-group">
                                         <label>{{ __('Title') }} :</label>

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Company extends Model
 {
+    use HasTranslations;
     protected $fillable = [
         'name',
         'slug',
@@ -31,6 +33,17 @@ class Company extends Model
         'og_description',
         'og_image',
         'og_type',
+    ];
+    public $translatable = [
+      'short_description',
+      'address',
+      'address_2', 
+      'contents',
+      'page_title',
+      'meta_keywords',
+      'meta_description',
+      'og_title',
+      'og_description',
     ];
     public function services()
     {

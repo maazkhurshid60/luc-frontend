@@ -28,7 +28,7 @@
 
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/project-details-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => ['name' => 'Projects', 'route' => 'projects.index'],
             'page_title' => $data->name,
         ])
@@ -89,7 +89,7 @@
                             </div>
                             <div class="side-bor--form">
                                 <form class="row g-4" id="projectForm">
-                                    <input type="hidden" id="formType" value="project_form">
+                                    <input type="hidden" id="formType" value="Project Form">
                                     <div class="col-12">
                                         <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
                                         <input type="text" class="form-control req-quote-input" id="nameinput"

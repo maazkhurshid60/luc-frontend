@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Project extends Model
 {
+    use HasTranslations;
     protected $fillable = [
         'name',
         'slug',
@@ -36,6 +38,22 @@ class Project extends Model
         'country',
         'industry',
     ];
+    public  $translatable = [
+        'name',
+        'contents',
+        'description',
+        'section_data',
+        'page_title',
+        'meta_keywords',
+        'meta_description',
+        'og_title',
+        'og_description',
+        'og_type',
+        'sector',
+        'country',
+        'industry',
+    ];  
+
     public function category()
     {
         return $this->belongsTo('App\Models\ProjectCategory', 'category_id', 'id');

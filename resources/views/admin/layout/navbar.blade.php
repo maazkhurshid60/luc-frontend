@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="/" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>RE</b></span>
+        <span class="logo-mini"><b>AG</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">{{ $settings->siteName ?? env('APP_NAME') }}</span>
     </a>

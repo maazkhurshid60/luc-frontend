@@ -3,10 +3,11 @@
   @method('PUT')
   @csrf
   <input type="hidden" name="id" value="{{ $data->id }}">
+  <input type="hidden" name="lang" value="{{ $lang }}">
   <div class="alert alert-danger updateFormError" style="display: none;"></div>
     <div class=" row">
      <div class="col-md-12 form-group">
-        <label >Title</label>
+        <label >Title <span class="text-danger">*</span></label>
         <input type="text" class="form-control form-control-sm" value="{{ $data->title }}"  name="title">
       </div>
        <div class="col-md-12 form-group">

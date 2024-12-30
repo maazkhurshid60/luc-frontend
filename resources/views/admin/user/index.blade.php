@@ -79,6 +79,7 @@
                                             <label>Select Role</label>
                                             <select required class="form-control form-control-sm" name='role_id'>
                                                 {!! App\Helpers\Helper::getRoles([
+                                                    'key' => 'id',
                                                     'value' => 'name',
                                                     'selectOption' => true,
                                                 ]) !!}

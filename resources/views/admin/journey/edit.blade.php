@@ -36,25 +36,29 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                               
                                 <div class=" row">
                                     <div class="col-md-4 form-group">
                                         <label>{{ __('Year') }} <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" name="year" value="{{$data->year}}">
+                                        <input type="text" class="form-control form-control-sm" name="year"
+                                            value="{{ $data->year }}">
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <label>Month <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" name="month" value="{{$data->month}}">
+                                        <input type="text" class="form-control form-control-sm" name="month"
+                                            value="{{ $data->month }}">
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="pagetitle">Title </label>
+                                        <label for="pagetitle">Title <span class="text-danger">*</span></label>
                                         <input type="text" name="title" id="page_title"
-                                            class="form-control form-control-sm" maxlength="80" value="{{$data->title}}">
+                                            class="form-control form-control-sm" maxlength="80"
+                                            value="{{ $data->title }}">
                                     </div>
                                     <div class="col-md-12">
-                                        <label for="pagetitle">Description </label>
+                                        <label for="pagetitle">Description <span class="text-danger">*</span></label>
                                         <textarea name="description" id="" cols="30" rows="10" class="form-control">
-                                            {{$data->description}}
+                                            {{ $data->description }}
                                         </textarea>
                                     </div>
 
@@ -91,14 +95,10 @@
 @endsection
 
 @section('custom-scripts')
-
-
     <!-- Initialize Select2 -->
 
 
     <script type="text/javascript">
-       
-
         function update_validation() {
 
             $(".updateFormError").show();

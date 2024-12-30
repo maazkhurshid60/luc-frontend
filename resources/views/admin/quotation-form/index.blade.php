@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $columns = ['ID', 'name', 'email', 'contact No.','type','date'];
+        $columns = ['ID', 'name', 'email', 'contact No.', 'type', 'date'];
         $data_route = route('quotation-form.datatable');
         $update_url = route('quoteationform.show', 11);
         $destroy_url = route('hiring-application.destroy', 11);
@@ -31,7 +31,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div id="filtersDiv">
+                            {{-- <div id="filtersDiv">
                                 <div class="row">
                                     <div class="mb-3 col-3">
                                         <input type="text" name="client" class="form-control form-control-sm"
@@ -123,20 +123,68 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table id="dTable" class="table table-bordered table-striped spTable">
-                                    <thead>
-                                        <tr>
-                                            @foreach ($columns as $item)
-                                                <th>{{ ucfirst($item) }}</th>
-                                            @endforeach
-                                            <th class="notexport">{{ __('Action') }}</th>
-                                        </tr>
-                                    </thead>
+                            </div> --}}
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#contact" role="tab"
+                                        aria-controls="contact" aria-selected="true">Active</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#quotation" role="tab"
+                                        aria-controls="quotation" aria-selected="false">quotation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#project" role="tab"
+                                        aria-controls="project" aria-selected="false">project</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content " style="border: 0px" id="myTabContent">
+                                <div class="tab-pane fade show active" id="contact" role="tabpanel"
+                                    aria-labelledby="contact-tab">
+                                    <div class="table-responsive">
+                                        <table id="cTable" class="table table-bordered table-striped spTable">
+                                            <thead>
+                                                <tr>
+                                                    @foreach ($columns as $item)
+                                                        <th>{{ ucfirst($item) }}</th>
+                                                    @endforeach
+                                                    <th class="notexport">{{ __('Action') }}</th>
+                                                </tr>
+                                            </thead>
 
-                                </table>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="quotation" role="tabpanel" aria-labelledby="quotation-tab">
+                                    <div class="table-responsive">
+                                        <table id="qTable" class="table table-bordered table-striped spTable">
+                                            <thead>
+                                                <tr>
+                                                    @foreach ($columns as $item)
+                                                        <th>{{ ucfirst($item) }}</th>
+                                                    @endforeach
+                                                    <th class="notexport">{{ __('Action') }}</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
+                                    <div class="table-responsive">
+                                        <table id="pTable" class="table table-bordered table-striped spTable">
+                                            <thead>
+                                                <tr>
+                                                    @foreach ($columns as $item)
+                                                        <th>{{ ucfirst($item) }}</th>
+                                                    @endforeach
+                                                    <th class="notexport">{{ __('Action') }}</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -181,42 +229,66 @@
 
     <!-- Include Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var filtersShown = localStorage.getItem('filtersShown');
-            if (filtersShown === 'true') {
-                $("#filtersDiv").show();
-            } else {
-                $("#filtersDiv").hide();
-            }
-            $('#showFiltersBtn').on('click', function() {
-                $("#filtersDiv").slideToggle(500, function() {
-                    var isVisible = $("#filtersDiv").is(":visible");
-                    localStorage.setItem('filtersShown', isVisible ? 'true' : 'false');
-                });
-            });
-        });
-    </script>
+
     <script type="text/javascript">
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
-        var oTable = $('#dTable').DataTable({
+        var oTable = $('#cTable').DataTable({
             fixedHeader: true,
 
-            dom: "<'row'<'col-md-12 'Bf>r>" +
+            dom: "<'row'<'col-md-12'f>r>" +
                 "<'row'<'col-md-12't>>" +
-                "<'row'<'col-md-12'ip>>",
-            buttons: [{
-                extend: 'colvis',
-                className: 'btn btn-sm btn-dark'
-            }, {
-                extend: 'excel',
-                title: 'Blogs',
-                className: 'btn btn-sm btn-dark mr-2',
-                exportOptions: {
-                    columns: ':not(.notexport)'
+                "<'row'<'col-md-12'ip>>", 
+            pageLength: 100,
+            processing: false,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: '{{ $data_route }}',
+                data: function(d) {
+                    d.type = 'Contact Form';
+                },
+            },
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'contact_no',
+                    name: 'contact_no'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
                 }
-            }],
+            ]
+        });
+
+
+        var qTable = $('#qTable').DataTable({
+            fixedHeader: true,
+
+            dom: "<'row'<'col-md-12'f>r>" +
+                "<'row'<'col-md-12't>>" +
+                "<'row'<'col-md-12'ip>>", 
             "pageLength": 100,
             processing: false,
             serverSide: true,
@@ -224,10 +296,7 @@
             ajax: {
                 url: '{{ $data_route }}',
                 data: function(d) {
-                    d.client = $('input[name=client]').val();
-                    d.member = $('select[name=member]').val();
-                    d.service = $('select[name=service]').val();
-                    d.technology = $('select[name=technology]').val();
+                    d.type = 'Quote Form';
                 },
             },
             columns: [
@@ -265,9 +334,56 @@
             ]
         });
 
+        var pTable = $('#pTable').DataTable({
+            fixedHeader: true,
 
-        $('input[name=client]').keyup(oTable.draw);
-        $('select[name=member],select[name=technology],select[name=service]').change(oTable.draw);
+            dom: "<'row'<'col-md-12'f>r>" +
+                "<'row'<'col-md-12't>>" +
+                "<'row'<'col-md-12'ip>>", 
+            "pageLength": 100,
+            processing: false,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: '{{ $data_route }}',
+                data: function(d) {
+                    d.type = 'Project Form';
+                },
+            },
+            columns: [
+
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'contact_no',
+                    name: 'contact_no'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+        });
 
         function delete_record(recordID) {
             swal({

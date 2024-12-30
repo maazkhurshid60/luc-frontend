@@ -21,9 +21,11 @@ class FaqController extends Controller
         if (!auth()->user()->can('faq.view')) {
             abort(401);
         }
+        $lang = 'en';
         $data = [
             'menu' => 'faq',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.faq.index', $data);
     }
@@ -35,16 +37,20 @@ class FaqController extends Controller
         $items = Obj::select('*');
 
         return datatables($items)
-            ->addColumn('action', function ($item) {
-                $action = '';
-                if (auth()->user()->can('faq.edit')) {
-                    $action .= '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                }
-                if (auth()->user()->can('faq.delete')) {
-                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                }
-                return $action;
-            })
+        ->addColumn('action', function ($item) {
+            if (auth()->user()->can('faq.edit')) {
+                $editEn = '<a href="javascript:updateRecord(' . $item->id . ', \'en\')" class="btn btn-xs btn-primary">Edit EN</a>';
+                $editFr = '<a href="javascript:updateRecord(' . $item->id . ', \'fr\')" class="btn btn-xs btn-secondary">Edit FR</a>';
+            }
+            $delete = '';
+            if (auth()->user()->can('faq.delete')) {
+                $delete = '<a href="javascript:delete_record(' . $item->id . ')" class="btn btn-xs btn-danger">Delete</a>';
+            }
+            return $editEn . ' ' . $editFr . ' ' . $delete;
+        })
+        ->editColumn('created_at', function ($item) {
+            return \App\Helpers\Helper::setDate($item->created_at);
+        })
             ->editColumn('category_id', function ($item) {
                 return $item->category->title;
             })
@@ -91,12 +97,16 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         if (!auth()->user()->can('faq.view')) {
             abort(401);
         }
-        $data['data'] = Obj::findOrFail($id);
+        $lang = $request->lang ?? 'en';
+        $data = [
+            'data' => Obj::findOrFail($id),
+            'lang' => $lang,
+        ];
         return view('admin.faq.edit', $data);
     }
 

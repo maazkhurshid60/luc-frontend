@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Image;
 use Spatie\Permission\Models\Role;
+use Illuminate\Contracts\Session\Session;
 
 class DataController extends Controller
 {
@@ -68,7 +69,7 @@ class DataController extends Controller
 
     public function update_settings(Request $request)
     {
-        // dd($request->all());
+        // dump($request->all());
         $record = Settings::find($request->input('id'));
 
         if (!$record) {
@@ -95,9 +96,9 @@ class DataController extends Controller
         if ($request->hasFile('icon_image')) {
             $data['icon'] = $this->handleImageUpload($request->file('icon_image'), $record->icon);
         }
-
+        // dump($data);
         $record->update($data);
-
+        // dd($record);
         return response()->json(['success' => 'Settings Updated']);
     }
 
@@ -123,9 +124,11 @@ class DataController extends Controller
         $imagePath = public_path('storage/images/' . $fileName);
         $thumbPath = config('constants.store_thumb_path') . $fileName;
 
-        Image::make($imagePath)->resize(150, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($thumbPath);
+        Image::make($imagePath)
+            ->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->save($thumbPath);
 
         if ($oldImage) {
             Storage::disk('public')->delete('images/' . $oldImage);
@@ -134,5 +137,4 @@ class DataController extends Controller
 
         return $fileName;
     }
-
 }

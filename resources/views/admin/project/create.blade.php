@@ -64,24 +64,6 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label for="pagetitle">Background Color Code</label>
-                                        <input type="text" name="color_code" class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>Display Order <span class="text-danger">*</span></label>
-                                        <input type="number" name="display_order" min="1"
-                                            value="{{ $display_order }}" class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-4" style="margin-top: 3%;">
-                                        <span class="">
-                                            <input type="checkbox" id="search_engine" name="search_engine"
-                                                class="filled-in chk-col-purple" checked />
-                                            <label for="search_engine">Discourage search engines from indexing</label>
-                                        </span>
-                                    </div>
 
                                     @can('meta-data.create')
                                         <div class="col-md-12">
@@ -241,7 +223,7 @@
                                         </div>
                                     @endcan
 
-                                    <div class="col-md-6 mt-3">
+                                    <div class="col-md-4 mt-3">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>
@@ -250,12 +232,24 @@
                                         <br>
                                     </div>
 
-                                    <div class="col-md-6 mt-3">
+                                    <div class="col-md-4 mt-3">
                                         <label>{{ __('Site Visibility') }}</label>
                                         <select name="site_visibility" class="form-control form-control-sm">
                                             <option value="1">Show in Projects</option>
                                             <option value="0">Hide from Projects</option>
                                         </select>
+                                    </div>
+
+                                    <div class="col-md-4 mt-4">
+                                        <label>Display Order <span class="text-danger">*</span></label>
+                                        <input type="number" name="display_order" min="1"
+                                            value="{{ $display_order }}" class="form-control form-control-sm">
+                                        <br>
+                                        <span class="">
+                                            <input type="checkbox" id="search_engine" name="search_engine"
+                                                class="filled-in chk-col-purple" checked />
+                                            <label for="search_engine">Discourage search engines from indexing</label>
+                                        </span>
                                     </div>
 
                                     <div class="col-md-12">

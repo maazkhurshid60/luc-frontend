@@ -23,10 +23,11 @@ class ProjectController extends Controller
         if (!auth()->user()->can('project.view')) {
             abort(401);
         }
-
+        $lang = 'en';
         $data = [
             'menu' => 'project',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
 
         return view('admin.project.index', $data);
@@ -43,12 +44,26 @@ class ProjectController extends Controller
         return datatables($items)
             ->addColumn('action', function ($item) {
                 $action = '';
+                $action .= '
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                ';
                 if (auth()->user()->can('project.edit')) {
-                    $action .= '<a href="' . route('project.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
+                    $action .= '<a class="dropdown-item" href="' . route('project.edit', $item->id) . '?lang=en">Edit (EN)</a>';
                 }
+                if (auth()->user()->can('project.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('project.edit', $item->id) . '?lang=fr">French</a>';
+                }
+                $action .= '</div></div>';
                 if (auth()->user()->can('project.delete')) {
-                    $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
+                    $action .= '<a class="btn btn-danger btn-xs ml-2" href="javascript:void(0)" onclick="delete_record(' . $item->id . ')">Delete</a>';
                 }
+
                 return $action;
             })
             ->editColumn('image', function ($item) {
@@ -59,6 +74,9 @@ class ProjectController extends Controller
             })
             ->editColumn('date', function ($item) {
                 return Helper::setDate($item->date);
+            })
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
             })
 
             ->rawColumns(['action', 'image', 'date'])
@@ -160,18 +178,19 @@ class ProjectController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         if (!auth()->user()->can('project.edit')) {
             abort(401);
         }
-
+        $lang = $request->lang ?? 'en';
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'project',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
             'sectionData' => json_decode($element->section_data),
+            'lang' => $lang,
         ];
         return view('admin.project.edit', $data);
     }

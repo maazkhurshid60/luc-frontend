@@ -13,25 +13,25 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->json('title')->nullable();
             $table->string('link')->nullable();
             $table->string('slug')->nullable();
-            $table->text('short_description')->nullable();
-            $table->longText('contents')->nullable();
+            $table->json('short_description')->nullable();
+            $table->json('contents')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
 
             $table->boolean('search_engine')->nullable();
             $table->integer('display_order')->nullable();
 
-            $table->string('page_title')->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->json('page_title')->nullable();
+            $table->json('meta_keywords')->nullable();
+            $table->json('meta_description')->nullable();
 
-            $table->string('og_title')->nullable();
-            $table->string('og_description')->nullable();
+            $table->json('og_title')->nullable();
+            $table->json('og_description')->nullable();
             $table->string('og_image')->nullable();
-            $table->string('og_type')->nullable();
+            $table->json('og_type')->nullable();
             $table->timestamps();
         });
     }

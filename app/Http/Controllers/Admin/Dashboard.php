@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class Dashboard extends Controller
 {
@@ -32,15 +33,18 @@ class Dashboard extends Controller
         ];
         return view('admin.index', $data);
     }
-    public function settings()
+    public function settings(Request $request)
     {
+        $lang = $request->lang ?? 'en';
+        $settings = Settings::find(1);
         $data = [
             'menu' => 'settings',
-            'settings' => DB::table('settings')->get()->first(),
-
+            'settings' => $settings,
+            'lang' => $lang,
         ];
         return view('admin.settings', $data);
     }
+    
 
     public function upload(Request $request)
     {

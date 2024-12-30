@@ -27,7 +27,7 @@
     <div class="main">
         @include('partials.breadcrumbs', [
             'bg_image' => asset('assets/frontend/images/blogs-hero-bg.webp'),
-            'home' => ['name' => 'Home', 'route' => 'index'],
+            'home' => ['name' => __('lang.Home'), 'route' => 'index'],
             'parent' => '',
             'page_title' => $data->name,
         ])
@@ -133,7 +133,7 @@
                     <div class="row flex-column">
                         <div class="services-sec d-flex flex-column justify-content-center align-items-center text-center">
                             <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center">
-                                Recent Blogs
+                                {{ __('lang.recent_blogs') }}
                             </h2>
                         </div>
                         <div class="blog-sec d-flex flex-md-row flex-column justify-content-between">
@@ -148,7 +148,7 @@
                                             </div>
                                             <div class="rblog-card-content p-4">
                                                 <div class="cat-tag-wrap mb-lg-3 mb-2">
-                                                    <p class="body-txt2 primary--clr mb-0">Technology</p>
+                                                    <p class="body-txt2 primary--clr mb-0">{{ $latest[0]->category->title }}</p>
                                                 </div>
                                                 <div class="position-relative">
                                                     <img src="{{ asset('assets/frontend/icons/forward-arrow.svg') }}"
@@ -189,7 +189,7 @@
                                             </div>
                                             <div class="rblog-card-content w-md-50 p-4">
                                                 <div class="cat-tag-wrap mb-lg-3 mb-2">
-                                                    <p class="body-txt2 primary--clr mb-0">Technology</p>
+                                                    <p class="body-txt2 primary--clr mb-0">{{ $latest[$i]->category->title }}</p>
                                                 </div>
                                                 <div class="position-relative">
                                                     <img src="{{ asset('assets/frontend/icons/forward-arrow.svg') }}"
@@ -200,7 +200,7 @@
                                                     <p class="body-txt2 txt--clr mb-lg-4 mb-2">
                                                         {{ $latest[$i]->short_description }} <br>
                                                         <a href="{{ url('/blog/' . $latest[$i]->slug) }}"
-                                                            class="blog-excerpt-readmore">Read More</a>
+                                                            class="blog-excerpt-readmore">{{__('lang.READ_MORE')}}</a>
                                                     </p>
                                                 </div>
                                                 <div class="blog-profile-img d-flex">
@@ -231,7 +231,7 @@
             <div class="container">
                 <div class="row flex-column">
                     <div class="services-sec d-flex flex-column justify-content-center align-items-center text-center">
-                        <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center">All Blog Posts</h2>
+                        <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center"> {{__('lang.ALL_BLOG_POST')}} </h2>
                     </div>
                     <div class="blog-sec">
                         <div class="tabs d-flex flex-column justify-content-center">

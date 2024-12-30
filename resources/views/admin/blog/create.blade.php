@@ -36,19 +36,9 @@
                                 @csrf
 
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-12 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>{{ __('Author/User') }} :</label>
-                                        <input type="text" class="form-control form-control-sm" name="user">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>Display Order</label>
-                                        <input type="number" name="display_order" class="form-control form-control-sm"
-                                            min="1" value="{{ $display_order }}">
                                     </div>
 
                                     <div class="col-md-12">
@@ -95,7 +85,7 @@
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
                                             @foreach ($BlogCategory as $cat)
@@ -104,7 +94,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Services Category</label>
                                         <select name="service_id[]" class="form-control form-control-sm" id="service-select"
                                             multiple>
@@ -114,15 +104,6 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
-                                        <label for="status">Related Member</label>
-                                        <select name="pro_id[]" class="form-control form-control-sm" id="pro-select"
-                                            multiple>
-                                            @foreach ($members as $member)
-                                                <option value="{{ $member->id }}">{{ $member->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
                                     <div class="col-md-12 form-group">
                                         <label for="short_description">Short Description <span
@@ -210,22 +191,18 @@
                                                 gravida enim posuere cursus diam.</p>
                                         </textarea>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Image') }}</label>
                                         <input type="file" name="file" id="filez1" class="filez1"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file3" id="filez3" class="filez3"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('Breadcrumbs') }}</label>
-                                        <input type="file" name="file2" id="filez2" class="filez2"
-                                            data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
-                                    <div class="col-md-3">
+                              
+                                    <div class="col-md-4">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4" id="filez4" class="filez4"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
@@ -238,8 +215,8 @@
                                         </select>
                                         <br>
 
-                                        <label for="client">Tags (comma separated)</label>
-                                        <input type="text" name="tags" class="form-control form-control-sm">
+                                        <label for="client">Author</label>
+                                        <input type="text" name="user" class="form-control form-control-sm">
                                     </div>
                                     <div class="col-md-6" style="margin-top: 3%;">
                                         <span class="">
