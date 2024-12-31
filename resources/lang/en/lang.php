@@ -140,4 +140,5 @@ return [
     'posted_on' => 'Posted on: ',
     'apply_now' => 'Apply Now',
     'see_all_jobs' => 'See All Jobs',
+    'activity' => 'Activity Log',
 ];

@@ -63,6 +63,36 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown user user-menu">
+                    <a  class=" dropdown-toggle lang-switch-selected p-0 body-txt2" href="#" data-toggle="dropdown" type="button">
+                        <img id="current-lang-flag" src="{{ asset('assets/frontend/icons/english-flag.svg') }}" class="user-image" alt="Language Flag" />
+                        <span id="current-lang-text">English</span>
+                    </a>
+                    <ul class="dropdown-menu scale-up">
+                        <!-- Dropdown Header -->
+                        <li class="user-header">
+                            <img id="current-lang-flag" src="{{ asset('assets/frontend/icons/english-flag.svg') }}" class="img-circle" alt="Language Flag" />
+                        </li>
+                        <!-- Dropdown Body -->
+                        <li class="user-body">
+                            <div class="row align-items-center justify-content-around">
+                                <div class="col-xs-12">
+                                    <a href="#" class="lang-switch-drop body-txt2" data-lang="en" onclick="setLanguage('en')">
+                                        <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt="English Flag" class="me-2" />
+                                        English
+                                    </a>
+                                </div>
+                                <div class="col-xs-12">
+                                    <a href="#" class="lang-switch-drop body-txt2" data-lang="fr" onclick="setLanguage('fr')">
+                                        <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt="French Flag" class="me-2" />
+                                        French
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+              
+                    </ul>
+                </li>                
             </ul>
         </div>
     </nav>

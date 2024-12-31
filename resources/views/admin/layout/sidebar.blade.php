@@ -208,6 +208,13 @@
                     </a>
                 </li>
             @endcan
+            @can('activity.view')
+                <li class="@if ($menu == 'activity') active selected @endif">
+                    <a href="{{ route('activity-log.index') }}">
+                        <i class="fa fa-gear"></i> <span>{{ __('lang.activity') }}</span>
+                    </a>
+                </li>
+            @endcan
         </ul>        
     </section>
     <!-- /.sidebar -->

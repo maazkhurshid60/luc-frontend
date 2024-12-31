@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Models\Company;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Service extends Model
 {
+    use LogsActivity;
     use HasTranslations; 
     protected $fillable = [
         'title',
@@ -52,6 +55,11 @@ class Service extends Model
         'og_description',
         'og_type'
     ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['*'])->useLogName('Services');
+    }
     public function company(){
         return $this->belongsTo(Company::class);
     }

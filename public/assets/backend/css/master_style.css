@@ -7845,3 +7845,10 @@ table.dataTable thead .sorting:after {
   font-size: 10pt !important;
 
 }
+.xl-modal{
+    width: 1140px !important;
+    max-width: 1140px !important;
+}
+.extraModalBody table td p img{
+    width: 50% !important;
+}

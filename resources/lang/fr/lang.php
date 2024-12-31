@@ -139,4 +139,5 @@ return [
     'posted_on' => 'Publié le: ',
     'apply_now' => 'Postuler maintenant',
     'see_all_jobs' => 'Voir tous les emplois',
+    'activity' => 'Activity Log',
 ];

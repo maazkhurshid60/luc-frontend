@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Project extends Model
 {
+    use LogsActivity;
     use HasTranslations;
     protected $fillable = [
         'name',
@@ -53,7 +56,11 @@ class Project extends Model
         'country',
         'industry',
     ];  
-
+      public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['*'])->useLogName('Project');
+    }
     public function category()
     {
         return $this->belongsTo('App\Models\ProjectCategory', 'category_id', 'id');
