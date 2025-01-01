@@ -69,10 +69,7 @@ class CareerController extends Controller
     }
     public function submit_application(Request $request)
     {
-        // if (is_null($request->input('g-recaptcha-response'))) {
-        //     return response()->json(['errors' => ['Captcha Verification Failed! Please Complete Captcha to Continue.']], 422);
-        // }
-
+        // Validate the incoming request
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
             'job_id' => 'required',
@@ -82,7 +79,7 @@ class CareerController extends Controller
             'cv_file' => 'required|mimes:doc,docx,pdf|max:1024',
         ], [
             'name.required' => 'Please provide your name',
-            'job_id.required' => 'Somthing wrong! Please try again.',
+            'job_id.required' => 'Something went wrong! Please try again.',
             'email.required' => 'Please provide your email address.',
             'email.email' => 'Please provide a valid email address.',
             'contact_no.required' => 'The contact number is required.',
@@ -92,18 +89,30 @@ class CareerController extends Controller
             'cv_file.mimes' => 'The CV must be a file of type: doc, docx, or pdf.',
             'cv_file.max' => 'The CV size must not exceed 1MB.',
         ]);
-
+    
+        // Return validation errors
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 422);
         }
-
+    
+        // Handle the file upload
+        $fileName = null;
         if ($request->hasFile('cv_file')) {
-
-            $temp_name = $request->file('cv_file')->store('images', 'public');
-            $request['file'] = str_replace('images/', '', $temp_name);
+            $tempName = $request->file('cv_file')->store('applications/cvs', 'public');
+            $fileName = str_replace('applications/cvs/', '', $tempName);
         }
-        $obj = Application::create($request->all());
-        return response()->json(['success' => 'Your application has been successfully submitted. Will get in touch with you after reviewing.']);
+    
+        // Prepare the data for insertion
+        $applicationData = $request->only(['name', 'job_id', 'email', 'contact_no', 'description']);
+        $applicationData['file'] = $fileName;
+    
+        // Save the application to the database
+        Application::create($applicationData);
+    
+        // Return success response
+        return response()->json([
+            'success' => 'Your application has been successfully submitted. We will get in touch with you after reviewing.'
+        ]);
     }
-
+    
 }

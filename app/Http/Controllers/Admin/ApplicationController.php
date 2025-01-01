@@ -51,9 +51,11 @@ class ApplicationController extends Controller
             })
             ->editColumn('file', function ($item) {
                 if (!is_null($item->file)) {
-                    return "<a  href='" . asset('storage/images/' . $item->file) . "'> Download CV</a>";
+                    return "<a  href='" . asset('storage/applications/cvs/' . $item->file) . "'> Download CV</a>";
                 }
-
+            })
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
             })
             ->editColumn('job_id', function ($item) {
                 if (!is_null($item->job_id)) {

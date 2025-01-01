@@ -38,7 +38,8 @@
                         </p>
                         <div class="d-flex justify-content-md-start  justify-content-center">
                             <span class=""><a href="pages/contact-us.html"
-                                    class="text-decoration-none primary-btn d-flex  justify-content-center">{{ __('lang.REQUEST_A_QUOTE') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
+                                    class="text-decoration-none primary-btn d-flex  justify-content-center">{{ __('lang.REQUEST_A_QUOTE') }}<img
+                                        src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                         class="ms-2"></a></span>
                         </div>
                     </div>
@@ -58,7 +59,7 @@
         @include('partials.counter')
 
         <!-- Services Section Start-->
-        @if ($latest_services)
+        @if ($latest_services->isNotEmpty())
             <div class="container-fluid d-flex flex-column justify-content-center py-40px afcon--our-services">
                 <div class="container">
                     <div class="row flex-md-row flex-column">
@@ -69,7 +70,7 @@
                             </h2>
                             <p class="body-txt1 mb-0 pyb-60 txt--clr txt--clr">
                                 {{ __('lang.SERVICES_DESCRIPTION') }}
-                            </p>                            
+                            </p>
                             <span class="d-lg-block d-none">
                                 <a href="{{ route('companies.index') }}"
                                     class="text-decoration-none wht--clr primary-btn d-flex justify-content-center">{{ __('lang.VIEW_ALL') }}
@@ -79,77 +80,48 @@
                             </span>
                         </div>
                         <div class="services-sec-col d-flex flex-md-row flex-column justify-content-center gap-4">
+                            {{-- Group 1: First two services --}}
                             <div class="ourservices--1 d-flex flex-column justify-content-center gap-4">
-                                @if ($latest_services[0])
+                                @foreach ($latest_services->take(2) as $service)
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[0]->companyIcon ? 'storage/images/' . $latest_services[0]->companyIcon : 'assets/frontend/icons/services-icon-1.svg') }}"
+                                            <img src="{{ asset($service->companyIcon ? 'storage/images/' . $service->companyIcon : 'assets/frontend/icons/services-icon-default.svg') }}"
                                                 alt="" class="card-img" />
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[0]->name }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[0]->short_description }}</p>
-                                        <a href="{{ url('company/' . $latest_services[0]->slug) }}"
-                                            class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
+                                        <h3 class="head--3 mb-3 secondary--clr">{{ $service->name }}</h3>
+                                        <p class="body-txt2 mb-4 txt--clr">{{ $service->short_description }}</p>
+                                        <a href="{{ url('company/' . $service->slug) }}" class="text-decoration-none">
+                                            <button class="card-sec-btn primary--clr">
+                                                {{ __('lang.LEARN_MORE') }}
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
                                                     class="ms-2" />
                                             </button>
                                         </a>
                                     </div>
-                                @endif
-                                @if ($latest_services[1])
-                                    <div class="our-services-card p-4">
-                                        <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[1]->companyIcon ? 'storage/images/' . $latest_services[0]->companyIcon : 'assets/frontend/icons/services-icon-1.svg') }}"
-                                                alt="" class="card-img" />
-                                        </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[1]->name }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[1]->short_description }}</p>
-                                        <a href="{{ url('company/' . $latest_services[1]->slug) }}"
-                                            class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
-                                                <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                                    class="ms-2" />
-                                            </button>
-                                        </a>
-                                    </div>
-                                @endif
+                                @endforeach
                             </div>
-                            <div class="ourservices--2 d-flex flex-column justify-content-center gap-4">
-                                @if ($latest_services[2])
-                                    <div class="our-services-card p-4">
-                                        <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[2]->companyIcon ? 'storage/images/' . $latest_services[2]->companyIcon : 'assets/frontend/icons/services-icon-3.svg') }}"
-                                                alt="" class="card-img" />
+                            {{-- Group 2: Last two services --}}
+                            @if ($latest_services->count() > 2)
+                                <div class="ourservices--2 d-flex flex-column justify-content-center gap-4">
+                                    @foreach ($latest_services->slice(2, 2) as $service)
+                                        <div class="our-services-card p-4">
+                                            <div class="card-img-wrap mb-4">
+                                                <img src="{{ asset($service->companyIcon ? 'storage/images/' . $service->companyIcon : 'assets/frontend/icons/services-icon-default.svg') }}"
+                                                    alt="" class="card-img" />
+                                            </div>
+                                            <h3 class="head--3 mb-3 secondary--clr">{{ $service->name }}</h3>
+                                            <p class="body-txt2 mb-4 txt--clr">{{ $service->short_description }}</p>
+                                            <a href="{{ url('company/' . $service->slug) }}" class="text-decoration-none">
+                                                <button class="card-sec-btn primary--clr">
+                                                    {{ __('lang.LEARN_MORE') }}
+                                                    <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}"
+                                                        alt="" class="ms-2" />
+                                                </button>
+                                            </a>
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[2]->name }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[2]->short_description }}</p>
-                                        <a href="{{ url('company/' . $latest_services[2]->slug) }}"
-                                            class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr"> {{ __('lang.LEARN_MORE') }}
-                                                <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                                    class="ms-2" />
-                                            </button>
-                                        </a>
-                                    </div>
-                                @endif
-                                {{-- @if ($latest_services[3])
-                                    <div class="our-services-card p-4">
-                                        <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($latest_services[3]->icon ? 'storage/images/' . $latest_services[3]->icon : 'assets/frontend/icons/services-icon-4.svg') }}"
-                                                alt="" class="card-img" />
-                                        </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $latest_services[3]->title }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $latest_services[3]->description }}</p>
-                                        <a href="{{ url('services/' . $latest_services[3]->slug) }}"
-                                            class="text-decoration-none">
-                                            <button class="card-sec-btn primary--clr">Learn More
-                                                <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""
-                                                    class="ms-2" />
-                                            </button></a>
-                                    </div>
-                                @endif --}}
-                            </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                         <span class="d-lg-none d-flex justify-content-center pyt-60">
                             <a href="{{ route('companies.index') }}"
@@ -160,7 +132,15 @@
                     </div>
                 </div>
             </div>
+        @else
+            <div class="container-fluid d-flex flex-column justify-content-center py-40px afcon--our-services">
+                <div class="container text-center">
+                    <h2 class="head--2 mb-4 secondary--clr">{{ __('lang.NO_SERVICES_FOUND') }}</h2>
+                    <p class="body-txt1 txt--clr">{{ __('lang.NO_SERVICES_DESCRIPTION') }}</p>
+                </div>
+            </div>
         @endif
+
         <!-- Services Section End-->
 
         @include('partials.projects')
@@ -177,52 +157,56 @@
     </div>
 @endsection
 @section('custom-js')
-<script>
-    $(document).ready(function () {
-    function handleFormSubmission(formSelector, routeName) {
-        $(formSelector).on('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            // Clear previous errors
-            $(formSelector + ' .error-message').remove();
-            $(formSelector + ' .success-message').remove();
+    <script>
+        $(document).ready(function() {
+            function handleFormSubmission(formSelector, routeName) {
+                $(formSelector).on('submit', function(e) {
+                    e.preventDefault(); // Prevent default form submission
 
-            let formData = {
-                name: $(formSelector + ' #nameinput').val(),
-                email: $(formSelector + ' #inputEmail4').val(),
-                subject: $(formSelector + ' #subjectsInput').val(),
-                service: $(formSelector + ' #services').val(), 
-                phone: $(formSelector + ' #mobile_code').val(),
-                message: $(formSelector + ' #textArea').val(),
-                type: $(formSelector + ' #formType').val(), // Form type
-                _token: '{{ csrf_token() }}' // CSRF token for security
-            };
+                    // Clear previous errors
+                    $(formSelector + ' .error-message').remove();
+                    $(formSelector + ' .success-message').remove();
 
-            $.ajax({
-                url: routeName,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    if (response.response === 'success') {
-                        // Display success message
-                        $(formSelector).append('<div class="success-message text-success text-center mt-3">' + response.message + '</div>');
-                        $(formSelector)[0].reset(); // Reset form after success
-                    }
-                },
-                error: function (xhr) {
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function (key, value) {
-                        let inputField = $(formSelector + ' #' + key);
-                        inputField.after('<span class="error-message text-danger">' + value[0] + '</span>');
+                    let formData = {
+                        name: $(formSelector + ' #nameinput').val(),
+                        email: $(formSelector + ' #inputEmail4').val(),
+                        subject: $(formSelector + ' #subjectsInput').val(),
+                        service: $(formSelector + ' #services').val(),
+                        phone: $(formSelector + ' #mobile_code').val(),
+                        message: $(formSelector + ' #textArea').val(),
+                        type: $(formSelector + ' #formType').val(), // Form type
+                        _token: '{{ csrf_token() }}' // CSRF token for security
+                    };
+
+                    $.ajax({
+                        url: routeName,
+                        type: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            if (response.response === 'success') {
+                                // Display success message
+                                $(formSelector).append(
+                                    '<div class="success-message text-success text-center mt-3">' +
+                                    response.message + '</div>');
+                                $(formSelector)[0].reset(); // Reset form after success
+                            }
+                        },
+                        error: function(xhr) {
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                let inputField = $(formSelector + ' #' + key);
+                                inputField.after(
+                                    '<span class="error-message text-danger">' +
+                                    value[0] + '</span>');
+                            });
+                        }
                     });
-                }
-            });
-        });
-    }
+                });
+            }
 
-    handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
-    handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
-    handleFormSubmission('#projectForm', '{{ route('projectform') }}');
-});
-</script>
+            handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
+            handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
+            handleFormSubmission('#projectForm', '{{ route('projectform') }}');
+        });
+    </script>
 @endsection
