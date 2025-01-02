@@ -144,8 +144,6 @@ Route::get('clients', [ClientsController::class, 'index'])->name('clients.index'
 Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('blog/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 
-// Route::get('services', [ServicesController::class, 'index'])->name('services.index');
-// Route::get('/services/{slug}', [ServicesController::class, 'details'])->name('services.details');
 Route::get('/companies', [ServicesController::class, 'index'])->name('companies.index');
 Route::get('/company/{slug}', [ServicesController::class, 'details'])->name('company.details');
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us.index');

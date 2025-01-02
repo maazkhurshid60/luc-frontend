@@ -27,7 +27,6 @@ class DataController extends Controller
     public function index(Request $request)
     {
         $type = $request->input('type');
-        // dd($type);
         return $this->$type($request);
     }
     public function delete_product_file(Request $request)
@@ -69,7 +68,6 @@ class DataController extends Controller
 
     public function update_settings(Request $request)
     {
-        // dump($request->all());
         $record = Settings::find($request->input('id'));
 
         if (!$record) {
@@ -96,9 +94,7 @@ class DataController extends Controller
         if ($request->hasFile('icon_image')) {
             $data['icon'] = $this->handleImageUpload($request->file('icon_image'), $record->icon);
         }
-        // dump($data);
         $record->update($data);
-        // dd($record);
         return response()->json(['success' => 'Settings Updated']);
     }
 

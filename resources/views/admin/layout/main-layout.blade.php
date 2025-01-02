@@ -29,55 +29,59 @@
             function setLanguage(lang) {
                 // Save selected language in localStorage
                 localStorage.setItem('lang', lang);
-        
+
                 // Update the flag and text for the current language
                 const flagImg = document.getElementById('current-lang-flag');
                 const langText = document.getElementById('current-lang-text');
-        
-                if (lang === 'fr') {
-                    flagImg.src = '{{ asset("assets/frontend/icons/french-flag.svg") }}';
-                    langText.innerText = 'French';
-                } else {
-                    flagImg.src = '{{ asset("assets/frontend/icons/english-flag.svg") }}';
-                    langText.innerText = 'English';
+
+                if (flagImg && langText) {
+                    if (lang === 'fr') {
+                        flagImg.src = '{{ asset('assets/frontend/icons/french-flag.svg') }}';
+                        langText.innerText = 'French';
+                    } else {
+                        flagImg.src = '{{ asset('assets/frontend/icons/english-flag.svg') }}';
+                        langText.innerText = 'English';
+                    }
                 }
-        
+
                 // Forcefully reload the page without including the current session lang
                 const url = new URL(window.location.href);
                 url.searchParams.set('lang', lang); // Override with the new language
                 window.location.href = url.toString();
             }
-        
-            document.addEventListener('DOMContentLoaded', function () {
+
+            document.addEventListener('DOMContentLoaded', function() {
                 // Get the saved language from localStorage or default to 'en'
                 const currentLang = localStorage.getItem('lang') || 'en';
-        
+
                 // Update the current language in the dropdown UI
                 const flagImg = document.getElementById('current-lang-flag');
                 const langText = document.getElementById('current-lang-text');
-        
-                if (currentLang === 'fr') {
-                    flagImg.src = '{{ asset("assets/frontend/icons/french-flag.svg") }}';
-                    langText.innerText = 'French';
-                } else {
-                    flagImg.src = '{{ asset("assets/frontend/icons/english-flag.svg") }}';
-                    langText.innerText = 'English';
+
+                if (flagImg && langText) {
+                    if (currentLang === 'fr') {
+                        flagImg.src = '{{ asset('assets/frontend/icons/french-flag.svg') }}';
+                        langText.innerText = 'French';
+                    } else {
+                        flagImg.src = '{{ asset('assets/frontend/icons/english-flag.svg') }}';
+                        langText.innerText = 'English';
+                    }
                 }
-        
+
                 // Update internal links, skipping those with the 'lang-switch-drop' class
                 const links = document.querySelectorAll('a');
                 links.forEach(link => {
                     if (link.classList.contains('lang-switch-drop')) return; // Skip language change links
-        
+
                     let url;
                     try {
-                        url = new URL(link.href);
+                        url = new URL(link.href, window.location.origin); // Handle relative links
                     } catch {
-                        // Skip invalid or relative links
+                        // Skip invalid or missing links
                         return;
                     }
                     if (url.origin !== window.location.origin) return;
-        
+
                     // Add the lang parameter if it doesn't already exist
                     if (!url.searchParams.has('lang')) {
                         url.searchParams.set('lang', currentLang);
@@ -86,7 +90,7 @@
                 });
             });
         </script>
-        
+
 </body>
 
 </html>

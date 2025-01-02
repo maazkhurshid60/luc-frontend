@@ -33,33 +33,6 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-
-                            <form method="POST" id="search-form" class="form-inline" role="form">
-
-                                <!-- <div class="form-group mr-1">
-                                    <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
-                                </div>
-
-                                <div class="form-group mx-1">
-                                    <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
-                                </div>
-                                 <div class="form-group mx-1">
-                                    <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
-                                </div>
-                                <div class="form-group mx-1">
-                                    <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
-                                </div>
-                                <div class="form-group mx-1">
-                                    <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
-                                </div>
-                                <div class="form-group mx-1">
-                                    <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
-                                </div>
-
-
-
-                                <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
-                            </form>
                             <div class="table-responsive">
                                 <table id="dTable" class="table table-bordered table-striped spTable">
                                     <thead>
@@ -140,7 +113,7 @@
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
-            dom: "<'row'<'col-md-12 'Bf>r>" +
+            dom: "<'row'<'col-md-12 'f>r>" +
                 "<'row'<'col-md-12't>>" +
                 "<'row'<'col-md-12'ip>>",
             buttons: [{

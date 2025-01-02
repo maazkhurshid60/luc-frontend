@@ -13,6 +13,7 @@ return [
     'categories' => 'Catégories',
     'project_list' => 'Liste des projets',
     'faqs' => 'FAQs',
+    'faq_categories' => 'FAQ\'s Category',
     'faqs_list' => 'Liste des FAQs',
     'general_tools' => 'Outils généraux',
     'journey' => 'Parcours',

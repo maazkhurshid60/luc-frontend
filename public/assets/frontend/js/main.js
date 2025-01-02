@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
       // slidesToScroll: 1,
       variableWidth: false,
       infinite: true,
-      initialSlide: 1,
+      // initialSlide: 1,
       arrows: false,
       buttons: false,
       draggable: true,

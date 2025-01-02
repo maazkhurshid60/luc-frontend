@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Blog;
+use App\Models\Project;
+use App\Models\Service;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,10 +28,9 @@ class Dashboard extends Controller
             'menu' => 'dashboard',
             'settings' => DB::table('settings')->get()->first(),
             'counter' => [
-                'menu' => \App\Models\Menu::count(),
-                'slider' => \App\Models\Slider::count(),
-                'projects' => \App\Models\Project::count(),
-                'products' => \App\Models\Product::count(),
+                'services' => Service::count(),
+                'projects' => Project::count(),
+                'blogs' => Blog::count(),
             ],
         ];
         return view('admin.index', $data);

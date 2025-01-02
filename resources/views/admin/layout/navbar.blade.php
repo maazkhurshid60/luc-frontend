@@ -42,8 +42,15 @@
                             </p>
                         </li>
                         <!-- Menu Body -->
-                        <li class="user-body">
-
+                        <li class="user-body mt-3">
+                            <a href="#" class="lang-switch-drop body-txt2 me-2" data-lang="en" onclick="setLanguage('en')">
+                                <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt="English Flag" class="me-2" />
+                                English
+                            </a>
+                            <a href="#" class="lang-switch-drop body-txt2" data-lang="fr" onclick="setLanguage('fr')">
+                                <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt="French Flag" class="me-2" />
+                                French
+                            </a>
                             <!-- /.row -->
                         </li>
                         <!-- Menu Footer-->
@@ -63,7 +70,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown user user-menu">
+                {{-- <li class="dropdown user user-menu">
                     <a  class=" dropdown-toggle lang-switch-selected p-0 body-txt2" href="#" data-toggle="dropdown" type="button">
                         <img id="current-lang-flag" src="{{ asset('assets/frontend/icons/english-flag.svg') }}" class="user-image" alt="Language Flag" />
                         <span id="current-lang-text">English</span>
@@ -92,7 +99,7 @@
                         </li>
               
                     </ul>
-                </li>                
+                </li>                 --}}
             </ul>
         </div>
     </nav>

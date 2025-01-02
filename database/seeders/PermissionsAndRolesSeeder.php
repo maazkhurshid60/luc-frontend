@@ -32,6 +32,7 @@ class PermissionsAndRolesSeeder extends Seeder
             'job' => ['view', 'create', 'edit', 'delete'],
             'job-application' => ['view', 'delete'],
             'faq' => ['view', 'create', 'edit', 'delete'],
+            'faq-category' => ['view', 'create', 'edit', 'delete'],
             'client' => ['view', 'create', 'edit', 'delete'],
             'counter' => ['view', 'create', 'edit', 'delete'],
             'testimonial' => ['view', 'create', 'edit', 'delete'],
