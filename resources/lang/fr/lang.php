@@ -141,4 +141,6 @@ return [
     'apply_now' => 'Postuler maintenant',
     'see_all_jobs' => 'Voir tous les emplois',
     'activity' => 'Activity Log',
+    'leads' => 'Leads',
+    'about_details' => 'About Details'
 ];
