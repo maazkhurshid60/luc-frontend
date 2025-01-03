@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="d-flex flex-column justify-content-center  align-items-center  text-center">
                         <h2 class="head--2 mb-0 pyb-40 secondary--clr text-center ">
-                            {{__('lang.OUR_PROJECTS')}}
+                            {{ __('lang.OUR_PROJECTS') }}
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 txt--clr text-center">
                             {{ $data->short_description }}
@@ -128,27 +128,6 @@
 @endsection
 @section('custom-js')
     <script>
-        // document.querySelectorAll('.form-check-input').forEach(input => {
-        //     input.addEventListener('change', () => {
-        //         const params = new URLSearchParams();
-
-        //         // Collect all checked inputs and append them to the query parameters
-        //         document.querySelectorAll('.form-check-input:checked').forEach(checkedInput => {
-        //             params.append(checkedInput.name, checkedInput.value);
-        //         });
-
-        //         // Construct the URL with query parameters
-        //         const url = `/projects?${params.toString()}`;
-
-        //         // Fetch the filtered projects and update the container
-        //         fetch(url)
-        //             .then(response => response.text())
-        //             .then(html => {
-        //                 document.querySelector('#projectsContainer').innerHTML = filtered;
-        //             })
-        //             .catch(error => console.error('Error fetching filtered projects:', error));
-        //     });
-        // });
         $(document).on('change', '.form-check-input', function() {
             const selectedFilters = {
                 sector: $('input[name="sector"]:checked').val(),
@@ -161,7 +140,6 @@
                 method: 'GET',
                 data: selectedFilters,
                 success: function(data) {
-                    // Update the projects list dynamically
                     $('#projectsContainer').html(data);
                 },
             });

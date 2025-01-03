@@ -16,7 +16,6 @@ class AboutusEditsController extends Controller
         $lang = $request->lang ?? 'en';
         $aboutDetails = DB::table('aboutus_edits')->first();
     
-        // Decode the JSON fields based on language
         if ($aboutDetails) {
             $aboutDetails->journey_heading = json_decode($aboutDetails->journey_heading, true)[$lang] ?? '';
             $aboutDetails->vision_heading = json_decode($aboutDetails->vision_heading, true)[$lang] ?? '';

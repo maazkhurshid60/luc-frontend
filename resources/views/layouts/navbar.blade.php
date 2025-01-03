@@ -1,4 +1,8 @@
 <!-- ///////////////////////// Header Section /////////////////////// -->
+@php
+    $projects = App\Models\Project::where('status', 'active')->latest()->take(5)->get();
+    $logo = \DB::table('settings')->where('id', 1)->pluck('logo')->first();
+@endphp
 <header>
     <!-- Top Navigation Bar -->
     <div class="container-fluid top--menu-bar d-md-block d-none d-flex flex-row align-items-center bg-white py-3">
@@ -51,7 +55,7 @@
             <div class="row">
                 <div class="col-2 d-flex align-items-center">
                     <a href="{{ route('index') }}"><img
-                            src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
+                            src="{{ asset($logo ? 'storage/images/' . $logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
                             alt="logo" class="afcon-group-logo" /></a>
                 </div>
                 <div class="col-10 d-flex justify-content-end px-0">
@@ -95,22 +99,16 @@
                                             href="{{ route('projects.index') }}" role="button" aria-expanded="false">
                                             Projects
                                         </a>
-                                        <ul class="dropdown-menu hover-dropdown-menu">
-                                            {{-- {{$projects}} --}}
-                                            @php
-                                                $projects = App\Models\Project::where('status', 'active')
-                                                    ->latest()
-                                                    ->take(9)
-                                                    ->get();
-                                            @endphp
-                                            @foreach ($projects as $project)
-                                                <li>
-                                                    <a class="dropdown-item secondary--font fw-md"
-                                                        href="{{ url('projects') . '/' . $project->slug }}">{{ $project->name }}</a>
-                                                </li>
-                                            @endforeach
-
-                                        </ul>
+                                        @if (count($projects) > 0)
+                                            <ul class="dropdown-menu hover-dropdown-menu">
+                                                @foreach ($projects as $project)
+                                                    <li>
+                                                        <a class="dropdown-item secondary--font fw-md"
+                                                            href="{{ url('projects') . '/' . $project->slug }}">{{ $project->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </li>
                                     {{-- <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr"
@@ -145,7 +143,7 @@
                 <div class="col-6">
                     <div class="mob-menu-logo">
                         <a href="{{ route('index') }}"><img
-                                src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
+                                src="{{ asset($logo ? 'storage/images/' . $logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
                                 class="afcon-group-logo" alt="E-cart Logo" /></a>
                     </div>
                 </div>

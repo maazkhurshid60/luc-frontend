@@ -11,8 +11,6 @@ use App\Models\Project;
 
 class ServicesController extends Controller
 {
-    //
-
     public function index()
     {
         $data = [
@@ -27,7 +25,6 @@ class ServicesController extends Controller
         }
 
         return view('services', $data);
-
     }
 
     public function details($slug)
@@ -35,35 +32,23 @@ class ServicesController extends Controller
         $obj = Company::where('slug', $slug)->where('status', 'active')->first();
 
         if (is_null($obj)) {
-            return $this->PageNotFound(); // Company not found
+            return $this->PageNotFound();
         }
-        
-        $blogs = Blog::whereJsonContains('service_id', (string) $obj->id)
-            ->latest()
-            ->where('status', 'active')
-            ->take(3)
-            ->get();
-        
+
+        $blogs = Blog::whereJsonContains('service_id', (string) $obj->id)->latest()->where('status', 'active')->take(3)->get();
+
         $data = [
-            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
-            'settings' => DB::table('settings')->find(1),
             'data' => $obj,
             'services' => $obj->services,
             'related' => $blogs,
             'faqs' => Faq::where('status', 'active')->get(),
         ];
-        
-        if (is_null($data['data'])) {
-            return $this->PageNotFound();
-        }
-        
-        // dd($data);
-        
+
         return view('service-details', $data);
     }
 
     public function PageNotFound()
     {
-        return view('errors.404');
+        abort(404);
     }
 }

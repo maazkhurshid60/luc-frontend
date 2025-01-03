@@ -77,50 +77,5 @@
     </div>
 @endsection
 @section('custom-js')
-<script>
-    $(document).ready(function () {
-    function handleFormSubmission(formSelector, routeName) {
-        $(formSelector).on('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            // Clear previous errors
-            $(formSelector + ' .error-message').remove();
-            $(formSelector + ' .success-message').remove();
-
-            let formData = {
-                name: $(formSelector + ' #nameinput').val(),
-                email: $(formSelector + ' #inputEmail4').val(),
-                subject: $(formSelector + ' #subjectsInput').val(),
-                phone: $(formSelector + ' #mobile_code').val(),
-                message: $(formSelector + ' #textArea').val(),
-                type: $(formSelector + ' #formType').val(), // Form type
-                _token: '{{ csrf_token() }}' // CSRF token for security
-            };
-
-            $.ajax({
-                url: routeName,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    if (response.response === 'success') {
-                        // Display success message
-                        $(formSelector).append('<div class="success-message text-success text-center mt-3">' + response.message + '</div>');
-                        $(formSelector)[0].reset(); // Reset form after success
-                    }
-                },
-                error: function (xhr) {
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function (key, value) {
-                        let inputField = $(formSelector + ' #' + key);
-                        inputField.after('<span class="error-message text-danger">' + value[0] + '</span>');
-                    });
-                }
-            });
-        });
-    }
-
-    handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
-    handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
-});
-</script>
+    <script src="{{ asset('assets/frontend/js/form.js') }}"></script>
 @endsection

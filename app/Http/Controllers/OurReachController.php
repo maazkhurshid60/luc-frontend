@@ -19,13 +19,9 @@ class OurReachController extends Controller
         ];
 
         if (is_null($data['data'])) {
-            return $this->PageNotFound();
+            abort(404);
         }
 
         return view('our-reach', $data);
-    }
-    public function PageNotFound()
-    {
-        return view('errors.404');
     }
 }

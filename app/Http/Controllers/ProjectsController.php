@@ -13,10 +13,8 @@ class ProjectsController extends Controller
 {
     public function index(Request $request)
     {
-        // Base query for projects
         $query = Project::where('status', 'active')->where('site_visibility', 1);
-    
-        // Apply filters from the request
+
         if ($request->has('cat')) {
             $query->where('category_id', $request->cat);
         }
@@ -29,16 +27,13 @@ class ProjectsController extends Controller
         if ($request->has('industry')) {
             $query->where('industry', $request->industry);
         }
-    
-        // Get unique values for filters
+
         $sectors = Project::distinct()->pluck('sector')->filter()->sort();
         $countries = Project::distinct()->pluck('country')->filter()->sort();
         $industries = Project::distinct()->pluck('industry')->filter()->sort();
-    
-        // Paginate filtered projects
+
         $projects = $query->orderBy('display_order')->paginate(100);
-    
-        // Prepare data for the view
+
         $data = [
             'settings' => DB::table('settings')->find(1),
             'projects' => $projects,
@@ -49,21 +44,21 @@ class ProjectsController extends Controller
             'data' => Menu::where('slug', 'projects')->first(),
             'service_menu' => Menu::where('slug', 'services')->first(),
         ];
-           
+
         if (is_null($data['data'])) {
             return $this->PageNotFound();
         }
 
-        if($request->ajax()){
+        if ($request->ajax()) {
             $html = '';
-            foreach ($projects as $index => $project){
-                $html .=view('include.project-card',compact('index','project'));
+            foreach ($projects as $index => $project) {
+                $html .= view('include.project-card', compact('index', 'project'));
             }
             return $html;
         }
-    
+
         return view('projects', $data);
-    }    
+    }
 
     public function details($slug)
     {
@@ -72,7 +67,7 @@ class ProjectsController extends Controller
             'settings' => DB::table('settings')->find(1),
             'data' => Project::where('slug', $slug)->where('status', 'active')->first(),
         ];
-        // dd($data);
+
         if (is_null($data['data'])) {
             return $this->PageNotFound();
         }
@@ -82,6 +77,6 @@ class ProjectsController extends Controller
 
     public function PageNotFound()
     {
-        return view('errors.404');
+        abort(404);
     }
 }

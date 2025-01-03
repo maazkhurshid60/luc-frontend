@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'admin@afcon.com',
             'status' => 'active',
-            'username' => 'admin',
+            'username' => 'superadmin',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'password' => Hash::make('123123'),

@@ -23,13 +23,15 @@
         <div class="container-fluid py-40px">
             <div class="container">
                 <div class="row gap-md-0 gap-4">
-                    <div class="hero-sec-img d-flex flex-column justify-content-center">
-                        <h2 class="head--2 secondary--clr text-md-start text-center pyb-40 mb-0">
-                            {{ $about_details->journey_heading }}
-                        </h2>
-                        <img src="{{ asset($about_details->journey_img ? 'storage/images/' . $about_details->journey_img : 'assets/frontend/images/low-angle-shot-high-buildings-with-metal-stairs-gloomy-day.webp') }}"
-                            alt="" class="our-vision-sec-img">
-                    </div>
+                    @if ($about_details)
+                        <div class="hero-sec-img d-flex flex-column justify-content-center">
+                            <h2 class="head--2 secondary--clr text-md-start text-center pyb-40 mb-0">
+                                {{ $about_details->journey_heading }}
+                            </h2>
+                            <img src="{{ asset($about_details->journey_img ? 'storage/images/' . $about_details->journey_img : 'assets/frontend/images/low-angle-shot-high-buildings-with-metal-stairs-gloomy-day.webp') }}"
+                                alt="" class="our-vision-sec-img">
+                        </div>
+                    @endif
                     <div class="col-md-6 timeline-sec">
                         @foreach ($journeys as $journey)
                             <div class="timline-item d-flex pyb-40">
@@ -51,23 +53,26 @@
         <!-- Journey Section End-->
 
         <!-- Visison Section Start-->
-        <div class="container-fluid py-40px">
-            <div class="container">
-                <div class="row">
-                    <div class="hero-sec-text d-flex flex-column justify-content-center">
-                        <h2 class="head--2 secondary--clr text-md-start text-center">{{ $about_details->vision_heading }}
-                        </h2>
-                        <p class="body-txt1 txt--clr text-md-start text-center">
-                            {{ $about_details->vision_desc }}
-                        </p>
-                    </div>
-                    <div class="hero-sec-img-right">
-                        <img src="{{ asset($about_details->vision_img ? 'storage/images/' . $about_details->vision_img : 'assets/frontend/images/our-vision-img.webp') }}"
-                            alt="" class="our-vision-sec-img">
+        @if ($about_details)
+            <div class="container-fluid py-40px">
+                <div class="container">
+                    <div class="row">
+                        <div class="hero-sec-text d-flex flex-column justify-content-center">
+                            <h2 class="head--2 secondary--clr text-md-start text-center">
+                                {{ $about_details->vision_heading }}
+                            </h2>
+                            <p class="body-txt1 txt--clr text-md-start text-center">
+                                {{ $about_details->vision_desc }}
+                            </p>
+                        </div>
+                        <div class="hero-sec-img-right">
+                            <img src="{{ asset($about_details->vision_img ? 'storage/images/' . $about_details->vision_img : 'assets/frontend/images/our-vision-img.webp') }}"
+                                alt="" class="our-vision-sec-img">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
         <!-- Visison Section End-->
 
         {{-- @include('partials.team', ['data' => $teams]) --}}

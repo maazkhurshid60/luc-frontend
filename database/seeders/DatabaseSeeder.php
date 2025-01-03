@@ -3,12 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Seeders\PermissionsTableSeeder;
-use Database\Seeders\RoleHasPermissionsTableSeeder;
-use Database\Seeders\RolesTableSeeder;
-use Database\Seeders\SettingsTableSeeder;
-use Database\Seeders\UsersTableSeeder;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\SettingsTableSeeder;
+use Database\Seeders\PermissionsAndRolesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,11 +25,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         // $this->call(SettingsTableSeeder::class);
 
-        // $this->call([
-        //     PermissionsTableSeeder::class,
-        //     RolesTableSeeder::class,
-        //     RoleHasPermissionsTableSeeder::class,
-        //     ModelHasRolesTableSeeder::class,
-        // ]);
+        // $this->call([PermissionsAndRolesSeeder::class, ModelHasRolesTableSeeder::class]);
     }
 }

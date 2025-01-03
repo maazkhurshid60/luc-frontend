@@ -36,10 +36,10 @@
             <div class="container">
                 <div class="row">
                     <h2 class="head--2 secondary--clr text-center pyb-40 mb-0">
-                        {{__('lang.OUR_CAREERS')}}
+                        {{ __('lang.OUR_CAREERS') }}
                     </h2>
                     <p class="body-txt1 txt--clr text-center pyb-60 mb-0">
-                        {{__('lang.CAREER_DESC')}}
+                        {{ __('lang.CAREER_DESC') }}
                     </p>
                 </div>
                 <div class="row pyb-60">
@@ -93,9 +93,11 @@
                             @endforeach
                         </div>
                     </div>
-                    
+
                     <hr class="m-0" />
-                    @include('include.simple-pagination', ['paginator' => $jobs])
+                    @if (!is_null($jobs) && !empty($jobs['items']))
+                        @include('include.simple-pagination', ['paginator' => $jobs])
+                    @endif
                 </div>
             </div>
         </div>
@@ -115,7 +117,8 @@
                         <div class="our--services d-flex justify-content-between flex-wrap">
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-1.svg') }}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-1.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
@@ -124,7 +127,8 @@
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-3.svg') }}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-3.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">
@@ -133,7 +137,8 @@
                             </div>
                             <div class="our-services-card p-4 mb-4 anime-scale">
                                 <div class="card-img-wrap mb-4">
-                                    <img src="{{ asset('assets/frontend/icons/services-icon-4.svg') }}" alt="" class="card-img" />
+                                    <img src="{{ asset('assets/frontend/icons/services-icon-4.svg') }}" alt=""
+                                        class="card-img" />
                                 </div>
                                 <h3 class="head--3 mb-3 secondary--clr">{{ __('lang.technology') }}</h3>
                                 <p class="body-txt2 mb-4 txt--clr">

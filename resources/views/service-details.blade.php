@@ -52,7 +52,7 @@
                 <div class="row justify-content-center gy-4">
                     <div class="services-sec d-flex flex-column justify-content-center  align-items-center  text-center">
                         <h2 class="head--2 mb-0 pyb-40 wht--clr text-center ">
-                           {{__('lang.HOW_IT_WORKS')}}
+                            {{ __('lang.HOW_IT_WORKS') }}
                         </h2>
                         <p class="body-txt1 mb-0 pyb-60 wht--clr text-center">
                             {{ $data->short_description }}
@@ -151,87 +151,48 @@
                     <div class="col-md-7 contact-form-sec2">
                         <h3 class="head--3 secondary--clr text-start mb-3">{{ __('lang.request_quote') }}</h3>
                         <p class="body-txt2 txt--clr text-start mb-4">{{ __('lang.quote_desc') }}</p>
-                        <form class="row g-4" id="quoteForm">
+                        <form class="row g-4" id="quoteForm" method="POST" action="{{ route('submitForm') }}">
+                            @csrf
                             <input type="hidden" id="formType" value="quote_form">
                             <div class="col-12">
-                                <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.name') }}</label>
-                                <input type="text" class="form-control req-quote-input" id="nameinput" placeholder="{{ __('lang.name') }}">
+                                <label for="nameinput"
+                                    class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.name') }}</label>
+                                <input type="text" class="form-control req-quote-input" id="nameinput"
+                                    placeholder="{{ __('lang.name') }}">
                             </div>
                             <div class="col-12">
-                                <label for="inputEmail4" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.email') }}</label>
-                                <input type="email" class="form-control req-quote-input" id="inputEmail4" placeholder="{{ __('lang.email_placeholder') }}">
+                                <label for="inputEmail4"
+                                    class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.email') }}</label>
+                                <input type="email" class="form-control req-quote-input" id="inputEmail4"
+                                    placeholder="{{ __('lang.email_placeholder') }}">
                             </div>
                             <div class="col-12">
-                                <label for="subjectsInput" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.subject') }}</label>
-                                <input type="text" class="form-control req-quote-input" id="subjectsInput" placeholder="{{ __('lang.subject') }}">
+                                <label for="subjectsInput"
+                                    class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.subject') }}</label>
+                                <input type="text" class="form-control req-quote-input" id="subjectsInput"
+                                    placeholder="{{ __('lang.subject') }}">
                             </div>
                             <div class="col-12">
-                                <label for="textArea" class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.message') }}</label>
-                                <textarea class="form-control req-quote-input" id="textArea" rows="3" placeholder="{{ __('lang.message_placeholder') }}"></textarea>
+                                <label for="textArea"
+                                    class="form-label mb-2 body-txt2 secondary--clr">{{ __('lang.message') }}</label>
+                                <textarea class="form-control req-quote-input" id="textArea" rows="3"
+                                    placeholder="{{ __('lang.message_placeholder') }}"></textarea>
                             </div>
+                            <span class="error-message text-danger"></span>
                             <div class="col-12 d-flex justify-content-start">
-                                <button type="submit" class=" primary-btn req-quote-sub wht--clr">{{ __('lang.submit') }}<img src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
+                                <button type="submit"
+                                    class=" primary-btn req-quote-sub wht--clr">{{ __('lang.submit') }}<img
+                                        src="../assets/icons/arrow1.svg" alt="" class="ms-3"></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
         @include('partials.faqs')
 
     </div>
 @endsection
 @section('custom-js')
-    <script>
-        $(document).ready(function() {
-            function handleFormSubmission(formSelector, routeName) {
-                $(formSelector).on('submit', function(e) {
-                    e.preventDefault(); // Prevent default form submission
-
-                    // Clear previous errors
-                    $(formSelector + ' .error-message').remove();
-                    $(formSelector + ' .success-message').remove();
-
-                    let formData = {
-                        name: $(formSelector + ' #nameinput').val(),
-                        email: $(formSelector + ' #inputEmail4').val(),
-                        subject: $(formSelector + ' #subjectsInput').val(),
-                        service: $(formSelector + ' #services').val(),
-                        phone: $(formSelector + ' #mobile_code').val(),
-                        message: $(formSelector + ' #textArea').val(),
-                        type: $(formSelector + ' #formType').val(), // Form type
-                        _token: '{{ csrf_token() }}' // CSRF token for security
-                    };
-
-                    $.ajax({
-                        url: routeName,
-                        type: 'POST',
-                        data: formData,
-                        success: function(response) {
-                            if (response.response === 'success') {
-                                // Display success message
-                                $(formSelector).append(
-                                    '<div class="success-message text-success text-center mt-3">' +
-                                    response.message + '</div>');
-                                $(formSelector)[0].reset(); // Reset form after success
-                            }
-                        },
-                        error: function(xhr) {
-                            let errors = xhr.responseJSON.errors;
-                            $.each(errors, function(key, value) {
-                                let inputField = $(formSelector + ' #' + key);
-                                inputField.after(
-                                    '<span class="error-message text-danger">' +
-                                    value[0] + '</span>');
-                            });
-                        }
-                    });
-                });
-            }
-
-            handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
-            handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
-            handleFormSubmission('#projectForm', '{{ route('projectform') }}');
-        });
-    </script>
+    <script src="{{ asset('assets/frontend/js/form.js') }}"></script>
 @endsection

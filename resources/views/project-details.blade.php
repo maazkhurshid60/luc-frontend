@@ -39,7 +39,8 @@
                     <div
                         class="project-details-section d-flex flex-md-row flex-column justify-content-between gap-md-0 gap-4">
                         <div class="project--detail-content">
-                            <img src="{{ asset('storage/images/' . $data->details_image) }}" alt="" class="mb-4 anime-img">
+                            <img src="{{ asset('storage/images/' . $data->details_image) }}" alt=""
+                                class="mb-4 anime-img">
                             <h3 class="head--3 secondary--clr mb-4">{{ $data->name }}</h3>
                             <p class="body-txt1 txt--clr mb-4">{!! $data->contents !!}</p>
                         </div>
@@ -88,7 +89,8 @@
                                         Us</a></span>
                             </div>
                             <div class="side-bor--form">
-                                <form class="row g-4" id="projectForm">
+                                <form class="row g-4" id="projectForm" method="POST" action="{{ route('submitForm') }}">
+                                    @csrf
                                     <input type="hidden" id="formType" value="Project Form">
                                     <div class="col-12">
                                         <label for="nameinput" class="form-label mb-2 body-txt2 secondary--clr">Name</label>
@@ -118,10 +120,10 @@
                                         <textarea class="form-control req-quote-input" id="textArea" rows="3"
                                             placeholder="Tell us about your project..."></textarea>
                                     </div>
+                                    <span class="error-message text-danger"></span>
                                     <div class="col-12 d-flex justify-content-center">
-                                        <button type="submit"
-                                            class="btn primary-btn project-det-register wht--clr">Get Quote<img
-                                                src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
+                                        <button type="submit" class="btn primary-btn project-det-register wht--clr">Get
+                                            Quote<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                                 class="ms-3"></button>
                                     </div>
                                 </form>
@@ -203,52 +205,5 @@
     </div>
 @endsection
 @section('custom-js')
-<script>
-    $(document).ready(function () {
-    function handleFormSubmission(formSelector, routeName) {
-        $(formSelector).on('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            // Clear previous errors
-            $(formSelector + ' .error-message').remove();
-            $(formSelector + ' .success-message').remove();
-
-            let formData = {
-                name: $(formSelector + ' #nameinput').val(),
-                email: $(formSelector + ' #inputEmail4').val(),
-                subject: $(formSelector + ' #subjectsInput').val(),
-                service: $(formSelector + ' #services').val(), 
-                phone: $(formSelector + ' #mobile_code').val(),
-                message: $(formSelector + ' #textArea').val(),
-                type: $(formSelector + ' #formType').val(), // Form type
-                _token: '{{ csrf_token() }}' // CSRF token for security
-            };
-
-            $.ajax({
-                url: routeName,
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    if (response.response === 'success') {
-                        // Display success message
-                        $(formSelector).append('<div class="success-message text-success text-center mt-3">' + response.message + '</div>');
-                        $(formSelector)[0].reset(); // Reset form after success
-                    }
-                },
-                error: function (xhr) {
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function (key, value) {
-                        let inputField = $(formSelector + ' #' + key);
-                        inputField.after('<span class="error-message text-danger">' + value[0] + '</span>');
-                    });
-                }
-            });
-        });
-    }
-
-    handleFormSubmission('#quoteForm', '{{ route('quoteform') }}'); // For the quotation form
-    handleFormSubmission('#contactForm', '{{ route('contactform') }}'); // For the contact form
-    handleFormSubmission('#projectForm', '{{ route('projectform') }}');
-});
-</script>
+    <script src="{{ asset('assets/frontend/js/form.js') }}"></script>
 @endsection
