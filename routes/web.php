@@ -59,7 +59,6 @@ Route::prefix('admin')
         Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
         Route::post('/data', [DataController::class, 'index'])->name('data.index');
         Route::post('/about-details-edits', [AboutusEditsController::class, 'HandlerforAbout'])->name('aboutdetails.store');
-        Route::get('quotationform/{id}', [QuoteationFormController::class, 'destroy'])->name('quotationform.delete');
 
         Route::resource('/menu', MenuController::class);
         Route::resource('/announcement', AnnouncementController::class);

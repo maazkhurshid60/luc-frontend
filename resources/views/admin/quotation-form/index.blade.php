@@ -5,7 +5,7 @@
         $columns = ['ID', 'name', 'email', 'contact No.', 'type', 'date'];
         $data_route = route('quotation-form.datatable');
         $update_url = route('quoteationform.show', 11);
-        $destroy_url = route('quotationform.delete', 11);
+        $destroy_url = route('quoteationform.destroy', 11);
         $heading = 'Quotation Form List';
     @endphp
     <div class="content-wrapper">
@@ -113,7 +113,11 @@
             </div>
         </div>
 
-       
+        <form style="display: none;" id="delete_form" method="POST" action="{{ $destroy_url }}">
+            <input type="hidden" name="id" id="delete_key">
+            @method('DELETE')
+            @csrf
+        </form>
     </div>
 @endsection
 @section('custom-css')
@@ -182,7 +186,6 @@
                 }
             ]
         });
-
 
         var qTable = $('#qTable').DataTable({
             fixedHeader: true,
@@ -287,55 +290,18 @@
         });
 
         function delete_record(recordID) {
-            if (true) {
-                swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to recover this record!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!",
-                    closeOnConfirm: false
-                }, function() {
-                    $.ajax({
-                        url: $('#delete_form').attr('action'),
-                        type: 'POST',
-                        data: {
-                            _method: 'GET',
-                            _token: $('input[name="_token"]').val(),
-                            id: recordID
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                swal("Deleted!", "Record has been deleted.", "success");
-                                location.reload();
-
-                            } else {
-                                swal("Error!", response.message, "error");
-                            }
-                        },
-                        error: function() {
-                            swal("Error!", "An error occurred while deleting the record.", "error");
-                        }
-                    });
-                })
-            } else {
-                swal("Cancelled", "Your record is safe :)", "error");
-            }
-        }
-
-
-
-
-        function updateRecord(id) {
-            url = "{{ $update_url }}";
-            url = url.replace('11', id);
-            $(".extraModal").modal();
-            $(".extraModalTitle").html("{{ __('Form Details') }}");
-            $(".extraModalBody").html("<i class='fa fa-spin fa-spinner'></i> {{ __('Loading...') }}");
-            $.get(url, function(res) {
-                $(".extraModalBody").html(res);
-            })
+            swal({
+                title: "Are you sure?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function() {
+                swal("Deleted!", "Record has been deleted.", "success");
+                $("#delete_key").val(recordID);
+                $('#delete_form').submit();
+            });
         }
     </script>
 @endsection

@@ -69,15 +69,13 @@ class QuoteationFormController extends Controller
         ];
         return view('admin.quotation-form.show', $data);
     }
+
     public function destroy(Request $request, $id)
     {
-        // dd($request->all());
         if (!auth()->user()->can('quotation.delete')) {
             abort(401);
         }
-
-        $record = Obj::findOrFail($request->id);
-        // dd($record);
+        $record = Obj::findOrFail($request->input('id'));
         $record->delete();
         return back()->with('success', 'Record Deleted successfully');
     }
