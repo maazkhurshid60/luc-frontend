@@ -35,6 +35,13 @@
                     </a>
                 </li>
             @endcan
+            @can('announcement.view')
+                <li class="@if ($menu == 'announcement') active selected @endif">
+                    <a href="{{ route('announcement.index') }}">
+                        <i class="fa fa-list"></i> <span>{{ __('lang.announcement') }}</span>
+                    </a>
+                </li>
+            @endcan
             @canany(['blog.view', 'blog-category.view'])
                 <li class="treeview @if ($menu == 'blog' || $menu == 'blog-category') active menu-open @endif">
                     <a href="javascript:void(0)">

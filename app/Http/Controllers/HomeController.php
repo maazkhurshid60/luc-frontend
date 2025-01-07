@@ -18,6 +18,7 @@ use App\Models\Service;
 use App\Models\Feedback;
 use App\Models\Settings;
 use App\Models\FaqCategory;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\QuoteationForm;
 use App\Models\ProjectCategory;
@@ -33,8 +34,14 @@ class HomeController extends Controller
      * @return [type] [description]
      */
 
-    public function index()
+    public function index(Request $request)
     {
+        // Check if user is new via cookie
+        $isNewUser = !$request->cookie('visited_before');
+        // Get active announcement
+        $activeAnnouncement = Announcement::where('status', 'active')->whereDate('start_date', '<=', now())->whereDate('end_date', '>=', now())->first();
+
+        // Fetch required data for the homepage
         $select = ['name', 'heading', 'short_description'];
         $data = [
             'settings' => Settings::find(1),
@@ -42,10 +49,12 @@ class HomeController extends Controller
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'latest_services' => Company::where('status', 'active')->latest()->take(4)->get(),
             'latest_blogs' => Blog::where('status', 'active')->latest()->take(3)->get(),
-            'jobs' => Job::where('status', 'active')->whereDate('apply_before', '>=', Carbon::now())->latest()->take(4)->get(),
+            'jobs' => Job::where('status', 'active')->whereDate('apply_before', '>=', now())->latest()->take(4)->get(),
             'faqs' => Faq::where('status', 'active')->get(),
+            'isNewUser' => $isNewUser,
+            'activeAnnouncement' => $activeAnnouncement,
         ];
-
+        // Handle missing data for the homepage
         if (!$data['data']) {
             abort(404);
         }
@@ -93,7 +102,7 @@ class HomeController extends Controller
     {
         abort(404);
     }
-    
+
     public function PageNotFound()
     {
         abort(404);

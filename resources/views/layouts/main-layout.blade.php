@@ -32,10 +32,10 @@
     <meta property="og:site_name" content="{{ $settings->siteName ?? env('APP_NAME') }}" />
 
     <!-- Og Card for TWITTER -->
-    <meta name="twitter:card" content="summary_large_image">
+    {{-- <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter-title')">
     <meta name="twitter:description" content="@yield('twitter-description')">
-    <meta name="twitter:image" content="@yield('twitter-image')">
+    <meta name="twitter:image" content="@yield('twitter-image')"> --}}
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/bootstrap/css/bootstrap.min.css') }}" />
@@ -52,7 +52,7 @@
     @include('layouts.navbar')
 
     @yield('content')
-
+    
     @include('include.modal')
 
     <!-- ///////////////////////// Footer Section ///////////////////////// -->
@@ -144,6 +144,60 @@
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
     @yield('custom-js')
+    @if ($isNewUser && $activeAnnouncement)
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Check if the "visited_before" cookie is already set in JavaScript
+                if (!document.cookie.split('; ').find(row => row.startsWith('visited_before='))) {
+                    // Show the modal
+                    $('#new-project').modal('show');
+
+                    // Set the cookie to mark the user as visited
+                    document.cookie = "visited_before=true; path=/; max-age=" + 60 * 60 * 24 * 30; // 30 days
+                }
+
+                // Timer Code
+                const targetDate = new Date("{{ $activeAnnouncement->end_date }}"); // Dynamic end date from backend
+
+                function updateTimer() {
+                    const now = new Date();
+                    const timeDiff = targetDate - now;
+
+                    if (timeDiff <= 0) {
+                        // Stop the timer if the target date has passed
+                        clearInterval(timerInterval);
+                        document.querySelectorAll('.time-num').forEach(el => el.textContent = '0');
+                        return;
+                    }
+
+                    // Calculate hours, minutes, and seconds
+                    const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                    // Update the timer display
+                    const digits = document.querySelectorAll('.time-num');
+                    if (digits.length >= 6) {
+                        digits[0].textContent = Math.floor(hours / 10); // Tens place of hours
+                        digits[1].textContent = hours % 10; // Ones place of hours
+                        digits[2].textContent = Math.floor(minutes / 10); // Tens place of minutes
+                        digits[3].textContent = minutes % 10; // Ones place of minutes
+                        digits[4].textContent = Math.floor(seconds / 10); // Tens place of seconds
+                        digits[5].textContent = seconds % 10; // Ones place of seconds
+                    }
+                }
+
+                // Initialize the timer
+                updateTimer();
+                const timerInterval = setInterval(updateTimer, 1000);
+            });
+
+            // Function to close the modal (optional functionality)
+            function closeModal() {
+                $('#new-project').modal('hide');
+            }
+        </script>
+    @endif
     <script>
         function setLanguage(lang) {
             localStorage.setItem('lang', lang);

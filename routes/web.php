@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\AboutusEditsController;
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\QuoteationFormController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
@@ -60,6 +61,7 @@ Route::prefix('admin')
         Route::post('/about-details-edits', [AboutusEditsController::class, 'HandlerforAbout'])->name('aboutdetails.store');
 
         Route::resource('/menu', MenuController::class);
+        Route::resource('/announcement', AnnouncementController::class);
         Route::resource('/blog', BlogController::class);
         Route::resource('/faq', FaqController::class);
         Route::resource('/faq-category', FaqCategoryController::class);
@@ -88,6 +90,7 @@ Route::prefix('admin/datatable')
     ->middleware('auth')
     ->group(function () {
         Route::get('/menu', [MenuController::class, 'datatable'])->name('menu.datatable');
+        Route::get('/announcement', [AnnouncementController::class, 'datatable'])->name('announcement.datatable');
         Route::get('/blog', [BlogController::class, 'datatable'])->name('blog.datatable');
         Route::get('/faq', [FaqController::class, 'datatable'])->name('faq.datatable');
         Route::get('/faq-category', [FaqCategoryController::class, 'datatable'])->name('faq-category.datatable');

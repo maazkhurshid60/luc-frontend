@@ -45,6 +45,7 @@ class PermissionsAndRolesSeeder extends Seeder
             'journey' => ['view','edit','create','delete'],
             'aboutus-edits' => ['view', 'create', 'edit'],
             'activity' => ['view','edit','create','delete'],
+            'announcement' => ['view','edit','create','delete'],
         ];
 
         $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'web', 'remarks' => 'Full Access', 'is_default' => 1]);

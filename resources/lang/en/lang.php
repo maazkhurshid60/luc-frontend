@@ -143,5 +143,6 @@ return [
     'see_all_jobs' => 'See All Jobs',
     'activity' => 'Activity Log',
     'leads' => 'Leads',
-    'about_details' => 'About Details'
+    'about_details' => 'About Details',
+    'announcement' => 'Announcements',
 ];

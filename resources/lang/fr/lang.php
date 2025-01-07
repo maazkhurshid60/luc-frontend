@@ -142,5 +142,6 @@ return [
     'see_all_jobs' => 'Voir tous les emplois',
     'activity' => 'Activity Log',
     'leads' => 'Leads',
-    'about_details' => 'About Details'
+    'about_details' => 'About Details',
+    'announcement' => 'Announcements'
 ];

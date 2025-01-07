@@ -92,13 +92,6 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label>Featured Projects <span class="text-danger">*</span></label>
-                                        <select name="featured_project[]" id="featured_project"
-                                            class="form-control form-control-sm" multiple>
-                                            <option value="">Select</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-4 mb-3 ">
                                         <label>Project Company</span></label>
                                         <select id="company_select" name="company_select"
@@ -183,17 +176,6 @@
     <!-- Include Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Initialize Select2 -->
-    <script>
-        $(document).ready(function() {
-            $('#featured_project').select2({
-                placeholder: 'Select categories',
-                allowClear: true
-            });
-        });
-    </script>
-
-
 
     <script type="text/javascript">
         var editor = CKEDITOR.replace('editor', {
@@ -266,64 +248,5 @@
         }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var ajaxUrl = '{{ route('featured.projects') }}'; // Adjust the URL if needed
-
-            // Initialize the multi-select dropdown
-            $('select[name="featured_project[]"]').on('change', function() {
-                var selectedOptions = $(this).find('option:selected');
-                var maxSelections = 3;
-
-                // Check if the number of selected options exceeds the limit
-                if (selectedOptions.length > maxSelections) {
-                    toastInfo('You can only select up to 4 projects.');
-
-                    // Remove the last selected option
-                    $(this).find('option:selected').last().prop('selected', false);
-                    $(this).val($(this).val().slice(0, maxSelections)); // Keep only the first 4 selections
-                }
-            });
-
-            // When the project category dropdown value changes
-            $('select[name="projectcategory"]').on('change', function() {
-                var categoryId = $(this).val();
-                var $featuredProjectSelect = $('select[name="featured_project[]"]');
-
-                if (categoryId) {
-                    $.ajax({
-                        type: 'GET',
-                        url: ajaxUrl,
-                        data: {
-                            category_id: categoryId
-                        },
-                        success: function(response) {
-                            $featuredProjectSelect.empty().append(
-                                '<option value="">Select</option>');
-
-                            if (response.length) {
-                                $.each(response, function(index, project) {
-                                    $featuredProjectSelect.append('<option value="' +
-                                        project.id + '">' + project.name +
-                                        '</option>').prop('disabled', false);
-                                });
-                            } else {
-                                $featuredProjectSelect.append(
-                                    '<option value="" disabled>No projects found</option>');
-                            }
-
-                            // Reinitialize the select picker if using a library like Select2
-                            // $('select[name="featured_project[]"]').select2(); // Uncomment if using Select2
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching featured projects:', error);
-                        }
-                    });
-                } else {
-                    $featuredProjectSelect.empty().append('<option value="">Select</option>').prop(
-                        'disabled', true);
-                }
-            });
-        });
-    </script>
+    
 @endsection
