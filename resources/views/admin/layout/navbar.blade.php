@@ -43,18 +43,26 @@
                         </li>
                         <!-- Menu Body -->
                         <li class="user-body mt-3">
-                            <a href="#" class="lang-switch-drop body-txt2 me-2" data-lang="en" onclick="setLanguage('en')">
-                                <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt="English Flag" class="me-2" />
+                            <a href="#" class="lang-switch-drop body-txt2 me-2" data-lang="en"
+                                onclick="setLanguage('en')">
+                                <img src="{{ asset('assets/frontend/icons/english-flag.svg') }}" alt="English Flag"
+                                    class="me-2" />
                                 English
                             </a>
-                            <a href="#" class="lang-switch-drop body-txt2" data-lang="fr" onclick="setLanguage('fr')">
-                                <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt="French Flag" class="me-2" />
+                            <a href="#" class="lang-switch-drop body-txt2" data-lang="fr"
+                                onclick="setLanguage('fr')">
+                                <img src="{{ asset('assets/frontend/icons/french-flag.svg') }}" alt="French Flag"
+                                    class="me-2" />
                                 French
                             </a>
                             <!-- /.row -->
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="{{ route('user.edit', ['user' => auth()->user()->user_id]) }}"
+                                    class="btn btn-block btn-primary">Profile</a>
+                            </div>
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();document.getElementById('logout-form').submit();"

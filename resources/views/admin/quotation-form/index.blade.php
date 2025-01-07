@@ -5,7 +5,7 @@
         $columns = ['ID', 'name', 'email', 'contact No.', 'type', 'date'];
         $data_route = route('quotation-form.datatable');
         $update_url = route('quoteationform.show', 11);
-        $destroy_url = route('hiring-application.destroy', 11);
+        $destroy_url = route('quotationform.delete', 11);
         $heading = 'Quotation Form List';
     @endphp
     <div class="content-wrapper">
@@ -26,116 +26,21 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">{{ __($heading) }}</h3>
-                            <button id="showFiltersBtn" class="btn mx-1 btn-sm btn-purple float-right" data-toggle="tooltip"
-                                title="Advance Filters"><i class="fa fa-filter"></i></button>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            {{-- <div id="filtersDiv">
-                                <div class="row">
-                                    <div class="mb-3 col-3">
-                                        <input type="text" name="client" class="form-control form-control-sm"
-                                            placeholder="Search Lead">
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <select name="member" class="form-control form-control-sm">
-                                            <option value="">All Members</option>
-                                            {{ App\Helpers\Helper::getOptions([
-                                                'table' => 'team',
-                                                'value' => 'name',
-                                                'key' => 'id',
-                                            ]) }}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <select name="service" class="form-control form-control-sm">
-                                            <option value="">All Services</option>
-                                            <option value="ui_ux_design">UI/UX Design</option>
-                                            <option value="web_development">Web Development</option>
-                                            <option value="mobile_development">Mobile Development</option>
-                                            <option value="software_project_management">Software Project Management
-                                            </option>
-                                            <option value="software_business_analysis">Software Business Analysis
-                                            </option>
-                                            <option value="software_quality_assurance">Software Quality Assurance
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-3">
-                                        <select name="technology" class="form-control form-control-sm">
-                                            <option value="">All Technologies</option>
-                                            <optgroup id="ui_ux_design" label="UI/UX Design">
-                                                <option value="figma">Figma</option>
-                                                <option value="adobe">Adobe XD</option>
-                                                <option value="adobe-illustrator">Adobe Illustrator</option>
-                                                <option value="invision">InVision</option>
-                                                <option value="photoshop">Photoshop</option>
-                                            </optgroup>
-                                            <optgroup id="web_development" label="Web Development">
-                                                <option value="javascript">JavaScript</option>
-                                                <option value="java">Java</option>
-                                                <option value="vuejs">Vue.js</option>
-                                                <option value="reactjs">React.js</option>
-                                                <option value="nodejs">Node.js</option>
-                                                <option value="mongodb">MongoDB</option>
-                                                <option value="mysql">MySQL</option>
-                                                <option value="firebase">Firebase</option>
-                                                <option value="postgress">PostgreSQL</option>
-                                                <option value="aws">AWS</option>
-                                            </optgroup>
-                                            <optgroup id="mobile_development" label="Mobile App Development">
-                                                <option value="flutter">Flutter</option>
-                                                <option value="react-native">React Native</option>
-                                                <option value="kotlin">Kotlin</option>
-                                                <option value="swift">Swift</option>
-                                            </optgroup>
-                                            <optgroup id="software_project_management" label="Software Project Management">
-                                                <option value="click_up">Click Up</option>
-                                                <option value="jira">Jira</option>
-                                                <option value="monday_com">Monday.com</option>
-                                                <option value="assana">Asana</option>
-                                                <option value="trello">Trello</option>
-                                                <option value="notion">Notion</option>
-                                                <option value="ms_project">MS Project</option>
-                                                <option value="zapier">Zapier</option>
-                                                <option value="zoho">Zoho</option>
-                                                <option value="smart_sheet">Smart Sheet</option>
-                                            </optgroup>
-                                            <optgroup id="software_busines_analysis" label="Software Business Analysis">
-                                                <option value="ms_word">MS Word</option>
-                                                <option value="ms_excel">MS Excel</option>
-                                                <option value="confluence">Confluence</option>
-                                                <option value="figma">Figma</option>
-                                                <option value="pencil_tool">Pencil Tool</option>
-                                                <option value="mockitt">Mockitt</option>
-                                                <option value="balsamiq">Balsamiq</option>
-                                                <option value="draw_io">Draw.io</option>
-                                            </optgroup>
-                                            <optgroup id="software_quality_assurance" label="Software Quality Assurance">
-                                                <option value="selenium">Selenium</option>
-                                                <option value="cypress">Cypress</option>
-                                                <option value="playwright">Postman</option>
-                                                <option value="playwright">Jmeter</option>
-                                                <option value="playwright">MS Excel</option>
-                                                <option value="playwright">MS Word</option>
-                                                <option value="playwright">Confluence</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#contact" role="tab"
-                                        aria-controls="contact" aria-selected="true">Active</a>
+                                        aria-controls="contact" aria-selected="true">Contact</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#quotation" role="tab"
-                                        aria-controls="quotation" aria-selected="false">quotation</a>
+                                        aria-controls="quotation" aria-selected="false">Quotation</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#project" role="tab"
-                                        aria-controls="project" aria-selected="false">project</a>
+                                        aria-controls="project" aria-selected="false">Project</a>
                                 </li>
                             </ul>
                             <div class="tab-content " style="border: 0px" id="myTabContent">
@@ -208,11 +113,7 @@
             </div>
         </div>
 
-        {{-- <form style="display: none;" id="delete_form" method="POST" action="{{ $destroy_url }}">
-            <input type="hidden" name="id" id="delete_key">
-            @method('DELETE')
-            @csrf
-        </form> --}}
+       
     </div>
 @endsection
 @section('custom-css')
@@ -238,7 +139,7 @@
 
             dom: "<'row'<'col-md-12'f>r>" +
                 "<'row'<'col-md-12't>>" +
-                "<'row'<'col-md-12'ip>>", 
+                "<'row'<'col-md-12'ip>>",
             pageLength: 100,
             processing: false,
             serverSide: true,
@@ -288,7 +189,7 @@
 
             dom: "<'row'<'col-md-12'f>r>" +
                 "<'row'<'col-md-12't>>" +
-                "<'row'<'col-md-12'ip>>", 
+                "<'row'<'col-md-12'ip>>",
             "pageLength": 100,
             processing: false,
             serverSide: true,
@@ -339,7 +240,7 @@
 
             dom: "<'row'<'col-md-12'f>r>" +
                 "<'row'<'col-md-12't>>" +
-                "<'row'<'col-md-12'ip>>", 
+                "<'row'<'col-md-12'ip>>",
             "pageLength": 100,
             processing: false,
             serverSide: true,
@@ -386,34 +287,41 @@
         });
 
         function delete_record(recordID) {
-            swal({
-                title: "Are you sure?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: false
-            }, function() {
-                $.ajax({
-                    type: 'DELETE',
-                    url: '{{ $destroy_url }}',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        id: recordID
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            swal("Deleted!", response.message, "success");
-                            oTable.draw();
-                        } else {
-                            swal("Error!", response.message, "error");
+            if (true) {
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this record!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                }, function() {
+                    $.ajax({
+                        url: $('#delete_form').attr('action'),
+                        type: 'POST',
+                        data: {
+                            _method: 'GET',
+                            _token: $('input[name="_token"]').val(),
+                            id: recordID
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                swal("Deleted!", "Record has been deleted.", "success");
+                                location.reload();
+
+                            } else {
+                                swal("Error!", response.message, "error");
+                            }
+                        },
+                        error: function() {
+                            swal("Error!", "An error occurred while deleting the record.", "error");
                         }
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        swal("Error!", "An error occurred while deleting the record.", "error");
-                    }
-                });
-            });
+                    });
+                })
+            } else {
+                swal("Cancelled", "Your record is safe :)", "error");
+            }
         }
 
 

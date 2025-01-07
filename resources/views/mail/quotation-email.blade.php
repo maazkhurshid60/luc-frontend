@@ -17,7 +17,7 @@
 
         <!-- Logo Section -->
         <div style=" background-color: #ffffff; border-radius: 20px 20px 0 0; text-align: center;">
-            <img src="{{ asset('assets/frontend/icons/email-temp-logo.svg') }}" alt="Company Logo" width="120"
+            <img src="../assets/icons/email-temp-logo.svg" alt="Company Logo" width="120"
                 style="display: inline-block; margin: auto; ">
         </div>
 
@@ -49,24 +49,19 @@
         <!-- Social Icons -->
         <div style="text-align: center; padding: 30px 0;">
             <a href="https://facebook.com" style="margin: 0 10px; text-decoration: none;">
-                <img src=".{{ asset('assets/frontend/icons/e_temp-fb.svg') }}" alt="Facebook" width="32"
-                    style="display: inline-block;">
+                <img src="../assets/icons/e_temp-fb.svg" alt="Facebook" width="32" style="display: inline-block;">
             </a>
             <a href="https://linkedin.com" style="margin: 0 10px; text-decoration: none;">
-                <img src=".{{ asset('assets/frontend/icons/e_temp-ln.svg') }}" alt="LinkedIn" width="32"
-                    style="display: inline-block;">
+                <img src="../assets/icons/e_temp-ln.svg" alt="LinkedIn" width="32" style="display: inline-block;">
             </a>
             <a href="https://twitter.com" style="margin: 0 10px; text-decoration: none;">
-                <img src=".{{ asset('assets/frontend/icons/e_temp-X.svg') }}" alt="Twitter" width="32"
-                    style="display: inline-block;">
+                <img src="../assets/icons/e_temp-X.svg" alt="Twitter" width="32" style="display: inline-block;">
             </a>
             <a href="https://instagram.com" style="margin: 0 10px; text-decoration: none;">
-                <img src=".{{ asset('assets/frontend/icons/e_temp-in.svg') }}" alt="Instagram" width="32"
-                    style="display: inline-block;">
+                <img src="../assets/icons/e_temp-in.svg" alt="Instagram" width="32" style="display: inline-block;">
             </a>
             <a href="https://youtube.com" style="margin: 0 10px; text-decoration: none;">
-                <img src=".{{ asset('assets/frontend/icons/e_temp-yt.svg') }}" alt="YouTube" width="32"
-                    style="display: inline-block;">
+                <img src="../assets/icons/e_temp-yt.svg" alt="YouTube" width="32" style="display: inline-block;">
             </a>
         </div>
 

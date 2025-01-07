@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use DB;
-use Mail;
 use Carbon\Carbon;
 use App\Models\Faq;
 use App\Models\Job;
 use App\Models\Blog;
 use App\Models\Menu;
 use App\Models\Team;
+use App\Mail\Contact;
 use App\Helpers\Helper;
 use App\Mail\ContactUs;
 use App\Models\Company;
@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use App\Models\QuoteationForm;
 use App\Models\ProjectCategory;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -85,7 +86,7 @@ class HomeController extends Controller
         }
 
         // Store form data
-        QuoteationForm::create([
+       $quotation =  QuoteationForm::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'subject' => $data['subject'],
@@ -94,7 +95,16 @@ class HomeController extends Controller
             'message' => $data['message'],
             'type' => $data['type'],
         ]);
-
+        $mail_data = [
+            'name' => $quotation->name,
+            'email' => $quotation->email,
+            'subject' => $quotation->subject,
+            'service' => $quotation->service ?? null,
+            'contact_no' => $quotation->phone ?? null,
+            'message' => $quotation->message,
+            'type' => $quotation->type,
+        ];
+        Mail::to('noor.redstar@gmail.com')->send(new Contact($mail_data));
         return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
 

@@ -17,7 +17,6 @@ class QuoteationFormController extends Controller
         }
         $data = [
             'menu' => 'quotation',
-            'team' => Team::where('status', 'active')->pluck('id', 'name'),
             'settings' => DB::table('settings')->first(),
         ];
         return view('admin.quotation-form.index', $data);
@@ -69,5 +68,17 @@ class QuoteationFormController extends Controller
             'data' => $element,
         ];
         return view('admin.quotation-form.show', $data);
+    }
+    public function destroy(Request $request, $id)
+    {
+        // dd($request->all());
+        if (!auth()->user()->can('quotation.delete')) {
+            abort(401);
+        }
+
+        $record = Obj::findOrFail($request->id);
+        // dd($record);
+        $record->delete();
+        return back()->with('success', 'Record Deleted successfully');
     }
 }
