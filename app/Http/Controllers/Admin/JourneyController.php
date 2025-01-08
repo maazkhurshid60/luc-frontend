@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Models\Team;
 use App\Models\Journey as Obj;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +22,6 @@ class JourneyController extends Controller
         $lang = 'en';
         $data = [
             'menu' => 'journey',
-            'team' => Team::where('status', 'active')->pluck('id', 'name'),
             'settings' => DB::table('settings')->first(),
             'lang' => $lang,
         ];
