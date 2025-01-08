@@ -47,6 +47,8 @@ return new class extends Migration
             $table->json('sector')->nullable(); 
             $table->json('country')->nullable(); 
             $table->json('industry')->nullable(); 
+
+            $tbale->json('location')->nullable();
             $table->timestamps();
         });
     }

@@ -63,41 +63,22 @@
                         <div class="container-fluid px-0">
                             <div class="navbar py-0" id="navbarNavDropdown">
                                 <ul class="navbar-nav d-flex">
-                                    {{-- @php $menus = App\Helpers\Helper::getMenuRows(); @endphp --}}
-                                    {{-- @foreach ($menus as $menu)
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('index') ? 'active' : '' }}"
-                                            aria-current="page" href="{{ url($menu->slug) }}">{{$menu->name}}</a>
-                                    </li>
-                                    @endforeach --}}
-                                    <li class="nav-item">
-                                        <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('index') ? 'active' : '' }}"
-                                            aria-current="page" href="{{ route('index') }}">Home</a>
+                                            aria-current="page" href="{{ route('index') }}">{{ __('lang.home') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link body-txt1 wht--clr primary-menu-links {{ request()->routeIs('about-us.index') ? 'active' : '' }}"
-                                            href="{{ route('about-us.index') }}">About Us</a>
+                                            href="{{ route('about-us.index') }}">{{ __('lang.about_us') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link body-txt1 wht--clr primary-menu-links {{ request()->routeIs('companies.index') ? 'active' : '' }}"
-                                            href="{{ route('companies.index') }}">Services</a>
+                                            href="{{ route('companies.index') }}">{{ __('lang.services') }}</a>
                                     </li>
-                                    {{-- <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle body-txt1 wht--clr primary-menu-links {{ request()->routeIs('services.index') ? 'active' : '' }}"
-                                            href="{{ route('companies.index') }}" role="button" aria-expanded="false">
-                                            Services
-                                        </a>
-                                        <ul class="dropdown-menu hover-dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item secondary--font fw-md secondary--font fw-md"
-                                                    href="pages/services-detail.html">Technology</a>
-                                            </li>
-                                        </ul>
-                                    </li> --}}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle primary-menu-links body-txt1 wht--clr {{ request()->routeIs('projects.index') ? 'active' : '' }}"
                                             href="{{ route('projects.index') }}" role="button" aria-expanded="false">
-                                            Projects
+                                            {{ __('lang.projects') }}
                                         </a>
                                         @if (count($projects) > 0)
                                             <ul class="dropdown-menu hover-dropdown-menu">
@@ -110,21 +91,17 @@
                                             </ul>
                                         @endif
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link primary-menu-links body-txt1 wht--clr"
-                                            href="{{ route('our-reach.index') }}">Our Reach</a>
-                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('blogs.index') ? 'active' : '' }}"
-                                            href="{{ route('blogs.index') }}">Blog</a>
+                                            href="{{ route('blogs.index') }}">{{ __('lang.blog') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('careers.index') ? 'active' : '' }}"
-                                            href="{{ route('careers.index') }}">Careers</a>
+                                            href="{{ route('careers.index') }}">{{ __('lang.careers') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link primary-menu-links body-txt1 wht--clr {{ request()->routeIs('contact-us.index') ? 'active' : '' }}"
-                                            href="{{ route('contact-us.index') }}">Contact Us</a>
+                                            href="{{ route('contact-us.index') }}">{{ __('lang.CONTACT_US') }}</a>
                                     </li>
                                 </ul>
                             </div>

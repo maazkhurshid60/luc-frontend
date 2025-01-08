@@ -45,7 +45,7 @@
                                         src="{{ asset('assets/frontend/icons/calender.svg') }}" alt=""
                                         class="me-2" />
                                     <p class="mb-0">
-                                        {{ \Carbon\Carbon::parse($data['page']->created_at)->diffForHumans() }}</p>
+                                        {{ \App\Helpers\Helper::setDate($data['page']->apply_before) }}</p>
                                 </span>
                             </div>
                         </div>

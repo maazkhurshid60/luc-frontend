@@ -205,7 +205,7 @@ class ProjectController extends Controller
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'detail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'category_select' => 'required',
@@ -245,7 +245,7 @@ class ProjectController extends Controller
 
         $request['gallery_images'] = json_encode($uploaded_images);
 
-        $request['category_id'] = $request['category_select'][0];
+        // $request['category_id'] = $request['category_select'][0];
         $request['categories_id'] = $categories_id;
 
         if (empty($request->input('color_code'))) {

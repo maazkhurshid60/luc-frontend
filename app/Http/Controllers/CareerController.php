@@ -7,9 +7,11 @@ use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\Menu;
 use App\Models\Project;
+use App\Mail\JobApplied;
 use App\Models\Application;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
+use App\Mail\AdminJobApplied;
 
 class CareerController extends Controller
 {
@@ -108,6 +110,8 @@ class CareerController extends Controller
 
         // Save the application to the database
         Application::create($applicationData);
+        Mail::to($quotation->email)->send(new JobApplied($applicationData));
+        Mail::to('sales@redstartechs.com')->send(new AdminJobApplied($applicationData));
 
         // Return success response
         return response()->json([

@@ -141,39 +141,20 @@
                                         <input type="text" name="client" value="{{ $data->client }}"
                                             class="form-control form-control-sm">
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <label for="services">Services</label>
-                                        <input type="text" name="services" value="{{ $data->services }}"
-                                            class="form-control form-control-sm">
-                                    </div>
                                     <div class="col-md-4 form-group">
                                         <label for="link">Link/URL</label>
                                         <input type="text" name="link" value="{{ $data->link }}"
                                             class="form-control form-control-sm">
                                     </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="sector">Sector</label>
-                                        <input type="text" name="sector" value="{{ $data->sector }}"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="country">Country</label>
-                                        <input type="text" name="country" value="{{ $data->country }}"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="industry">Industry</label>
-                                        <input type="text" name="industry" value="{{ $data->industry }}"
+                                    <div class="col-md-4 form-group">
+                                        <label for="link">Location</label>
+                                        <input type="text" name="location" value="{{ $data->location }}"
                                             class="form-control form-control-sm">
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>
                                         <textarea class="form-control " id="description_editor" name="description" maxlength="150">{{ $data->description }}</textarea>
                                     </div>
-
-
-
                                     <div class="col-md-12 my-2">
                                         <textarea name="contents" id="editor" cols="30" rows="10">{!! $data->contents !!}</textarea>
                                     </div>
@@ -289,15 +270,6 @@
                                             <option @if ($data->status == 'in-active') selected @endif>In-active</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label>{{ __('Site Visibility') }}</label>
-                                        <select name="site_visibility" class="form-control form-control-sm">
-                                            <option @if ($data->site_visibility == 1) selected @endif value="1">Show
-                                                in Portfolio</option>
-                                            <option @if ($data->site_visibility == 0) selected @endif value="0">Hide
-                                                from Portfolio</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-12">
                                         <br>
                                         <div class="alert alert-danger updateFormError" style="display: none;"></div>
@@ -306,7 +278,6 @@
                                             Data</button>
                                     </div>
                             </form>
-
                         </div>
                         <!-- /.box-body -->
                     </div>

@@ -50,7 +50,7 @@ jQuery(document).ready(function ($) {
   if ($(".project-slider").length) {
     $(".project-slider").slick({
       speed: 0,
-      autoplay: false,
+      autoplay: true,
       autoplaySpeed: 0,
       centerMode: false,
       cssEase: "linear",

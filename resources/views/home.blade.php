@@ -37,7 +37,7 @@
                             {{ $settings->about_us }}
                         </p>
                         <div class="d-flex justify-content-md-start  justify-content-center">
-                            <span class=""><a href="pages/contact-us.html"
+                            <span class=""><a href="{{ route('contact-us.index') }}"
                                     class="text-decoration-none primary-btn d-flex  justify-content-center">{{ __('lang.REQUEST_A_QUOTE') }}<img
                                         src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt=""
                                         class="ms-2"></a></span>
@@ -144,7 +144,6 @@
         <!-- Services Section End-->
 
         @include('partials.projects')
-        <div style="height: 200px"></div>
         {{-- @include('partials.maps') --}}
 
         @include('partials.latest-blogs')
@@ -155,6 +154,9 @@
 
         @include('partials.faqs')
     </div>
+    @if ($activeAnnouncement && count($activeAnnouncement) <= 1)
+        @include('include.modal')
+    @endif
 @endsection
 @section('custom-js')
     <script src="{{ asset('assets/frontend/js/form.js') }}"></script>

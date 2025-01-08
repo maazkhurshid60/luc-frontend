@@ -6,6 +6,7 @@
                     data-bs-dismiss="modal" onclick="closeModal()"></i>
                 <div class="row p-4">
                     <div class="col-md-6">
+                        @dd($activeAnnouncement)
                         <img src="{{ $activeAnnouncement->image ? asset('storage/images/' . $activeAnnouncement->image) : asset('assets/frontend/images/pop-up-left-img.webp') }}" alt=""
                             class="pop-up-left-img">
                     </div>

@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Location:</h4>
-                                            <p class="body-txt2 txt--clr">New York, USA</p>
+                                            <p class="body-txt2 txt--clr"> {{$data->location}} </p>
                                         </div>
                                         <div class="pb-3">
                                             <h4 class="head--4 secondary--clr">Website:</h4>
@@ -69,10 +69,6 @@
                                             <h4 class="head--4 secondary--clr">Date:</h4>
                                             <p class="body-txt2 txt--clr">
                                                 {{ \Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</p>
-                                        </div>
-                                        <div class="pb-3">
-                                            <h4 class="head--4 secondary--clr">Consultant:</h4>
-                                            <p class="body-txt2 txt--clr">Potential Company</p>
                                         </div>
                                     </div>
                                 </div>

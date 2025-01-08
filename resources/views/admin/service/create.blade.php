@@ -34,13 +34,12 @@
                             <form method="POST" id="addForm" enctype="multipart/form-data"
                                 onsubmit="return form_validation()">
                                 @csrf
-
                                 <div class=" row">
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
                                     </div>
-                                    <div class="col-md-6 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>Slug <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="slug">
                                     </div>
@@ -82,7 +81,7 @@
                                             class="form-control form-control-sm">
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label>Project Categories <span class="text-danger">*</span></label>
                                         <select name="projectcategory" class="form-control form-control-sm">
                                             <option selected value="">Select</option>
@@ -90,16 +89,15 @@
                                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-4 mb-3 ">
-                                        <label>Project Company</span></label>
+                                        <label>Select Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
                                             <option value="" disabled selected>Select a company</option>
                                             @foreach ($service_company as $company)
                                                 <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                                <!-- Replace 'id' and 'name' with your column names -->
                                             @endforeach
                                         </select>
                                     </div>
@@ -194,16 +192,8 @@
             font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
         });
-        var seo_more_content = CKEDITOR.replace('seo_more_content', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form',
-            baseFloatZIndex: 10005,
-            allowedContent: true,
-            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
-        });
-
-        $(".filez1,.filez2,.filez3,.filez4,.filez5").dropify();
+        $(".filez1,.filez5").dropify();
 
         function form_validation() {
 
@@ -212,7 +202,6 @@
             var form = new FormData($('#addForm')[0]);
             form.append('contents', editor.getData());
             form.append('description', description_editor.getData());
-            form.append('seo_more_content', seo_more_content.getData());
 
             $.ajax({
                 type: "POST",

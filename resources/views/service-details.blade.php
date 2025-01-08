@@ -74,42 +74,12 @@
                                 </p>
                             </div>
                         @endforeach
-
-
-                        {{-- <div class="our-services-card p-4 mb-4 bg-white">
-                            <div class="card-img-wrap mb-4">
-                                <img src="{{ asset('assets/frontend/icons/implementaion&integration.svg') }}" alt=""
-                                    class="card-img" />
-                            </div>
-                            <h3 class="head--3 mb-3 secondary--clr">Implementation & Integration</h3>
-                            <p class="body-txt2 mb-4 txt--clr">Lorem ipsum dolor sit amet consectetur. Sit odio etiam est
-                                pellentesque
-                                gravida tincidunt. Aenean eget pellentesque urna facilisi mattis. Quis in tempus massa ac
-                                aliquet sit.
-                                At vel egestas arcu etiam.
-                            </p>
-                        </div>
-                        <div class="our-services-card p-4 mb-4 bg-white">
-                            <div class="card-img-wrap mb-4">
-                                <img src="{{ asset('assets/frontend/icons/support.svg') }}" alt=""
-                                    class="card-img" />
-                            </div>
-                            <h3 class="head--3 mb-3 secondary--clr">Support & Optimization</h3>
-                            <p class="body-txt2 mb-4 txt--clr">Lorem ipsum dolor sit amet consectetur. Sit odio etiam est
-                                pellentesque
-                                gravida tincidunt. Aenean eget pellentesque urna facilisi mattis. Quis in tempus massa ac
-                                aliquet sit.
-                                At vel egestas arcu etiam.
-                            </p>
-                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
 
         @include('partials.related-blogs')
-
-        {{-- @include('partials.quotation-form') --}}
         <div class="container-fluid my-40px">
             <div class="container">
                 <div class="row">
@@ -135,16 +105,24 @@
                         <h3 class="head--3 wht--clr mb-0">{{ __('lang.follow_us') }}</h3>
                         <div class="d-flex justify-content-start ">
                             <div class="socail-links d-flex justify-content-center align-items-center me-2">
-                                <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
+                                <a href="{{ $data->facebook }}">
+                                    <img src="{{ asset('assets/frontend/icons/fb-icon.svg') }}" alt="">
+                                </a>
                             </div>
                             <div class="socail-links d-flex justify-content-center align-items-center me-2">
-                                <img src="{{ asset('assets/frontend/icons/twitter-x-icon.svg') }}" alt="">
+                                <a href="{{ $data->twitter }}">
+                                    <img src="{{ asset('assets/frontend/icons/twitter-x-icon.svg') }}" alt="">
+                                </a>
                             </div>
                             <div class="socail-links d-flex justify-content-center align-items-center me-2">
-                                <img src="{{ asset('assets/frontend/icons/linkedin-icon.svg') }}" alt="">
+                                <a href="{{ $data->linkedin }}">
+                                    <img src="{{ asset('assets/frontend/icons/linkedin-icon.svg') }}" alt="">
+                                </a>
                             </div>
                             <div class="socail-links d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/frontend/icons/insta-icon.svg') }}" alt="">
+                                <a href="{{ $data->instagram }}">
+                                    <img src="{{ asset('assets/frontend/icons/insta-icon.svg') }}" alt="">
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
                                  </h2>
                                  <div id="flush-collapse{{ $faq->id }}" class="accordion-collapse collapse"
                                      aria-labelledby="flush-heading" data-bs-parent="#accordionFlushExample">
-                                     <div class="accordion-body body-txt2 secondary--clr">{{ $faq->question }}</div>
+                                     <div class="accordion-body body-txt2 secondary--clr">{{ $faq->answer }}</div>
                                  </div>
                              </div>
                          @endforeach

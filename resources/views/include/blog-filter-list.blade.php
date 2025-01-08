@@ -2,7 +2,7 @@
     @forelse ($blogs as $blog)
         @include('include.blog-card')
     @empty
-        <h3>No Blogs found in this Category</h3>
+        <h3>{{ __('lang.not_found_in_category') }}</h3>
     @endforelse
 </div>
 @if (!is_null($blogs) && !empty($blogs['items']))

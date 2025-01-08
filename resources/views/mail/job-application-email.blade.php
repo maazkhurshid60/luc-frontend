@@ -33,7 +33,7 @@
             <p
                 style="font-size: 18px; color: #626161; line-height: 1.5; font-family: 'Barlow', sans-serif; font-weight: 500;">
                 Hello,<br><br>
-                Thank you for applying for the [Job Title] position at [Company Name]. We have received your application
+                Thank you for applying for the {{$job_title}} position at Afcon Group of Companies. We have received your application
                 and appreciate your interest in joining our team.<br><br>
                 Our hiring team is currently reviewing all applications and will contact you shortly regarding the next
                 steps in the hiring process. If you have any questions in the meantime, please feel free to reach

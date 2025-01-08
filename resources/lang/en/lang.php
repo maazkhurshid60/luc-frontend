@@ -145,4 +145,12 @@ return [
     'leads' => 'Leads',
     'about_details' => 'About Details',
     'announcement' => 'Announcements',
+    'home' => 'Home',
+    'about_us' => 'About Us',
+    'services' => 'Services',
+    'projects' => 'Projects',
+    'blog' => 'Blog',
+    'careers' => 'Careers',
+    'subscribe' => 'Subscribe',
+    'not_found_in_category' => 'No Blogs found in this Category',
 ];

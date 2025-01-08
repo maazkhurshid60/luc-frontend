@@ -38,15 +38,12 @@
                                 <input type="hidden" name="id" value="{{ $data->id }}">
                                 <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __('Title') }} :</label>
                                         <input type="text" value="{{ $data->title }}"
                                             class="form-control form-control-sm" name="title">
                                     </div>
-
-
-                                    {{-- <div class="col-md-12"><hr></div> --}}
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="pagetitle">Page Title</label>
                                         <input type="text" name="page_title" id="page_title" maxlength="80"
                                             value="{{ $data->page_title }}" class="form-control form-control-sm">
@@ -83,43 +80,20 @@
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
                                     </div>
-
-
-                                    <div class="col-md-4 mb-3">
-                                        <label>Project Categories <span class="text-danger">*</span></label>
-                                        <select name="projectcategory" class="form-control form-control-sm">
-                                            <option selected value="">Select</option>
-                                            @foreach (App\Helpers\Helper::projectcategory() as $category)
-                                                <option value="{{ $category->id }}"
-                                                    @if ($data->projectcategory == $category->id) selected @endif>
-                                                    {{ $category->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
                                     <div class="col-md-4">
-                                        <label>Featured Projects <span class="text-danger">*</span></label>
-                                        <select name="featured_project[]" id="featured_project"
-                                            class="form-control form-control-sm" multiple>
-                                            <option value="">Select</option>
-                                            <!-- Options will be populated dynamically -->
-                                        </select>
-                                    </div>
-
-                    
-                                    <div class="col-md-4">
-                                        <label>Project  Company</span></label>
+                                        <label>Select Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
                                             <option value="" disabled selected>Select a company</option>
                                             @foreach ($service_company as $company)
-                                            <option value="{{ $company->id }}" {{ $data->company_id == $company->id ? 'selected' : '' }}>
-                                                {{ $company->name }}
-                                            </option>
-                                        @endforeach
+                                                <option value="{{ $company->id }}"
+                                                    {{ $data->company_id == $company->id ? 'selected' : '' }}>
+                                                    {{ $company->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
-                                 
+
                                     <div class="col-md-12 form-group">
                                         <label>Short Description</label>
                                         <textarea class="form-control " id="description_editor" name="description">{!! $data->description !!}</textarea>
@@ -132,8 +106,8 @@
                                     <div class="col-md-4">
                                         <label>{{ __('Image') }}</label>
                                         <input type="file" name="image"
-                                            data-default-file="{{ asset('storage/images/' . $data->file) }}"
-                                            id="filez1" class="filez1" data-max-file-size="1M"
+                                            data-default-file="{{ asset('storage/images/' . $data->file) }}" id="filez1"
+                                            class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
@@ -157,7 +131,7 @@
                                                 {{ $data->search_engine == '1' ? 'checked' : '' }} />
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
-                                    </div>  
+                                    </div>
                                     <div class="col-md-12">
                                         <br>
                                         <div class="alert alert-danger updateFormError" style="display: none;"></div>
@@ -225,15 +199,8 @@
             font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
         });
-        var seo_more_content = CKEDITOR.replace('seo_more_content', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form',
-            baseFloatZIndex: 10005,
-            allowedContent: true,
-            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
-        });
-        $(".filez1,.filez2,.filez3,.filez4,.filez5").dropify();
+        $(".filez1,.filez5").dropify();
 
         function update_validation() {
 
@@ -274,129 +241,5 @@
             });
             return false;
         }
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Function to populate the featured project select dropdown
-            function populateFeaturedProjects(categoryId, selectedProjects = []) {
-                if (categoryId) {
-                    $.ajax({
-                        type: 'GET',
-                        url: '{{ route('featured.projects') }}',
-                        data: {
-                            category_id: categoryId
-                        },
-                        success: function(response) {
-                            // Clear the existing options
-                            var $featuredProjectSelect = $('select[name="featured_project[]"]');
-                            $featuredProjectSelect.empty();
-
-                            // Add a default option
-                            $featuredProjectSelect.append('<option value="">Select</option>');
-
-                            // Populate new options
-                            $.each(response, function(index, project) {
-                                var isSelected = selectedProjects.includes(project.id
-                                    .toString()) ? 'selected' : '';
-                                $featuredProjectSelect.append('<option value="' + project.id +
-                                    '" ' + isSelected + '>' + project.name + '</option>');
-                            });
-
-                            // Reinitialize the select picker if using a library like Select2
-                            // $('select[name="featured_project[]"]').select2(); // Uncomment if using Select2
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching featured projects:', error);
-                        }
-                    });
-                } else {
-                    // If no category selected, clear the featured projects dropdown
-                    $('select[name="featured_project[]"]').empty().append('<option value="">Select</option>');
-                }
-            }
-
-            // Get the initial category ID and selected projects from the server or HTML
-            var initialCategoryId = $('select[name="projectcategory"]').val(); // Get the initial category ID
-            var preselectedProjects =
-                @json($data->featured_projects); // Replace this with your actual preselected project IDs
-
-            // Populate the featured projects dropdown on page load for editing
-            populateFeaturedProjects(initialCategoryId, preselectedProjects);
-
-            // When the project category dropdown value changes
-            $('select[name="projectcategory"]').on('change', function() {
-                var categoryId = $(this).val();
-
-                // Populate the featured projects dropdown when the category changes
-                populateFeaturedProjects(categoryId);
-            });
-        });
-    </script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var ajaxUrl = '{{ route('featured.projects') }}'; // Adjust the URL if needed
-
-            // Initialize the multi-select dropdown
-            $('select[name="featured_project[]"]').on('change', function() {
-                var maxSelections = 4;
-
-                // Handle change event for the multi-select dropdown
-                var selectedOptions = $(this).find('option:selected');
-
-                // Check if the number of selected options exceeds the limit
-                if (selectedOptions.length > maxSelections) {
-                    toastInfo('You can only select up to 4 projects.');
-
-                    // Remove the last selected option
-                    $(this).find('option:selected').last().prop('selected', false);
-
-                    // Keep only the first 4 selections
-                    $(this).val($(this).val().slice(0, maxSelections)).trigger('change');
-                }
-            });
-
-            // When the project category dropdown value changes
-            $('select[name="projectcategory"]').on('change', function() {
-                var categoryId = $(this).val();
-                var $featuredProjectSelect = $('select[name="featured_project[]"]');
-
-                if (categoryId) {
-                    $.ajax({
-                        type: 'GET',
-                        url: ajaxUrl,
-                        data: {
-                            category_id: categoryId
-                        },
-                        success: function(response) {
-                            $featuredProjectSelect.empty().append(
-                                '<option value="">Select</option>');
-
-                            if (response.length) {
-                                $.each(response, function(index, project) {
-                                    $featuredProjectSelect.append('<option value="' +
-                                        project.id + '">' + project.name +
-                                        '</option>').prop('disabled', false);
-                                });
-                            } else {
-                                $featuredProjectSelect.append(
-                                    '<option value="" disabled>No projects found</option>');
-                            }
-
-                            // Reinitialize the select picker if using a library like Select2
-                            // $('select[name="featured_project[]"]').select2(); // Uncomment if using Select2
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching featured projects:', error);
-                        }
-                    });
-                } else {
-                    $featuredProjectSelect.empty().append('<option value="">Select</option>').prop(
-                        'disabled', true);
-                }
-            });
-        });
     </script>
 @endsection

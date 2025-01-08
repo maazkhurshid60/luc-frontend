@@ -2,10 +2,10 @@
 <div class="container-fluid d-flex flex-column justify-content-center blog-carousel-sec pyt-80 pyb-80 my-40px">
     <div class="container">
         <div class="row">
-            <h2 class="head--2 wht--clr text-center pyb-40 mb-0">
+            <h2 class="head--2 secondary--clr text-center pyb-40 mb-0">
                 {{ __('lang.LATEST_BLOGS') }}
             </h2>
-            <p class="body-txt1 wht--clr text-center pyb-60 mb-0 px-5">
+            <p class="body-txt1 secondary--clr text-center pyb-60 mb-0 px-5">
                 {{ __('lang.BLOGS_DESCRIPTION') }}
             </p>            
             <div class="blog-slider d-flex align-items-center justify-content-center pyb-60">
@@ -59,7 +59,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="prev-next-btns d-flex justify-content-center gap-4">
+            <div class="prev-next-btns d-flex justify-content-center gap-4 mt-4">
                 <button class="slick-prev"><img src="{{ asset('assets/frontend/icons/prev-arrow.svg') }}"
                         alt=""></button>
                 <button class="slick-next"><img src="{{ asset('assets/frontend/icons/next-arrow.svg') }}"

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Image;
-use App\Models\Team;
 use App\Helpers\Helper;
 use App\Models\Service;
 use App\Models\Blog as Obj;
@@ -99,7 +98,6 @@ class BlogController extends Controller
             'settings' => DB::table('settings')->first(),
             'BlogCategory' => BlogCategory::all(),
             'services' => Service::all(),
-            'members' => Team::all(),
         ];
         return view('admin.blog.create', $data);
     }
@@ -198,7 +196,6 @@ class BlogController extends Controller
             'data' => $element,
             'BlogCategory' => BlogCategory::all(),
             'services' => Service::all(),
-            'members' => Team::all(),
             'lang' => $lang,
         ];
 
@@ -217,8 +214,10 @@ class BlogController extends Controller
         if (!auth()->user()->can('blog.edit')) {
             abort(401);
         }
-        // dd($request->all());
-        $record = Obj::find($id);
+
+        $record = Obj::findOrFail($id);
+
+        // Validate input
         $validator = \Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'short_description' => 'required|string|max:500',
@@ -232,17 +231,21 @@ class BlogController extends Controller
 
         // Handle file uploads
         if ($request->hasFile('file')) {
-            $request['image'] = Helper::handleImageUpload($request->file('file'), $record->image);
+            $imagePath = Helper::handleImageUpload($request->file('file'), $record->image);
+            $record->image = $imagePath; // Update record's image field
         }
 
         if ($request->hasFile('file3')) {
-            $request['cover_image'] = Helper::handleImageUpload($request->file('file3'), $record->cover_image);
+            $coverImagePath = Helper::handleImageUpload($request->file('file3'), $record->cover_image);
+            $record->cover_image = $coverImagePath; // Update record's cover image field
         }
 
         if ($request->hasFile('file4')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+            $ogImagePath = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+            $record->og_image = $ogImagePath; // Update record's OG image field
         }
 
+        // Update translations
         if ($request->lang == 'en') {
             $record->setTranslation('title', 'en', $request->input('title'));
             $record->setTranslation('short_description', 'en', $request->input('short_description'));
@@ -264,10 +267,14 @@ class BlogController extends Controller
             $record->setTranslation('og_title', 'fr', $request->input('og_title'));
             $record->setTranslation('og_description', 'fr', $request->input('og_description'));
         }
+
+        // Update other fields
         $record->category_id = $request->input('category_id');
         $record->status = $request->input('status');
         $record->user = $request->input('author');
+        // dd($record);
         $record->save();
+
         return response()->json(['success' => 'Record is successfully updated']);
     }
 

@@ -17,6 +17,7 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\Feedback;
 use App\Models\Settings;
+use App\Mail\AdminContact;
 use App\Models\FaqCategory;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
@@ -104,7 +105,8 @@ class HomeController extends Controller
             'message' => $quotation->message,
             'type' => $quotation->type,
         ];
-        Mail::to('noor.redstar@gmail.com')->send(new Contact($mail_data));
+        Mail::to($quotation->email)->send(new Contact($mail_data));
+        Mail::to('sales@redstartechs.com')->send(new AdminContact($mail_data));
         return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
 

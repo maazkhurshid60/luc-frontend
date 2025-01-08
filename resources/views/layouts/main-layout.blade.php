@@ -52,9 +52,6 @@
     @include('layouts.navbar')
 
     @yield('content')
-    
-    @include('include.modal')
-
     <!-- ///////////////////////// Footer Section ///////////////////////// -->
     <footer>
         <div class="container-fluid afcon--footer myt-40">
@@ -73,7 +70,7 @@
                             <input class="form-control me-4 newsletter-search w-md-0 w-100 " type="search"
                                 placeholder="{{ __('lang.ENTER_YOUR_EMAIL') }}" aria-label="Search" />
                             <button class="primary-btn wht--clr m-auto" type="submit">
-                                {{ __('lang.SEARCH') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}"
+                                {{ __('lang.subscribe') }}<img src="{{ asset('assets/frontend/icons/arrow1.svg') }}"
                                     alt="" class="ms-2" />
                             </button>
                         </form>
@@ -144,7 +141,7 @@
     <script src="{{ asset('assets/frontend/vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
     @yield('custom-js')
-    @if ($isNewUser && $activeAnnouncement)
+    @if (request()->routeIs('index') && $isNewUser && $activeAnnouncement)
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 // Check if the "visited_before" cookie is already set in JavaScript
@@ -152,8 +149,10 @@
                     // Show the modal
                     $('#new-project').modal('show');
 
-                    // Set the cookie to mark the user as visited
-                    document.cookie = "visited_before=true; path=/; max-age=" + 60 * 60 * 24 * 30; // 30 days
+                    // Set the cookie to mark the user as visited, with a 24-hour expiry
+                    const expiryDate = new Date();
+                    expiryDate.setTime(expiryDate.getTime() + (24 * 60 * 60 * 1000)); // 24 hours
+                    document.cookie = `visited_before=true; path=/; expires=${expiryDate.toUTCString()}`;
                 }
 
                 // Timer Code
@@ -239,6 +238,19 @@
                     url.searchParams.set('lang', currentLang);
                     link.href = url.toString();
                 }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all the <li> elements inside .hero-sec-text ul
+            const listItems = document.querySelectorAll(".hero-sec-text ul li");
+
+            // Loop through each <li> and prepend an image with the desired class
+            listItems.forEach(li => {
+                const img = document.createElement("img");
+                img.src = "{{asset('assets/frontend/icons/cube-icon.svg')}}"; // Replace with the actual image path
+                img.alt = "Icon"; // Optional: Add alternative text
+                img.classList.add("me-4"); // Add the 'me-4' class to the image
+                li.prepend(img);
             });
         });
     </script>

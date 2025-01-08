@@ -14,9 +14,8 @@ class AboutUsController extends Controller
     public function index()
     {
         $data = [
-            'teams' => Team::where('status', 'active')->get(),
             'data' => Menu::where('slug', 'about-us')->first(),
-            'journeys' => Journey::orderBy('year', 'desc')->orderBy('month', 'desc')->get(),
+            'journeys' => Journey::orderBy('year', 'asc')->orderBy('month', 'asc')->get(),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'about_details' => AboutusEdits::first(),
         ];

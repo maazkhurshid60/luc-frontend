@@ -122,27 +122,13 @@
                                         <label for="client">Client</label>
                                         <input type="text" name="client" class="form-control form-control-sm">
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <label for="services">Services</label>
-                                        <input type="text" name="services" class="form-control form-control-sm">
-                                    </div>
-
                                     <div class="col-md-4 form-group">
                                         <label for="link">Link/URL</label>
                                         <input type="text" name="link" class="form-control form-control-sm">
                                     </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="sector">Sector</label>
-                                        <input type="text" name="sector" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="country">Country</label>
-                                        <input type="text" name="country" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 mb-2">
-                                        <label for="industry">Industry</label>
-                                        <input type="text" name="industry" class="form-control form-control-sm">
+                                    <div class="col-md-4 form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" name="location" class="form-control form-control-sm">
                                     </div>
 
                                     <div class="col-md-12 form-group">
@@ -232,26 +218,18 @@
                                         <br>
                                     </div>
 
-                                    <div class="col-md-4 mt-3">
-                                        <label>{{ __('Site Visibility') }}</label>
-                                        <select name="site_visibility" class="form-control form-control-sm">
-                                            <option value="1">Show in Projects</option>
-                                            <option value="0">Hide from Projects</option>
-                                        </select>
-                                    </div>
-
                                     <div class="col-md-4 mt-4">
                                         <label>Display Order <span class="text-danger">*</span></label>
                                         <input type="number" name="display_order" min="1"
                                             value="{{ $display_order }}" class="form-control form-control-sm">
-                                        <br>
+                                    </div>
+                                    <div class="col-md-4 mt-5">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple" checked />
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
                                     </div>
-
                                     <div class="col-md-12">
                                         <div class="alert alert-danger addFormError" style="display: none;"></div>
                                         <button class="btn my-2 btn-sm btn-primary float-right">Save Record</button>

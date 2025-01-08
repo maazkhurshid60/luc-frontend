@@ -143,5 +143,13 @@ return [
     'activity' => 'Activity Log',
     'leads' => 'Leads',
     'about_details' => 'About Details',
-    'announcement' => 'Announcements'
+    'announcement' => 'Announcements',
+    'home' => 'Accueil',
+    'about_us' => 'À Propos de Nous',
+    'services' => 'Services',
+    'projects' => 'Projets',
+    'blog' => 'Blog',
+    'careers' => 'Carrières',
+    'subscribe' => 'Subscribe',
+    'not_found_in_category' => 'No Blogs found in this Category',
 ];
