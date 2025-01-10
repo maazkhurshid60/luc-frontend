@@ -48,14 +48,14 @@
                                             value="{{ $data->contact }}">
                                     </div>
                                     @can('meta-data.edit')
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <label for="pagetitle">Page Title</label>
                                             <input type="text" name="page_title" id="page_title" maxlength="80"
                                                 value="{{ $data->page_title }}" class="form-control form-control-sm">
                                             <p style="color: red; font-size: 12px">Char Count: <span
                                                     id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                         </div>
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords</label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
                                                 value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -67,9 +67,9 @@
                                             <p style="color: red; font-size: 12px">Char Count: <span
                                                     id="descriptionCharCount">{{ strlen($data->meta_description) }}</span>/180
                                             </p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
-                                    @can('og-data.edit')
+                                    {{-- @can('og-data.edit')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title" value="{{ $data->og_title }}"
@@ -85,7 +85,7 @@
                                             <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                                 class="form-control form-control-sm">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-12 form-group">
                                         <label>Short Description</label>
                                         <textarea class="form-control " rows="5" name="short_description">{!! $data->short_description !!}</textarea>
@@ -102,7 +102,7 @@
                                             class="dropify" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    @can('og-data.edit')
+                                    {{-- @can('og-data.edit')
                                         <div class="col-md-3 form-group">
                                             <label>{{ __(' OG Image') }}</label>
                                             <input type="file" name="ogimage"
@@ -110,7 +110,7 @@
                                                 class="dropify" data-max-file-size="1M"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-3 form-group">
                                         <label>{{ __(' Icon') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="company_icon" class="dropify"

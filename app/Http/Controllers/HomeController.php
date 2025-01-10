@@ -87,7 +87,7 @@ class HomeController extends Controller
         }
 
         // Store form data
-       $quotation =  QuoteationForm::create([
+        $quotation = QuoteationForm::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'subject' => $data['subject'],

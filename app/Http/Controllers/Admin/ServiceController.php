@@ -185,10 +185,6 @@ class ServiceController extends Controller
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif ,webp|max:1024',
-            'image2' => 'nullable|image|mimes:svg|max:1024',
-            'image3' => 'nullable|image|mimes:svg|max:1024',
-            'projectcategory' => 'required',
-            'featured_project' => 'required',
             'company_select' => 'required',
         ]);
 
@@ -199,39 +195,33 @@ class ServiceController extends Controller
         if ($request->hasFile('image')) {
             $request['file'] = Helper::handleImageUpload($request->file('image'), $record->file);
         }
-        if ($request->hasFile('image2')) {
-            $request['file2'] = Helper::handleImageUpload($request->file('image2'), $record->file);
-        }
-        if ($request->hasFile('image4')) {
-            $request['file4'] = Helper::handleImageUpload($request->file('image4'), $record->file4);
-        }
-        if ($request->hasFile('image5')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('image5'), $record->og_image);
-        }
-        if ($request->hasFile('image6')) {
-            $request['second_image'] = Helper::handleImageUpload($request->file('image6'), $record->second_image);
-        }
-        if ($request->hasFile('image3')) {
-            $extension = $request->image3->getClientOriginalExtension();
-            if ($extension == 'svg') {
-                return response()->json(['errors' => ['Banner image format not supported.']]);
-            }
+        // if ($request->hasFile('image2')) {
+        //     $request['file2'] = Helper::handleImageUpload($request->file('image2'), $record->file);
+        // }
+        // if ($request->hasFile('image4')) {
+        //     $request['file4'] = Helper::handleImageUpload($request->file('image4'), $record->file4);
+        // }
+        // if ($request->hasFile('image5')) {
+        //     $request['og_image'] = Helper::handleImageUpload($request->file('image5'), $record->og_image);
+        // }
+        // if ($request->hasFile('image6')) {
+        //     $request['second_image'] = Helper::handleImageUpload($request->file('image6'), $record->second_image);
+        // }
+        // if ($request->hasFile('image3')) {
+        //     $extension = $request->image3->getClientOriginalExtension();
+        //     if ($extension == 'svg') {
+        //         return response()->json(['errors' => ['Banner image format not supported.']]);
+        //     }
 
-            $banner_name = $request->file('image3')->store('images', 'public');
+        //     $banner_name = $request->file('image3')->store('images', 'public');
 
-            $image3 = str_replace('images/', '', $banner_name);
-            $request['banner'] = $image3;
+        //     $image3 = str_replace('images/', '', $banner_name);
+        //     $request['banner'] = $image3;
 
-            Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(config('constants.store_thumb_path') . $image3);
-        }
-
-        $featuredProjects = json_encode($request->input('featured_project'), true);
-        $request['featured_projects'] = $featuredProjects; // Assuming `featured_pro
-
-        // $request['slug'] = $slug = Str::slug($request->post('title'));
-        $request['position'] = json_encode($request->input('position'));
+        //     Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save(config('constants.store_thumb_path') . $image3);
+        // }
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
         $request['company_id'] = $request->company_select;
         $record->update($request->all());

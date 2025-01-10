@@ -45,7 +45,7 @@
                                         <hr>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <label for="pagetitle">Page Title </label>
                                         <input type="text" name="page_title" id="page_title"
                                             class="form-control form-control-sm" maxlength="80">
@@ -54,7 +54,7 @@
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             class="form-control form-control-sm">
@@ -81,7 +81,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
@@ -191,22 +191,22 @@
                                                 gravida enim posuere cursus diam.</p>
                                         </textarea>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }}</label>
-                                        <input type="file" name="file" id="filez1" class="filez1"
+                                        <input type="file" name="file" id="filez1" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
-                                        <input type="file" name="file3" id="filez3" class="filez3"
+                                        <input type="file" name="file3" id="filez3" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
                               
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label>{{ __('OG Image') }}</label>
-                                        <input type="file" name="file4" id="filez4" class="filez4"
+                                        <input type="file" name="file4" id="filez4" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
@@ -285,10 +285,7 @@
 
 
     <script type="text/javascript">
-        $(".filez1").dropify();
-        $(".filez2").dropify();
-        $(".filez3").dropify();
-        $(".filez4").dropify();
+        $(".dropify").dropify();
 
         function form_validation() {
 

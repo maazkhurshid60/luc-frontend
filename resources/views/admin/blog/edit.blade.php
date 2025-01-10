@@ -45,7 +45,7 @@
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <label for="pagetitle">Page Title</label>
                                         <input type="text" name="page_title" id="page_title" maxlength="80"
                                             value="{{ $data->page_title}}" class="form-control form-control-sm">
@@ -53,7 +53,7 @@
                                                 id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords</label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -82,7 +82,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-12">
                                         <hr>
@@ -123,7 +123,7 @@
                                             echo $data->contents
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file"
                                             data-default-file="{{ asset('storage/images/' . $data->image) }}"
@@ -131,20 +131,20 @@
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
                                         <!-- <img id="preview-image" src="{{ asset('storage/images/' . $data->image) }}" alt="Preview" style="max-width: 100%; margin-top: 10px;"> -->
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Cover Image') }}</label>
                                         <input type="file" name="file3"
                                             data-default-file="{{ asset('storage/images/' . $data->cover_image) }}"
                                             id="filez3" class="filez3" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4"
                                             data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
                                             id="filez4" class="filez4" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">

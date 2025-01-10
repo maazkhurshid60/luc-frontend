@@ -49,7 +49,7 @@
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <label for="pagetitle">Page Title</label>
                                             <input type="text" name="page_title" id="page_title" maxlength="80"
                                                 value="{{ $data->page_title }}" class="form-control form-control-sm">
@@ -57,7 +57,7 @@
                                                     id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords</label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
                                                 value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -70,9 +70,9 @@
                                             <p style="color: red; font-size: 12px">Char Count: <span
                                                     id="descriptionCharCount">{{ strlen($data->meta_description) }}</span>/180
                                             </p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
-                                    @can('og-data.edit')
+                                    {{-- @can('og-data.edit')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title"
@@ -88,7 +88,7 @@
                                             <input type="text" name="og_type" id="og_type"
                                                 value="{{ $data->og_type }}" class="form-control form-control-sm">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-8 form-group">
                                         <label for="description">Short Description</label>
                                         <textarea name="short_description" class="form-control form-control-sm">{{ $data->short_description }}</textarea>
@@ -104,14 +104,14 @@
                                             echo $data->description;
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file"
                                             data-default-file="{{ asset('storage/images/' . $data->image) }}"
                                             id="filez1" class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    @can('og-data.edit')
+                                    {{-- @can('og-data.edit')
                                         <div class="col-md-4">
                                             <label>{{ __('OG Image') }}</label>
                                             <input type="file" name="file4"
@@ -119,8 +119,8 @@
                                                 id="filez4" class="filez4" data-max-file-size="1M"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
-                                    @endcan
-                                    <div class="col-md-3" style="margin-top: 3%;">
+                                    @endcan --}}
+                                    <div class="col-md-6" style="margin-top: 3%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple"

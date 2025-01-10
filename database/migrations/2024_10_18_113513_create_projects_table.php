@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('color_code')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
             $table->string('cover_image')->nullable();
-            $table->string('detials_image')->nullable();
+            $table->string('details_image')->nullable();
             $table->json('gallery_images')->nullable();
 
             $table->string('client')->nullable();

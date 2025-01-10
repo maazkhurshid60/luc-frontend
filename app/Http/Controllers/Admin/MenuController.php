@@ -77,7 +77,7 @@ class MenuController extends Controller
             'name' => 'required|string',
             'slug' => 'required|string',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'file4' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            // 'file4' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'aboutimg' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
         ]);
 
@@ -92,7 +92,7 @@ class MenuController extends Controller
         ];
 
         // Add translatable fields in English by default
-        $translatableFields = ['name', 'page_title', 'meta_keywords', 'meta_description', 'heading', 'short_description', 'description', 'og_title', 'og_description', 'og_type', 'about_description'];
+        $translatableFields = ['name', 'page_title', 'heading', 'short_description', 'description', 'about_description'];
 
         foreach ($translatableFields as $field) {
             $data[$field] = ['en' => $request->input($field)];
@@ -103,9 +103,9 @@ class MenuController extends Controller
             $data['image'] = Helper::handleImageUpload($request->file('file'));
         }
 
-        if ($request->hasFile('file4')) {
-            $data['og_image'] = Helper::handleImageUpload($request->file('file4'));
-        }
+        // if ($request->hasFile('file4')) {
+        //     $data['og_image'] = Helper::handleImageUpload($request->file('file4'));
+        // }
 
         if ($request->hasFile('aboutimg')) {
             $data['about_img'] = Helper::handleImageUpload($request->file('aboutimg'));
@@ -202,9 +202,9 @@ class MenuController extends Controller
         if ($request->hasFile('file')) {
             $data['image'] = Helper::handleImageUpload($request->file('file'), $record->image);
         }
-        if ($request->hasFile('file4')) {
-            $data['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
-        }
+        // if ($request->hasFile('file4')) {
+        //     $data['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        // }
         if ($request->hasFile('aboutimg')) {
             $data['about_img'] = Helper::handleImageUpload($request->file('aboutimg'), $record->about_img);
         }

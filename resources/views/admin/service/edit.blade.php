@@ -51,7 +51,7 @@
                                                 id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords</label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -79,8 +79,8 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4">
+                                    </div> --}}
+                                    <div class="col-md-12">
                                         <label>Select Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
@@ -103,7 +103,7 @@
                                             echo $data->contents;
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }}</label>
                                         <input type="file" name="image"
                                             data-default-file="{{ asset('storage/images/' . $data->file) }}" id="filez1"
@@ -111,14 +111,14 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    {{-- <div class="col-md-4 form-group">
                                         <label>{{ __(' OG Image') }}</label>
                                         <input type="file" name="image5"
                                             data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
                                             id="filez5" class="filez5" data-max-file-size="2M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-4">
+                                    </div> --}}
+                                    <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option @if ($data->status == 'active') selected @endif>Active</option>
@@ -209,7 +209,6 @@
             var form = new FormData($('#updateForm')[0]);
             form.append('contents', editor.getData());
             form.append('description', description_editor.getData());
-            form.append('seo_more_content', seo_more_content.getData());
             $.ajax({
                 type: "POST",
                 url: "{{ $update_url }}",

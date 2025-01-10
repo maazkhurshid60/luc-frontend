@@ -79,7 +79,7 @@
 
                                         </div>
 
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords </label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
                                                 class="form-control form-control-sm">
@@ -91,10 +91,10 @@
                                                 class="form-control form-control-sm" maxlength="180">
                                             <p style="color: red; font-size: 12px">Char Count:<span
                                                     id="descriptionCharCount">0</span>/180</p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
 
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title"
@@ -116,7 +116,7 @@
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
-                                    @endcan
+                                    @endcan --}}
 
                                     <div class="col-md-4">
                                         <label for="client">Client</label>
@@ -131,7 +131,7 @@
                                         <input type="text" name="location" class="form-control form-control-sm">
                                     </div>
 
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-8 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>
                                         <textarea class="form-control " id="description_editor" name="description" maxlength="150"></textarea>
                                     </div>
@@ -180,20 +180,20 @@
                                             class="btn btn-primary float-right">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="image" class="dropify" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Details Image') }}</label>
                                         <input type="file" name="detail_image" class="dropify"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Images Gallery') }}</label>
                                         <input type="file" name="gallery_image[]" class="dropify"
                                             data-max-file-size="1M"
@@ -201,13 +201,13 @@
                                         <small class="form-text text-muted">You can upload up to 3 images.</small>
                                     </div>
 
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-3">
                                             <label>{{ __('OG Image') }}</label>
                                             <input type="file" name="og_image" class="dropify" data-max-file-size="1M"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
 
                                     <div class="col-md-4 mt-3">
                                         <label for="status">Status</label>

@@ -132,20 +132,20 @@ class BlogController extends Controller
         if ($request->hasFile('file3')) {
             $request['cover_image'] = Helper::handleImageUpload($request->file('file3'));
         }
-        if ($request->hasFile('file4')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('file4'));
-        }
+        // if ($request->hasFile('file4')) {
+        //     $request['og_image'] = Helper::handleImageUpload($request->file('file4'));
+        // }
 
         $data = [
             'title' => ['en' => $request->input('title')],
             'short_description' => ['en' => $request->input('short_description')],
             'contents' => ['en' => $request->input('contents')],
             'page_title' => ['en' => $request->input('page_title', '')],
-            'meta_keywords' => ['en' => $request->input('meta_keywords', '')],
-            'meta_description' => ['en' => $request->input('meta_description', '')],
-            'og_title' => ['en' => $request->input('og_title', '')],
-            'og_description' => ['en' => $request->input('og_description', '')],
-            'og_type' => ['en' => $request->input('og_type', 'article')],
+            // 'meta_keywords' => ['en' => $request->input('meta_keywords', '')],
+            // 'meta_description' => ['en' => $request->input('meta_description', '')],
+            // 'og_title' => ['en' => $request->input('og_title', '')],
+            // 'og_description' => ['en' => $request->input('og_description', '')],
+            // 'og_type' => ['en' => $request->input('og_type', 'article')],
 
             'slug' => $request->input('slug'),
             'image' => $request->input('image', null),
@@ -240,10 +240,10 @@ class BlogController extends Controller
             $record->cover_image = $coverImagePath; // Update record's cover image field
         }
 
-        if ($request->hasFile('file4')) {
-            $ogImagePath = Helper::handleImageUpload($request->file('file4'), $record->og_image);
-            $record->og_image = $ogImagePath; // Update record's OG image field
-        }
+        // if ($request->hasFile('file4')) {
+        //     $ogImagePath = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        //     $record->og_image = $ogImagePath; // Update record's OG image field
+        // }
 
         // Update translations
         if ($request->lang == 'en') {
@@ -251,10 +251,10 @@ class BlogController extends Controller
             $record->setTranslation('short_description', 'en', $request->input('short_description'));
             $record->setTranslation('contents', 'en', $request->input('contents'));
             $record->setTranslation('page_title', 'en', $request->input('page_title'));
-            $record->setTranslation('meta_keywords', 'en', $request->input('meta_keywords'));
-            $record->setTranslation('meta_description', 'en', $request->input('meta_description'));
-            $record->setTranslation('og_title', 'en', $request->input('og_title'));
-            $record->setTranslation('og_description', 'en', $request->input('og_description'));
+            // $record->setTranslation('meta_keywords', 'en', $request->input('meta_keywords'));
+            // $record->setTranslation('meta_description', 'en', $request->input('meta_description'));
+            // $record->setTranslation('og_title', 'en', $request->input('og_title'));
+            // $record->setTranslation('og_description', 'en', $request->input('og_description'));
         }
 
         if ($request->lang == 'fr') {
@@ -262,10 +262,10 @@ class BlogController extends Controller
             $record->setTranslation('short_description', 'fr', $request->input('short_description'));
             $record->setTranslation('contents', 'fr', $request->input('contents'));
             $record->setTranslation('page_title', 'fr', $request->input('page_title'));
-            $record->setTranslation('meta_keywords', 'fr', $request->input('meta_keywords'));
-            $record->setTranslation('meta_description', 'fr', $request->input('meta_description'));
-            $record->setTranslation('og_title', 'fr', $request->input('og_title'));
-            $record->setTranslation('og_description', 'fr', $request->input('og_description'));
+            // $record->setTranslation('meta_keywords', 'fr', $request->input('meta_keywords'));
+            // $record->setTranslation('meta_description', 'fr', $request->input('meta_description'));
+            // $record->setTranslation('og_title', 'fr', $request->input('og_title'));
+            // $record->setTranslation('og_description', 'fr', $request->input('og_description'));
         }
 
         // Update other fields

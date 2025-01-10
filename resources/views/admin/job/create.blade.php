@@ -68,7 +68,7 @@
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             class="form-control form-control-sm">
@@ -94,7 +94,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
@@ -167,26 +167,26 @@
                                         </textarea>
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Advertisement Image') }}</label>
                                         <input type="file" name="image" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Header Image') }}</label>
                                         <input type="file" name="header_image" class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    {{-- <div class="col-md-3 form-group">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4" id="filez4" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    </div> --}}
+                                    <div class="col-md-4 form-group">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>

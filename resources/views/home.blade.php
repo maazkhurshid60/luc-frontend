@@ -154,7 +154,7 @@
 
         @include('partials.faqs')
     </div>
-    @if ($activeAnnouncement && count($activeAnnouncement) <= 1)
+    @if ($activeAnnouncement)
         @include('include.modal')
     @endif
 @endsection

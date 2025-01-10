@@ -35,16 +35,16 @@
                                 onsubmit="return form_validation()">
                                 @csrf
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>Slug <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="slug">
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="pagetitle">Page Title </label>
                                         <input type="text" name="page_title" id="page_title"
                                             class="form-control form-control-sm" maxlength="80">
@@ -52,7 +52,7 @@
                                         </p>
 
                                     </div>
-
+{{-- 
                                     <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
@@ -79,7 +79,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="col-md-4">
                                         <label>Project Categories <span class="text-danger">*</span></label>
@@ -91,7 +91,7 @@
                                         </select>
                                     </div> --}}
 
-                                    <div class="col-md-4 mb-3 ">
+                                    <div class="col-md-6 mb-3 ">
                                         <label>Select Company</span></label>
                                         <select id="company_select" name="company_select"
                                             class="form-control form-control-sm">
@@ -110,20 +110,20 @@
                                         <textarea id="editor" cols="30" rows="10"></textarea>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __(' Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="image" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    {{-- <div class="col-md-4 form-group">
                                         <label>{{ __(' OG Image') }}</label>
                                         <input type="file" name="image5" id="filez5" class="filez5"
                                             data-max-file-size="2M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-4 form-group">
+                                    </div> --}}
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>

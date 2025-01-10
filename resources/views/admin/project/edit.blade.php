@@ -100,7 +100,7 @@
                                             <p style="color: red; font-size: 12px">Char Count: <span
                                                     id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                         </div>
-
+{{-- 
                                         <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords</label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
@@ -114,9 +114,9 @@
                                             <p style="color: red; font-size: 12px">Char Count: <span
                                                     id="descriptionCharCount">{{ strlen($data->meta_description) }}</span>/180
                                             </p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
-                                    @can('og-data.add')
+                                    {{-- @can('og-data.add')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title" value="{{ $data->og_title }}"
@@ -135,7 +135,7 @@
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-4">
                                         <label for="client">Client</label>
                                         <input type="text" name="client" value="{{ $data->client }}"
@@ -255,14 +255,14 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp" multiple>
                                         <small class="form-text text-muted">You can upload up to 3 images.</small>
                                     </div>
-                                    @can('og-data.add')
+                                    {{-- @can('og-data.add')
                                         <div class="col-md-3">
                                             <label>{{ __('OG Image') }}</label>
                                             <input type="file" name="file4" data-max-file-size="1M"
                                                 data-default-file="{{ asset('storage/images/' . $data->og_image) }}"class="dropify"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">

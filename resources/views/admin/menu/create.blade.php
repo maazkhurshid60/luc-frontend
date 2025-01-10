@@ -47,12 +47,12 @@
                                             id="SlugMenuCreateForm">
                                         <small><span class="text-red">Char Counter : 0</span></small>
                                     </div>
-                               
+
                                     @can('meta-data.create')
                                         <div class="col-md-12">
                                             <hr>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <label for="pagetitle">Page Title </label>
                                             <input type="text" name="page_title" id="page_title"
                                                 class="form-control form-control-sm" maxlength="80">
@@ -60,7 +60,7 @@
                                             </p>
 
                                         </div>
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords </label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
                                                 class="form-control form-control-sm">
@@ -71,9 +71,9 @@
                                                 class="form-control form-control-sm" maxlength="180">
                                             <p style="color: red; font-size: 12px">Char Count:<span
                                                     id="descriptionCharCount">0</span>/180</p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title"
@@ -89,40 +89,41 @@
                                             <input type="text" name="og_type" id="og_type"
                                                 class="form-control form-control-sm">
                                         </div>
-                                    @endcan
-                                    <div class="col-md-8 form-group">
-                                        <label for="description">Short Description</label>
-                                        <textarea name="short_description" class="form-control form-control-sm"></textarea>
-                                    </div>
-                                    <div class="col-md-4 form-group">
+                                    @endcan --}}
+                                    <div class="col-md-6 form-group">
                                         <label for="meta_description">Heading</label>
                                         <input type="text" name="heading" class="form-control form-control-sm">
                                         <span class="text-danger"><small>For Site Home page & Inside Page</small></span>
                                     </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="description">Short Description</label>
+                                        <textarea name="short_description" class="form-control form-control-sm"></textarea>
+                                    </div>
+
                                     <div class="col-md-12 my-2">
                                         <textarea n id="editor" cols="30" rows="10"></textarea>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-4">
                                             <label>{{ __('OG Image') }}</label>
                                             <input type="file" name="file4" id="filez4" class="filez4"
                                                 data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                         </div>
-                                    @endcan
-                                    <div class="col-md-2" style="margin-top: 2%;">
+                                    @endcan --}}
+                                    <div class="col-md-6" style="margin-top: 2%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple" checked />
                                             <label for="search_engine">Discourage search engines from indexing </label>
                                         </span>
                                     </div>
-                           
+
                                     <div class="col-md-12">
                                         <div class="box-header">
                                             <hr>

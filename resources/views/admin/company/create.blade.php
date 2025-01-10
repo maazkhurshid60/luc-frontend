@@ -48,14 +48,14 @@
                                         <input type="text" class="form-control form-control-sm" name="contact">
                                     </div>
                                     @can('meta-data.create')
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                             <label for="pagetitle">Page Title </label>
                                             <input type="text" name="page_title" id="page_title"
                                                 class="form-control form-control-sm" maxlength="80">
                                             <p style="color: red; font-size: 12px">Char Count:<span id="charCount">0</span>/80
                                             </p>
                                         </div>
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <label for="meta_keywords">Meta Keywords </label>
                                             <input type="text" name="meta_keywords" id="meta_keywords"
                                                 class="form-control form-control-sm">
@@ -66,9 +66,9 @@
                                                 class="form-control form-control-sm" maxlength="180">
                                             <p style="color: red; font-size: 12px">Char Count:<span
                                                     id="descriptionCharCount">0</span>/180</p>
-                                        </div>
+                                        </div> --}}
                                     @endcan
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-4">
                                             <label for="og_title">OG Title</label>
                                             <input type="text" name="og_title" id="og_title"
@@ -84,7 +84,7 @@
                                             <input type="text" name="og_type" id="og_type"
                                                 class="form-control form-control-sm">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-12">
                                         <label>Short Description <span class="text-danger">*</span></label>
                                         <textarea type="text" name="short_description" rows="5" class="form-control form-control-sm"></textarea>
@@ -100,13 +100,13 @@
                                         <input type="file" name="company_image" class="dropify" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
-                                    @can('og-data.create')
+                                    {{-- @can('og-data.create')
                                         <div class="col-md-3 form-group">
                                             <label>{{ __(' OG Image') }}</label>
                                             <input type="file" name="ogimage" class="dropify" data-max-file-size="2M"
                                                 data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="col-md-3 form-group">
                                         <label>{{ __(' Icon') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="company_icon" class="dropify" data-max-file-size="1M"
