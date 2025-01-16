@@ -7,6 +7,7 @@
 .env
 .env.backup
 .env.production
+temp_auto_push.bat
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -15,5 +16,5 @@ npm-debug.log
 yarn-error.log
 /.fleet
 /.idea
-/.vscode
-composer.lock
+composer.lock.gitignore
+branch_structure.json

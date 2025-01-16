@@ -25,7 +25,7 @@
 
             <div class="col-xl-4 col-md-6 col-12">
                 <div class="info-box" style="background-color:#fff;">
-                    <span class="info-box-icon"><i class="fa fa-photo"></i></span>
+                    <span class="info-box-icon"><i class="fa fa-cogs"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">{{ __('lang.RECENT_SERVICES') }}</span>
                         <span class="info-box-number">{{ $counter['services'] }}</span>
