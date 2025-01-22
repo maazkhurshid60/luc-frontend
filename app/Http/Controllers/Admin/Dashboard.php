@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\Project;
+use App\Models\Service;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class Dashboard extends Controller
 {
@@ -24,23 +28,25 @@ class Dashboard extends Controller
             'menu' => 'dashboard',
             'settings' => DB::table('settings')->get()->first(),
             'counter' => [
-                'menu' => \App\Models\Menu::count(),
-                'slider' => \App\Models\Slider::count(),
-                'projects' => \App\Models\Project::count(),
-                'products' => \App\Models\Product::count(),
+                'services' => Service::count(),
+                'projects' => Project::count(),
+                'blogs' => Blog::count(),
             ],
         ];
         return view('admin.index', $data);
     }
-    public function settings()
+    public function settings(Request $request)
     {
+        $lang = $request->lang ?? 'en';
+        $settings = Settings::find(1);
         $data = [
             'menu' => 'settings',
-            'settings' => DB::table('settings')->get()->first(),
-
+            'settings' => $settings,
+            'lang' => $lang,
         ];
         return view('admin.settings', $data);
     }
+    
 
     public function upload(Request $request)
     {

@@ -5,7 +5,7 @@
         $data_route = route('blog.datatable');
         $store_url = route('blog.store');
         $destroy_url = route('blog.destroy', 11);
-        $update_url = route('blog.update', 11);
+        $update_url = route('blog.update', $data->id);
         $heading = 'Update Blog';
     @endphp
     <div class="content-wrapper">
@@ -36,36 +36,24 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
-                                        <label>{{ __('Title') }} :</label>
-                                        <input type="text" value="{{ $data->title }}"
-                                            class="form-control form-control-sm" name="title">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>{{ __('Author/User') }} :</label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            value="{{ $data->user }}" name="user">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>Display Order</label>
-                                        <input type="number" value="{{ $data->display_order }}" name="display_order"
-                                            class="form-control form-control-sm">
+                                    <div class="col-md-12 form-group">
+                                        <label for="title">Title <span class="text-danger">*</span></label>
+                                         <input type="text" name="title" class="form-control" value="{{ $data->title }}">
                                     </div>
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <label for="pagetitle">Page Title</label>
                                         <input type="text" name="page_title" id="page_title" maxlength="80"
-                                            value="{{ $data->page_title }}" class="form-control form-control-sm">
+                                            value="{{ $data->page_title}}" class="form-control form-control-sm">
                                         <p style="color: red; font-size: 12px">Char Count: <span
                                                 id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords</label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -94,13 +82,13 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
                                             @foreach ($BlogCategory as $cat)
@@ -111,7 +99,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Services Category</label>
                                         <select name="service_id[]" class="form-control form-control-sm" id="service-select"
                                             multiple>
@@ -124,59 +112,39 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
-                                        <label for="status">Related Member</label>
-                                        <select name="pro_id[]" class="form-control form-control-sm" id="pro-select"
-                                            multiple>
-                                            @foreach ($members as $member)
-                                                <option value="{{ $member->id }}"
-                                                    @if (in_array($member->id, json_decode($data->pro_id, true) ?? [])) selected @endif>
-                                                    {{ $member->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
                                     <div class="col-md-12 form-group">
-                                        <label for="short_description">Short Description</label>
-                                        <textarea class="form-control form-control-sm" name="short_description">{{ $data->short_description }}</textarea>
+                                        <label for="short_description">Short Description <span class="text-danger">*</span></label>
+                                        <textarea class="form-control form-control-sm" name="short_description"> {{ $data->short_description }}</textarea>
                                     </div>
 
                                     <div class="col-md-12 my-2">
                                         <textarea id="editor" cols="30" rows="10">@php
-                                            echo $data->contents;
+                                            echo $data->contents
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('Image') }}</label>
+                                    <div class="col-md-6">
+                                        <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file"
                                             data-default-file="{{ asset('storage/images/' . $data->image) }}"
                                             id="filez1" class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
                                         <!-- <img id="preview-image" src="{{ asset('storage/images/' . $data->image) }}" alt="Preview" style="max-width: 100%; margin-top: 10px;"> -->
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label>{{ __('Cover Image') }}</label>
                                         <input type="file" name="file3"
                                             data-default-file="{{ asset('storage/images/' . $data->cover_image) }}"
                                             id="filez3" class="filez3" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('Breadcrumbs') }}</label>
-                                        <input type="file" name="file2"
-                                            data-default-file="{{ asset('storage/images/' . $data->breadcrumb) }}"
-                                            id="filez2" class="filez2" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif webp">
-                                        <!-- <img id="preview-image" src="{{ asset('storage/images/' . $data->image) }}" alt="Preview" style="max-width: 100%; margin-top: 10px;"> -->
-                                    </div>
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-4">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4"
                                             data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
                                             id="filez4" class="filez4" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
@@ -185,8 +153,8 @@
                                         </select>
                                         <br>
 
-                                        <label for="client">Tags (comma separated)</label>
-                                        <input type="text" name="tags" value="{{ $data->tags }}"
+                                        <label for="client">Author</label>
+                                        <input type="text" name="author" value="{{ $data->user }}"
                                             class="form-control form-control-sm">
                                     </div>
 
@@ -255,32 +223,6 @@
             });
         });
     </script>
-
-    <!-- <script>
-        Dropzone.options.fileDropzone = {
-            maxFilesize: 1, // MB
-            acceptedFiles: '.jpeg,.jpg,.png,.gif,.svg,.webp',
-            init: function() {
-                this.on("success", function(file, response) {
-                    // Assuming your response includes the image path
-                    let previewImage = document.getElementById('preview-image');
-                    previewImage.src = response.filePath;
-                    console.log('Image source set to:', response.filePath); // Debugging line
-                });
-            }
-        };
-
-        // If you want to show the existing image when the page loads
-        document.addEventListener("DOMContentLoaded", function() {
-            let previewImagePath = "{{ asset('storage/images/' . $data->image) }}";
-            let previewImage = document.getElementById('preview-image');
-            if (previewImagePath) {
-                previewImage.src = previewImagePath;
-                console.log('Initial image source set to:', previewImagePath); // Debugging line
-            }
-        });
-    </script> -->
-
 
     <script type="text/javascript">
         $(".filez1").dropify();

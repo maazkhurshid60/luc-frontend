@@ -2,36 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\contactUs;
-use app\Models\Feedback;
 use App\Models\Menu;
-use App\Models\Team;
-use DB;
-use Illuminate\Support\Facades\Mail;
+use App\Mail\contactUs;
+use App\Models\Project;
+use App\Models\Settings;
 
 class ContactUsController extends Controller
 {
     public function index()
     {
         $data = [
-            'settings' => DB::table('settings')->find(1),
-            'teams' => Team::where('status', 'active')->get(),
-            'page' => Menu::where('slug', 'contact-us')->first(),
+            'data' => Menu::where('slug', 'contact-us')->first(),
+            'settings' => Settings::first(),
         ];
-        // dd('aaaa');
-        $alladdress = DB::table('address')->get();
-        $settings = DB::table('settings')->find(1);
 
-        return view('contact_us', compact('settings', 'alladdress', 'data'));
-    }
-    public function contactUs(Rerquest $request)
-    {
-        $input = $request->all();
-        dd($input);
-        $data = Feedback::create($request->only((new Feedback)->getFillable()));
+        if (is_null($data['data'])) {
+            abort(404);
+        }
 
-        Mail::to($request->user())->send(new contactUs($input));
-
-        return back();
+        return view('contact-us', $data);
     }
 }

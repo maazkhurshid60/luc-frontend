@@ -3,18 +3,19 @@
   @method('PUT')
   @csrf
   <input type="hidden" name="id" value="{{ $data->id }}">
+  <input type="hidden" name="lang" value="{{ $lang }}">
   <div class="alert alert-danger updateFormError" style="display: none;"></div>
     <div class=" row">
      <div class="col-md-12 form-group">
-        <label >Question</label>
+        <label >Question <span class="text-danger">*</span></label>
         <input type="text" class="form-control form-control-sm" value="{{ $data->question }}"  name="question">
       </div>
        <div class="col-md-12 form-group">
-        <label >Answer</label>
+        <label >Answer <span class="text-danger">*</span></label>
         <textarea name="answer" id=""  class="form-control form-control-sm">{{ $data->answer }}</textarea>
       </div>
       <div class="col-md-8">
-        <label>Select Category</label>
+        <label>Select Category <span class="text-danger">*</span></label>
         <select name="category_id" class="form-control form-control-sm">
           {{ App\Helpers\Helper::getOptions([
             'table' => 'faq_categories',

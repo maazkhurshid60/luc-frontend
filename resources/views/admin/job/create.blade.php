@@ -68,7 +68,7 @@
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             class="form-control form-control-sm">
@@ -94,7 +94,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
@@ -142,48 +142,51 @@
 
                                     <div class="col-md-12 my-2">
                                         <textarea id="editor" cols="30" rows="10">
-                                            <p><strong>Job Description:</strong></p>
+                                        <p class="body-txt1 txt--clr mb-1">Replace this dummy job description with yours</p>
 
-                                            <p>Overview</p>
-                                            
-                                            <p><strong>Responsibilities:</strong></p>
-                                            
-                                            <ul>
-                                                <li>Responsibility 1</li>
-                                                <li>Responsibility 2</li>
-                                                <li>Responsibility 3</li>
-                                            </ul>
-                                            
-                                            <p><strong>Requirements:</strong></p>
-                                            
-                                            <ul>
-                                                <li>Requirement 1</li>
-                                                <li>Requirement 2 </li>
-                                                <li>Requirement 3</li>
-                                            </ul>
+                                        <p class="body-txt1 txt--clr mb-4">Arcu fringilla fringilla imperdiet feugiat proin odio viverra. Id eget non pulvinar nibh ut turpis cras. Sed urna semper cursus nec ipsum diam ipsum donec dui. Nulla viverra nulla velit amet tellus. Ut massa tellus non aenean sed pharetra fusce id. Pharetra quam integer adipiscing nascetur. Sociis felis augue dapibus nunc diam adipiscing vitae tellus. Malesuada bibendum dictum morbi ac venenatis. Quis morbi vitae vulputate scelerisque cursus in ac quis molestie. Nibh arcu consectetur congue placerat platea id. Id mi quam at arcu netus. Amet urna tempor augue pharetra id. Enim etiam leo eleifend scelerisque.</p>
+                                    <p class="body-txt1 txt--clr mb-4">Sed rhoncus dolor ac at scelerisque egestas aliquet placerat purus. Id pretium non imperdiet hendrerit posuere sed viverra accumsan vulputate. Id dis dignissim sagittis pulvinar dolor elementum in orci nibh. Ipsum dui convallis curabitur nunc. At id nec bibendum iaculis curabitur eu arcu tellus id.</p>
+
+                                    <h3 class="head--3 secondary--clr">Responsibilities</h3>
+
+                                    <p class="body-txt1 txt--clr mb-1">Lorem ipsum dolor sit amet consectetur. Eget interdum quis morbi pretium a quis facilisi scelerisque ullamcorper. Risus bibendum pretium risus nunc. Venenatis massa arcu interdum luctus. Et sit elementum risus cum massa volutpat amet aliquet.</p>
+
+                                    <p class="body-txt1 txt--clr mb-4">Arcu fringilla fringilla imperdiet feugiat proin odio viverra. Id eget non pulvinar nibh ut turpis cras. Sed urna semper cursus nec ipsum diam ipsum donec dui. Nulla viverra nulla velit amet tellus. Ut massa tellus non aenean sed pharetra fusce id. Pharetra quam integer adipiscing nascetur. Sociis felis augue dapibus nunc diam adipiscing vitae tellus. Malesuada bibendum dictum morbi ac venenatis. Quis morbi vitae vulputate scelerisque cursus in ac quis molestie. Nibh arcu consectetur congue placerat platea id. Id mi quam at arcu netus. Amet urna tempor augue pharetra id. Enim etiam leo eleifend scelerisque.</p>
+
+                                    <p class="body-txt1 txt--clr mb-4">Sed rhoncus dolor ac at scelerisque egestas aliquet placerat purus. Id pretium non imperdiet hendrerit posuere sed viverra accumsan vulputate. Id dis dignissim sagittis pulvinar dolor elementum in orci nibh. Ipsum dui convallis curabitur nunc. At id nec bibendum iaculis curabitur eu arcu tellus id.</p>
+
+                                    <h3 class="head--3 secondary--clr">Job Requirements</h3>
+
+                                    <p class="body-txt1 txt--clr mb-4">Lorem ipsum dolor sit amet consectetur. Eget interdum quis morbi pretium a quis facilisi scelerisque ullamcorper. Risus bibendum pretium risus nunc. Venenatis massa arcu interdum luctus. Et sit elementum risus cum massa volutpat amet aliquet.</p>
+
+                                    <ul>
+                                        <li class="body-txt1 txt--clr mb-4">Sed rhoncus dolor ac at scelerisque egestas aliquet placerat purus. Id pretium non imperdiet hendrerit posuere sed viverra accumsan vulputate.</li>
+                                        <li class="body-txt1 txt--clr mb-4">Id dis dignissim sagittis pulvinar dolor elementum in orci nibh. Ipsum dui convallis curabitur nunc. At id nec bibendum iaculis curabitur eu arcu tellus id.</li>
+                                        <li class="body-txt1 txt--clr mb-4">Sed rhoncus dolor ac at scelerisque egestas aliquet placerat purus. Id pretium non imperdiet hendrerit posuere sed viverra accumsan vulputate.</li>
+                                    </ul>
                                         </textarea>
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Advertisement Image') }}</label>
                                         <input type="file" name="image" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Header Image') }}</label>
                                         <input type="file" name="header_image" class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    {{-- <div class="col-md-3 form-group">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4" id="filez4" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    </div> --}}
+                                    <div class="col-md-4 form-group">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>

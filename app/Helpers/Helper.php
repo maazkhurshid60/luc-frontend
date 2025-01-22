@@ -87,9 +87,9 @@ class Helper
             echo '<option ' . $selected . " value='" . $element->id . "'>" . $element->name . '</option>';
             if (
                 $array = DB::table('menu')
-                ->where('parent', $element->id)
-                ->orderBy('display_order')
-                ->get()
+                    ->where('parent', $element->id)
+                    ->orderBy('display_order')
+                    ->get()
             ) {
                 foreach ($array as $key2 => $element2) {
                     if ($element2->id == $parent_id) {
@@ -103,9 +103,9 @@ class Helper
                     echo '<option ' . $selected . " value='" . $element2->id . "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $element2->name . '</option>';
                     if (
                         $array = DB::table('menu')
-                        ->where('parent', $element2->id)
-                        ->orderBy('display_order')
-                        ->get()
+                            ->where('parent', $element2->id)
+                            ->orderBy('display_order')
+                            ->get()
                     ) {
                         foreach ($array as $key3 => $element3) {
                             if ($element3->id == $parent_id) {
@@ -204,45 +204,77 @@ class Helper
             echo "<option value='' disabled selected>Table missing</option>";
             return;
         }
-        if (!array_key_exists('cond', $config)) {
-            $cond = [];
-        }
-        if (!array_key_exists('value', $config)) {
-            $value = 'id';
-        }
-        if (!array_key_exists('key', $config)) {
-            $key = $value;
-        }
 
-        // Ensure $select is an array
-        if (!array_key_exists('select', $config)) {
-            $select = [];
-        } elseif (!is_array($select)) {
-            $select = [$select];
-        }
+        $cond = $config['cond'] ?? [];
+        $value = $config['value'] ?? 'id';
+        $key = $config['key'] ?? $value;
+        $select = isset($config['select']) ? (is_array($config['select']) ? $config['select'] : [$config['select']]) : [];
+        $selectOption = $config['selectOption'] ?? false;
+        $language = $config['language'] ?? 'en'; // Default to 'en'
 
-        if (!array_key_exists('selectOption', $config)) {
-            $selectOption = false;
-        }
-
+        // Fetch data with conditions
+        $dataQuery = DB::table($table);
         if ($cond) {
-            $data = DB::table($table)->where($cond)->get();
-        } else {
-            $data = DB::table($table)->get();
+            $dataQuery->where($cond);
+        }
+        $data = $dataQuery->get();
+
+        if ($data->isEmpty()) {
+            echo "<option value='' disabled selected>No Options</option>";
+            return;
         }
 
-        if ($data) {
+        if ($selectOption) {
+            echo "<option value='' disabled selected>Select option</option>";
+        }
+
+        foreach ($data as $row) {
+            // Parse JSON and get the value for the specified language
+            $jsonData = json_decode($row->$value, true);
+            $displayValue = $jsonData[$language] ?? ($jsonData['en'] ?? 'N/A'); // Default to 'en' or 'N/A'
+
+            $selected = in_array($row->$key, $select) ? 'selected' : '';
+            echo "<option value='" . $row->$key . "' " . $selected . '>' . $displayValue . '</option>';
+        }
+    }
+
+    public static function getRoles($config = [])
+    {
+        // Set the table to 'roles' by default
+        $config['table'] = 'roles';
+
+        // Define default values for other options
+        $cond = $config['cond'] ?? [];
+        $key = $config['key'] ?? 'id';
+        $value = $config['value'] ?? 'name';
+        $select = $config['select'] ?? [];
+        $select = is_array($select) ? $select : [$select];
+        $selectOption = $config['selectOption'] ?? false;
+
+        // Add condition to exclude "Super Admin" role
+        $data = DB::table($config['table'])
+            ->where($cond)
+            ->where('name', '!=', 'Super Admin')
+            ->get();
+
+        // Start building the options output
+        $options = '';
+        if ($data->isNotEmpty()) {
             if ($selectOption) {
-                echo "<option value='' disabled selected>Select option</option>";
+                $options .= "<option value='' disabled selected>Select option</option>";
             }
             foreach ($data as $row2) {
                 $selected = in_array($row2->$key, $select) ? 'selected' : '';
-                echo "<option value='" . $row2->$key . "' " . $selected . '>' . $row2->$value . '</option>';
+                $options .= "<option value='" . $row2->$key . "' " . $selected . '>' . $row2->$value . '</option>';
             }
         } else {
-            echo "<option value='' disabled selected>No Options</option>";
+            $options .= "<option value='' disabled selected>No Options</option>";
         }
+
+        // Return the options string
+        return $options;
     }
+
     //older not checked
 
     public static function shout(string $string)
@@ -371,9 +403,11 @@ class Helper
         $imagePath = public_path('storage/images/' . $fileName);
         $thumbPath = config('constants.store_thumb_path') . $fileName;
 
-        Image::make($imagePath)->resize(150, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($thumbPath);
+        Image::make($imagePath)
+            ->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->save($thumbPath);
 
         if ($oldImage) {
             Storage::disk('public')->delete('images/' . $oldImage);
@@ -385,13 +419,11 @@ class Helper
 
     public static function setDate($date)
     {
-
         if (is_null($date)) {
             return;
         }
 
         return Carbon::parse($date)->format('d M Y');
-
     }
 
     public static function services()
@@ -399,7 +431,6 @@ class Helper
         $services = \App\Models\Service::where('status', 'active')->get();
 
         return $services;
-
     }
 
     public static function portfilioservices($data)
@@ -409,68 +440,17 @@ class Helper
         $services = \App\Models\Project::whereIn('id', $ids)->get();
 
         return $services;
-
     }
 
     public static function getTechnologiesOptions()
     {
         return [
-            'ui_ux_design' => [
-                ['value' => 'figma', 'text' => 'Figma'],
-                ['value' => 'adobe', 'text' => 'Adobe XD'],
-                ['value' => 'adobe_illustrator', 'text' => 'Adobe Illustrator'],
-                ['value' => 'invision', 'text' => 'InVision'],
-                ['value' => 'photoshop', 'text' => 'Photoshop'],
-            ],
-            'web_development' => [
-                ['value' => 'javascript', 'text' => 'JavaScript'],
-                ['value' => 'java', 'text' => 'Java'],
-                ['value' => 'vuejs', 'text' => 'Vue.js'],
-                ['value' => 'reactjs', 'text' => 'React.js'],
-                ['value' => 'nodejs', 'text' => 'Node.js'],
-                ['value' => 'mongodb', 'text' => 'MongoDB'],
-                ['value' => 'mysql', 'text' => 'MySQL'],
-                ['value' => 'firebase', 'text' => 'Firebase'],
-                ['value' => 'postgress', 'text' => 'PostgreSQL'],
-                ['value' => 'aws', 'text' => 'AWS'],
-            ],
-            'mobile_development' => [
-                ['value' => 'flutter', 'text' => 'Flutter'],
-                ['value' => 'react_native', 'text' => 'React Native'],
-                ['value' => 'kotlin', 'text' => 'Kotlin'],
-                ['value' => 'swift', 'text' => 'Swift'],
-            ],
-            'software_project_management' => [
-                ['value' => 'click_up', 'text' => 'Click Up'],
-                ['value' => 'jira', 'text' => 'Jira'],
-                ['value' => 'monday_com', 'text' => 'Monday.com'],
-                ['value' => 'assana', 'text' => 'Asana'],
-                ['value' => 'trello', 'text' => 'Trello'],
-                ['value' => 'notion', 'text' => 'Notion'],
-                ['value' => 'ms_project', 'text' => 'MS Project'],
-                ['value' => 'zapier', 'text' => 'Zapier'],
-                ['value' => 'zoho', 'text' => 'Zoho'],
-                ['value' => 'smart_sheet', 'text' => 'Smart Sheet'],
-            ],
-            'software_business_analysis' => [
-                ['value' => 'ms_word', 'text' => 'MS Word'],
-                ['value' => 'ms_excel', 'text' => 'MS Excel'],
-                ['value' => 'confluence', 'text' => 'Confluence'],
-                ['value' => 'figma', 'text' => 'Figma'],
-                ['value' => 'pencil_tool', 'text' => 'Pencil Tool'],
-                ['value' => 'mockitt', 'text' => 'Mockitt'],
-                ['value' => 'balsamiq', 'text' => 'Balsamiq'],
-                ['value' => 'draw_io', 'text' => 'Draw.io'],
-            ],
-            'software_quality_assurance' => [
-                ['value' => 'selenium', 'text' => 'Selenium'],
-                ['value' => 'cypress', 'text' => 'Cypress'],
-                ['value' => 'postman', 'text' => 'Postman'],
-                ['value' => 'jmeter', 'text' => 'JMeter'],
-                ['value' => 'ms_excel', 'text' => 'MS Excel'],
-                ['value' => 'ms_word', 'text' => 'MS Word'],
-                ['value' => 'confluence', 'text' => 'Confluence'],
-            ],
+            'ui_ux_design' => [['value' => 'figma', 'text' => 'Figma'], ['value' => 'adobe', 'text' => 'Adobe XD'], ['value' => 'adobe_illustrator', 'text' => 'Adobe Illustrator'], ['value' => 'invision', 'text' => 'InVision'], ['value' => 'photoshop', 'text' => 'Photoshop']],
+            'web_development' => [['value' => 'javascript', 'text' => 'JavaScript'], ['value' => 'java', 'text' => 'Java'], ['value' => 'vuejs', 'text' => 'Vue.js'], ['value' => 'reactjs', 'text' => 'React.js'], ['value' => 'nodejs', 'text' => 'Node.js'], ['value' => 'mongodb', 'text' => 'MongoDB'], ['value' => 'mysql', 'text' => 'MySQL'], ['value' => 'firebase', 'text' => 'Firebase'], ['value' => 'postgress', 'text' => 'PostgreSQL'], ['value' => 'aws', 'text' => 'AWS']],
+            'mobile_development' => [['value' => 'flutter', 'text' => 'Flutter'], ['value' => 'react_native', 'text' => 'React Native'], ['value' => 'kotlin', 'text' => 'Kotlin'], ['value' => 'swift', 'text' => 'Swift']],
+            'software_project_management' => [['value' => 'click_up', 'text' => 'Click Up'], ['value' => 'jira', 'text' => 'Jira'], ['value' => 'monday_com', 'text' => 'Monday.com'], ['value' => 'assana', 'text' => 'Asana'], ['value' => 'trello', 'text' => 'Trello'], ['value' => 'notion', 'text' => 'Notion'], ['value' => 'ms_project', 'text' => 'MS Project'], ['value' => 'zapier', 'text' => 'Zapier'], ['value' => 'zoho', 'text' => 'Zoho'], ['value' => 'smart_sheet', 'text' => 'Smart Sheet']],
+            'software_business_analysis' => [['value' => 'ms_word', 'text' => 'MS Word'], ['value' => 'ms_excel', 'text' => 'MS Excel'], ['value' => 'confluence', 'text' => 'Confluence'], ['value' => 'figma', 'text' => 'Figma'], ['value' => 'pencil_tool', 'text' => 'Pencil Tool'], ['value' => 'mockitt', 'text' => 'Mockitt'], ['value' => 'balsamiq', 'text' => 'Balsamiq'], ['value' => 'draw_io', 'text' => 'Draw.io']],
+            'software_quality_assurance' => [['value' => 'selenium', 'text' => 'Selenium'], ['value' => 'cypress', 'text' => 'Cypress'], ['value' => 'postman', 'text' => 'Postman'], ['value' => 'jmeter', 'text' => 'JMeter'], ['value' => 'ms_excel', 'text' => 'MS Excel'], ['value' => 'ms_word', 'text' => 'MS Word'], ['value' => 'confluence', 'text' => 'Confluence']],
         ];
     }
 

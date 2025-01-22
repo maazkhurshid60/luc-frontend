@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Job as Obj;
 use Illuminate\Http\Request;
@@ -23,30 +24,58 @@ class JobController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('job.view')) {
+            abort(401);
+        }
+        $lang = 'en';
         $data = [
             'menu' => 'job',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.job.index', $data);
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('job.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
+                $action = '';
+                $action .= '
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                ';
+                if (auth()->user()->can('job.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('job.edit', $item->id) . '?lang=en">Edit (EN)</a>';
+                }
+                if (auth()->user()->can('job.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('job.edit', $item->id) . '?lang=fr">French</a>';
+                }
+                $action .= '</div></div>';
+                if (auth()->user()->can('job.delete')) {
+                    $action .= '<a class="btn btn-danger btn-xs ml-2" href="javascript:void(0)" onclick="delete_record(' . $item->id . ')">Delete</a>';
+                }
 
-                $action = '<a href="' . route('job.edit', $item->id) . '"  class="btn btn-xs my-1 btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs my-1 btn-danger" >Delete</a> ';
                 return $action;
             })
             ->editColumn('image', function ($item) {
                 return "<img width=55 src='" . asset('storage/thumb/' . $item->image) . "'>";
             })
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->editColumn('category_id', function ($item) {
                 return $item->category->title;
             })
-
             ->rawColumns(['action', 'image'])
             ->toJson();
     }
@@ -57,6 +86,9 @@ class JobController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('job.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'job',
             'settings' => DB::table('settings')->first(),
@@ -72,6 +104,9 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('job.create')) {
+            abort(401);
+        }
         $request['slug'] = Str::slug($request->post('slug'), '-');
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -83,7 +118,6 @@ class JobController extends Controller
             'position' => 'nullable|numeric',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             'header_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-
         ]);
         $request['slug'] = Str::slug($request->post('slug'), '-');
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
@@ -112,9 +146,11 @@ class JobController extends Controller
             }
             $temp_name = $request->file('header_image')->store('images', 'public');
             $image = str_replace('images/', '', $temp_name);
-            Image::make(public_path('storage/images/' . $image))->resize(150, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(config('constants.store_thumb_path') . $image);
+            Image::make(public_path('storage/images/' . $image))
+                ->resize(150, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(config('constants.store_thumb_path') . $image);
 
             $obj->header_image = $image;
             $obj->save();
@@ -140,13 +176,18 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!auth()->user()->can('job.edit')) {
+            abort(401);
+        }
         $element = Obj::findOrFail($id);
+        $lang = $request->lang ?? 'en';
         $data = [
             'menu' => 'job',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
+            'lang' => $lang,
         ];
         return view('admin.job.edit', $data);
     }
@@ -160,6 +201,9 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('job.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -202,9 +246,11 @@ class JobController extends Controller
             }
             $temp_name = $request->file('header_image')->store('images', 'public');
             $image = str_replace('images/', '', $temp_name);
-            Image::make(public_path('storage/images/' . $image))->resize(150, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(config('constants.store_thumb_path') . $image);
+            Image::make(public_path('storage/images/' . $image))
+                ->resize(150, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(config('constants.store_thumb_path') . $image);
 
             if (!is_null($record->header_image)) {
                 Storage::disk('public')->delete('images/' . $record->header_image);
@@ -224,6 +270,9 @@ class JobController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('job.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
 
         if (!is_null($record->file)) {

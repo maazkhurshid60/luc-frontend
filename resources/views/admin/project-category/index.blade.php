@@ -27,39 +27,37 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">{{ __($heading . ' List') }}</h3>
-                            <button data-toggle="modal" data-target=".addModal"
-                                class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button>
+                            @can('project-category.create')
+                                <button data-toggle="modal" data-target=".addModal"
+                                    class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</button>
+                            @endcan
                             {{-- <a  href="{{ route('menu.create') }}"  class="btn mx-1 btn-sm btn-dark float-right">{{ __('lang.Add') }}</a> --}}
-
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
 
                             <form method="POST" id="search-form" class="form-inline" role="form">
-
                                 <!-- <div class="form-group mr-1">
-                                                        <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
-                                                    </div>
+                                    <input type="text" class="form-control form-control-sm" name="sid"  placeholder="Search ID">
+                                    </div>
 
-                                                    <div class="form-group mx-1">
-                                                        <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
-                                                    </div>
-                                                     <div class="form-group mx-1">
-                                                        <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
-                                                    </div>
-                                                    <div class="form-group mx-1">
-                                                        <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
-                                                    </div>
-                                                    <div class="form-group mx-1">
-                                                        <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
-                                                    </div>
-                                                    <div class="form-group mx-1">
-                                                        <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
-                                                    </div>
+                                    <div class="form-group mx-1">
+                                        <input type="text" class="form-control form-control-sm" name="stipologia"  placeholder="tipologia">
+                                    </div>
+                                        <div class="form-group mx-1">
+                                        <input type="text" class="form-control form-control-sm" name="scontratto"  placeholder="contratto">
+                                    </div>
+                                    <div class="form-group mx-1">
+                                        <input type="text" class="form-control form-control-sm" name="scomune"  placeholder="comune">
+                                    </div>
+                                    <div class="form-group mx-1">
+                                        <input type="text" class="form-control form-control-sm" name="sofferta"  placeholder="offerta">
+                                    </div>
+                                    <div class="form-group mx-1">
+                                        <input type="text" class="form-control form-control-sm" name="sprezzo"  placeholder="prezzo">
+                                    </div>
 
-
-
-                                                    <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
+                                    <button type="submit" class="btn mx-1 btn-primary btn-sm">Search</button> -->
                             </form>
                             <div class="table-responsive">
                                 <table id="dTable" class="table table-bordered table-striped spTable">
@@ -69,8 +67,6 @@
                                                 <th>{{ ucfirst($item) }}</th>
                                             @endforeach
                                             <th class="notexport">{{ __('Action') }}</th>
-
-
                                         </tr>
                                     </thead>
 
@@ -109,22 +105,8 @@
                                     </select>
                                 </div> --}}
                                 <div class="col-md-12 form-group">
-                                    <label>Title</label>
+                                    <label>Title <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" name="title">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>{{ __('Image') }}</label>
-                                    <input type="file" name="file" id="filez1" class="filez1"
-                                        data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    <small class="text-muted">Use an Image with an aspect ratio of 1:1 or dimentions of
-                                        290px x 290px</small>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>{{ __('Icon') }}</label>
-                                    <input type="file" name="icon_file" class="filez1" data-max-file-size="1M"
-                                        data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                 </div>
 
                                 <div class="col-md-12">
@@ -142,7 +124,6 @@
             @method('DELETE')
             @csrf
         </form>
-
     </div>
     <div class="modal fade extraModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true" style="display: none;">
@@ -178,10 +159,11 @@
 
         var dataURL = "{{ route('data.index') }}";
         var token = '{{ csrf_token() }}';
+        const lang = '{{ $lang }}';
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
-            dom: "<'row'<'col-md-12 'Bf>r>" +
+            dom: "<'row'<'col-md-12 'f>r>" +
                 "<'row'<'col-md-12't>>" +
                 "<'row'<'col-md-12'ip>>",
             buttons: [{
@@ -211,7 +193,10 @@
                 },
                 {
                     data: 'title',
-                    name: 'title'
+                    name: 'title',
+                    render: function(data, type, row) {
+                        return row.title[lang];
+                    }
                 },
                 {
                     data: 'created_at',
@@ -304,15 +289,18 @@
         }
 
 
-        function updateRecord(id) {
-            url = "{{ $update_url }}";
-            url = url.replace('11', id);
+        function updateRecord(id, lang) {
+            let url = "{{ $update_url }}"; // Template URL
+            url = url.replace('11', id); // Replace placeholder with ID
+            url += `?lang=${lang}`; // Append the language parameter
+
             $(".extraModal").modal();
             $(".extraModalTitle").html("{{ __('Update Record') }}");
             $(".extraModalBody").html("<i class='fa fa-spin fa-spinner'></i> {{ __('Loading...') }}");
+
             $.get(url, function(res) {
-                $(".extraModalBody").html(res);
-            })
+                $(".extraModalBody").html(res); // Populate modal with response
+            });
         }
         //    function delete_record(recordID) {
         //     swal({

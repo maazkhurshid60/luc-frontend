@@ -203,7 +203,7 @@
         var oTable = $('#dTable').DataTable({
             fixedHeader: true,
 
-            dom: "<'row'<'col-md-12 'Bf>r>" +
+            dom: "<'row'<'col-md-12 'f>r>" +
                 "<'row'<'col-md-12't>>" +
                 "<'row'<'col-md-12'ip>>",
             buttons: [{

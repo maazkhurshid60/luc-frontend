@@ -36,26 +36,16 @@
                                 @csrf
 
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-12 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>{{ __('Author/User') }} :</label>
-                                        <input type="text" class="form-control form-control-sm" name="user">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>Display Order</label>
-                                        <input type="number" name="display_order" class="form-control form-control-sm"
-                                            min="1" value="{{ $display_order }}">
                                     </div>
 
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <label for="pagetitle">Page Title </label>
                                         <input type="text" name="page_title" id="page_title"
                                             class="form-control form-control-sm" maxlength="80">
@@ -64,7 +54,7 @@
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             class="form-control form-control-sm">
@@ -91,11 +81,11 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
                                             @foreach ($BlogCategory as $cat)
@@ -104,7 +94,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Services Category</label>
                                         <select name="service_id[]" class="form-control form-control-sm" id="service-select"
                                             multiple>
@@ -114,15 +104,6 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4 form-group">
-                                        <label for="status">Related Member</label>
-                                        <select name="pro_id[]" class="form-control form-control-sm" id="pro-select"
-                                            multiple>
-                                            @foreach ($members as $member)
-                                                <option value="{{ $member->id }}">{{ $member->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
                                     <div class="col-md-12 form-group">
                                         <label for="short_description">Short Description <span
@@ -130,28 +111,102 @@
                                         <textarea class="form-control form-control-sm" name="short_description"></textarea>
                                     </div>
                                     <div class="col-md-12 my-2">
-                                        <textarea id="editor" cols="30" rows="10"></textarea>
+                                        <textarea id="editor" cols="30" rows="10">
+                                            <p class="body-txt1 txt--clr mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor
+                                                aliquet risus gravida nunc at feugiat consequat purus. Non massa enim vitae duis mattis.
+                                                Vel in ultricies vel fringilla.</p>
+                                            <hr class="grey--clr">
+                                            <h3 id="introduction" class="head--3 secondary--clr">Introduction</h3>
+                                            <p class="body-txt1 txt--clr mb-4">Mi tincidunt elit, id quisque ligula ac diam, amet. Vel
+                                                etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit
+                                                sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi,
+                                                tellus tincidunt. At feugiat sapien varius id.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Eget quis mi enim, leo lacinia pharetra, semper. Eget in
+                                                volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce
+                                                augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel
+                                                et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat. </p>
+                                            <img src="{{ asset('assets/frontend/images/blog-detailcontent-img.webp') }}" alt=""
+                                                class="mb-4 anime-scale">
+                                            <div class="blog-detail-quote ps-4">
+                                                <h3 class="head--3">“In a world older and more complete than ours they move finished and
+                                                    complete, gifted with extensions of the senses we have lost or never attained,
+                                                    living by voices we shall never hear.”</h3>
+                                                <p class="body-txt1 secondary--clr mb-4">— Olivia Rhye, Product Designer</p>
+                                            </div>
+                                            <p class="body-txt1 txt--clr mb-4">Dolor enim eu tortor urna sed duis nulla. Aliquam
+                                                vestibulum, nulla odio nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis
+                                                mi bibendum diam. Tempor integer aliquam in vitae malesuada fringilla.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Elit nisi in eleifend sed nisi. Pulvinar at orci, proin
+                                                imperdiet commodo consectetur convallis risus. Sed condimentum enim dignissim adipiscing
+                                                faucibus consequat, urna. Viverra purus et erat auctor aliquam. Risus, volutpat
+                                                vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec
+                                                porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor
+                                                lacus, eget nunc lectus in tellus, pharetra, porttitor.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Ipsum sit mattis nulla quam nulla. Gravida id gravida ac
+                                                enim mauris id. Non pellentesque congue eget consectetur turpis. Sapien, dictum molestie
+                                                sem tempor. Diam elit, orci, tincidunt aenean tempus. Quis velit eget ut tortor tellus.
+                                                Sed vel, congue felis elit erat nam nibh orci.</p>
+                                            <h3 id="software" class="head--3">Lorem ipsum dolor sit amet</h3>
+                                            <p class="body-txt1 txt--clr mb-4">Pharetra morbi libero id aliquam elit massa integer
+                                                tellus. Quis felis aliquam ullamcorper porttitor. Pulvinar ullamcorper sit dictumst ut
+                                                eget a, elementum eu. Maecenas est morbi mattis id in ac pellentesque ac.</p>
+                                            <h3 id="resources" class="head--3">Lorem ipsum dolor sit amet</h3>
+                                            <p class="body-txt1 txt--clr mb-4">Sagittis et eu at elementum, quis in. Proin praesent
+                                                volutpat egestas sociis sit lorem nunc nunc sit. Eget diam curabitur mi ac. Auctor
+                                                rutrum lacus malesuada massa ornare et. Vulputate consectetur ac ultrices at diam dui
+                                                eget fringilla tincidunt. Arcu sit dignissim massa erat cursus vulputate gravida id. Sed
+                                                quis auctor vulputate hac elementum gravida cursus dis.</p>
+                                            <p class="body-txt1 txt--clr mb-0 ps-3">1. Lectus id duis vitae porttitor enim gravida
+                                                morbi.</p>
+                                            <p class="body-txt1 txt--clr mb-0 ps-3">2. Eu turpis posuere semper feugiat volutpat elit,
+                                                ultrices suspendisse. Auctor vel in vitae placerat.</p>
+                                            <p class="body-txt1 txt--clr mb-0 ps-3 mb-4">3. Suspendisse maecenas ac donec scelerisque
+                                                diam sed est duis purus.</p>
+                                            <img src="{{ asset('assets/frontend/images/blog-detailcontent-img2.webp') }}" alt=""
+                                                class="mb-4 anime-scale">
+                                            <p class="body-txt1 txt--clr mb-4">Lectus leo massa amet posuere. Malesuada mattis non
+                                                convallis quisque. Libero sit et imperdiet bibendum quisque dictum vestibulum in non.
+                                                Pretium ultricies tempor non est diam. Enim ut enim amet amet integer cursus. Sit ac
+                                                commodo pretium sed etiam turpis suspendisse at.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Tristique odio senectus nam posuere ornare leo metus,
+                                                ultricies. Blandit duis ultricies vulputate morbi feugiat cras placerat elit. Aliquam
+                                                tellus lorem sed ac. Montes, sed mattis pellentesque suscipit accumsan. Cursus viverra
+                                                aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris
+                                                vestibulum.</p>
+                                            <h3 id="conclusion" class="head--3">Conclusion</h3>
+                                            <p class="body-txt1 txt--clr mb-4">Morbi sed imperdiet in ipsum, adipiscing elit dui lectus.
+                                                Tellus id scelerisque est ultricies ultricies. Duis est sit sed leo nisl, blandit elit
+                                                sagittis. Quisque tristique consequat quam sed. Nisl at scelerisque amet nulla purus
+                                                habitasse.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Nunc sed faucibus bibendum feugiat sed interdum. Ipsum
+                                                egestas condimentum mi massa. In tincidunt pharetra consectetur sed duis facilisis
+                                                metus. Etiam egestas in nec sed et. Quis lobortis at sit dictum eget nibh tortor commodo
+                                                cursus.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Odio felis sagittis, morbi feugiat tortor vitae feugiat
+                                                fusce aliquet. Nam elementum urna nisi aliquet erat dolor enim. Ornare id morbi eget
+                                                ipsum. Aliquam senectus neque ut id eget consectetur dictum. Donec posuere pharetra odio
+                                                consequat scelerisque et, nunc tortor.</p>
+                                            <p class="body-txt1 txt--clr mb-4">Nulla adipiscing erat a erat. Condimentum lorem posuere
+                                                gravida enim posuere cursus diam.</p>
+                                        </textarea>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label>{{ __('Image') }}</label>
-                                        <input type="file" name="file" id="filez1" class="filez1"
+                                        <input type="file" name="file" id="filez1" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
-                                        <input type="file" name="file3" id="filez3" class="filez3"
+                                        <input type="file" name="file3" id="filez3" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('Breadcrumbs') }}</label>
-                                        <input type="file" name="file2" id="filez2" class="filez2"
-                                            data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
-                                    <div class="col-md-3">
+                              
+                                    {{-- <div class="col-md-4">
                                         <label>{{ __('OG Image') }}</label>
-                                        <input type="file" name="file4" id="filez4" class="filez4"
+                                        <input type="file" name="file4" id="filez4" class="dropify"
                                             data-max-file-size="1M" data-allowed-file-extensions="jpeg png jpg gif webp">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
@@ -160,8 +215,8 @@
                                         </select>
                                         <br>
 
-                                        <label for="client">Tags (comma separated)</label>
-                                        <input type="text" name="tags" class="form-control form-control-sm">
+                                        <label for="client">Author</label>
+                                        <input type="text" name="user" class="form-control form-control-sm">
                                     </div>
                                     <div class="col-md-6" style="margin-top: 3%;">
                                         <span class="">
@@ -230,10 +285,7 @@
 
 
     <script type="text/javascript">
-        $(".filez1").dropify();
-        $(".filez2").dropify();
-        $(".filez3").dropify();
-        $(".filez4").dropify();
+        $(".dropify").dropify();
 
         function form_validation() {
 

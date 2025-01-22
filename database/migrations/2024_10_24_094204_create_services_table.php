@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->json('title')->nullable();
             $table->text('slug')->nullable();
             $table->string('icon')->nullable();
-            $table->string('description')->nullable();
-            $table->longText('contents')->nullable();
+            $table->json('description')->nullable();
+            $table->json('contents')->nullable();
             $table->bigInteger('projectcategory')->nullable();
             $table->boolean('is_featured')->nullable();
             $table->json('featured_projects')->nullable();
@@ -29,21 +29,21 @@ return new class extends Migration
             $table->string('bg_color')->nullable();
             $table->string('second_image')->nullable();
             $table->enum('status', ['active', 'in-active'])->default('active');
-
+            $table->bigInteger('company_id')->nullable();
             $table->string('position')->nullable();
             $table->integer('display_order')->nullable();
             $table->boolean('search_engine')->nullable();
-            $table->string('seo_more_heading')->nullable();
-            $table->text('seo_more_content')->nullable();
+            $table->json('seo_more_heading')->nullable();
+            $table->json('seo_more_content')->nullable();
 
-            $table->string('page_title')->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->json('page_title')->nullable();
+            $table->json('meta_keywords')->nullable();
+            $table->json('meta_description')->nullable();
 
-            $table->string('og_title')->nullable();
-            $table->string('og_description')->nullable();
+            $table->json('og_title')->nullable();
+            $table->json('og_description')->nullable();
             $table->string('og_image')->nullable();
-            $table->string('og_type')->nullable();
+            $table->json('og_type')->nullable();
             $table->timestamps();
         });
     }

@@ -50,7 +50,7 @@ jQuery(document).ready(function ($) {
   if ($(".project-slider").length) {
     $(".project-slider").slick({
       speed: 0,
-      autoplay: false,
+      autoplay: true,
       autoplaySpeed: 0,
       centerMode: false,
       cssEase: "linear",
@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
       // slidesToScroll: 1,
       variableWidth: false,
       infinite: true,
-      initialSlide: 1,
+      // initialSlide: 1,
       arrows: false,
       buttons: false,
       draggable: true,
@@ -173,3 +173,13 @@ scrollToTopBtn.addEventListener("click", function () {
     behavior: "smooth", // Smooth scroll to top
   });
 });
+
+
+$(document).on('click', '.lang-switch-drop', function (e) {
+  e.preventDefault();
+  var lang = $(this).data('lang');
+
+  var currentUrl = window.location.href.split('?')[0];
+  window.location.href = currentUrl + '?lang=' + lang;
+});
+

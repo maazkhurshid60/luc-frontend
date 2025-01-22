@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('siteName')->nullable();
-            $table->string('salogan')->nullable();
+            $table->json('slogan')->nullable();
             $table->string('logo')->nullable();
             $table->string('icon')->nullable();
 
@@ -22,11 +22,12 @@ return new class extends Migration
             $table->string('phone2')->nullable();
             $table->string('email')->nullable();
             $table->string('email2')->nullable();
-            $table->text('address')->nullable();
-            $table->string('address2')->nullable();
+            $table->json('address')->nullable();
+            $table->json('address2')->nullable();
+            $table->string('timmings')->nullable();
             $table->longText('map')->nullable();
             $table->longText('video')->nullable();
-            $table->longText('about_us')->nullable();
+            $table->json('about_us')->nullable();
 
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();

@@ -7,8 +7,6 @@ use App\Models\Blog;
 use App\Models\BlogCategory as Obj;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Image;
 
 class BlogCategoryController extends Controller
 {
@@ -20,28 +18,43 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
+        $lang = 'en';
         $data = [
             'menu' => 'blog-category',
             'settings' => DB::table('settings')->first(),
             'parentcategories' => Obj::get(),
+            'lang' => $lang,
         ];
         return view('admin.blog-category.index', $data);
     }
+
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                return $action;
+                $editEn = '<a href="javascript:updateRecord(' . $item->id . ', \'en\')" class="btn btn-xs btn-primary">Edit EN</a>';
+                $editFr = '<a href="javascript:updateRecord(' . $item->id . ', \'fr\')" class="btn btn-xs btn-secondary">Edit FR</a>';
+                $delete = '';
+                if (auth()->user()->can('blog-category.delete')) {
+                    $delete = '<a href="javascript:delete_record(' . $item->id . ')" class="btn btn-xs btn-danger">Delete</a>';
+                }
+                return $editEn . ' ' . $editFr . ' ' . $delete;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,6 +73,9 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('blog-category.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
 
@@ -67,8 +83,10 @@ class BlogCategoryController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
-
-        $obj = Obj::create($request->all());
+        $data = [
+            'title' => ['en' => $request->input('title')],
+        ];
+        $obj = Obj::create($data);
         return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
     }
 
@@ -78,10 +96,17 @@ class BlogCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $data['data'] = Obj::findOrFail($id);
-        return view('admin.project-category.edit', $data);
+        if (!auth()->user()->can('blog-category.view')) {
+            abort(401);
+        }
+        $lang = $request->lang ?? 'en';
+        $data = [
+            'data' => Obj::findOrFail($id),
+            'lang' => $lang,
+        ];
+        return view('admin.blog-category.edit', $data);
     }
 
     /**
@@ -90,10 +115,7 @@ class BlogCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-
-    }
+    public function edit($id) {}
 
     /**
      * Update the specified resource in storage.
@@ -104,6 +126,10 @@ class BlogCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (!auth()->user()->can('blog-category.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -120,8 +146,16 @@ class BlogCategoryController extends Controller
         if ($request->hasFile('icon_file')) {
             $request['icon'] = Helper::handleImageUpload($request->file('icon_file'));
         }
+        // dd($request->lang);
+        if ($request->lang == 'en') {
+            $record->setTranslation('title', 'en', $request->input('title'));
+        }
 
-        $record->update($request->all());
+        if ($request->lang == 'fr') {
+            $record->setTranslation('title', 'fr', $request->input('title'));
+        }
+
+        $record->save();
         return response()->json(['success' => 'Record is successfully Updated']);
     }
 
@@ -169,6 +203,9 @@ class BlogCategoryController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('blog-category.delete')) {
+            abort(401);
+        }
         try {
             $category = Obj::findOrFail($request->input('id'));
             $blogs = Blog::all();
@@ -194,5 +231,4 @@ class BlogCategoryController extends Controller
             return response()->json(['success' => false, 'message' => 'An error occurred while trying to delete the category']);
         }
     }
-
 }

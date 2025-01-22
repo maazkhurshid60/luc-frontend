@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Project;
 use App\Models\Service as Obj;
 use Illuminate\Http\Request;
@@ -21,24 +22,53 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+        $lang = 'en';
         $data = [
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.service.index', $data);
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
+                $action = '';
+                $action .= '
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs">Edit</button>
+                                <button type="button" class="btn btn-info btn-xs dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                ';
+                if (auth()->user()->can('service.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('service.edit', $item->id) . '?lang=en">Edit (EN)</a>';
+                }
+                if (auth()->user()->can('service.edit')) {
+                    $action .= '<a class="dropdown-item" href="' . route('service.edit', $item->id) . '?lang=fr">French</a>';
+                }
+                $action .= '</div></div>';
+                if (auth()->user()->can('service.delete')) {
+                    $action .= '<a class="btn btn-danger btn-xs ml-2" href="javascript:void(0)" onclick="delete_record(' . $item->id . ')">Delete</a>';
+                }
 
-                $action = '<a href="' . route('service.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
                 return $action;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
@@ -49,10 +79,15 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $data = [
             'menu' => 'service',
             'display_order' => Obj::max('display_order') + 1,
             'settings' => DB::table('settings')->first(),
+            'service_company' => Company::all()
         ];
         return view('admin.service.create', $data);
     }
@@ -65,16 +100,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        if (!auth()->user()->can('service.view')) {
+            abort(401);
+        }
+
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'status' => 'required',
-            'display_order' => 'required',
             'slug' => 'required|unique:services',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif ,webp|max:1024',
-            'image2' => 'required|image|mimes:svg|max:1024',
-            'image3' => 'nullable|image|mimes:svg|max:1024',
-            'projectcategory' => 'required',
-            'featured_project' => 'required',
+            'company_select' => 'required',
 
         ]);
         if ($validator->fails()) {
@@ -83,41 +119,16 @@ class ServiceController extends Controller
         if ($request->hasFile('image')) {
             $request['file'] = Helper::handleImageUpload($request->file('image'));
         }
-        if ($request->hasFile('image2')) {
-            $request['file2'] = Helper::handleImageUpload($request->file('image2'));
-        }
-        if ($request->hasFile('image4')) {
-            $request['file4'] = Helper::handleImageUpload($request->file('image4'));
-        }
         if ($request->hasFile('image5')) {
             $request['og_image'] = Helper::handleImageUpload($request->file('image5'));
         }
-        if ($request->hasFile('image6')) {
-            $request['second_image'] = Helper::handleImageUpload($request->file('image6'));
-        }
-        if ($request->hasFile('image3')) {
-            $extension = $request->image3->getClientOriginalExtension();
-            if ($extension == 'svg') {
-                return response()->json(['errors' => ['Banner image format not supported.']]);
 
-            }
-            $banner_name = $request->file('image3')->store('images', 'public');
-
-            $image3 = str_replace('images/', '', $banner_name);
-            $request['banner'] = $image3;
-
-            Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(config('constants.store_thumb_path') . $image3);
-
-        }
-        $request['position'] = json_encode($request->input('position'));
         $request['slug'] = Str::slug($request->post('slug'), '-');
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
 
-        $featuredProjects = json_encode($request->input('featured_project'), true);
-        $request['featured_projects'] = $featuredProjects; // Assuming `featured_pro
 
+        $request['company_id'] = $request->company_select;
+        // dd($request->all());
         $obj = Obj::create($request->all());
 
         return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
@@ -131,6 +142,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -139,13 +151,19 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!auth()->user()->can('service.edit')) {
+            abort(401);
+        }
+        $lang = $request->lang ?? 'en';
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'service',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
+            'service_company' => Company::all(),
+            'lang' => $lang,
         ];
         return view('admin.service.edit', $data);
     }
@@ -159,14 +177,15 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('service.edit')) {
+            abort(401);
+        }
+        // dd($request->all());
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif ,webp|max:1024',
-            'image2' => 'nullable|image|mimes:svg|max:1024',
-            'image3' => 'nullable|image|mimes:svg|max:1024',
-            'projectcategory' => 'required',
-            'featured_project' => 'required',
+            'company_select' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -176,42 +195,35 @@ class ServiceController extends Controller
         if ($request->hasFile('image')) {
             $request['file'] = Helper::handleImageUpload($request->file('image'), $record->file);
         }
-        if ($request->hasFile('image2')) {
-            $request['file2'] = Helper::handleImageUpload($request->file('image2'), $record->file);
-        }
-        if ($request->hasFile('image4')) {
-            $request['file4'] = Helper::handleImageUpload($request->file('image4'), $record->file4);
-        }
-        if ($request->hasFile('image5')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('image5'), $record->og_image);
-        }
-        if ($request->hasFile('image6')) {
-            $request['second_image'] = Helper::handleImageUpload($request->file('image6'), $record->second_image);
-        }
-        if ($request->hasFile('image3')) {
-            $extension = $request->image3->getClientOriginalExtension();
-            if ($extension == 'svg') {
-                return response()->json(['errors' => ['Banner image format not supported.']]);
+        // if ($request->hasFile('image2')) {
+        //     $request['file2'] = Helper::handleImageUpload($request->file('image2'), $record->file);
+        // }
+        // if ($request->hasFile('image4')) {
+        //     $request['file4'] = Helper::handleImageUpload($request->file('image4'), $record->file4);
+        // }
+        // if ($request->hasFile('image5')) {
+        //     $request['og_image'] = Helper::handleImageUpload($request->file('image5'), $record->og_image);
+        // }
+        // if ($request->hasFile('image6')) {
+        //     $request['second_image'] = Helper::handleImageUpload($request->file('image6'), $record->second_image);
+        // }
+        // if ($request->hasFile('image3')) {
+        //     $extension = $request->image3->getClientOriginalExtension();
+        //     if ($extension == 'svg') {
+        //         return response()->json(['errors' => ['Banner image format not supported.']]);
+        //     }
 
-            }
+        //     $banner_name = $request->file('image3')->store('images', 'public');
 
-            $banner_name = $request->file('image3')->store('images', 'public');
+        //     $image3 = str_replace('images/', '', $banner_name);
+        //     $request['banner'] = $image3;
 
-            $image3 = str_replace('images/', '', $banner_name);
-            $request['banner'] = $image3;
-
-            Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(config('constants.store_thumb_path') . $image3);
-
-        }
-
-        $featuredProjects = json_encode($request->input('featured_project'), true);
-        $request['featured_projects'] = $featuredProjects; // Assuming `featured_pro
-
-        // $request['slug'] = $slug = Str::slug($request->post('title'));
-        $request['position'] = json_encode($request->input('position'));
+        //     Image::make($request->file('image3'))->resize(150, null, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //     })->save(config('constants.store_thumb_path') . $image3);
+        // }
         $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
+        $request['company_id'] = $request->company_select;
         $record->update($request->all());
         return response()->json(['success' => 'Record is successfully Updated']);
     }
@@ -224,6 +236,10 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('service.delete')) {
+            abort(401);
+        }
+
         $record = Obj::findOrFail($request->input('id'));
         $record->delete();
         return back()->with('success', 'Record Deleted successfully');
@@ -252,5 +268,4 @@ class ServiceController extends Controller
         // Return the results as JSON
         return response()->json($featuredProjects);
     }
-
 }

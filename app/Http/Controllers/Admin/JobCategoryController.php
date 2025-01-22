@@ -17,24 +17,39 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
+        $lang = 'en';
         $data = [
             'menu' => 'job-category',
             'settings' => DB::table('settings')->first(),
+            'lang' => $lang,
         ];
         return view('admin.job-category.index', $data);
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
 
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="javascript:updateRecord(' . $item->id . ')"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                return $action;
+                if (auth()->user()->can('job-category.edit')) {
+                    $editEn = '<a href="javascript:updateRecord(' . $item->id . ', \'en\')" class="btn btn-xs btn-primary">Edit EN</a>';
+                    $editFr = '<a href="javascript:updateRecord(' . $item->id . ', \'fr\')" class="btn btn-xs btn-secondary">Edit FR</a>';
+                }
+                $delete = '';
+                if (auth()->user()->can('job-category.delete')) {
+                    $delete = '<a href="javascript:delete_record(' . $item->id . ')" class="btn btn-xs btn-danger">Delete</a>';
+                }
+                return $editEn . ' ' . $editFr . ' ' . $delete;
             })
-
+            ->editColumn('created_at', function ($item) {
+                return \App\Helpers\Helper::setDate($item->created_at);
+            })
             ->rawColumns(['action'])
             ->toJson();
     }
@@ -56,6 +71,9 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->user()->can('job-category.create')) {
+            abort(401);
+        }
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
 
@@ -73,9 +91,16 @@ class JobCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $data['data'] = Obj::findOrFail($id);
+        if (!auth()->user()->can('job-category.view')) {
+            abort(401);
+        }
+        $lang = $request->lang ?? 'en';
+        $data = [
+            'data' => Obj::findOrFail($id),
+            'lang' => $lang,
+        ];
         return view('admin.job-category.edit', $data);
     }
 
@@ -99,6 +124,9 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!auth()->user()->can('job-category.edit')) {
+            abort(401);
+        }
         $record = Obj::find($request->input('id'));
         $validator = \Validator::make($request->all(), [
             'title' => 'required',
@@ -120,6 +148,9 @@ class JobCategoryController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('job-category.delete')) {
+            abort(401);
+        }
         try {
             $record = Obj::findOrFail($request->input('id'));
             if ($record->jobs()->exists()) {

@@ -36,6 +36,7 @@
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
                                     <div class="col-md-8 form-group">
                                         <label>{{ __('Title') }} :</label>
@@ -66,7 +67,7 @@
                                                 id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords</label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
                                             value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
@@ -94,7 +95,7 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type" value="{{ $data->og_type }}"
                                             class="form-control form-control-sm">
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
@@ -146,7 +147,7 @@
                                             echo $data->contents;
                                         @endphp</textarea>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label>{{ __('Image') }}</label>
                                         <input type="file" name="image"
                                             data-default-file="{{ asset('storage/images/' . $data->file) }}"
@@ -154,7 +155,7 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4 form-group">
                                         <label>{{ __('Header Image') }}</label>
                                         <input type="file" name="header_image"
                                             data-default-file="{{ asset('storage/images/' . $data->header_image) }}"
@@ -162,15 +163,15 @@
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
                                         <label>{{ __('OG Image') }}</label>
                                         <input type="file" name="file4"
                                             data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
                                             id="filez4" class="filez1" data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option @if ($data->status == 'active') selected @endif>Active</option>

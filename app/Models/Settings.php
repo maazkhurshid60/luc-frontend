@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Settings extends Model
 {
+    use HasTranslations; 
     protected $fillable = [
     	'siteName',
-    	'salogan',
+    	'slogan',
     	'logo',
     	'icon',
     	'fb',
@@ -26,6 +28,12 @@ class Settings extends Model
         'map',
         'about_us',
         'video'
+    ];
+    public $translatable = [
+        'slogan',
+        'address',
+        'address2',
+        'about_us',
     ];
     public $timestamps = false;
 }

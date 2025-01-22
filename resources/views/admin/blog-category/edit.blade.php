@@ -2,6 +2,7 @@
     @method('PUT')
     @csrf
     <input type="hidden" name="id" value="{{ $data->id }}">
+    <input type="hidden" name="lang" value="{{ $lang }}">
     <div class="alert alert-danger updateFormError" style="display: none;"></div>
     <div class=" row">
         <div class="col-md-12 form-group">

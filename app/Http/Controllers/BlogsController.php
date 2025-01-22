@@ -2,101 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\BlogCategory;
-use App\Models\Menu;
-use App\Models\Service;
-use App\Models\Team;
 use DB;
+use App\Models\Blog;
+use App\Models\Menu;
+use App\Models\Project;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
 {
     public function index(Request $request)
     {
-        // if(!is_null($request->input('q')) && $request->input('q') != '')
-        //     $blogs = Blog::where('status','active')->where('title','like','%'.$request->input('q').'%')->latest()->paginate(12);
-        // else
-        //     $blogs = Blog::where('status','active')->latest()->paginate(12);
+        $categoryId = $request->category_id ?? 0;
+
         if ($request->ajax()) {
-            $categoryId = $request->input('category_id');
-            if ($categoryId) {
-                $blogs = Blog::where('status', 'active')->where('category_id', $categoryId)->orderBy('display_order')->paginate(12);
+            if ($categoryId != 0) {
+                $blogs = Blog::where('status', 'active')->where('category_id', $categoryId)->orderBy('display_order')->paginate(6);
             } else {
-                $blogs = Blog::where('status', 'active')->orderBy('display_order')->paginate(12);
+                $blogs = Blog::where('status', 'active')->orderBy('display_order')->paginate(6);
             }
 
-            return view('include.blog-filter-list', compact('blogs'))->render();
+            $data = [
+                'blogs' => $blogs,
+                'selected_category' => $categoryId,
+            ];
+
+            return view('include.blog-filter-list', $data)->render();
         }
 
+        $latest = Blog::where('status', 'active')->latest()->take(3)->get();
+
         $data = [
-            'settings' => DB::table('settings')->find(1),
-            'page' => Menu::where('slug', 'blog')->orWhere('slug', 'blogs')->first(),
-
+            'data' => Menu::where('slug', 'blog')->orWhere('slug', 'blogs')->first(),
+            'latest' => $latest,
+            'categories' => BlogCategory::all(),
+            'selected_category' => $categoryId,
         ];
-        // if (is_null($data['page'])) return $this->PageNotFound();
 
-        $blogs = Blog::where('status', 'active')->orderBy('display_order')->paginate(12);
-        $categories = BlogCategory::all();
-        return view('blogs', compact('blogs', 'data', 'categories'));
+        if (is_null($data['data'])) {
+            return $this->PageNotFound();
+        }
+
+        return view('blogs', $data);
     }
 
     public function show($slug)
     {
+        $blog = Blog::where('slug', $slug)->first();
+
+        if (!$blog) {
+            return $this->PageNotFound();
+        }
+
         $data = [
+            'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'settings' => DB::table('settings')->find(1),
+            'data' => $blog,
+            'related' => Blog::where('category_id', $blog->category_id)
+                ->where('id', '!=', $blog->id)
+                ->where('status', 'active')
+                ->latest()
+                ->take(3)
+                ->get(),
         ];
 
-        $blogs = Blog::where('slug', $slug)->first();
-
-        // Fetch related blogs by category, exclude the current one, and limit to 4
-        $related = Blog::where('category_id', $blogs->category_id)
-            ->where('id', '!=', $blogs->id) // Exclude the current blog
-            ->where('status', 'active')
-            ->latest()
-            ->take(3)
-            ->get();
-
-        $related_services = $members = [];
-        $serviceIds = json_decode($blogs->service_id, true);
-        $members = json_decode($blogs->pro_id, true);
-
-        if ($serviceIds) {
-            $related_services = Service::whereIn('id', $serviceIds)->get();
-        }
-        if ($members) {
-            $members = Team::whereIn('id', $members)->get();
-        }
-        return view('blog_details', compact('blogs', 'data', 'related', 'related_services', 'members'));
+        return view('blog-details', $data);
     }
 
-    public function show2($slug)
+    public function PageNotFound()
     {
-        $data = [
-            'settings' => DB::table('settings')->find(1),
-        ];
-
-        $blogs = Blog::where('slug', $slug)->first();
-
-        // Fetch related blogs by category, exclude the current one, and limit to 4
-        $related = Blog::where('category_id', $blogs->category_id)
-            ->where('id', '!=', $blogs->id) // Exclude the current blog
-            ->where('status', 'active')
-            ->latest()
-            ->take(3)
-            ->get();
-
-        $related_services = $members = [];
-        $serviceIds = json_decode($blogs->service_id, true);
-        $members = json_decode($blogs->pro_id, true);
-
-        if ($serviceIds) {
-            $related_services = Service::whereIn('id', $serviceIds)->get();
-        }
-        if ($members) {
-            $members = Team::whereIn('id', $members)->get();
-        }
-        return view('blog_details2', compact('blogs', 'data', 'related', 'related_services', 'members'));
+        abort(404);
     }
-
 }

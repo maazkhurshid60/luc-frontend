@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductFile;
 use App\Models\Settings;
 use App\Models\TeamFile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use Spatie\Permission\Models\Role;
+use Illuminate\Contracts\Session\Session;
 
 class DataController extends Controller
 {
@@ -36,6 +39,19 @@ class DataController extends Controller
         $productFile->delete();
     }
 
+    public function assign_role(Request $request)
+    {
+        $user = User::find($request->input('user_id'));
+        $old_role = $user->getRoleNames()->first();
+        if ($old_role != null) {
+            $user->removeRole($old_role);
+        }
+
+        $role = Role::find($request->input('role_id'));
+        $user->assignRole($role->name);
+        return response()->json(['success' => 'Record is successfully updated']);
+    }
+
     public function delete_team_file(Request $request)
     {
         $teamFile = TeamFile::findOrFail($request->id);
@@ -53,7 +69,7 @@ class DataController extends Controller
     public function update_settings(Request $request)
     {
         $record = Settings::find($request->input('id'));
-        
+
         if (!$record) {
             return response()->json(['error' => 'Settings record not found'], 404);
         }
@@ -78,9 +94,7 @@ class DataController extends Controller
         if ($request->hasFile('icon_image')) {
             $data['icon'] = $this->handleImageUpload($request->file('icon_image'), $record->icon);
         }
-
         $record->update($data);
-
         return response()->json(['success' => 'Settings Updated']);
     }
 
@@ -106,9 +120,11 @@ class DataController extends Controller
         $imagePath = public_path('storage/images/' . $fileName);
         $thumbPath = config('constants.store_thumb_path') . $fileName;
 
-        Image::make($imagePath)->resize(150, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($thumbPath);
+        Image::make($imagePath)
+            ->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->save($thumbPath);
 
         if ($oldImage) {
             Storage::disk('public')->delete('images/' . $oldImage);
@@ -117,5 +133,4 @@ class DataController extends Controller
 
         return $fileName;
     }
-
 }

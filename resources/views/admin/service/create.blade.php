@@ -34,18 +34,17 @@
                             <form method="POST" id="addForm" enctype="multipart/form-data"
                                 onsubmit="return form_validation()">
                                 @csrf
-
                                 <div class=" row">
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __('Title') }} <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="title">
                                     </div>
-                                    <div class="col-md-4 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>Slug <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" name="slug">
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="pagetitle">Page Title </label>
                                         <input type="text" name="page_title" id="page_title"
                                             class="form-control form-control-sm" maxlength="80">
@@ -53,7 +52,7 @@
                                         </p>
 
                                     </div>
-
+{{-- 
                                     <div class="col-md-4">
                                         <label for="meta_keywords">Meta Keywords </label>
                                         <input type="text" name="meta_keywords" id="meta_keywords"
@@ -80,14 +79,9 @@
                                         <label for="og_type">OG Type</label>
                                         <input type="text" name="og_type" id="og_type"
                                             class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Display Order <span class="text-danger">*</span></label>
-                                        <input type="number" name="display_order" class="form-control form-control-sm"
-                                            value="{{ $display_order }}">
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label>Project Categories <span class="text-danger">*</span></label>
                                         <select name="projectcategory" class="form-control form-control-sm">
                                             <option selected value="">Select</option>
@@ -95,32 +89,17 @@
                                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-4">
-                                        <label>Featured Projects <span class="text-danger">*</span></label>
-                                        <select name="featured_project[]" id="featured_project"
-                                            class="form-control form-control-sm" multiple>
-                                            <option value="">Select</option>
-                                            <!-- Options will be populated dynamically -->
+                                    <div class="col-md-6 mb-3 ">
+                                        <label>Select Company</span></label>
+                                        <select id="company_select" name="company_select"
+                                            class="form-control form-control-sm">
+                                            <option value="" disabled selected>Select a company</option>
+                                            @foreach ($service_company as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
                                         </select>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label>Background Color <span class="text-danger">*</span></label>
-                                        <input type="text" name="bg_color" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label>Seo Keywords Heading</span></label>
-                                        <input type="text" name="seo_more_heading" class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-12 form-group">
-                                        <label>Seo Keywords Content</label>
-                                        <textarea class="form-control" id="seo_more_content" name="seo_more_content"></textarea>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>Short Description</label>
@@ -131,92 +110,26 @@
                                         <textarea id="editor" cols="30" rows="10"></textarea>
                                     </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-6 form-group">
                                         <label>{{ __(' Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="image" id="filez1" class="filez1"
                                             data-max-file-size="1M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                         <small class="text-muted">This image will appear on services page</small>
                                     </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __(' ICON') }}</label>
-                                        <input type="file" name="image2" id="filez2" class="filez2"
-                                            data-max-file-size="1M" data-allowed-file-extensions="svg">
-                                        <small class="text-muted">This image will appear on home page</small>
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>Service Icon</label>
-                                        <input type="file" name="image4" id="filez4" class="filez4"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __(' BANNER') }}</label>
-                                        <input type="file" name="image3" id="filez3" class="filez3"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>{{ __('Secondary Image') }}</label>
-                                        <input type="file" name="image6" id="filez5" class="filez5"
-                                            data-max-file-size="2M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                        <small class="text-muted">This image will appear in related services
-                                            section</small>
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    {{-- <div class="col-md-4 form-group">
                                         <label>{{ __(' OG Image') }}</label>
                                         <input type="file" name="image5" id="filez5" class="filez5"
                                             data-max-file-size="2M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
-                                    <div class="col-md-3 form-group">
+                                    </div> --}}
+                                    <div class="col-md-6 form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option value="active">Active</option>
                                             <option value="in-active">In-active</option>
                                         </select>
                                         <br>
-                                        <label for="is_featured">Is Featured</label>
-                                        <select name="is_featured" class="form-control form-control-sm">
-                                            <option value="1">Yes</option>
-                                            <option value="0" selected>No</option>
-                                        </select>
-                                        <br>
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label>Position</label>
-                                        <br>
-                                        {{-- <span class="mx-2">
-                               <input type="checkbox" id="top" value="top" name="position[]" class="filled-in chk-col-purple" />
-                               <label for="top">Top Bar</label>   
-                             </span>
-                             <span class="mx-2">
-                               <input type="checkbox" id="navigation" value="navigation" name="position[]" class="filled-in chk-col-purple" />
-                               <label for="navigation">Navigation Bar</label>   
-                             </span>
-                              --}}
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="footer" value="footer" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="footer">Footer (products)</label>
-                                        </span> <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="other" value="other" name="position[]"
-                                                class="filled-in chk-col-purple" />
-                                            <label for="other">Footer (services)</label>
-                                        </span> <br>
-                                        <span class="mx-2">
-                                            <input type="checkbox" id="organization" value="organization"
-                                                name="position[]" class="filled-in chk-col-purple" />
-                                            <label for="organization">Footer (organization)</label>
-                                        </span>
-                                        {{-- <span class="mx-2">
-                               <input type="checkbox" id="bottom" value="bottom" name="position[]" class="filled-in chk-col-purple"  />
-                               <label for="bottom">Bottom </label>  
-                             </span> --}}
-                                    </div>
-                                    <div class="col-md-3" style="margin-top: 3%;">
                                         <span class="">
                                             <input type="checkbox" id="search_engine" name="search_engine"
                                                 class="filled-in chk-col-purple" checked />
@@ -261,17 +174,6 @@
     <!-- Include Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Initialize Select2 -->
-    <script>
-        $(document).ready(function() {
-            $('#featured_project').select2({
-                placeholder: 'Select categories',
-                allowClear: true
-            });
-        });
-    </script>
-
-
 
     <script type="text/javascript">
         var editor = CKEDITOR.replace('editor', {
@@ -290,16 +192,8 @@
             font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
         });
-        var seo_more_content = CKEDITOR.replace('seo_more_content', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
-            filebrowserUploadMethod: 'form',
-            baseFloatZIndex: 10005,
-            allowedContent: true,
-            font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
-        });
-
-        $(".filez1,.filez2,.filez3,.filez4,.filez5").dropify();
+        $(".filez1,.filez5").dropify();
 
         function form_validation() {
 
@@ -308,7 +202,6 @@
             var form = new FormData($('#addForm')[0]);
             form.append('contents', editor.getData());
             form.append('description', description_editor.getData());
-            form.append('seo_more_content', seo_more_content.getData());
 
             $.ajax({
                 type: "POST",
@@ -344,64 +237,5 @@
         }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var ajaxUrl = '{{ route('featured.projects') }}'; // Adjust the URL if needed
-
-            // Initialize the multi-select dropdown
-            $('select[name="featured_project[]"]').on('change', function() {
-                var selectedOptions = $(this).find('option:selected');
-                var maxSelections = 3;
-
-                // Check if the number of selected options exceeds the limit
-                if (selectedOptions.length > maxSelections) {
-                    toastInfo('You can only select up to 4 projects.');
-
-                    // Remove the last selected option
-                    $(this).find('option:selected').last().prop('selected', false);
-                    $(this).val($(this).val().slice(0, maxSelections)); // Keep only the first 4 selections
-                }
-            });
-
-            // When the project category dropdown value changes
-            $('select[name="projectcategory"]').on('change', function() {
-                var categoryId = $(this).val();
-                var $featuredProjectSelect = $('select[name="featured_project[]"]');
-
-                if (categoryId) {
-                    $.ajax({
-                        type: 'GET',
-                        url: ajaxUrl,
-                        data: {
-                            category_id: categoryId
-                        },
-                        success: function(response) {
-                            $featuredProjectSelect.empty().append(
-                                '<option value="">Select</option>');
-
-                            if (response.length) {
-                                $.each(response, function(index, project) {
-                                    $featuredProjectSelect.append('<option value="' +
-                                        project.id + '">' + project.name +
-                                        '</option>').prop('disabled', false);
-                                });
-                            } else {
-                                $featuredProjectSelect.append(
-                                    '<option value="" disabled>No projects found</option>');
-                            }
-
-                            // Reinitialize the select picker if using a library like Select2
-                            // $('select[name="featured_project[]"]').select2(); // Uncomment if using Select2
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching featured projects:', error);
-                        }
-                    });
-                } else {
-                    $featuredProjectSelect.empty().append('<option value="">Select</option>').prop(
-                        'disabled', true);
-                }
-            });
-        });
-    </script>
+    
 @endsection

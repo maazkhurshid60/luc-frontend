@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Company;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Service extends Model
 {
+    use LogsActivity;
+    use HasTranslations; 
     protected $fillable = [
         'title',
         'icon',
@@ -34,5 +40,27 @@ class Service extends Model
         'second_image',
         'seo_more_heading',
         'seo_more_content',
+        'company_id',
     ];
+    public $translatable = [
+        'title',
+        'description',
+        'contents',
+        'seo_more_heading',
+        'seo_more_content',
+        'page_title',
+        'meta_keywords',
+        'meta_description',
+        'og_title',
+        'og_description',
+        'og_type'
+    ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['*'])->useLogName('Services');
+    }
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
 }

@@ -24,35 +24,26 @@ class MenuController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('menu.view')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'menu',
             'settings' => DB::table('settings')->first(),
+            'lang' => 'en',
         ];
         return view('admin.menu.index', $data);
     }
     public function datatable(Request $request)
     {
+        if (!auth()->user()->can('menu.view')) {
+            abort(401);
+        }
         $items = Obj::select('*');
-
         return datatables($items)
             ->addColumn('action', function ($item) {
-
-                $action = '<a href="' . route('menu.edit', $item->id) . '"  class="btn btn-xs btn-primary" >Edit</a> ';
-                $action .= '<a href="javascript:delete_record(' . $item->id . ')"  class="btn btn-xs btn-danger" >Delete</a> ';
-                return $action;
+                return view('admin.menu.action', $item);
             })
-            // ->editColumn('parent',function($item){
-            //     if($item->parent == 0) return 'Main Menu';
-            //     else
-            //         return Obj::where('id',$item->parent)->pluck('name')->first();
-            // })
-            // ->editColumn('position',function($item){
-            //     $position = json_decode($item->position);
-            //     $html = "";
-            //     foreach ($position as $p)
-            //         $html .= "<span class='label label-primary '>".ucfirst($p)."</span> ";
-            //     return $html;
-            // })
             ->rawColumns(['action', 'position'])
             ->toJson();
     }
@@ -63,9 +54,11 @@ class MenuController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('menu.create')) {
+            abort(401);
+        }
         $data = [
             'menu' => 'menu',
-            'display_order' => Obj::max('display_order') + 1,
             'settings' => DB::table('settings')->first(),
         ];
         return view('admin.menu.create', $data);
@@ -79,34 +72,49 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'display_order' => 'required|numeric',
-            'position' => 'required',
+            'name' => 'required|string',
+            'slug' => 'required|string',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'slug' => 'required',
-
+            // 'file4' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'aboutimg' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
         ]);
-        // $request['slug'] = str_slug($request->post('name'), '-');
-        $request['position'] = json_encode($request->input('position'));
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
+
+        // Prepare the data for saving
+        $data = [
+            'slug' => $request->input('slug'),
+            'search_engine' => $request->has('search_engine') ? 1 : 0,
+        ];
+
+        // Add translatable fields in English by default
+        $translatableFields = ['name', 'page_title', 'heading', 'short_description', 'description', 'about_description'];
+
+        foreach ($translatableFields as $field) {
+            $data[$field] = ['en' => $request->input($field)];
+        }
+
+        // Handle file uploads
         if ($request->hasFile('file')) {
-            $request['image'] = Helper::handleImageUpload($request->file('file'));
-            //     $temp_name  = $request->file('file')->store('images','public');
-            //     $request['image'] = str_replace('images/', '', $temp_name);
-            //     Image::make(public_path('storage/images/'.$request['image']))->resize(150, null, function ($constraint) {
-            //        $constraint->aspectRatio();
-            //    })->save(config('constants.store_thumb_path').$request['image']);
+            $data['image'] = Helper::handleImageUpload($request->file('file'));
         }
-        if ($request->hasFile('file4')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('file4'));
+
+        // if ($request->hasFile('file4')) {
+        //     $data['og_image'] = Helper::handleImageUpload($request->file('file4'));
+        // }
+
+        if ($request->hasFile('aboutimg')) {
+            $data['about_img'] = Helper::handleImageUpload($request->file('aboutimg'));
         }
-        $request['show_services'] = $request->show_services == 'on' ? '1' : '0';
-        $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
-        $obj = Obj::create($request->all());
-        return response()->json(['success' => 'Record is successfully added', 'id' => $obj->id]);
+
+        // Create the menu object
+        $menu = Obj::create($data);
+
+        return response()->json(['success' => 'Record is successfully added', 'id' => $menu->id]);
     }
 
     /**
@@ -126,13 +134,18 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!auth()->user()->can('menu.edit')) {
+            abort(401);
+        }
+        $lang = $request->lang ?? 'en';
         $element = Obj::findOrFail($id);
         $data = [
             'menu' => 'menu',
             'settings' => DB::table('settings')->first(),
             'data' => $element,
+            'lang' => $lang,
         ];
         return view('admin.menu.edit', $data);
     }
@@ -146,31 +159,62 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        $record = Obj::find($request->input('id'));
+
+        $record = Obj::findOrFail($id);
+    
+        // Validate the request
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'display_order' => 'required',
-            'position' => 'required',
+            'name' => 'required|string',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'slug' => 'required',
         ]);
-        $request['slug'] = Str::slug($request->post('slug'), '-');
-        $request['position'] = json_encode($request->input('position'));
+    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
+    
+        // Prepare non-translatable data
+        $data = [
+            'search_engine' => $request->has('search_engine') ? 1 : 0,
+        ];
+    
+        // Handle translatable fields
+        $translatableFields = [
+            'name', 
+            'page_title', 
+            'meta_keywords', 
+            'meta_description', 
+            'heading', 
+            'short_description', 
+            'description', 
+            'og_title', 
+            'og_description', 
+            'og_type', 
+            'about_description'
+        ];
+    
+        foreach ($translatableFields as $field) {
+            if ($request->has($field)) {
+                $record->setTranslation($field, $request->lang, $request->input($field));
+            }
+        }
+    
+        // Handle file uploads
         if ($request->hasFile('file')) {
-            $request['image'] = Helper::handleImageUpload($request->file('file'), $record->image);
+            $data['image'] = Helper::handleImageUpload($request->file('file'), $record->image);
         }
-        if ($request->hasFile('file4')) {
-            $request['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        // if ($request->hasFile('file4')) {
+        //     $data['og_image'] = Helper::handleImageUpload($request->file('file4'), $record->og_image);
+        // }
+        if ($request->hasFile('aboutimg')) {
+            $data['about_img'] = Helper::handleImageUpload($request->file('aboutimg'), $record->about_img);
         }
-        $request['search_engine'] = $request->has('search_engine') ? 1 : 0;
-        $request['show_services'] = $request->show_services == 'on' ? '1' : '0';
-        $record->update($request->all());
-        return response()->json(['success' => 'Record is successfully Updated']);
+    
+        // Update the record
+        $record->update($data);
+    
+        return response()->json(['success' => 'Record is successfully updated']);
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -180,6 +224,9 @@ class MenuController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        if (!auth()->user()->can('menu.delete')) {
+            abort(401);
+        }
         $record = Obj::findOrFail($request->input('id'));
         if (!is_null($record->image)) {
             Storage::disk('public')->delete('images/' . $record->image);

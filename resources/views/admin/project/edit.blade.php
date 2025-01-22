@@ -31,11 +31,12 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <form method="POST" id="updateForm" enctype="multipart/form-data"
+                            <form method="POST" id="updateForm" enctype="multipart/form-data" class="repeater"
                                 onsubmit="return update_validation()">
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
+                                <input type="hidden" name="lang" value="{{ $lang }}">
                                 <div class=" row">
                                     <div class="col-md-8 form-group">
                                         <label>{{ __('Name') }} <span class="text-danger">*</span></label>
@@ -43,17 +44,17 @@
                                             class="form-control form-control-sm" name="name">
                                     </div>
 
-                                    <div class="col-md-4" style="display: none;">
+                                    {{-- <div class="col-md-4" style="display: none;">
                                         <label for="">Category</label>
                                         <select name="category_id" class="form-control form-control-sm">
                                             {{ App\Helpers\Helper::getOptions([
                                                 'table' => 'projects_categories',
                                                 'value' => 'title',
                                                 'key' => 'id',
-                                                'select' => $data->category_id,
+                                                'select' => json_decode($data->category_id),
                                             ]) }}
                                         </select>
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="col-md-4">
@@ -65,16 +66,14 @@
                                                 'value' => 'title',
                                                 'key' => 'id',
                                                 'select' => json_decode($data->categories_id),
+                                                'language' => $lang ?? 'en', 
+                                                'selectOption' => false,
                                             ]) !!}
+
                                         </select>
                                     </div>
 
 
-                                    <div class="col-md-4">
-                                        <label for="pagetitle">Background Color Code</label>
-                                        <input type="text" name="color_code" class="form-control form-control-sm"
-                                            value="{{ $data->color_code }}">
-                                    </div>
 
                                     <div class="col-md-4">
                                         <label>Display Order <span class="text-danger">*</span></label>
@@ -90,59 +89,56 @@
                                             <label for="search_engine">Discourage search engines from indexing</label>
                                         </span>
                                     </div>
+                                    @can('meta-data.add')
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="pagetitle">Page Title</label>
+                                            <input type="text" name="page_title" id="page_title" maxlength="80"
+                                                value="{{ $data->page_title }}" class="form-control form-control-sm">
+                                            <p style="color: red; font-size: 12px">Char Count: <span
+                                                    id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
+                                        </div>
+{{-- 
+                                        <div class="col-md-4">
+                                            <label for="meta_keywords">Meta Keywords</label>
+                                            <input type="text" name="meta_keywords" id="meta_keywords"
+                                                value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
+                                        </div>
 
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="pagetitle">Page Title</label>
-                                        <input type="text" name="page_title" id="page_title" maxlength="80"
-                                            value="{{ $data->page_title }}" class="form-control form-control-sm">
-                                        <p style="color: red; font-size: 12px">Char Count: <span
-                                                id="charCount">{{ strlen($data->page_title) }}</span>/80</p>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="meta_keywords">Meta Keywords</label>
-                                        <input type="text" name="meta_keywords" id="meta_keywords"
-                                            value="{{ $data->meta_keywords }}" class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-4 form-group">
-                                        <label for="meta_description">Meta Description</label>
-                                        <input type="text" name="meta_description" id="meta_description" maxlength="180"
-                                            value="{{ $data->meta_description }}" class="form-control form-control-sm">
-                                        <p style="color: red; font-size: 12px">Char Count: <span
-                                                id="descriptionCharCount">{{ strlen($data->meta_description) }}</span>/180
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="og_title">OG Title</label>
-                                        <input type="text" name="og_title" id="og_title" value="{{ $data->og_title }}"
-                                            class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="og_description">OG Description</label>
-                                        <input type="text" name="og_description" id="og_description"
-                                            value="{{ $data->og_description }}" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        <label for="og_type">OG Type</label>
-                                        <input type="text" name="og_type" id="og_type"
-                                            value="{{ $data->og_type }}" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="meta_description">Meta Description</label>
+                                            <input type="text" name="meta_description" id="meta_description" maxlength="180"
+                                                value="{{ $data->meta_description }}" class="form-control form-control-sm">
+                                            <p style="color: red; font-size: 12px">Char Count: <span
+                                                    id="descriptionCharCount">{{ strlen($data->meta_description) }}</span>/180
+                                            </p>
+                                        </div> --}}
+                                    @endcan
+                                    {{-- @can('og-data.add')
+                                        <div class="col-md-4">
+                                            <label for="og_title">OG Title</label>
+                                            <input type="text" name="og_title" id="og_title" value="{{ $data->og_title }}"
+                                                class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="og_description">OG Description</label>
+                                            <input type="text" name="og_description" id="og_description"
+                                                value="{{ $data->og_description }}" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="og_type">OG Type</label>
+                                            <input type="text" name="og_type" id="og_type"
+                                                value="{{ $data->og_type }}" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                    @endcan --}}
                                     <div class="col-md-4">
                                         <label for="client">Client</label>
                                         <input type="text" name="client" value="{{ $data->client }}"
-                                            class="form-control form-control-sm">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="services">Services</label>
-                                        <input type="text" name="services" value="{{ $data->services }}"
                                             class="form-control form-control-sm">
                                     </div>
                                     <div class="col-md-4 form-group">
@@ -150,65 +146,128 @@
                                         <input type="text" name="link" value="{{ $data->link }}"
                                             class="form-control form-control-sm">
                                     </div>
-
+                                    <div class="col-md-4 form-group">
+                                        <label for="link">Location</label>
+                                        <input type="text" name="location" value="{{ $data->location }}"
+                                            class="form-control form-control-sm">
+                                    </div>
                                     <div class="col-md-12 form-group">
                                         <label>Short Description <span class="text-danger">*</span></label>
                                         <textarea class="form-control " id="description_editor" name="description" maxlength="150">{{ $data->description }}</textarea>
                                     </div>
-
-
-
                                     <div class="col-md-12 my-2">
-                                        <textarea name="contents" id="editor" cols="30" rows="10">
-                                  {!! $data->contents !!}
-                                </textarea>
+                                        <textarea name="contents" id="editor" cols="30" rows="10">{!! $data->contents !!}</textarea>
                                     </div>
 
-
+                                    <div class="col-md-12 form-group">
+                                        <div data-repeater-list="sections-group">
+                                            <h3 style="display: inline-flex;">Details Section</h3>
+                                            @if (!empty($sectionData))
+                                                @foreach ($sectionData as $section)
+                                                    <div data-repeater-item class="mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-8 mb-2">
+                                                                <div class="form-group">
+                                                                    <label for="input">Heading</label>
+                                                                    <input type="text" name="input"
+                                                                        class="form-control"
+                                                                        value="{{ $section->section_heading }}">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="text">Details</label>
+                                                                    <textarea name="text" class="form-control">{{ $section->section_text }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col mb-2">
+                                                                <div class="form-group">
+                                                                    <label for="image">Image</label>
+                                                                    <input type="file" name="section_image"
+                                                                        id="section_image" class="section-image"
+                                                                        data-default-file="{{ asset('storage/images/' . $section->section_image) }}"
+                                                                        data-max-file-size="1M"
+                                                                        data-allowed-file-extensions="jpeg png jpg gif svg webp" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input data-repeater-delete type="button"
+                                                                        value="Delete" class="btn btn-danger">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <!-- Display one blank section item if sectionData is empty -->
+                                                <div data-repeater-item class="mb-3">
+                                                    <div class="row">
+                                                        <div class="col-md-8 mb-2">
+                                                            <div class="form-group">
+                                                                <label for="input">Heading</label>
+                                                                <input type="text" name="input" class="form-control"
+                                                                    value="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="text">Details</label>
+                                                                <textarea name="text" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col mb-2">
+                                                            <div class="form-group">
+                                                                <label for="image">Image</label>
+                                                                <input type="file" name="section_image"
+                                                                    id="section_image" class="section-image"
+                                                                    data-max-file-size="1M"
+                                                                    data-allowed-file-extensions="jpeg png jpg gif svg webp" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input data-repeater-delete type="button" value="Delete"
+                                                                    class="btn btn-danger">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <input data-repeater-create type="button" value="Add Section"
+                                            class="btn btn-primary float-right">
+                                    </div>
 
                                     <div class="col-md-3">
-                                        <label>{{ __('Image') }} <span class="text-danger">*</span></label>
-                                        <input type="file" name="file"
-                                            data-default-file="{{ asset('storage/images/' . $data->image) }}"
-                                            id="filez1" class="filez1" data-max-file-size="1M"
+                                        <label>{{ __('Cover Image') }} <span class="text-danger">*</span></label>
+                                        <input type="file" name="image" class="dropify" data-max-file-size="1M"
+                                            data-default-file="{{ asset('storage/images/' . $data->cover_image) }}"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
                                     <div class="col-md-3">
-                                        <label>{{ __('Image 2') }}</label>
-                                        <input type="file" name="file2"
-                                            data-default-file="{{ asset('storage/images/' . $data->image2) }}"
-                                            id="filez2" class="filez2" data-max-file-size="1M"
+                                        <label>{{ __('Details Image') }}</label>
+                                        <input type="file" name="detail_image" class="dropify"
+                                            data-max-file-size="1M"
+                                            data-default-file="{{ asset('storage/images/' . $data->details_image) }}"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label>{{ __('Header Image') }}</label>
-                                        <input type="file" name="header_image"
-                                            data-default-file="{{ asset('storage/images/' . $data->header_image) }}"
-                                            class="filez2" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                        <label>{{ __('Images Gallery') }}</label>
+                                        <input type="file" name="gallery_image[]" id="gallery-files" class="dropify"
+                                            data-max-file-size="1M"
+                                            data-default-file="{{ asset('storage/images/' . $data->details_image) }}"
+                                            data-allowed-file-extensions="jpeg png jpg gif svg webp" multiple>
+                                        <small class="form-text text-muted">You can upload up to 3 images.</small>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{ __('OG Image') }}</label>
-                                        <input type="file" name="file4"
-                                            data-default-file="{{ asset('storage/images/' . $data->og_image) }}"
-                                            id="filez4" class="filez4" data-max-file-size="1M"
-                                            data-allowed-file-extensions="jpeg png jpg gif svg webp">
-                                    </div>
+                                    {{-- @can('og-data.add')
+                                        <div class="col-md-3">
+                                            <label>{{ __('OG Image') }}</label>
+                                            <input type="file" name="file4" data-max-file-size="1M"
+                                                data-default-file="{{ asset('storage/images/' . $data->og_image) }}"class="dropify"
+                                                data-allowed-file-extensions="jpeg png jpg gif svg webp">
+                                        </div>
+                                    @endcan --}}
                                     <div class="col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="form-control form-control-sm">
                                             <option @if ($data->status == 'active') selected @endif>Active</option>
                                             <option @if ($data->status == 'in-active') selected @endif>In-active</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>{{ __('Site Visibility') }}</label>
-                                        <select name="site_visibility" class="form-control form-control-sm">
-                                            <option @if ($data->site_visibility == 1) selected @endif value="1">Show
-                                                in Portfolio</option>
-                                            <option @if ($data->site_visibility == 0) selected @endif value="0">Hide
-                                                from Portfolio</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12">
@@ -219,7 +278,6 @@
                                             Data</button>
                                     </div>
                             </form>
-
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -267,7 +325,7 @@
     </script>
 
     <script type="text/javascript">
-        $(".filez1,.filez2,.filez4").dropify();
+        $(".dropify").dropify();
 
         function update_validation() {
 
@@ -317,6 +375,26 @@
             allowedContent: true,
             font_names: 'Avenir;Avenir Next;Gill Sans MT;Calibri;Arial;Comic Sans Ms;Courier New;Georgia;Lucida Sans Unicode;Tahoma;Times New Roman;Trebochet MS;Verdana;'
 
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.repeater').repeater({
+                initEmpty: false,
+                defaultValues: {
+                    'text-input': ''
+                },
+                show: function() {
+                    $(this).slideDown();
+                },
+                hide: function(deleteElement) {
+                    if (confirm('Are you sure you want to delete this element?')) {
+                        $(this).slideUp(deleteElement);
+                    }
+                },
+            });
         });
     </script>
 @endsection

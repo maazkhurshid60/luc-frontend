@@ -1124,9 +1124,7 @@ a:active, a:focus, a:hover {
     z-index: 5;
     color: #666;
     font-size: 17px;
-    margin-top: 15px;
-	    text-align: left;
-    padding-left: 100px;
+	text-align: center;
 }
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p>small {
     display: block;
@@ -1140,9 +1138,15 @@ a:active, a:focus, a:hover {
     padding: 15px;
     border-bottom: 1px solid #f4f4f4;
     border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .navbar-nav>.user-menu>.dropdown-menu>.user-body a {
     color: #444;
+}
+.navbar-nav>.user-menu>.dropdown-menu>.user-body a:hover {
+    background-color: transparent !important;
 }
 @media (max-width:991px) {
     .navbar-nav>.user-menu>.dropdown-menu>.user-body a {
@@ -4901,10 +4905,13 @@ ul.panel-actions > li:first-child {
     text-align: center;
     font-size: 30px;
     line-height: 74px;
-    background: rgba(0, 0, 0, .2);
+    background: #EFF8FF;
     border-radius: 100%}
 .info-box-icon.push-bottom {
     margin-top: 20px;
+}
+.info-box-icon i{
+    color: #0B63E5 !important;
 }
 .info-box-icon>img {
     max-width: 100%}
@@ -5141,6 +5148,9 @@ button.btn.dropdown-toggle::after, .wysihtml5-toolbar .btn.dropdown-toggle::afte
 .btn-danger {
     background-color: #fc4b6c;
     border-color: #e03656;
+}
+.btn-dark {
+    background-color: #0B63E5 !important;
 }
 .btn-danger.hover, .btn-danger:active, .btn-danger:hover {
     background-color: #e03656;
@@ -5714,7 +5724,7 @@ table.dataTable thead .sorting:after {
     border: 0;
 }
 .paging_simple_numbers .pagination .paginate_button.active a, .paging_simple_numbers .pagination .paginate_button:hover a {
-    background: #1e88e5;
+    background: #0B63E5;
     color: #fff;
 }
 .footable .pagination {
@@ -7265,7 +7275,7 @@ table.dataTable thead .sorting:after {
     font-weight: 700;
 }
 .alert-danger, .alert-error, .alert-info, .alert-success, .alert-warning, .bg-aqua, .bg-aqua-active, .bg-black, .bg-black-active, .bg-blue, .bg-blue-active, .bg-fuchsia, .bg-fuchsia-active, .bg-green, .bg-green-active, .bg-light-blue, .bg-light-blue-active, .bg-lime, .bg-lime-active, .bg-maroon, .bg-maroon-active, .bg-navy, .bg-navy-active, .bg-olive, .bg-olive-active, .bg-orange, .bg-orange-active, .bg-purple, .bg-purple-active, .bg-red, .bg-red-active, .bg-teal, .bg-teal-active, .bg-yellow, .bg-yellow-active, .callout.callout-danger, .callout.callout-info, .callout.callout-success, .callout.callout-warning, .label-danger, .label-info, .label-primary, .label-success, .label-warning, .modal-danger .modal-body, .modal-danger .modal-footer, .modal-danger .modal-header, .modal-info .modal-body, .modal-info .modal-footer, .modal-info .modal-header, .modal-primary .modal-body, .modal-primary .modal-footer, .modal-primary .modal-header, .modal-success .modal-body, .modal-success .modal-footer, .modal-success .modal-header, .modal-warning .modal-body, .modal-warning .modal-footer, .modal-warning .modal-header {
-    color: #fff!important;
+    color: #333333 !important;
 }
 /*color Skin*/
 .bg-gray {
@@ -7837,11 +7847,18 @@ table.dataTable thead .sorting:after {
   font-size: 10pt !important;
 }
 .spTable thead{
-     font-size:9pt !important;
-  background: #4E71C0 !important;
-  color:white !important;
+     font-size:10pt !important;
+  background: #F9FAFB !important;
+  color:#333 !important;
 }
 .spTable tbody{
   font-size: 10pt !important;
 
+}
+.xl-modal{
+    width: 1140px !important;
+    max-width: 1140px !important;
+}
+.extraModalBody table td p img{
+    width: 50% !important;
 }

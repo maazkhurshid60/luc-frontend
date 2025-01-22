@@ -10,9 +10,11 @@
                   sed imperdiet tempor, libero urna semper urna, facilisis vulputate
                   velit arcu vitae mi. Donec ac nisi ex.
               </p>
-              <img src="assets/images/map.webp" alt="" class="map-img d-lg-block d-none" />
-              <img src="assets/images/tab-map-loc.webp" alt="" class="map-img d-lg-none d-md-block d-none" />
-              <img src="assets/images/mbl-map-loc.webp" alt="" class="map-img d-md-none d-block" />
+              <img src="{{ asset('assets/frontend/images/map.webp') }}" alt="" class="map-img d-lg-block d-none" />
+              <img src="{{ asset('assets/frontend/images/tab-map-loc.webp') }}" alt=""
+                  class="map-img d-lg-none d-md-block d-none" />
+              <img src="{{ asset('assets/frontend/images/mbl-map-loc.webp') }}" alt=""
+                  class="map-img d-md-none d-block" />
           </div>
       </div>
   </div>
