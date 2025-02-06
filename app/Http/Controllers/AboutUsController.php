@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\Team;
+use App\Models\Counter;
 use App\Models\Journey;
 use App\Models\Project;
 use App\Models\AboutusEdits;
@@ -18,6 +19,7 @@ class AboutUsController extends Controller
             'journeys' => Journey::orderBy('year', 'asc')->orderBy('month', 'asc')->get(),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'about_details' => AboutusEdits::first(),
+            'counters' => Counter::take(3)->get(),
         ];
 
         if (!$data['data']) {

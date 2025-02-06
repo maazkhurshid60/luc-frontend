@@ -7,7 +7,9 @@ use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\Menu;
 use App\Models\Company;
+use App\Models\Counter;
 use App\Models\Project;
+use App\Models\Service;
 
 class ServicesController extends Controller
 {
@@ -17,7 +19,8 @@ class ServicesController extends Controller
             'settings' => DB::table('settings')->find(1),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
             'data' => Menu::where('slug', 'services')->first(),
-            'companies' => Company::orderBy('display_order', 'asc')->latest()->get(),
+            'companies' => Service::orderBy('display_order', 'asc')->latest()->get(),
+            'counters' => Counter::take(3)->get(),
         ];
 
         if (is_null($data['data'])) {

@@ -11,7 +11,7 @@
                 <div class="col-6 d-flex justify-content-start align-items-center">
                     <div class="whatsapp-contact d-flex justify-content-start align-items-center">
                         <img src="{{ asset('assets/frontend/icons/whatsapp-icon.svg') }}" alt="" />
-                        <p class="body-txt2 mb-0 ms-2">+1(888)-855-5328</p>
+                        <p class="body-txt2 mb-0 ms-2">+226 25 48 30 30</p>
                     </div>
                 </div>
                 <div class="col-6 d-flex justify-content-end">

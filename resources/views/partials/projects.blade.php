@@ -33,7 +33,7 @@
                  @endforeach
              </div>
          @else
-             <p class="text-center">{{ __('lang.NO_PROJECTS_FOUND') }}</p>
+             <p class="text-center text-white">{{ __('lang.NO_PROJECTS_FOUND') }}</p>
          @endif
 
          <div class="d-flex justify-content-center">

@@ -48,15 +48,15 @@
                             @foreach ($companies as $company)
                                 <div class="our-services-card p-4 mb-4">
                                     <div class="card-img-wrap mb-4">
-                                        <img src="{{ $company->companyIcon ? asset('storage/images/' . $company->companyIcon) : asset('assets/frontend/icons/services-icon-1.svg') }}"
+                                        <img src="{{ $company->file ? asset('storage/images/' . $company->file) : asset('assets/frontend/icons/services-icon-1.svg') }}"
                                             alt="" class="card-img" />
                                     </div>
-                                    <h3 class="head--3 mb-3 secondary--clr">{{ $company->name }}</h3>
+                                    <h3 class="head--3 mb-3 secondary--clr">{{ $company->title }}</h3>
                                     <p class="body-txt2 mb-4 txt--clr">
-                                        {{ $company->short_description }}
+                                        {!! $company->description !!}
                                     </p>
                                     <span class="services-card-btn">
-                                        <a href="{{ url('company' . '/' . $company->slug) }}"
+                                        <a href="{{ url('company' . '/' . $company->company->slug) }}"
                                             class="text-decoration-none wht--clr secondary-btn d-flex justify-content-center">
                                             Read More
                                             <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""

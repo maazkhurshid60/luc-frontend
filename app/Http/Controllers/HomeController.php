@@ -13,6 +13,7 @@ use App\Mail\Contact;
 use App\Helpers\Helper;
 use App\Mail\ContactUs;
 use App\Models\Company;
+use App\Models\Counter;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Feedback;
@@ -49,10 +50,11 @@ class HomeController extends Controller
             'settings' => Settings::find(1),
             'data' => Menu::where('slug', 'home')->first(),
             'projects' => Project::where('status', 'active')->latest()->take(9)->get(),
-            'latest_services' => Company::where('status', 'active')->latest()->take(4)->get(),
+            'latest_services' => Service::where('status', 'active')->latest()->take(4)->get(),
             'latest_blogs' => Blog::where('status', 'active')->latest()->take(3)->get(),
             'jobs' => Job::where('status', 'active')->whereDate('apply_before', '>=', now())->latest()->take(4)->get(),
             'faqs' => Faq::where('status', 'active')->get(),
+            'counters' => Counter::take(3)->get(),
             'isNewUser' => $isNewUser,
             'activeAnnouncement' => $activeAnnouncement,
         ];

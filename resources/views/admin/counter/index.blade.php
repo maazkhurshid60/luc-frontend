@@ -7,7 +7,6 @@
       'ID',
       'title',
       'count',
-      'icon',
       'date'
     ];
   $data_route = route('counter.datatable');
@@ -78,10 +77,6 @@
                   <div class="col-md-6 form-group">
                     <label >Count</label>
                     <input type="number" class="form-control form-control-sm"   name="count">
-                  </div>
-                  <div class="col-md-6 form-group">
-                    <label >Icon</label>
-                    <input type="text" class="form-control form-control-sm"   name="icon">
                   </div>
                     <div class="col-md-12">
                         <div class="alert alert-danger addFormError" style="display: none;"></div>
@@ -162,7 +157,6 @@ var oTable = $('#dTable').DataTable({
             { data: 'id', name: 'id' },
             { data: 'title', name: 'title' },
             { data: 'count', name: 'count' },
-            { data: 'icon', name: 'icon' },
             { data: 'created_at', name: 'created_at' },
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ]

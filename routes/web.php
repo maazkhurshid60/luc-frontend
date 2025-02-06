@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\JourneyController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -71,6 +72,7 @@ Route::prefix('admin')
         Route::resource('/blog-category', BlogCategoryController::class);
         Route::resource('/service', ServiceController::class);
         // Route::post('/update-label', [TeamController::class, 'updateLabel'])->name('team.updateLabel');
+        Route::resource('/counter', CounterController::class);
         Route::resource('/testimonial', TestimonialController::class);
         Route::resource('/job-category', JobCategoryController::class);
         Route::resource('/job', JobController::class);
@@ -92,6 +94,7 @@ Route::prefix('admin/datatable')
         Route::get('/menu', [MenuController::class, 'datatable'])->name('menu.datatable');
         Route::get('/announcement', [AnnouncementController::class, 'datatable'])->name('announcement.datatable');
         Route::get('/blog', [BlogController::class, 'datatable'])->name('blog.datatable');
+        Route::get('/counter', [CounterController::class, 'datatable'])->name('counter.datatable');
         Route::get('/faq', [FaqController::class, 'datatable'])->name('faq.datatable');
         Route::get('/faq-category', [FaqCategoryController::class, 'datatable'])->name('faq-category.datatable');
         Route::get('/product', [ProductController::class, 'datatable'])->name('product.datatable');

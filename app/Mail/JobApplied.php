@@ -12,13 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class JobApplied extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -39,7 +39,7 @@ class JobApplied extends Mailable
         return new Content(
             view: 'mail.job-application-email',
             with:[
-                'job_title' => $this->data['name'],
+                'job_title' => $this->data->name,
             ]
         );
     }

@@ -55,7 +55,7 @@
         @include('partials.brands')
 
         @include('partials.about-us')
-
+        
         @include('partials.counter')
 
         <!-- Services Section Start-->
@@ -85,12 +85,12 @@
                                 @foreach ($latest_services->take(2) as $service)
                                     <div class="our-services-card p-4">
                                         <div class="card-img-wrap mb-4">
-                                            <img src="{{ asset($service->companyIcon ? 'storage/images/' . $service->companyIcon : 'assets/frontend/icons/services-icon-default.svg') }}"
+                                            <img src="{{ asset($service->file ? 'storage/images/' . $service->file : 'assets/frontend/icons/services-icon-default.svg') }}"
                                                 alt="" class="card-img" />
                                         </div>
-                                        <h3 class="head--3 mb-3 secondary--clr">{{ $service->name }}</h3>
-                                        <p class="body-txt2 mb-4 txt--clr">{{ $service->short_description }}</p>
-                                        <a href="{{ url('company/' . $service->slug) }}" class="text-decoration-none">
+                                        <h3 class="head--3 mb-3 secondary--clr">{{ $service->title }}</h3>
+                                        <p class="body-txt2 mb-4 txt--clr">{!! $service->description !!}</p>
+                                        <a href="{{ url('company/' . $service->company->slug) }}" class="text-decoration-none">
                                             <button class="card-sec-btn primary--clr">
                                                 {{ __('lang.LEARN_MORE') }}
                                                 <img src="{{ asset('assets/frontend/icons/arrow2.svg') }}" alt=""

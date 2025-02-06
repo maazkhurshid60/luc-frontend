@@ -14,10 +14,6 @@
               <label >Count</label>
               <input type="number" class="form-control form-control-sm" value="{{ $data->count }}"  name="count">
             </div>
-            <div class="col-md-6 form-group">
-              <label >Icon</label>
-              <input type="text" class="form-control form-control-sm" value="{{ $data->icon }}"  name="icon">
-            </div>
           </div>
         <button type="submit" class="btn btn-primary waves-effect text-left btn-sm float-right" >Save Data</button>
       </form>

@@ -12,13 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class AdminJobApplied extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -39,14 +39,13 @@ class AdminJobApplied extends Mailable
         return new Content(
             view: 'mail.admin-job-email',
             with: [
-                'job_title' => $this->data['job_title'],
-                'name' => $this->data['name'],
-                'email' => $this->data['email'],
-                'contact_no' => $this->data['contact_no'],
-                'description' => $this->data['description'],
-                'file' => $this->data['file'],
+                'job_title' => $this->data->job->title,
+                'name' => $this->data->name,
+                'email' => $this->data->email,
+                'contact_no' => $this->data->contact_no,
+                'description' => $this->data->description,
+                'file' => asset('applications/cvs'.$this->data->file),
             ]
-            
         );
     }
 

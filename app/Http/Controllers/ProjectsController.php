@@ -13,7 +13,7 @@ class ProjectsController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Project::where('status', 'active')->where('site_visibility', 1);
+        $query = Project::where('status', 'active');
 
         if ($request->has('cat')) {
             $query->where('category_id', $request->cat);

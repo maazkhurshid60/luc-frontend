@@ -12,6 +12,7 @@ use App\Models\Application;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
 use App\Mail\AdminJobApplied;
+use Mail;
 
 class CareerController extends Controller
 {
@@ -76,7 +77,7 @@ class CareerController extends Controller
                 'email' => 'required|email:rfc,dns',
                 'contact_no' => 'required|numeric',
                 'description' => 'required',
-                'cv_file' => 'required|mimes:doc,docx,pdf|max:1024',
+                'cv_file' => 'required|mimes:doc,docx,pdf|max:3072',
             ],
             [
                 'name.required' => 'Please provide your name',
@@ -109,9 +110,11 @@ class CareerController extends Controller
         $applicationData['file'] = $fileName;
 
         // Save the application to the database
-        Application::create($applicationData);
-        Mail::to($quotation->email)->send(new JobApplied($applicationData));
-        Mail::to('sales@redstartechs.com')->send(new AdminJobApplied($applicationData));
+        $data =  Application::create($applicationData);
+
+        Mail::to($data->email)->send(new JobApplied($data));
+
+        Mail::to('sales@redstartechs.com')->send(new AdminJobApplied($data));
 
         // Return success response
         return response()->json([

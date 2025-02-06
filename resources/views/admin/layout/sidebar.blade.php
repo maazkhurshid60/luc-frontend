@@ -149,6 +149,11 @@
                                 <a href="{{ route('aboutdetails.index') }}"><i class="fa fa-circle-o"></i> {{ __('lang.about_details') }}</a>
                             </li>
                         @endcan
+                        @can('counter.view')
+                        <li class="@if ($menu == 'counter') active @endif">
+                            <a href="{{ route('counter.index') }}"><i class="fa fa-circle-o"></i> {{ __('lang.counter') }}</a>
+                        </li>
+                    @endcan
                     </ul>
                 </li>
             @endcanany
