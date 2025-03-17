@@ -108,7 +108,7 @@ class HomeController extends Controller
             'type' => $quotation->type,
         ];
         Mail::to($quotation->email)->send(new Contact($mail_data));
-        Mail::to('sales@redstartechs.com')->send(new AdminContact($mail_data));
+        // Mail::to('contactus@afcongroup.com')->send(new AdminContact($mail_data));
         return response()->json(['response' => 'success', 'message' => 'We have received your email, We will respond soon']);
     }
 
