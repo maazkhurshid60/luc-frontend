@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="footer-logo text-center pyb-40">
-                        <a href="index.html">
+                        <a href="{{url('/')}}">
                             <img src="{{ asset($settings->logo ? 'storage/images/' . $settings->logo : 'assets/frontend/icons/afcon-group-logo.svg') }}"
                                 alt="" class="pyb-60" />
                         </a>

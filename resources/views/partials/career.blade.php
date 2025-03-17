@@ -17,7 +17,7 @@
               @endforeach
           </div>
           <div class="d-flex justify-content-center">
-              <span class=""><a href="pages/careers.html"
+              <span class=""><a href="{{route('careers.index')}}"
                       class="text-decoration-none primary-btn d-flex justify-content-center">{{ __('lang.DISCOVER') }}
                       <img src="{{ asset('assets/frontend/icons/arrow1.svg') }}" alt="" class="ms-2">
                   </a>
