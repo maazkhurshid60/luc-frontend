@@ -47,41 +47,42 @@ jQuery(document).ready(function ($) {
 });
 // code for home page project sectoion slider
 jQuery(document).ready(function ($) {
-  if ($(".project-slider").length) {
-    $(".project-slider").slick({
+  var $slider = $(".project-slider");
+
+  if ($slider.length) {
+    var slideCount = $slider.children().length;
+    var slidesToShow = slideCount < 3 ? slideCount : 3;
+
+    $slider.slick({
       speed: 0,
       autoplay: true,
       autoplaySpeed: 0,
       centerMode: false,
       cssEase: "linear",
-      slidesToShow: 3, // Default for larger screens
-      // slidesToScroll: 1,
+      slidesToShow: slidesToShow,
       variableWidth: false,
-      infinite: true,
-      // initialSlide: 1,
+      infinite: slideCount > 1,
       arrows: false,
-      buttons: false,
       draggable: true,
       swipeToSlide: true,
       responsive: [
         {
-          breakpoint: 991, // For tablets
+          breakpoint: 991,
           settings: {
-            slidesToShow: 2, // Show 2 slides on tablets
-            // slidesToScroll: 1,
+            slidesToShow: slideCount < 2 ? slideCount : 2,
           },
         },
         {
-          breakpoint: 776, // For mobile devices
+          breakpoint: 776,
           settings: {
-            slidesToShow: 1, // Show 1 slide on mobile
-            // slidesToScroll: 1,
+            slidesToShow: 1,
           },
         },
       ],
     });
   }
 });
+
 jQuery(document).ready(function ($) {
   if ($(".blog-slider").length) {
     $(".blog-slider").slick({
