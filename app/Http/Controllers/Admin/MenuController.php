@@ -78,7 +78,7 @@ class MenuController extends Controller
             'slug' => 'required|string',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
             // 'file4' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'aboutimg' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'aboutimg' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
 
         if ($validator->fails()) {
@@ -165,7 +165,7 @@ class MenuController extends Controller
         // Validate the request
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string',
-            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
     
         if ($validator->fails()) {

@@ -106,7 +106,7 @@
                                     <div class="col-md-6">
                                         <label>{{ __('Image') }} <span class="text-danger">*</span></label>
                                         <input type="file" name="file" id="filez1" class="filez1"
-                                            data-max-file-size="1M"
+                                            data-max-file-size="10M"
                                             data-allowed-file-extensions="jpeg png jpg gif svg webp">
                                     </div>
                                     {{-- @can('og-data.create')
